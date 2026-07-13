@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Transactional / thank-you pages don't need indexing
+Disallow: /success.html
+
+Sitemap: https://www.Inspiretalenthub.in/sitemap.xml

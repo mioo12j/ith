@@ -100,9 +100,13 @@
     name="twitter:description" 
     content="The definitive global platform for brilliant young minds to showcase their diverse talents." 
   />
-  <meta 
-    name="twitter:image" 
-    content="https://www.Inspiretalenthub.in/assets/twitter-card.jpg" 
+  <meta
+    name="twitter:image"
+    content="https://www.Inspiretalenthub.in/logo.jpeg"
+  />
+  <meta
+    name="twitter:site"
+    content="@Inspiretalent"
   />
   
   <title>Inspire Talent Hub | Empowering Elite Achievers</title>
@@ -121,9 +125,17 @@
     rel="stylesheet" 
   />
 
-  <link 
-    rel="stylesheet" 
-    href="style.css" 
+  <link
+    rel="canonical"
+    href="https://www.Inspiretalenthub.in/"
+  />
+
+  <link rel="icon" type="image/jpeg" href="logo.jpeg" />
+  <link rel="apple-touch-icon" href="logo.jpeg" />
+
+  <link
+    rel="stylesheet"
+    href="style.css"
   />
 
   <script type="application/ld+json">
@@ -132,7 +144,7 @@
     "@type": "EducationalOrganization",
     "name": "Inspire Talent Hub",
     "url": "https://www.Inspiretalenthub.in",
-    "logo": "https://www.Inspiretalenthub.in/assets/logo.png",
+    "logo": "https://www.Inspiretalenthub.in/logo.jpeg",
     "description": "India's premier student competition and talent discovery platform.",
     "foundingDate": "2020",
     "sameAs": [
@@ -150,11 +162,62 @@
     }
   }
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Inspire Talent Hub",
+    "url": "https://www.Inspiretalenthub.in/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.Inspiretalenthub.in/competition.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who can participate in Inspire Talent Hub competitions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Students across India, typically from Grades 6 to 12, can participate. Every competition page lists its exact eligibility, class range, and registration status."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are the certificates recognised and verifiable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Every participant and winner receives a certificate with a unique ID that can be validated online through our Certificate Verification tool."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are competitions evaluated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Submissions are assessed through transparent, criteria-based evaluation by experienced educators, with clear scoring methodology published for each competition."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="body-dark">
 
-  <svg 
-    aria-hidden="true" 
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <svg
+    aria-hidden="true"
     style="position: absolute; width: 0; height: 0; overflow: hidden;" 
     version="1.1" 
     xmlns="http://www.w3.org/2000/svg" 
@@ -684,9 +747,223 @@
       </div>
     </section>
 
-    <section 
-      id="cta-join" 
-      class="section cta-premium" 
+    <section id="impact" class="section section-darker">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">National Impact</span>
+          <h2 class="section-title text-gold">Built for <em>Every Ambitious Student</em></h2>
+          <p class="section-desc">
+            A transparent, merit-first platform designed to reach students in every corner of India — with rewards that recognise genuine effort.
+          </p>
+        </div>
+
+        <div class="stats-grid reveal delay-1">
+          <div class="stat-item">
+            <div class="stat-number text-gold" data-target="10" data-suffix="L+">0</div>
+            <div class="stat-label">In Prizes &amp; Scholarships</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-static text-gold">PAN&#8209;India</div>
+            <div class="stat-label">Student Participation</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-static text-gold">6&ndash;12</div>
+            <div class="stat-label">Eligible Grades</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number text-gold" data-target="100" data-suffix="%">0</div>
+            <div class="stat-label">Merit-Based Evaluation</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="categories" class="section section-dark">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">Explore</span>
+          <h2 class="section-title text-gold">Competition <em>Categories</em></h2>
+          <p class="section-desc">
+            From STEM to storytelling, discover challenges matched to your strengths. Every category leads to competitions with clear guidelines, judging criteria, and certificates.
+          </p>
+        </div>
+
+        <div class="cat-grid reveal delay-1">
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore Science &amp; STEM competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-science"></use></svg>
+            <span>Science &amp; STEM</span>
+          </a>
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore Mathematics competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-math"></use></svg>
+            <span>Mathematics</span>
+          </a>
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore Creative Writing competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-pen"></use></svg>
+            <span>Creative Writing</span>
+          </a>
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore Art &amp; Design competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-palette"></use></svg>
+            <span>Art &amp; Design</span>
+          </a>
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore Coding &amp; AI competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-chart"></use></svg>
+            <span>Coding &amp; AI</span>
+          </a>
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore General Knowledge and Quiz competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-globe"></use></svg>
+            <span>Quiz &amp; GK</span>
+          </a>
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore Innovation and Projects competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-grad"></use></svg>
+            <span>Innovation &amp; Projects</span>
+          </a>
+          <a href="competition.html" class="cat-item hover-target" aria-label="Explore Leadership and Public Speaking competitions">
+            <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-users"></use></svg>
+            <span>Public Speaking</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials" class="section section-darker">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">Voices</span>
+          <h2 class="section-title text-gold">Why Students &amp; <em>Parents Trust Us</em></h2>
+          <p class="section-desc">
+            Real recognition, transparent evaluation, and meaningful growth. Here is what our community values most.
+          </p>
+        </div>
+
+        <!--
+          NOTE: These are representative statements about the platform experience.
+          Replace with verified, attributable testimonials (with consent) as they
+          are collected. The layout supports name, role, and school out of the box.
+        -->
+        <div class="testimonial-grid reveal delay-1">
+          <figure class="testimonial-card">
+            <div class="testimonial-stars" aria-label="Rated 5 out of 5">
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+            </div>
+            <blockquote>The evaluation felt genuinely fair, and the feedback helped me understand exactly where to improve. The certificate is a proud addition to my portfolio.</blockquote>
+            <figcaption>
+              <span class="testimonial-name">A Grade 9 Participant</span>
+              <span class="testimonial-role">Student, Science &amp; STEM</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial-card">
+            <div class="testimonial-stars" aria-label="Rated 5 out of 5">
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+            </div>
+            <blockquote>As a parent, transparency matters most to me. The clear rules, verifiable certificates, and responsive support made this feel trustworthy and worthwhile.</blockquote>
+            <figcaption>
+              <span class="testimonial-name">Parent of a Participant</span>
+              <span class="testimonial-role">Guardian</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial-card">
+            <div class="testimonial-stars" aria-label="Rated 5 out of 5">
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+              <svg width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+            </div>
+            <blockquote>Our students were motivated by the structured challenges and the recognition they earned. It complements classroom learning beautifully.</blockquote>
+            <figcaption>
+              <span class="testimonial-name">A School Coordinator</span>
+              <span class="testimonial-role">Teacher &amp; Mentor</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq-preview" class="section section-dark">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">Answers</span>
+          <h2 class="section-title text-gold">Frequently Asked <em>Questions</em></h2>
+          <p class="section-desc">
+            Quick answers to what students and parents ask most. For the full list, visit our detailed FAQ.
+          </p>
+        </div>
+
+        <div class="faq-preview-list reveal delay-1">
+          <details class="faq-item">
+            <summary>Who can participate in Inspire Talent Hub competitions?</summary>
+            <p>Students across India, typically from Grades 6 to 12, can take part. Every competition page lists its exact eligibility, class range, and registration status.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Are the certificates recognised and verifiable?</summary>
+            <p>Yes. Every participant and winner receives a certificate with a unique ID that can be validated online through our <a href="verifycertificate.html" class="faq-inline-link">Certificate Verification</a> tool.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How are competitions evaluated?</summary>
+            <p>Submissions are assessed through transparent, criteria-based evaluation by experienced educators, with clear scoring methodology published for each competition.</p>
+          </details>
+        </div>
+
+        <div class="faq-preview-cta reveal delay-2">
+          <a href="faq.html" class="btn btn-outline text-gold hover-target"><span>View All FAQs</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="newsletter" class="section section-darker">
+      <div class="container reveal">
+        <div class="newsletter-card">
+          <div class="newsletter-copy">
+            <span class="section-tag text-gold">Stay Updated</span>
+            <h2 class="section-title text-gold" style="margin-bottom: 1rem;">Never Miss a <em>Competition</em></h2>
+            <p class="section-desc" style="margin-left: 0;">
+              Get announcements, new competitions, results, and preparation resources delivered to your inbox. No spam — just opportunities.
+            </p>
+          </div>
+
+          <form
+            action="https://formsubmit.co/info@inspiretalenthub.in"
+            method="POST"
+            class="newsletter-form"
+            aria-label="Newsletter subscription"
+          >
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_subject" value="New Newsletter Subscription — Inspire Talent Hub" />
+            <input type="hidden" name="_template" value="table" />
+            <!-- Honeypot spam trap: bots fill this; humans never see it -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="newsletter-honey" />
+
+            <label for="newsletter-email" class="sr-only">Email address</label>
+            <input
+              type="email"
+              id="newsletter-email"
+              name="Email Address"
+              placeholder="Enter your email address"
+              autocomplete="email"
+              required
+              class="newsletter-input"
+            />
+            <button type="submit" class="btn btn-gold hover-target newsletter-btn">
+              <span>Subscribe</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="cta-join"
+      class="section cta-premium"
       style="text-align: center; padding: 6rem 1rem;"
     >
       <div class="container reveal">
@@ -728,6 +1005,8 @@
             <li><a href="index.html">Our Heritage</a></li>
             <li><a href="competition.html">Competitions</a></li>
             <li><a href="learnmore.html">Learn More</a></li>
+            <li><a href="verifycertificate.html">Verify Certificate</a></li>
+            <li><a href="StudentPortal.html">Student Portal</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="Contact.html">Contact</a></li>
             <li><a href="terms.html">Terms of Service</a></li>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="premium-theme">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#03060d" />
+  <meta name="description" content="The page you are looking for could not be found. Explore competitions, results, and resources at Inspire Talent Hub." />
+
+  <title>Page Not Found (404) | Inspire Talent Hub</title>
+
+  <link rel="icon" type="image/jpeg" href="logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--spacing-16) var(--container-padding-x);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(232, 198, 106, 0.06), transparent 55%),
+        var(--color-bg-base);
+    }
+    .error-inner { max-width: 680px; }
+    .error-code {
+      font-family: var(--font-family-display);
+      font-size: clamp(5rem, 20vw, 11rem);
+      line-height: 0.9;
+      color: var(--color-brand-primary);
+      margin-bottom: var(--spacing-4);
+      text-shadow: 0 20px 60px rgba(232, 198, 106, 0.15);
+    }
+    .error-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-3);
+      justify-content: center;
+      margin-top: var(--spacing-8);
+    }
+    .error-quick {
+      margin-top: var(--spacing-12);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-4) var(--spacing-8);
+      justify-content: center;
+    }
+    .error-quick a {
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-sm);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color var(--duration-fast);
+    }
+    .error-quick a:hover { color: var(--color-brand-primary); }
+  </style>
+</head>
+<body class="body-dark">
+  <a href="index.html" class="skip-link">Skip to homepage</a>
+
+  <main class="error-page" id="main-content">
+    <div class="error-inner">
+      <div class="error-code">404</div>
+      <h1 class="section-title text-gold" style="margin-bottom: 1rem;">
+        This Page Has <em>Gone Exploring</em>
+      </h1>
+      <p class="section-desc" style="max-width: 560px;">
+        The page you were looking for may have moved, been renamed, or never existed.
+        Let's get you back to discovering competitions and opportunities.
+      </p>
+
+      <div class="error-links">
+        <a href="index.html" class="btn btn-gold hover-target"><span>Back to Home</span></a>
+        <a href="competition.html" class="btn btn-outline text-gold hover-target"><span>Explore Competitions</span></a>
+      </div>
+
+      <nav class="error-quick" aria-label="Helpful links">
+        <a href="learnmore.html">Learn More</a>
+        <a href="verifycertificate.html">Verify Certificate</a>
+        <a href="StudentPortal.html">Student Portal</a>
+        <a href="faq.html">FAQ</a>
+        <a href="Contact.html">Contact</a>
+      </nav>
+    </div>
+  </main>
+</body>
+</html>
