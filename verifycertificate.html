@@ -52,7 +52,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = {
+      if (typeof tailwind !== 'undefined') tailwind.config = {
         theme: {
           extend: {
             colors: {
@@ -484,7 +484,9 @@ body::before {
     flex-shrink: 0;
 }
 
-    </style>
+        /* Safety: prevent phantom horizontal scroll from off-screen mobile drawer */
+    html { overflow-x: hidden; }
+  </style>
 </head>
 <body class="antialiased">
 

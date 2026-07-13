@@ -7,6 +7,18 @@
     <meta name="theme-color" content="#02040a">
     
     <title>Student Portal | Inspire Talent Hub 2026</title>
+  <link rel="canonical" href="https://www.Inspiretalenthub.in/StudentPortal.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Student Portal | Inspire Talent Hub 2026" />
+  <meta property="og:description" content="Check your competition results and verify your official certificates from the Inspire Talent Hub Academic Kickoff Fest 2026." />
+  <meta property="og:url" content="https://www.Inspiretalenthub.in/StudentPortal.html" />
+  <meta property="og:site_name" content="Inspire Talent Hub" />
+  <meta property="og:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Student Portal | Inspire Talent Hub 2026" />
+  <meta name="twitter:description" content="Check your competition results and verify your official certificates from the Inspire Talent Hub Academic Kickoff Fest 2026." />
+  <meta name="twitter:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
     <meta name="description" content="Check your competition results and verify your official certificates from the Inspire Talent Hub Academic Kickoff Fest 2026.">
 
     <!-- =======================================================================
@@ -22,7 +34,7 @@
          ======================================================================= -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = {
+      if (typeof tailwind !== 'undefined') tailwind.config = {
         theme: {
           extend: {
             colors: {
@@ -852,7 +864,9 @@ select#res_track:hover {
     border-color: rgba(232, 198, 106, 0.14);
 }
 .result_notice--participant svg { color: #94a3b8; }
-    </style>
+        /* Safety: prevent phantom horizontal scroll from off-screen mobile drawer */
+    html { overflow-x: hidden; }
+  </style>
 </head>
 <body>
 

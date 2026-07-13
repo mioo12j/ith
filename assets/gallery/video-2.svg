@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Competition Journey — Creative Writing (sample video thumbnail)">
+  <defs>
+    <linearGradient id="vb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#02040a"/><stop offset="0.6" stop-color="#0a1020"/><stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="vg" cx="0.5" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#e8c66a" stop-opacity="0.20"/><stop offset="1" stop-color="#e8c66a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#vb)"/><rect width="1280" height="720" fill="url(#vg)"/>
+  <circle cx="640" cy="300" r="64" fill="#e8c66a" fill-opacity="0.12" stroke="#e8c66a" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M620 268 l52 32 l-52 32 z" fill="#e8c66a" fill-opacity="0.9"/>
+  <text x="640" y="450" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#f5f5f5" fill-opacity="0.95" font-style="italic">Competition Journey</text>
+  <text x="640" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" letter-spacing="2" fill="#94a3b8">Creative Writing</text>
+  <text x="1264" y="700" text-anchor="end" font-family="Arial, sans-serif" font-size="14" letter-spacing="2" fill="#64748b">SAMPLE THUMBNAIL</text>
+</svg>

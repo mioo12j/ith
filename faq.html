@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="https://inspiretalenthub.in/favicon.png">
   <title>FAQ & Knowledge Base | Inspire Talent Hub</title>
+  <link rel="canonical" href="https://www.Inspiretalenthub.in/faq.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="FAQ &amp; Knowledge Base | Inspire Talent Hub" />
+  <meta property="og:description" content="Frequently Asked Questions about Inspire Talent Hub competitions, registration, and evaluation processes. Find all your answers here." />
+  <meta property="og:url" content="https://www.Inspiretalenthub.in/faq.html" />
+  <meta property="og:site_name" content="Inspire Talent Hub" />
+  <meta property="og:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FAQ &amp; Knowledge Base | Inspire Talent Hub" />
+  <meta name="twitter:description" content="Frequently Asked Questions about Inspire Talent Hub competitions, registration, and evaluation processes. Find all your answers here." />
+  <meta name="twitter:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
   <meta name="description" content="Frequently Asked Questions about Inspire Talent Hub competitions, registration, and evaluation processes. Find all your answers here.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,7 +27,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
-    tailwind.config = {
+    if (typeof tailwind !== 'undefined') tailwind.config = {
       theme: {
         extend: {
           colors: {
@@ -155,6 +167,8 @@
       #hamburger.open span:nth-child(2) { opacity: 0; }
       #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     }
+      /* Safety: prevent phantom horizontal scroll from off-screen mobile drawer */
+    html { overflow-x: hidden; }
   </style>
 </head>
 <body>

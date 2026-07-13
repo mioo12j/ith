@@ -9,9 +9,13 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], } } }
+  // Guard: the design is driven by style.css; if the Tailwind CDN is blocked
+  // or fails to load, don't throw a ReferenceError.
+  if (typeof tailwind !== 'undefined') {
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], } } }
+    };
   }
 </script>
 
@@ -363,6 +367,7 @@
     <li><a href="#about" class="index-nav__link">Our Story</a></li>
     
     <li><a href="competition.html" class="index-nav__link" target="_blank" rel="noopener noreferrer">Competitions</a></li>
+    <li><a href="gallery.html" class="index-nav__link">Gallery</a></li>
     <li><a href="learnmore.html" class="index-nav__link" target="_blank" rel="noopener noreferrer">Learn More</a></li>
     <li><a href="faq.html" class="index-nav__link" target="_blank" rel="noopener noreferrer">FAQ</a></li>
     <li><a href="Contact.html" class="index-nav__link" target="_blank" rel="noopener noreferrer">Contact</a></li>
@@ -778,6 +783,72 @@
       </div>
     </section>
 
+    <section id="recap" class="section section-dark" aria-labelledby="recap-heading">
+      <div class="container">
+        <!--
+          TEMPLATE / SAMPLE CONTENT
+          Replace the figures, category chips and "moment" photos below with
+          verified data and real photographs once the event has concluded.
+          Layout supports additional stats and photos without redesign.
+        -->
+        <div class="recap-card reveal">
+          <span class="recap-flag"><span class="badge-dot" aria-hidden="true"></span>Featured Season</span>
+          <h2 id="recap-heading" class="recap-title">Back to School Competition <em>2026</em></h2>
+          <p class="recap-lead">
+            A nationwide season crafted to welcome students back with creativity and challenge — spanning multiple subjects, transparent judging, and certificates that celebrate genuine effort. Here is a snapshot of what the season brings together.
+          </p>
+
+          <div class="recap-stats">
+            <div class="recap-stat"><b>Multi&#8209;City</b><span>Nationwide Reach</span></div>
+            <div class="recap-stat"><b>8+</b><span>Competition Categories</span></div>
+            <div class="recap-stat"><b>100%</b><span>Verifiable Certificates</span></div>
+            <div class="recap-stat"><b>6&ndash;12</b><span>Grades Welcomed</span></div>
+          </div>
+
+          <div class="recap-chips" aria-label="Competition categories featured this season">
+            <span class="recap-chip">Science &amp; STEM</span>
+            <span class="recap-chip">Mathematics</span>
+            <span class="recap-chip">Creative Writing</span>
+            <span class="recap-chip">Art &amp; Design</span>
+            <span class="recap-chip">Coding &amp; AI</span>
+            <span class="recap-chip">Quiz &amp; GK</span>
+            <span class="recap-chip">Public Speaking</span>
+          </div>
+
+          <h3 class="recap-subhead">Memorable Moments</h3>
+          <div class="recap-moments">
+            <figure class="gallery-item" style="margin:0;">
+              <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/felicitation.svg" aria-label="View larger: felicitation ceremony">
+                <img src="assets/gallery/felicitation.svg" alt="Felicitation ceremony recognising top performers (sample image)" loading="lazy" decoding="async" width="1400" height="950" />
+                <span class="gallery-cat">Felicitation</span>
+              </button>
+            </figure>
+            <figure class="gallery-item" style="margin:0;">
+              <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/quiz-competition.svg" aria-label="View larger: quiz competition in progress">
+                <img src="assets/gallery/quiz-competition.svg" alt="Students taking part in a quiz competition round (sample image)" loading="lazy" decoding="async" width="1400" height="900" />
+                <span class="gallery-cat">Quiz Round</span>
+              </button>
+            </figure>
+            <figure class="gallery-item" style="margin:0;">
+              <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/award-ceremony.svg" aria-label="View larger: award ceremony">
+                <img src="assets/gallery/award-ceremony.svg" alt="Students receiving certificates at an award ceremony (sample image)" loading="lazy" decoding="async" width="1000" height="1250" />
+                <span class="gallery-cat">Awards</span>
+              </button>
+            </figure>
+          </div>
+
+          <div class="recap-actions">
+            <div class="btn-magnetic-wrap">
+              <a href="gallery.html" class="btn btn-gold hover-target"><span>View Full Gallery</span><div class="btn-ripple" aria-hidden="true"></div></a>
+            </div>
+            <div class="btn-magnetic-wrap">
+              <a href="writingcompetitionthemereveal.html" class="btn btn-outline text-gold hover-target"><span>See the Theme Reveal</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="categories" class="section section-dark">
       <div class="container">
         <div class="section-header reveal">
@@ -821,6 +892,70 @@
             <svg class="cat-icon" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><use href="#icon-users"></use></svg>
             <span>Public Speaking</span>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery-preview" class="section section-darker" aria-labelledby="gallery-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">Gallery</span>
+          <h2 id="gallery-heading" class="section-title text-gold">Moments From <em>Our Community</em></h2>
+          <p class="section-desc">
+            Award ceremonies, workshops, and competition days from across India. A glimpse here &mdash; explore the full, filterable collection on our gallery.
+          </p>
+        </div>
+
+        <!-- SAMPLE IMAGES: replace files in /assets/gallery with real event photos (same file names, or add more items). -->
+        <div class="gallery-filters reveal delay-1" data-target="homeGallery" role="group" aria-label="Filter gallery by type">
+          <button type="button" class="gallery-filter is-active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="gallery-filter" data-filter="ceremonies" aria-pressed="false">Ceremonies</button>
+          <button type="button" class="gallery-filter" data-filter="competitions" aria-pressed="false">Competitions</button>
+          <button type="button" class="gallery-filter" data-filter="workshops" aria-pressed="false">Workshops</button>
+          <button type="button" class="gallery-filter" data-filter="activities" aria-pressed="false">Activities</button>
+        </div>
+
+        <div class="gallery-masonry reveal delay-2" id="homeGallery">
+          <figure class="gallery-item" data-category="ceremonies">
+            <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/award-ceremony.svg" aria-label="View larger: award ceremony">
+              <img src="assets/gallery/award-ceremony.svg" alt="Students receiving certificates at an Inspire Talent Hub award ceremony (sample image)" loading="lazy" decoding="async" width="1000" height="1250" />
+              <span class="gallery-cat">Award Ceremony</span>
+            </button>
+          </figure>
+          <figure class="gallery-item" data-category="competitions">
+            <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/quiz-competition.svg" aria-label="View larger: quiz competition">
+              <img src="assets/gallery/quiz-competition.svg" alt="A quiz competition round underway with students at their desks (sample image)" loading="lazy" decoding="async" width="1400" height="900" />
+              <span class="gallery-cat">Quiz Competition</span>
+            </button>
+          </figure>
+          <figure class="gallery-item" data-category="workshops">
+            <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/writing-workshop.svg" aria-label="View larger: creative writing workshop">
+              <img src="assets/gallery/writing-workshop.svg" alt="Students at a creative writing workshop (sample image)" loading="lazy" decoding="async" width="1100" height="900" />
+              <span class="gallery-cat">Writing Workshop</span>
+            </button>
+          </figure>
+          <figure class="gallery-item" data-category="activities">
+            <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/science-exhibition.svg" aria-label="View larger: science exhibition">
+              <img src="assets/gallery/science-exhibition.svg" alt="Projects on display at a student science exhibition (sample image)" loading="lazy" decoding="async" width="1200" height="1100" />
+              <span class="gallery-cat">Science Exhibition</span>
+            </button>
+          </figure>
+          <figure class="gallery-item" data-category="competitions">
+            <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/coding-challenge.svg" aria-label="View larger: coding challenge">
+              <img src="assets/gallery/coding-challenge.svg" alt="Students participating in a coding challenge (sample image)" loading="lazy" decoding="async" width="1000" height="1200" />
+              <span class="gallery-cat">Coding Challenge</span>
+            </button>
+          </figure>
+          <figure class="gallery-item" data-category="ceremonies">
+            <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/felicitation.svg" aria-label="View larger: felicitation ceremony">
+              <img src="assets/gallery/felicitation.svg" alt="Felicitation ceremony recognising outstanding students (sample image)" loading="lazy" decoding="async" width="1400" height="950" />
+              <span class="gallery-cat">Felicitation</span>
+            </button>
+          </figure>
+        </div>
+
+        <div class="faq-preview-cta reveal delay-3">
+          <a href="gallery.html" class="btn btn-outline text-gold hover-target"><span>Explore Full Gallery</span></a>
         </div>
       </div>
     </section>
@@ -885,6 +1020,61 @@
               <span class="testimonial-role">Teacher &amp; Mentor</span>
             </figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="video-reviews" class="section section-dark" aria-labelledby="video-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">Video Stories</span>
+          <h2 id="video-heading" class="section-title text-gold">Experiences In <em>Their Own Words</em></h2>
+          <p class="section-desc">
+            Short, honest reflections from participants and mentors. Tap any story to watch.
+          </p>
+        </div>
+
+        <!--
+          TEMPLATE: To go live, add a real embed URL to each card, e.g.
+          data-video-embed="https://www.youtube.com/embed/VIDEO_ID"
+          Until then, cards open a graceful "coming soon" state.
+        -->
+        <div class="video-grid reveal delay-1">
+          <article class="video-card">
+            <button type="button" class="video-thumb hover-target" data-video data-video-title="Student Experience — Science &amp; STEM" aria-label="Play video: Student experience, Science and STEM">
+              <img src="assets/gallery/video-1.svg" alt="Video thumbnail: a student sharing their Science and STEM competition experience (sample)" loading="lazy" decoding="async" width="1280" height="720" />
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <div class="video-meta">
+              <p class="video-name">A Science &amp; STEM Participant</p>
+              <p class="video-sub">Student &middot; Science &amp; STEM</p>
+              <p class="video-desc">How transparent evaluation and clear feedback shaped a first competition experience.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <button type="button" class="video-thumb hover-target" data-video data-video-title="Competition Journey — Creative Writing" aria-label="Play video: Competition journey, Creative Writing">
+              <img src="assets/gallery/video-2.svg" alt="Video thumbnail: a student describing their creative writing competition journey (sample)" loading="lazy" decoding="async" width="1280" height="720" />
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <div class="video-meta">
+              <p class="video-name">A Creative Writing Finalist</p>
+              <p class="video-sub">Student &middot; Creative Writing</p>
+              <p class="video-desc">From an idea to a finished piece — building confidence through structured challenges.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <button type="button" class="video-thumb hover-target" data-video data-video-title="Mentor Voice — School Coordinator" aria-label="Play video: Mentor voice, School Coordinator">
+              <img src="assets/gallery/video-3.svg" alt="Video thumbnail: a school coordinator sharing their perspective (sample)" loading="lazy" decoding="async" width="1280" height="720" />
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <div class="video-meta">
+              <p class="video-name">A School Coordinator</p>
+              <p class="video-sub">Educator &middot; Mentor</p>
+              <p class="video-desc">Why structured competitions complement classroom learning and motivate students.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -1004,6 +1194,7 @@
           <ul role="list">
             <li><a href="index.html">Our Heritage</a></li>
             <li><a href="competition.html">Competitions</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
             <li><a href="learnmore.html">Learn More</a></li>
             <li><a href="verifycertificate.html">Verify Certificate</a></li>
             <li><a href="StudentPortal.html">Student Portal</a></li>
@@ -1027,5 +1218,6 @@
   </main>
 
   <script src="script.js" defer></script>
+  <script src="gallery.js" defer></script>
 </body>
 </html>
