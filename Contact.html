@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Inspire Talent Hub</title>
+  <meta name="description" content="Get in touch with Inspire Talent Hub. Reach out for competition inquiries, partnerships, or support.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#e8c66a',   
+              secondary: '#c9a84c', 
+              alpha: 'rgba(232, 198, 106, 0.1)',
+            },
+            base: {
+              DEFAULT: '#02040a',   
+              surface: '#060a14',   
+              surface2: '#0a1020',  
+            }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            heading: ['"Cormorant Garamond"', 'serif'],
+            body: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #02040a;
+      color: #ffffff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Ambient Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(45deg, rgba(232, 198, 106, 0.03) 0%, rgba(2, 4, 10, 0.05) 100%);
+      z-index: -1;
+    }
+
+    /* =========================================
+       NAVIGATION STYLES
+       ========================================= */
+    .nav-scrolled {
+      background: rgba(3, 6, 13, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0;
+      background-color: #e8c66a; transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    @media (max-width: 767.98px) {
+      #navLinks {
+        position: fixed; top: 0; right: -100vw; width: 100vw; height: 100vh;
+        background: rgba(3, 6, 13, 0.98); flex-direction: column; justify-content: center; align-items: center;
+        transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1); z-index: 1000;
+      }
+      #navLinks.open { right: 0; box-shadow: inset 0 0 100px rgba(232, 198, 106, 0.05); }
+      #navLinks li a { font-size: 1.5rem; margin: 1rem 0; display: block; }
+      #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      #hamburger.open span:nth-child(2) { opacity: 0; }
+      #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+
+    /* =========================================
+       CONTACT PAGE STYLES
+       ========================================= */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+
+    .input-field {
+      width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #ffffff; padding: 1rem 1.5rem;
+      border-radius: 8px; font-family: 'Inter', sans-serif; transition: all 0.3s ease;
+    }
+    .input-field:focus {
+      outline: none; background: rgba(232, 198, 106, 0.02); border-color: rgba(255, 255, 255, 0.1);
+      border-bottom-color: #e8c66a; box-shadow: 0 10px 20px -10px rgba(232, 198, 106, 0.15);
+    }
+    .input-field::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #e8c66a, #c9a84c); color: #02040a;
+      box-shadow: 0 10px 30px rgba(232, 198, 106, 0.2); transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(232, 198, 106, 0.4); }
+    .btn-gold:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    .info-card { background: var(--color-base-surface); border: 1px solid rgba(255, 255, 255, 0.03); transition: all 0.4s ease; }
+    .info-card:hover { border-color: rgba(232, 198, 106, 0.3); transform: translateY(-5px); }
+    .info-icon { background: rgba(232, 198, 106, 0.1); color: #e8c66a; }
+
+    #formContainer { transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-out { opacity: 0; transform: scale(0.95); pointer-events: none; }
+    #successMessage { opacity: 0; transform: translateY(20px) scale(0.95); transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
+    #successMessage.show-success { opacity: 1; transform: translateY(0) scale(1); }
+    .icon-pop { animation: popIn 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards; animation-delay: 0.2s; opacity: 0; transform: scale(0.5); }
+    @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+
+    /* =========================================
+       FOOTER STYLES
+       ========================================= */
+    .index-footer { background: #07090E; border-top: 1px solid rgba(201, 168, 76, 0.15); position: relative; overflow: hidden; margin-top: auto; }
+    .index-footer__canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.4; pointer-events: none; }
+    .index-footer__container { padding-block: 4rem 2rem; position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding-inline: 2rem; }
+    .index-footer__brand { text-align: center; margin-bottom: 3rem; display: flex; flex-direction: column; align-items: center; }
+    .index-footer__logo-link { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #c9a84c; margin-bottom: 0.8rem; transition: transform 0.3s ease; }
+    .index-footer__logo-link:hover { transform: scale(1.02); }
+    .index-footer__title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); letter-spacing: 0.08em; color: #ffffff; font-weight: 600; }
+    .index-footer__title em { font-style: normal; color: #c9a84c; }
+    .index-footer__sub { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; max-width: 450px; margin-top: 0.5rem; }
+    .index-footer__nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem 2.5rem; margin-bottom: 3rem; list-style: none; padding: 0; }
+    .index-footer__nav a { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8; text-decoration: none; transition: color 0.3s ease; }
+    .index-footer__nav a:hover { color: #c9a84c; }
+    .index-footer__divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.25), transparent); margin-bottom: 2rem; }
+    .index-footer__copy { text-align: center; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 0.1em; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-transform: uppercase; }
+    .index-footer__tagline { color: #c9a84c; font-style: italic; text-transform: none; letter-spacing: 0.05em; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="icon-star" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 md:px-16 py-5 transition-all duration-300">
+    <a href="/" class="flex items-center gap-2 text-brand-secondary hover:scale-105 transition-transform duration-300 z-[1002]">
+      <svg class="w-4 h-4 animate-[spin_12s_linear_infinite] fill-current" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <span class="font-display text-lg font-semibold tracking-wider text-brand-secondary">
+        Inspire<em class="font-heading italic font-light text-white lowercase">Talent</em>Hub
+      </span>
+    </a>
+    <ul id="navLinks" class="flex items-center gap-10 m-0 p-0 list-none">
+      <li><a href="index.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Our Story</a></li>
+      <li><a href="competition.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Competitions</a></li>
+      <li><a href="learnmore.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Learn More</a></li>
+      <li><a href="faq.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">FAQ</a></li>
+      <li><a href="Contact.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium text-brand-primary">Contact</a></li>
+    </ul>
+    <button id="hamburger" class="md:hidden flex flex-col gap-[5px] p-1 bg-transparent border-none cursor-pointer z-[1002]" aria-label="Open menu" aria-expanded="false">
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+    </button>
+  </nav>
+
+  <main class="flex-grow w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-36 pb-24">
+    
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block py-2 px-6 rounded-full border border-brand-alpha bg-brand-alpha/50 text-brand-primary text-xs font-semibold tracking-[0.3em] uppercase mb-6 backdrop-blur-sm">
+        Connect With Us
+      </span>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+        Get in <em class="font-heading italic font-light text-brand-primary">Touch</em>
+      </h1>
+      <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+        Whether you have questions about upcoming competitions, need technical support, or want to explore partnership opportunities, our team is here to assist you.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20">
+      
+      <div class="lg:col-span-2 flex flex-col gap-6 reveal delay-100">
+        
+        <div class="info-card rounded-2xl p-8 flex items-start gap-6">
+          <div class="info-icon w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+            <i class="ri-mail-send-line text-xl"></i>
+          </div>
+          <div>
+            <h3 class="font-heading text-2xl text-white mb-2">Email Us</h3>
+            <p class="text-gray-400 text-sm mb-1">For general inquiries & support:</p>
+            <a href="mailto:info@inspiretalenthub.in" class="text-brand-primary hover:text-white transition-colors text-lg">info@inspiretalenthub.in</a>
+          </div>
+        </div>
+
+        <div class="info-card rounded-2xl p-8 flex items-start gap-6">
+          <div class="info-icon w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+            <i class="ri-time-line text-xl"></i>
+          </div>
+          <div>
+            <h3 class="font-heading text-2xl text-white mb-2">Working Hours</h3>
+            <p class="text-gray-400 text-sm">Monday - Friday: 9:00 AM - 6:00 PM (IST)</p>
+            <p class="text-gray-400 text-sm">Saturday - Sunday: Closed</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lg:col-span-3 reveal delay-200">
+        <div class="bg-base-surface border border-white/5 rounded-2xl p-8 md:p-10 shadow-2xl relative overflow-hidden min-h-[500px] flex flex-col justify-center">
+          
+          <div class="absolute -top-32 -right-32 w-64 h-64 bg-brand-primary/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+          <div id="formContainer" class="relative z-10 w-full">
+            <h2 class="font-heading text-3xl text-white mb-8">Send a Message</h2>
+            
+            <form id="contactForm" class="flex flex-col gap-6">
+              <input type="hidden" name="_subject" value="New Contact Form Submission - Inspire Talent Hub">
+              <input type="hidden" name="_captcha" value="false"> 
+              <input type="hidden" name="_template" value="table">
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col gap-2">
+                  <label for="name" class="text-xs uppercase tracking-widest text-gray-400 font-semibold pl-1">Full Name *</label>
+                  <input type="text" id="name" name="name" required placeholder="John Doe" class="input-field">
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="email" class="text-xs uppercase tracking-widest text-gray-400 font-semibold pl-1">Email Address *</label>
+                  <input type="email" id="email" name="email" required placeholder="john@example.com" class="input-field">
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="subject" class="text-xs uppercase tracking-widest text-gray-400 font-semibold pl-1">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="How can we help you?" class="input-field">
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label for="message" class="text-xs uppercase tracking-widest text-gray-400 font-semibold pl-1">Your Message *</label>
+                <textarea id="message" name="message" required rows="5" placeholder="Write your message here..." class="input-field resize-none"></textarea>
+              </div>
+
+              <div class="pt-4">
+                <button type="submit" id="submitBtn" class="btn-gold w-full md:w-auto px-10 py-4 rounded-full font-semibold tracking-[0.2em] uppercase text-sm flex items-center justify-center gap-3">
+                  <span id="btnText">Send Message</span>
+                  <i id="btnIcon" class="ri-arrow-right-line text-lg"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div id="successMessage" class="absolute inset-0 z-20 flex flex-col items-center justify-center p-8 text-center bg-base-surface pointer-events-none">
+            <div class="icon-pop w-24 h-24 rounded-full border-2 border-brand-primary bg-brand-alpha flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(232,198,106,0.3)]">
+              <i class="ri-check-line text-5xl text-brand-primary"></i>
+            </div>
+            <h3 class="font-display text-4xl text-white mb-4">Thank You!</h3>
+            <p class="text-gray-300 text-lg max-w-md leading-relaxed">
+              Your message has been successfully sent. Our team will review your inquiry and contact you during our working hours.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+ <footer class="index-footer" role="contentinfo" id="index-footer">
+      <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>    
+      
+      <div class="index-footer__container">
+        <div class="index-footer__brand">
+          <a href="#" class="index-footer__logo-link hover-target" aria-label="Inspire Talent Hub Home">
+            <span class="index-footer__title">Inspire<em>Talent</em>Hub</span>
+          </a>
+          <p class="index-footer__sub">Architecting the ultimate competitive infrastructure to forge the brilliant leaders of tomorrow.</p>
+        </div>
+        
+        <nav class="index-footer__nav" aria-label="Footer navigation">
+          <ul role="list">
+            <li><a href="index.html">Our Heritage</a></li>
+            <li><a href="competition.html">Competitions</a></li>
+            <li><a href="learnmore.html">Learn More</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="refund.html">Refund Protocol</a></li>
+          </ul>
+        </nav>
+        
+        <div class="index-footer__bottom">
+          <div class="index-footer__divider" aria-hidden="true"></div>
+          <p class="index-footer__copy">
+            &copy; 2026 Inspire Talent Hub. All Intellectual Rights Strictly Reserved. 
+            <span class="index-footer__tagline">Command the Future.</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // 1. Navigation Scroll & Mobile Menu
+      const nav = document.getElementById('mainNav');
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('nav-scrolled', window.scrollY > 40);
+      }, { passive: true });
+
+      hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // 2. Scroll Reveal
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // 3. Form AJAX Submission
+      const form = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnIcon = document.getElementById('btnIcon');
+      const formContainer = document.getElementById('formContainer');
+      const successMessage = document.getElementById('successMessage');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btnText.innerText = 'Sending...';
+        btnIcon.className = 'ri-loader-4-line animate-spin text-lg';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+
+        fetch("https://formsubmit.co/ajax/info@inspiretalenthub.in", {
+            method: "POST", body: formData, headers: { 'Accept': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) {
+                formContainer.classList.add('fade-out');
+                setTimeout(() => {
+                  formContainer.style.display = 'none';
+                  successMessage.classList.remove('pointer-events-none');
+                  successMessage.classList.add('show-success');
+                }, 500);
+            } else {
+                alert("Something went wrong. Please try again later.");
+                resetButton();
+            }
+        })
+        .catch(() => {
+            alert("Network error. Please check your connection and try again.");
+            resetButton();
+        });
+      });
+
+      function resetButton() {
+        btnText.innerText = 'Send Message';
+        btnIcon.className = 'ri-arrow-right-line text-lg';
+        submitBtn.disabled = false;
+      }
+
+      // 4. Footer WebGL Sky Animation
+      const canvases = document.querySelectorAll('.webgl-sky');
+      canvases.forEach(canvas => {
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) { canvas.style.background = '#07090E'; return; }
+        
+        const vsSource = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+        const fsSource = `
+          precision mediump float; uniform vec2 u_resolution; uniform float u_time;
+          vec2 hash(vec2 p) { p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3))); return -1.0 + 2.0 * fract(sin(p) * 43758.5453123); }
+          float noise(vec2 p) {
+            const float K1 = 0.366025404; const float K2 = 0.211324865;
+            vec2 i = floor(p + (p.x + p.y) * K1); vec2 a = p - i + (i.x + i.y) * K2;
+            vec2 o = (a.x > a.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+            vec2 b = a - o + K2; vec2 c = a - 1.0 + 2.0 * K2;
+            vec3 h = max(0.5 - vec3(dot(a, a), dot(b, b), dot(c, c)), 0.0);
+            vec3 n = h * h * h * h * vec3(dot(a, hash(i + 0.0)), dot(b, hash(i + o)), dot(c, hash(i + 1.0)));
+            return dot(n, vec3(70.0));
+          }
+          float fbm(vec2 uv) { float f = 0.0; vec2 p = uv; float w = 0.5; for(int i = 0; i < 4; i++) { f += w * noise(p); p *= 2.0; w *= 0.5; } return f; }
+          void main() {
+            vec2 uv = gl_FragCoord.xy / u_resolution.xy; vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+            float t = u_time * 0.05;
+            vec2 flow = vec2(fbm(p * 1.5 + vec2(t, t * 0.5)), fbm(p * 1.2 - vec2(t * 0.3, t)));
+            float dCenter = length(p); float aCenter = atan(p.y, p.x);
+            flow += vec2(sin(aCenter + t), cos(aCenter + t)) * exp(-dCenter * 1.5) * 1.5;
+            vec2 brush_uv = p * 3.5 + flow * 2.0; float strokeVal = fbm(brush_uv * vec2(2.5, 1.0)); strokeVal += fbm(brush_uv * 8.0) * 0.2;
+            vec3 bgDeep = vec3(0.03, 0.04, 0.05); vec3 darkNavy = vec3(0.05, 0.06, 0.09); vec3 accentBlue = vec3(0.08, 0.1, 0.15); vec3 paleHighlight = vec3(0.12, 0.15, 0.2);
+            float colorMix = smoothstep(0.1, 0.9, strokeVal + flow.x * 0.2);
+            vec3 skyColor = mix(bgDeep, darkNavy, smoothstep(0.0, 0.4, colorMix));
+            skyColor = mix(skyColor, accentBlue, smoothstep(0.3, 0.7, colorMix)); skyColor = mix(skyColor, paleHighlight, smoothstep(0.6, 1.0, colorMix));
+            float vignette = length(uv - vec2(0.5)); skyColor *= smoothstep(1.2, 0.3, vignette); skyColor *= 0.9;
+            gl_FragColor = vec4(skyColor, 1.0);
+          }
+        `;
+        
+        function compileShader(type, source) {
+          const shader = gl.createShader(type); gl.shaderSource(shader, source); gl.compileShader(shader); return shader;
+        }
+        const vs = compileShader(gl.VERTEX_SHADER, vsSource); const fs = compileShader(gl.FRAGMENT_SHADER, fsSource);
+        const program = gl.createProgram(); gl.attachShader(program, vs); gl.attachShader(program, fs); gl.linkProgram(program);
+        
+        const posBuffer = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+        const posLoc = gl.getAttribLocation(program, "position"); gl.enableVertexAttribArray(posLoc); gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+        
+        const resLoc = gl.getUniformLocation(program, "u_resolution"), timeLoc = gl.getUniformLocation(program, "u_time");
+        
+        function resize() {
+          canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
+          canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
+          gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        window.addEventListener('resize', resize); resize();
+        
+        function render(time) {
+          gl.useProgram(program); gl.uniform2f(resLoc, canvas.width, canvas.height); gl.uniform1f(timeLoc, time * 0.001);
+          gl.drawArrays(gl.TRIANGLES, 0, 6); requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
+      });
+
+    });
+  </script>
+
+</body>
+</html>

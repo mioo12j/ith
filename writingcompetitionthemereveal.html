@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic Kickoff Fest 2026 | Official Theme Reveal Portal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+  theme:{
+    extend:{
+      colors:{
+        brand:{
+          primary:'#e8c66a',
+          secondary:'#c9a84c'
+        }
+      },
+      fontFamily:{
+        display:['Playfair Display','serif'],
+        body:['Inter','sans-serif']
+      }
+    }
+  }
+}
+</script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#02040a;
+color:white;
+font-family:'Inter',sans-serif;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top left,rgba(232,198,106,.08),transparent 30%),
+radial-gradient(circle at bottom right,rgba(232,198,106,.06),transparent 30%);
+pointer-events:none;
+z-index:-1;
+}
+
+.glass{
+background:rgba(255,255,255,.03);
+backdrop-filter:blur(16px);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.hero-grid{
+background-image:
+linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+background-size:50px 50px;
+}
+
+.gold-gradient{
+background:linear-gradient(90deg,#e8c66a,#fff1b7,#e8c66a);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.theme-card{
+transition:.4s ease;
+}
+
+.theme-card:hover{
+transform:translateY(-6px);
+border-color:rgba(232,198,106,.4);
+}
+
+.theme-blur{
+filter:blur(8px);
+user-select:none;
+pointer-events:none;
+}
+
+.count-box{
+min-height:130px;
+}
+
+.section-badge{
+display:inline-flex;
+padding:10px 18px;
+border-radius:999px;
+font-size:11px;
+letter-spacing:.35em;
+text-transform:uppercase;
+background:rgba(232,198,106,.1);
+border:1px solid rgba(232,198,106,.2);
+color:#e8c66a;
+}
+
+.timeline-item{
+position:relative;
+}
+
+.timeline-item::before{
+content:'';
+position:absolute;
+left:7px;
+top:0;
+width:2px;
+height:100%;
+background:rgba(232,198,106,.3);
+}
+
+.timeline-item::after{
+content:'';
+position:absolute;
+left:0;
+top:20px;
+width:16px;
+height:16px;
+border-radius:999px;
+background:#e8c66a;
+}
+
+.faq-answer{
+max-height:0;
+overflow:hidden;
+transition:max-height .4s ease;
+}
+
+.faq-item.active .faq-answer{
+max-height:250px;
+}
+
+.faq-icon{
+transition:.3s ease;
+}
+
+.faq-item.active .faq-icon{
+transform:rotate(45deg);
+}
+
+.glow{
+animation:glow 3s infinite alternate;
+}
+
+@keyframes glow{
+0%{
+box-shadow:0 0 10px rgba(232,198,106,.15);
+}
+100%{
+box-shadow:0 0 35px rgba(232,198,106,.35);
+}
+}
+
+</style>
+</head>
+
+<body oncontextmenu="return false">
+
+<nav class="fixed top-0 left-0 w-full z-50 bg-[#02040ae6] backdrop-blur-xl border-b border-white/5">
+<div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full border border-brand-primary/30 flex items-center justify-center text-brand-primary text-xl">
+<i class="ri-star-smile-line"></i>
+</div>
+
+<div>
+<h1 class="font-display text-2xl text-brand-primary">Inspire Talent Hub</h1>
+<p class="text-white/50 text-xs tracking-[0.3em] uppercase">Academic Kickoff Fest 2026</p>
+</div>
+</div>
+
+<div class="hidden md:flex items-center gap-8 text-sm text-white/60">
+<a href="#themes" class="hover:text-brand-primary transition">Themes</a>
+<a href="#instructions" class="hover:text-brand-primary transition">Instructions</a>
+<a href="#timeline" class="hover:text-brand-primary transition">Timeline</a>
+<a href="#faq" class="hover:text-brand-primary transition">FAQ</a>
+</div>
+
+</div>
+</nav>
+
+<section class="hero-grid min-h-screen pt-36 pb-24 px-5 relative overflow-hidden">
+
+<div class="absolute top-0 left-0 w-96 h-96 rounded-full bg-brand-primary/10 blur-[150px]"></div>
+<div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-brand-primary/10 blur-[150px]"></div>
+
+<div class="max-w-7xl mx-auto relative z-10">
+
+<div class="text-center mb-16">
+
+<div class="section-badge mb-8">
+Official Competition Portal
+</div>
+
+<h1 class="font-display text-5xl md:text-7xl leading-tight mb-8">
+Academic Kickoff Fest
+<span class="gold-gradient">2026</span>
+</h1>
+
+<p class="max-w-3xl mx-auto text-white/65 text-lg leading-8">
+Official Theme Reveal Platform for the Essay Writing Competition, Story Writing Competition and Poetry Writing Competition.
+</p>
+
+</div>
+
+<div class="glass rounded-[2.5rem] p-8 md:p-12 border border-brand-primary/10">
+
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+
+<div>
+
+<div class="inline-flex px-5 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs tracking-[0.35em] uppercase mb-6">
+Live Countdown
+</div>
+
+<h2 class="font-display text-4xl md:text-5xl leading-tight mb-6">
+Official Themes Reveal On
+<span class="text-brand-primary">25 May 2026</span>
+</h2>
+
+<div class="space-y-5 text-white/70 text-lg leading-8">
+
+<div class="glass rounded-2xl p-5">
+<div class="text-brand-primary font-semibold mb-1">Theme Reveal Time</div>
+<div>25 May 2026 • 4:30 PM IST</div>
+</div>
+
+<div class="glass rounded-2xl p-5">
+<div class="text-brand-primary font-semibold mb-1">Writing Duration</div>
+<div>4:30 PM IST to 6:00 PM IST (90 Minutes)</div>
+</div>
+
+<div class="glass rounded-2xl p-5">
+<div class="text-brand-primary font-semibold mb-1">Submission Window</div>
+<div>6:00 PM IST to 6:10 PM IST (10 Minutes)</div>
+</div>
+
+<div class="glass rounded-2xl p-5">
+<div class="text-brand-primary font-semibold mb-1">Submission Email</div>
+<div>info@inspiretalenthub.in</div>
+</div>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+
+<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
+<div id="days" class="text-5xl font-bold text-brand-primary mb-2">00</div>
+<div class="uppercase tracking-[0.3em] text-xs text-white/50">Days</div>
+</div>
+
+<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
+<div id="hours" class="text-5xl font-bold text-brand-primary mb-2">00</div>
+<div class="uppercase tracking-[0.3em] text-xs text-white/50">Hours</div>
+</div>
+
+<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
+<div id="minutes" class="text-5xl font-bold text-brand-primary mb-2">00</div>
+<div class="uppercase tracking-[0.3em] text-xs text-white/50">Minutes</div>
+</div>
+
+<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
+<div id="seconds" class="text-5xl font-bold text-brand-primary mb-2">00</div>
+<div class="uppercase tracking-[0.3em] text-xs text-white/50">Seconds</div>
+</div>
+
+</div>
+
+<div class="mt-8 glass rounded-[2rem] p-8 border border-brand-primary/10">
+
+<div class="flex items-center gap-4 mb-5">
+
+<div class="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-2xl">
+<i class="ri-lock-line"></i>
+</div>
+
+<div>
+<h3 class="text-2xl font-semibold">Theme Security Lock</h3>
+<p class="text-white/50">Automatic Reveal System Enabled</p>
+</div>
+
+</div>
+
+<div id="beforeReveal" class="text-white/70 leading-8">
+Themes are currently encrypted and hidden. They will automatically unlock at exactly 4:30 PM IST on 25 May 2026.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="themes" class="pb-24 px-5">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="text-center mb-14">
+<div class="section-badge mb-6">Official Theme Reveal</div>
+
+<h2 class="font-display text-5xl mb-5">
+Competition Themes
+</h2>
+
+<p class="text-white/65 text-lg max-w-3xl mx-auto leading-8">
+The themes below remain blurred and hidden until the official reveal time reaches 4:30 PM IST.
+</p>
+</div>
+
+<div id="themeRevealContainer" class="grid lg:grid-cols-3 gap-6">
+
+<div class="theme-card glass rounded-[2rem] p-8 border border-brand-primary/10">
+
+<div class="flex items-center gap-4 mb-6">
+
+<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
+<i class="ri-article-line"></i>
+</div>
+
+<div>
+<h3 class="text-2xl font-semibold text-brand-primary">Essay Writing</h3>
+<p class="text-white/50">Grades 8 to 12</p>
+</div>
+
+</div>
+
+<div id="essayTheme" class="theme-blur text-3xl font-display leading-relaxed text-white">
+THEME WILL AUTOMATICALLY REVEAL AT 4:30 PM IST
+</div>
+
+</div>
+
+<div class="theme-card glass rounded-[2rem] p-8 border border-brand-primary/10">
+
+<div class="flex items-center gap-4 mb-6">
+
+<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
+<i class="ri-book-open-line"></i>
+</div>
+
+<div>
+<h3 class="text-2xl font-semibold text-brand-primary">Story Writing</h3>
+<p class="text-white/50">Grades 6 to 10</p>
+</div>
+
+</div>
+
+<div id="storyTheme" class="theme-blur text-3xl font-display leading-relaxed text-white">
+THEME WILL AUTOMATICALLY REVEAL AT 4:30 PM IST
+</div>
+
+</div>
+
+<div class="theme-card glass rounded-[2rem] p-8 border border-brand-primary/10">
+
+<div class="flex items-center gap-4 mb-6">
+
+<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
+<i class="ri-quill-pen-line"></i>
+</div>
+
+<div>
+<h3 class="text-2xl font-semibold text-brand-primary">Poetry Writing</h3>
+<p class="text-white/50">Grades 6 to 12</p>
+</div>
+
+</div>
+
+<div id="poetryTheme" class="theme-blur text-3xl font-display leading-relaxed text-white">
+THEME WILL AUTOMATICALLY REVEAL AT 4:30 PM IST
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="instructions" class="py-24 px-5 bg-white/[0.02] border-y border-white/5">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="text-center mb-16">
+<div class="section-badge mb-6">Competition Guidelines</div>
+<h2 class="font-display text-5xl mb-5">Important Instructions</h2>
+<p class="max-w-3xl mx-auto text-white/65 text-lg leading-8">
+Please carefully read all competition instructions before beginning your writing.
+</p>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-6">
+
+<div class="glass rounded-[2rem] p-8">
+<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl mb-6">
+<i class="ri-timer-line"></i>
+</div>
+<h3 class="text-2xl mb-5 font-semibold">Official Timings</h3>
+<ul class="space-y-4 text-white/70 leading-7">
+<li>• Themes reveal at 4:30 PM IST.</li>
+<li>• Writing closes at 6:00 PM IST.</li>
+<li>• Submission closes at 6:10 PM IST.</li>
+<li>• No extensions will be provided.</li>
+</ul>
+</div>
+
+<div class="glass rounded-[2rem] p-8">
+<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl mb-6">
+<i class="ri-file-upload-line"></i>
+</div>
+<h3 class="text-2xl mb-5 font-semibold">Submission Rules</h3>
+<ul class="space-y-4 text-white/70 leading-7">
+<li>• Only typed documents accepted.</li>
+<li>• PDF and DOCX formats only.</li>
+<li>• Email submissions only.</li>
+<li>• Use proper participant details.</li>
+</ul>
+</div>
+
+<div class="glass rounded-[2rem] p-8">
+<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl mb-6">
+<i class="ri-shield-check-line"></i>
+</div>
+<h3 class="text-2xl mb-5 font-semibold">Integrity Policy</h3>
+<ul class="space-y-4 text-white/70 leading-7">
+<li>• AI-generated content prohibited.</li>
+<li>• Plagiarism may disqualify entries.</li>
+<li>• Originality checks may be performed.</li>
+<li>• Maintain appropriate language.</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="timeline" class="py-24 px-5">
+
+<div class="max-w-5xl mx-auto">
+
+<div class="text-center mb-16">
+<div class="section-badge mb-6">Official Timeline</div>
+<h2 class="font-display text-5xl">Competition Flow</h2>
+</div>
+
+<div class="space-y-10">
+
+<div class="timeline-item pl-10">
+<div class="glass rounded-[2rem] p-8">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<h3 class="text-3xl mb-3 font-semibold">Theme Reveal</h3>
+<p class="text-white/65 leading-7">
+Official themes become visible automatically.
+</p>
+</div>
+<div class="text-brand-primary tracking-[0.3em] uppercase text-sm">
+4:30 PM IST
+</div>
+</div>
+</div>
+</div>
+
+<div class="timeline-item pl-10">
+<div class="glass rounded-[2rem] p-8">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<h3 class="text-3xl mb-3 font-semibold">Writing Period Ends</h3>
+<p class="text-white/65 leading-7">
+90 minute writing duration officially concludes.
+</p>
+</div>
+<div class="text-brand-primary tracking-[0.3em] uppercase text-sm">
+6:00 PM IST
+</div>
+</div>
+</div>
+</div>
+
+<div class="timeline-item pl-10">
+<div class="glass rounded-[2rem] p-8">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<h3 class="text-3xl mb-3 font-semibold">Final Submission Deadline</h3>
+<p class="text-white/65 leading-7">
+Final email submissions close permanently.
+</p>
+</div>
+<div class="text-brand-primary tracking-[0.3em] uppercase text-sm">
+6:10 PM IST
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="faq" class="py-24 px-5 bg-white/[0.02] border-y border-white/5">
+
+<div class="max-w-5xl mx-auto">
+
+<div class="text-center mb-16">
+<div class="section-badge mb-6">FAQ Section</div>
+<h2 class="font-display text-5xl">Frequently Asked Questions</h2>
+</div>
+
+<div class="space-y-5">
+
+<div class="faq-item glass rounded-3xl overflow-hidden">
+<button class="faq-toggle w-full p-6 flex items-center justify-between text-left">
+<span class="text-xl font-semibold">Can handwritten work be submitted?</span>
+<i class="ri-add-line faq-icon text-brand-primary text-2xl"></i>
+</button>
+<div class="faq-answer px-6 pb-6 text-white/65 leading-7">
+No. Only typed PDF or DOCX submissions are accepted.
+</div>
+</div>
+
+<div class="faq-item glass rounded-3xl overflow-hidden">
+<button class="faq-toggle w-full p-6 flex items-center justify-between text-left">
+<span class="text-xl font-semibold">What time does writing end?</span>
+<i class="ri-add-line faq-icon text-brand-primary text-2xl"></i>
+</button>
+<div class="faq-answer px-6 pb-6 text-white/65 leading-7">
+The 90-minute writing duration ends exactly at 6:00 PM IST.
+</div>
+</div>
+
+<div class="faq-item glass rounded-3xl overflow-hidden">
+<button class="faq-toggle w-full p-6 flex items-center justify-between text-left">
+<span class="text-xl font-semibold">What is the final submission deadline?</span>
+<i class="ri-add-line faq-icon text-brand-primary text-2xl"></i>
+</button>
+<div class="faq-answer px-6 pb-6 text-white/65 leading-7">
+The final email submission deadline is 6:10 PM IST.
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="py-24 px-5">
+
+<div class="max-w-4xl mx-auto text-center glass rounded-[2.5rem] p-10 border border-brand-primary/10">
+
+<div class="w-24 h-24 rounded-full bg-brand-primary/10 mx-auto flex items-center justify-center text-brand-primary text-5xl mb-8 glow">
+<i class="ri-mail-send-line"></i>
+</div>
+
+<div class="section-badge mb-6">
+Official Submission Email
+</div>
+
+<h2 class="font-display text-5xl mb-6">
+Submit Your Final Entry
+</h2>
+
+<p class="max-w-2xl mx-auto text-white/65 text-lg leading-8 mb-8">
+After completing your writing, send your final PDF or DOCX file to the official organizing committee email.
+</p>
+
+<a href="mailto:info@inspiretalenthub.in" class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-brand-primary text-black font-semibold hover:scale-105 transition">
+<i class="ri-mail-line"></i>
+info@inspiretalenthub.in
+</a>
+
+</div>
+
+</section>
+
+<footer class="border-t border-white/5 py-10 px-5">
+
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+
+<div>
+<h2 class="font-display text-3xl text-brand-primary">Inspire Talent Hub</h2>
+<p class="text-white/45 mt-2">Academic Kickoff Fest 2026</p>
+</div>
+
+<div class="text-white/45 text-center md:text-right">
+© 2026 Inspire Talent Hub<br>
+All Rights Reserved
+</div>
+
+</div>
+
+</footer>
+
+<script>
+
+const revealDate = new Date("May 25, 2026 16:30:00 GMT+0530").getTime();
+
+const daysEl = document.getElementById('days');
+const hoursEl = document.getElementById('hours');
+const minutesEl = document.getElementById('minutes');
+const secondsEl = document.getElementById('seconds');
+
+const essayTheme = document.getElementById('essayTheme');
+const storyTheme = document.getElementById('storyTheme');
+const poetryTheme = document.getElementById('poetryTheme');
+
+const beforeReveal = document.getElementById('beforeReveal');
+
+function revealThemes(){
+
+essayTheme.innerHTML = "A World I Want to Build";
+storyTheme.innerHTML = "The Message That Changed Everything";
+poetryTheme.innerHTML = "When Silence Speaks";
+
+essayTheme.classList.remove('theme-blur');
+storyTheme.classList.remove('theme-blur');
+poetryTheme.classList.remove('theme-blur');
+
+beforeReveal.innerHTML = "Themes successfully unlocked. Participants may now begin writing.";
+}
+
+function updateCountdown(){
+
+const now = new Date().getTime();
+const distance = revealDate - now;
+
+if(distance <= 0){
+
+daysEl.innerText = '00';
+hoursEl.innerText = '00';
+minutesEl.innerText = '00';
+secondsEl.innerText = '00';
+
+revealThemes();
+
+return;
+}
+
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+daysEl.innerText = String(days).padStart(2,'0');
+hoursEl.innerText = String(hours).padStart(2,'0');
+minutesEl.innerText = String(minutes).padStart(2,'0');
+secondsEl.innerText = String(seconds).padStart(2,'0');
+
+}
+
+setInterval(updateCountdown,1000);
+updateCountdown();
+
+document.querySelectorAll('.faq-item').forEach(item=>{
+
+const btn = item.querySelector('.faq-toggle');
+
+btn.addEventListener('click',()=>{
+item.classList.toggle('active');
+});
+
+});
+
+document.addEventListener('contextmenu',event=>event.preventDefault());
+
+document.onkeydown = function(e) {
+
+if (e.keyCode == 123) {
+return false;
+}
+
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+return false;
+}
+
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+return false;
+}
+
+if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+return false;
+}
+
+if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+return false;
+}
+
+}
+
+</script>
+
+</body>
+</html>

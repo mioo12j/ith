@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful | Inspire Talent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        .success-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white max-w-lg w-full rounded-[2rem] shadow-2xl p-8 md:p-12 text-center border border-slate-100 relative overflow-hidden">
+        
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-emerald-50 to-white"></div>
+
+        <div class="relative z-10">
+            <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 success-pulse shadow-lg text-white">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <h1 class="text-3xl font-extrabold text-slate-900 mb-2">Registration Confirmed!</h1>
+            <p class="text-slate-500 mb-8 font-medium">Thank you for your payment. Your spot at the Academic Kickoff Fest 2026 is officially secured.</p>
+
+            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 text-left mb-8 shadow-sm">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-200 pb-2">Transaction Summary</h3>
+                
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-slate-600 font-semibold">Amount Paid:</span>
+                    <span id="display-amount" class="text-xl font-extrabold text-slate-900">Loading...</span>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <span class="text-slate-600 font-semibold">Transaction ID:</span>
+                    <span id="display-id" class="text-sm font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">Loading...</span>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 text-amber-800 rounded-xl p-4 text-sm font-medium mb-8 text-left flex gap-3 items-start">
+                <span class="text-xl">⚠️</span>
+                <p>Please take a screenshot of this page and keep your Transaction ID safe for your records. If you experience any issues, you will be contacted shortly.</p>
+            </div>
+
+            <a href="index.html" class="inline-block w-full bg-slate-900 hover:bg-indigo-600 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-md active:scale-95">
+                Return to Homepage
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // When the page loads, grab the data saved by competition.html
+        document.addEventListener("DOMContentLoaded", () => {
+            const txnId = localStorage.getItem("txn_id");
+            const txnAmount = localStorage.getItem("txn_amount");
+
+            if (txnId && txnAmount) {
+                document.getElementById("display-id").innerText = txnId;
+                document.getElementById("display-amount").innerText = txnAmount;
+                
+                // Optional: Clear the storage so it doesn't stay there forever
+                localStorage.removeItem("txn_id");
+                localStorage.removeItem("txn_amount");
+            } else {
+                // Fallback just in case they reload the page directly
+                document.getElementById("display-id").innerText = "Not Available";
+                document.getElementById("display-amount").innerText = "Verification Pending";
+            }
+        });
+    </script>
+</body>
+</html>

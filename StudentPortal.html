@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#02040a">
+    
+    <title>Student Portal | Inspire Talent Hub 2026</title>
+    <meta name="description" content="Check your competition results and verify your official certificates from the Inspire Talent Hub Academic Kickoff Fest 2026.">
+
+    <!-- =======================================================================
+         TYPOGRAPHY & FONTS
+         ======================================================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Plus Jakarta Sans for UI, Playfair for headings, Fira Code for IDs -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet" />
+
+    <!-- =======================================================================
+         TAILWIND CSS CONFIGURATION
+         ======================================================================= -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: { primary: '#e8c66a', secondary: '#c9a84c', alpha: 'rgba(232, 198, 106, 0.1)', error: '#EF4444', success: '#10B981' },
+              base: { DEFAULT: '#02040a', surface: '#060a14', surface2: '#0a1020' }
+            },
+            fontFamily: {
+              display: ['"Playfair Display"', 'serif'],
+              heading: ['"Cormorant Garamond"', 'serif'],
+              body: ['"Inter"', 'sans-serif'],
+              jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+              mono: ['"Fira Code"', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- =======================================================================
+         CUSTOM STYLESHEET
+         ======================================================================= -->
+    <style>
+        /* CSS Variables for consistent theming and smooth animations */
+        :root {
+            --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+            --easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+            --shadow-hover: 0 20px 40px rgba(0,0,0,0.08);
+            --shadow-modal: 0 25px 50px -12px rgba(0,0,0,0.5);
+            --gold-gradient: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f8fafc; 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; 
+            color: #334155;
+        }
+        
+        /* --- 1. NAVIGATION BAR --- */
+        .nav-scrolled { 
+            background: rgba(3, 6, 13, 0.98); 
+            backdrop-filter: blur(20px); 
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            z-index: 1500; 
+        }
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link:hover { color: #e8c66a; }
+        .nav-link::after { 
+            content: ''; position: absolute; width: 0; height: 1.5px; 
+            bottom: -4px; left: 0; background-color: #e8c66a; 
+            transition: width 0.3s var(--easing-standard); 
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* --- 2. TAB CONTROLLER --- */
+        .tab-controller { 
+            max-width: 600px; margin: 120px auto 30px auto; background: #ffffff; 
+            padding: 8px; border-radius: 99px; box-shadow: var(--shadow-soft); 
+            display: flex; border: 1px solid #e2e8f0; position: relative; z-index: 10; 
+        }
+        .tab-btn { 
+            flex: 1; padding: 16px 24px; border-radius: 99px; font-weight: 800; 
+            font-size: 0.95rem; color: #64748b; transition: all 0.3s ease; 
+            text-align: center; cursor: pointer; text-transform: uppercase; 
+            letter-spacing: 0.05em; border: none; background: transparent; 
+        }
+        .tab-btn:hover { color: #0f172a; background: #f1f5f9; }
+        .tab-btn.active { background: #0f172a; color: #ffffff; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2); }
+        .tab-content { display: none; opacity: 0; transform: translateY(10px); transition: all 0.4s ease; }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); animation: slideUpFade 0.5s ease forwards; }
+
+        /* --- 3. MAIN CARDS --- */
+        .portal_container { width: 100%; max-width: 800px; margin: 0 auto 80px auto; padding: 0 20px; }
+        .portal_card { 
+            background: #ffffff; border-radius: 28px; padding: 48px; 
+            box-shadow: var(--shadow-soft); border: 1px solid #e2e8f0; 
+            position: relative; overflow: hidden; margin-bottom: 30px; 
+            transition: box-shadow 0.3s ease; 
+        }
+        .portal_card:hover { box-shadow: var(--shadow-hover); }
+        
+        .card_gradient_results::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #c9a84c, #b45309); }
+        .card_gradient_verify::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #4f46e5, #ec4899); }
+
+        .header_center { text-align: center; margin-bottom: 40px; }
+        .icon_wrapper { 
+            width: 80px; height: 80px; margin: 0 auto 20px auto; border-radius: 24px; 
+            display: flex; align-items: center; justify-content: center; 
+            animation: float 4s ease-in-out infinite; 
+        }
+        .icon_results { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+        .icon_verify { background: #e0e7ff; color: #4f46e5; border: 1px solid #c7d2fe; }
+        
+        .portal_title { font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 12px; font-family: 'Playfair Display', serif; }
+        .portal_subtitle { font-size: 16px; color: #64748b; font-weight: 500; line-height: 1.6; max-width: 500px; margin: 0 auto; }
+
+        /* --- 4. FORMS & INPUTS --- */
+        .input_group { margin-bottom: 24px; position: relative; }
+        .input_label { 
+            display: flex; justify-content: space-between; align-items: center; 
+            font-size: 13px; font-weight: 800; color: #0f172a; 
+            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; 
+        }
+        .form_input { 
+            width: 100%; padding: 18px 24px; font-family: 'Plus Jakarta Sans', sans-serif; 
+            font-size: 16px; font-weight: 700; color: #0f172a; background: #f8fafc; 
+            border: 2px solid #cbd5e1; border-radius: 16px; outline: none; 
+            transition: all 0.3s ease; 
+        }
+        .form_input:focus { border-color: #0f172a; background: #ffffff; box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05); }
+        
+        select.form_input { 
+            appearance: none; cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
+            background-repeat: no-repeat; background-position: right 20px center; background-size: 20px; 
+        }
+
+        /* Smart Input Masking for ID */
+        .smart-input { text-transform: uppercase; letter-spacing: 2px; font-family: 'Fira Code', monospace; font-weight: 700; }
+        .smart-input::placeholder { color: #94A3B8; font-weight: 400; letter-spacing: normal; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: none; }
+
+        .helper_box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 12px; margin-bottom: 24px; font-size: 13px; color: #475569; display: none; line-height: 1.5; }
+        .helper_box.show { display: block; animation: slideUpFade 0.3s ease; }
+        .helper_link { color: #4f46e5; text-transform: none; letter-spacing: normal; cursor: pointer; text-decoration: underline; font-size: 12px; font-weight: 600; }
+
+        /* --- 5. SECURITY MATH CHECK --- */
+        .captcha_box { 
+            display: flex; align-items: center; justify-content: space-between; 
+            background: #f1f5f9; border: 1px solid #e2e8f0; padding: 16px 24px; 
+            border-radius: 16px; margin-bottom: 24px; transition: all 0.3s ease; 
+        }
+        .captcha_box:focus-within { border-color: #0f172a; background: #ffffff; }
+        .captcha_text { font-size: 14px; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px; }
+        .captcha_input { 
+            width: 80px; padding: 12px; font-size: 16px; font-weight: 800; 
+            text-align: center; border: 2px solid #cbd5e1; border-radius: 10px; 
+            outline: none; transition: border-color 0.3s ease; 
+        }
+        .captcha_input:focus { border-color: #0f172a; }
+
+        /* --- 6. BUTTONS --- */
+        .submit_btn { 
+            width: 100%; padding: 20px; font-size: 18px; font-weight: 800; 
+            color: #ffffff; background: #0f172a; border: none; border-radius: 16px; 
+            cursor: pointer; transition: all 0.3s ease; display: flex; 
+            align-items: center; justify-content: center; gap: 12px; 
+        }
+        .btn_results:hover { background: #b45309; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(180, 83, 9, 0.2); }
+        .btn_verify:hover { background: #4f46e5; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2); }
+        .submit_btn:disabled { opacity: 0.7; cursor: wait; transform: none !important; box-shadow: none !important; }
+
+        /* --- 7. INLINE ERROR MESSAGES --- */
+        .input-error-state { border-color: var(--brand-error) !important; background-color: #FEF2F2 !important; color: #991B1B !important; animation: errorShake 0.4s var(--easing-spring) both; }
+        .inline-error-text { 
+            color: var(--brand-error); font-size: 0.85rem; margin-top: 0.4rem; 
+            font-weight: 600; display: none; align-items: center; gap: 6px; 
+            animation: fadeIn 0.3s ease; 
+        }
+        .inline-error-text.active { display: flex; }
+
+        /* --- 8. RESULTS OUTPUT VIEWS --- */
+        .results_output { display: none; margin-top: 40px; padding-top: 40px; border-top: 2px dashed #e2e8f0; }
+        .results_output.show { display: block; animation: slideUpFade 0.5s ease forwards; }
+        
+        /* Winner Card Style */
+        .winner_card { 
+            background: #fffdf8; border: 2px solid #e8c66a; padding: 40px; 
+            border-radius: 20px; text-align: center; position: relative; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(232, 198, 106, 0.1);
+        }
+        .winner_card::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; 
+            background: repeating-linear-gradient(45deg, #c9a84c, #c9a84c 10px, #0f172a 10px, #0f172a 20px); 
+        }
+        .winner_seal { 
+            width: 70px; height: 70px; background: #b45309; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; 
+            color: #fff; box-shadow: 0 4px 15px rgba(180, 83, 9, 0.4); border: 2px dashed #fcd34d; font-size: 28px; 
+        }
+
+        /* Participant Card Style */
+        .participant_card { background: #f8fafc; border: 1px solid #cbd5e1; padding: 40px; border-radius: 20px; text-align: center; }
+        .participant_icon { 
+            width: 60px; height: 60px; background: #e0e7ff; color: #4f46e5; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 20px auto; font-size: 24px; 
+        }
+
+        /* Shared Output Typography */
+        .result_name { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: capitalize; }
+        .result_award { 
+            font-size: 20px; font-weight: 900; color: #0f172a; margin: 16px 0; 
+            background: #fff; padding: 12px 24px; border-radius: 12px; display: inline-block; 
+            border: 1px solid #cbd5e1; box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
+        }
+        .result_award.gold { color: #b45309; border-color: #fde68a; background: #fffcf2; }
+        
+        .download_inline_btn { 
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px; 
+            margin-top: 20px; padding: 16px 32px; font-size: 15px; font-weight: 800; 
+            color: #ffffff; background: #0f172a; border-radius: 12px; text-decoration: none; 
+            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.05em; 
+        }
+        .download_inline_btn:hover { background: #b45309; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(180, 83, 9, 0.2); }
+
+        /* --- 9. FRIENDLY FAQ SECTION --- */
+        .faq_section { background: #ffffff; border-radius: 24px; padding: 40px; box-shadow: var(--shadow-soft); border: 1px solid #e2e8f0; margin-top: 30px; }
+        .faq_title { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
+        .faq_item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed #e2e8f0; }
+        .faq_item:last-child { border: none; margin: 0; padding: 0; }
+        .faq_q { font-size: 16px; font-weight: 800; color: #1e293b; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
+        .faq_a { font-size: 15px; color: #475569; line-height: 1.6; padding-left: 30px; }
+
+        /* --- 10. MODAL & CONFETTI (VERIFICATION SUCCESS) --- */
+        .cinematic-overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px); z-index: 9000; display: flex; 
+            align-items: center; justify-content: center; opacity: 0; pointer-events: none; 
+            transition: opacity 0.4s ease; 
+        }
+        .cinematic-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .cinematic-card { 
+            background: #ffffff; width: 90%; max-width: 600px; border-radius: 24px; 
+            padding: 3rem; box-shadow: var(--shadow-modal), 0 0 0 2px #D4AF37; 
+            transform: translateY(50px) scale(0.95); opacity: 0; 
+            transition: all 0.5s var(--easing-spring); position: relative; overflow: hidden; 
+        }
+        .cinematic-overlay.active .cinematic-card { transform: translateY(0) scale(1); opacity: 1; }
+        
+        /* Subtle Watermark */
+        .cinematic-card::before { 
+            content: "AUTHENTIC"; position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%) rotate(-20deg); font-size: 6rem; 
+            font-weight: 900; color: rgba(212, 175, 55, 0.03); pointer-events: none; z-index: 0; 
+        }
+        
+        .card-content { position: relative; z-index: 1; text-align: center; }
+        .cert-header { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #64748B; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .cert-name { 
+            font-size: 2.8rem; font-family: 'Playfair Display', serif; font-weight: 900; 
+            margin-bottom: 1.5rem; background: var(--gold-gradient); background-size: 200% auto; 
+            color: #000; background-clip: text; -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; animation: goldShimmer 4s infinite linear; line-height: 1.2; 
+        }
+        
+        .cert-meta-grid { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; 
+            background: #F8FAFC; padding: 1.5rem; border-radius: 16px; border: 1px solid #E2E8F0; 
+            margin-bottom: 2rem; text-align: left; 
+        }
+        .meta-item label { display: block; font-size: 0.75rem; color: #64748B; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .meta-item span { display: block; font-weight: 700; color: #0F172A; font-size: 1.1rem; }
+        .meta-item .mono-id { font-family: 'Fira Code', monospace; color: #4F46E5; font-size: 1rem; }
+        
+        .cert-ceremonial-text { 
+            font-family: 'Georgia', serif; font-size: 1.1rem; line-height: 1.8; color: #475569; 
+            border-left: 4px solid #D4AF37; padding-left: 1.5rem; margin-bottom: 2.5rem; 
+            text-align: left; min-height: 140px; font-style: italic; 
+        }
+        .cursor { display: inline-block; width: 3px; background-color: #D4AF37; animation: blink 1s infinite; margin-left: 4px; vertical-align: bottom; height: 1.2em; }
+        
+        .btn-close-modal { 
+            background: #f1f5f9; color: #0F172A; border: 2px solid #cbd5e1; padding: 1rem 3rem; 
+            border-radius: 9999px; font-weight: 800; text-transform: uppercase; cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .btn-close-modal:hover { background: #e2e8f0; border-color: #94a3b8; transform: translateY(-2px); }
+        
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
+
+        /* --- 11. ANIMATIONS --- */
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes errorShake { 
+            10%, 90% { transform: translate3d(-1px, 0, 0); } 
+            20%, 80% { transform: translate3d(2px, 0, 0); } 
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 
+            40%, 60% { transform: translate3d(4px, 0, 0); } 
+        }
+        @keyframes goldShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 12. WEBGL FOOTER --- */
+        .index-footer { background: #07090E; border-top: 1px solid rgba(201, 168, 76, 0.15); position: relative; overflow: hidden; margin-top: 40px; }
+        .index-footer__canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.5; pointer-events: none; }
+        .index-footer__container { padding-block: 5rem 2rem; position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding-inline: 2rem; }
+        .index-footer__brand { text-align: center; margin-bottom: 4rem; display: flex; flex-direction: column; align-items: center; }
+        .index-footer__title { font-family: "Playfair Display", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: 0.1em; color: #ffffff; font-weight: 700; text-transform: uppercase; }
+        .index-footer__title em { font-style: italic; color: #c9a84c; font-family: "Cormorant Garamond", serif; font-weight: 300; text-transform: lowercase; font-size: 1.2em; }
+        .index-footer__sub { font-family: "Inter", sans-serif; color: #94a3b8; font-size: 1rem; line-height: 1.7; max-width: 500px; margin-top: 0.5rem; font-weight: 400; }
+        .index-footer__nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 3rem; margin-bottom: 4rem; list-style: none; padding: 0; }
+        .index-footer__nav a { font-family: "Inter", sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8; font-weight: 600; text-decoration: none; transition: color 0.3s ease; }
+        .index-footer__nav a:hover { color: #e8c66a; }
+        .index-footer__divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent); margin-bottom: 2.5rem; }
+        .index-footer__copy { text-align: center; font-family: "Inter", sans-serif; font-size: 0.8rem; color: rgba(255, 255, 255, 0.5); letter-spacing: 0.1em; }
+        .index-footer__tagline { color: #e8c66a; font-style: italic; text-transform: none; letter-spacing: 0.05em; font-family: 'Playfair Display', serif; display: block; margin-top: 10px;}
+
+        /* --- 13. RESPONSIVE QUERIES --- */
+        @media (max-width: 767.98px) {
+            #navLinks { display: flex; position: fixed; top: 0; right: -100vw; width: 100vw; height: 100vh; background: rgba(3, 6, 13, 0.98); flex-direction: column; justify-content: center; align-items: center; transition: right 0.5s ease; z-index: 1600; }
+            #navLinks.open { right: 0; }
+            #navLinks li a { font-size: 1.5rem; margin: 1rem 0; display: block; }
+            .cinematic-card { padding: 2rem 1.5rem; }
+            .cert-name { font-size: 2rem; }
+            .cert-meta-grid { grid-template-columns: 1fr; gap: 1rem; }
+        }
+        @media (max-width: 640px) {
+            .portal_card, .faq_section { padding: 32px 20px; }
+            .portal_title { font-size: 26px; }
+            .captcha_box { flex-direction: column; gap: 16px; align-items: stretch; }
+            .tab-controller { flex-direction: column; margin-top: 100px; border-radius: 20px; }
+            .tab-btn { border-radius: 12px; }
+        }
+
+        /* =========================================
+   DARK GOLD ACADEMIC THEME OVERRIDES
+   Paste at the end of your current <style>
+========================================= */
+
+:root {
+    --brand-gold: #e8c66a;
+    --brand-gold-2: #c9a84c;
+    --brand-gold-soft: rgba(232, 198, 106, 0.10);
+    --brand-bg: #02040a;
+    --brand-surface: rgba(255, 255, 255, 0.03);
+    --brand-surface-2: rgba(255, 255, 255, 0.05);
+    --brand-border: rgba(232, 198, 106, 0.16);
+    --brand-text: #ffffff;
+    --brand-muted: #94a3b8;
+    --brand-dark: #0f172a;
+    --brand-error: #ef4444;
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, rgba(232, 198, 106, 0.09), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(232, 198, 106, 0.06), transparent 28%),
+        linear-gradient(180deg, #02040a 0%, #050914 55%, #02040a 100%);
+    color: var(--brand-text);
+}
+
+body::before {
+    background:
+        radial-gradient(circle at top left, rgba(232, 198, 106, 0.10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(232, 198, 106, 0.06), transparent 30%);
+}
+
+.nav-scrolled {
+    background: rgba(3, 6, 13, 0.98);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.nav-link:hover {
+    color: var(--brand-gold);
+}
+
+.nav-link::after {
+    background-color: var(--brand-gold);
+}
+
+.tab-controller {
+    background: rgba(8, 12, 22, 0.95);
+    border: 1px solid rgba(232, 198, 106, 0.14);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.tab-btn {
+    color: #94a3b8;
+}
+
+.tab-btn:hover {
+    color: #ffffff;
+    background: rgba(232, 198, 106, 0.08);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #e8c66a, #c9a84c);
+    color: #02040a;
+    box-shadow: 0 10px 20px rgba(232, 198, 106, 0.18);
+}
+
+.portal_container {
+    color: var(--brand-text);
+}
+
+.portal_card {
+    background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(6, 10, 20, 0.98));
+    border: 1px solid rgba(232, 198, 106, 0.14);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.portal_card:hover {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+}
+
+.card_gradient_results::before {
+    background: linear-gradient(90deg, #e8c66a, #b45309);
+}
+
+.card_gradient_verify::before {
+    background: linear-gradient(90deg, #e8c66a, #c9a84c);
+}
+
+.icon_results {
+    background: rgba(232, 198, 106, 0.10);
+    color: var(--brand-gold);
+    border: 1px solid rgba(232, 198, 106, 0.18);
+}
+
+.icon_verify {
+    background: rgba(232, 198, 106, 0.10);
+    color: var(--brand-gold);
+    border: 1px solid rgba(232, 198, 106, 0.18);
+}
+
+.portal_title {
+    color: #ffffff;
+}
+
+.portal_subtitle {
+    color: var(--brand-muted);
+}
+
+.input_label {
+    color: #ffffff;
+}
+
+.form_input {
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    border: 1px solid rgba(232, 198, 106, 0.16);
+}
+
+.form_input:focus {
+    border-color: var(--brand-gold);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 4px rgba(232, 198, 106, 0.10);
+}
+
+select.form_input {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.smart-input::placeholder {
+    color: #64748b;
+}
+
+.helper_box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.12);
+    color: #cbd5e1;
+}
+
+.helper_link {
+    color: var(--brand-gold);
+}
+
+.captcha_box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.12);
+}
+
+.captcha_box:focus-within {
+    border-color: var(--brand-gold);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.captcha_text {
+    color: #cbd5e1;
+}
+
+.captcha_input {
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    border: 1px solid rgba(232, 198, 106, 0.16);
+}
+
+.captcha_input:focus {
+    border-color: var(--brand-gold);
+}
+
+.submit_btn {
+    background: linear-gradient(135deg, #e8c66a, #c9a84c);
+    color: #02040a;
+    box-shadow: 0 14px 24px rgba(232, 198, 106, 0.18);
+}
+
+.submit_btn:hover {
+    background: linear-gradient(135deg, #f1d98c, #e8c66a);
+    color: #02040a;
+}
+
+.btn_results:hover {
+    background: linear-gradient(135deg, #e8c66a, #b45309);
+    color: #02040a;
+    box-shadow: 0 12px 24px rgba(180, 83, 9, 0.22);
+}
+
+.btn_verify:hover {
+    background: linear-gradient(135deg, #e8c66a, #c9a84c);
+    color: #02040a;
+    box-shadow: 0 12px 24px rgba(232, 198, 106, 0.18);
+}
+
+.input-error-state {
+    border-color: var(--brand-error) !important;
+    background-color: rgba(239, 68, 68, 0.08) !important;
+    color: #fecaca !important;
+}
+
+.inline-error-text {
+    color: #fca5a5;
+}
+
+.results_output {
+    border-top: 2px dashed rgba(232, 198, 106, 0.16);
+}
+
+.winner_card {
+    background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(6, 10, 20, 0.98));
+    border: 1px solid rgba(232, 198, 106, 0.18);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+.winner_card::before {
+    background: linear-gradient(90deg, #e8c66a, #c9a84c);
+}
+
+.winner_seal {
+    background: linear-gradient(135deg, #e8c66a, #c9a84c);
+    color: #02040a;
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+.participant_card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.12);
+}
+
+.participant_icon {
+    background: rgba(232, 198, 106, 0.10);
+    color: var(--brand-gold);
+    border: 1px solid rgba(232, 198, 106, 0.16);
+}
+
+.result_name {
+    color: #ffffff;
+}
+
+.result_award {
+    background: rgba(232, 198, 106, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(232, 198, 106, 0.16);
+}
+
+.result_award.gold {
+    background: rgba(232, 198, 106, 0.12);
+    color: var(--brand-gold);
+    border-color: rgba(232, 198, 106, 0.24);
+}
+
+.download_inline_btn {
+    background: linear-gradient(135deg, #e8c66a, #c9a84c);
+    color: #02040a;
+}
+
+.download_inline_btn:hover {
+    background: linear-gradient(135deg, #f1d98c, #e8c66a);
+    color: #02040a;
+}
+
+.faq_section {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.10);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+}
+
+.faq_title {
+    color: #ffffff;
+    border-bottom: 2px solid rgba(232, 198, 106, 0.12);
+}
+
+.faq_q {
+    color: #ffffff;
+}
+
+.faq_a {
+    color: #94a3b8;
+}
+
+.cinematic-overlay {
+    background: rgba(2, 6, 23, 0.88);
+}
+
+.cinematic-card {
+    background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(6, 10, 20, 0.98));
+    border: 1px solid rgba(232, 198, 106, 0.18);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(232, 198, 106, 0.10);
+}
+
+.cert-header {
+    color: #94a3b8;
+}
+
+.cert-name {
+    background: linear-gradient(90deg, #e8c66a, #fff1b7, #e8c66a);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cert-meta-grid {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.12);
+}
+
+.meta-item label {
+    color: #94a3b8;
+}
+
+.meta-item span {
+    color: #ffffff;
+}
+
+.meta-item .mono-id {
+    color: var(--brand-gold);
+}
+
+.cert-ceremonial-text {
+    color: #cbd5e1;
+    border-left: 4px solid var(--brand-gold);
+}
+
+.btn-close-modal {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border: 1px solid rgba(232, 198, 106, 0.16);
+}
+
+.btn-close-modal:hover {
+    background: rgba(232, 198, 106, 0.12);
+    border-color: rgba(232, 198, 106, 0.24);
+}
+
+.index-footer {
+    background: #07090E;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.index-footer__title em,
+.index-footer__logo-link {
+    color: var(--brand-gold);
+}
+
+.index-footer__nav a:hover,
+.index-footer__tagline {
+    color: var(--brand-gold);
+}
+
+.index-footer__divider {
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.25), transparent);
+}
+
+@media (max-width: 767.98px) {
+    #navLinks {
+        background: rgba(3, 6, 13, 0.98);
+    }
+}
+/* Style the dropdown container and the list options */
+select#res_track {
+    background-color: #060a14 !important; /* Dark background */
+    color: #ffffff !important;           /* White text */
+    border: 1px solid rgba(232, 198, 106, 0.3) !important;
+}
+
+/* Style the individual options */
+select#res_track option {
+    background-color: #060a14;
+    color: #ffffff;
+    padding: 10px;
+}
+
+/* Optional: Improve hover effect for the dropdown */
+select#res_track:hover {
+    border-color: var(--brand-gold) !important;
+}
+
+/* ===== Recognised Competitions (built at runtime from the result tracks) ===== */
+.sp_recognised {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.12);
+    border-radius: 24px;
+}
+.sp_recognised_head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.sp_recognised_title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+}
+.sp_recognised_count {
+    font-size: 12px;
+    font-weight: 800;
+    color: #e8c66a;
+    background: rgba(232, 198, 106, 0.10);
+    border: 1px solid rgba(232, 198, 106, 0.22);
+    padding: 4px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.sp_recognised_sub {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+.sp_recognised_sub strong { color: #e8c66a; font-weight: 600; }
+.sp_chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.sp_chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.14);
+    padding: 8px 14px;
+    border-radius: 12px;
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.sp_chip:hover {
+    border-color: rgba(232, 198, 106, 0.42);
+    background: rgba(232, 198, 106, 0.07);
+    transform: translateY(-2px);
+}
+.sp_chip::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #e8c66a;
+    flex-shrink: 0;
+}
+@media (max-width: 640px) {
+    .sp_recognised { padding: 24px 18px; margin-bottom: 40px; }
+}
+
+/* ===== Certificate ID on the result card ===== */
+.result_certid {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 6px 0 16px;
+}
+.result_certid_label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #94a3b8;
+}
+.result_certid_value {
+    font-family: 'Fira Code', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #e8c66a;
+    background: rgba(232, 198, 106, 0.10);
+    border: 1px solid rgba(232, 198, 106, 0.22);
+    padding: 5px 14px;
+    border-radius: 8px;
+}
+
+/* ===== Status notice (dispatch / email) on the result card ===== */
+.result_notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+    max-width: 32rem;
+    margin: 0 auto 24px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    background: rgba(232, 198, 106, 0.08);
+    border: 1px solid rgba(232, 198, 106, 0.22);
+}
+.result_notice svg {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    color: #e8c66a;
+    margin-top: 1px;
+}
+.result_notice strong { color: #ffffff; font-weight: 700; }
+.result_notice--participant {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(232, 198, 106, 0.14);
+}
+.result_notice--participant svg { color: #94a3b8; }
+    </style>
+</head>
+<body>
+
+    <!-- =======================================================================
+         NAVIGATION
+         ======================================================================= -->
+    <nav id="mainNav" class="fixed top-0 left-0 right-0 flex items-center justify-between px-6 md:px-16 py-5 nav-scrolled">
+        <a href="#" class="relative z-[1700] flex items-center gap-3 text-brand-secondary hover:scale-105 transition-transform duration-300">
+            <svg class="w-5 h-5 animate-[spin_15s_linear_infinite] fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span class="font-display text-xl font-bold tracking-widest text-brand-secondary">
+                Inspire<em class="font-heading italic font-light text-white lowercase">Talent</em>Hub
+            </span>
+        </a>
+        <ul id="navLinks" class="flex items-center gap-10 m-0 p-0 list-none">
+            <li><a href="index.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-bold">About Us</a></li>
+            <li><a href="competition.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-bold">Competitions</a></li>
+            <li><a href="learnmore.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-bold">Learn More</a></li>
+            <li><a href="StudentPortal.html" class="nav-link text-brand-primary text-[0.8rem] tracking-[0.15em] uppercase font-bold">Portals</a></li>
+        </ul>
+        <div class="flex items-center gap-4 z-[1700]">
+            <button id="hamburger" class="md:hidden relative flex flex-col gap-[6px] p-2 bg-transparent border-none cursor-pointer">
+                <span class="block w-7 h-[2px] bg-white transition-all"></span>
+                <span class="block w-7 h-[2px] bg-white transition-all"></span>
+                <span class="block w-7 h-[2px] bg-white transition-all"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- =======================================================================
+         TAB CONTROLS
+         ======================================================================= -->
+    <div class="tab-controller px-2" role="tablist">
+        <button class="tab-btn active" id="btn_tab_results" role="tab" onclick="switchTab('results')">Check Results</button>
+        <button class="tab-btn" id="btn_tab_verify" role="tab" onclick="switchTab('verify')">Verify Certificate</button>
+    </div>
+
+    <div class="portal_container">
+
+        <!-- ===================================================================
+             TAB 1: CHECK RESULTS (NO SCHOOL SELECTION)
+             =================================================================== -->
+        <div id="tab_results" class="tab-content active" role="tabpanel">
+            <main class="portal_card card_gradient_results">
+                <header class="header_center">
+                    <div class="icon_wrapper icon_results">
+                        <svg style="width: 40px; height: 40px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h1 class="portal_title">Competition Results</h1>
+                    <p class="portal_subtitle">Find out how you did! Enter your name and select your competition to see your standing and download your certificate.</p>
+                </header>
+
+                <form id="form_results" novalidate>
+                    <!-- Name Input -->
+                    <div class="input_group">
+                        <label class="input_label" for="res_name">Your Full Name</label>
+                        <input type="text" id="res_name" class="form_input" placeholder="e.g. Aditi Sharma" autocomplete="off" spellcheck="false">
+                    </div>
+
+                    <!-- Competition Track -->
+                    <div class="input_group">
+                        <label class="input_label" for="res_track">Competition Track</label>
+                        <select id="res_track" class="form_input">
+                            <option value="" disabled selected>Select your competition...</option>
+                            <option value="EcoRise Business Blueprint">EcoRise Business Blueprint</option>
+                            <option value="Filmmaking Competition">Filmmaking Competition</option>
+                            <option value="Poetry Writing Competition">Poetry Writing Competition</option>
+                            <option value="Meme Design Competition">Meme Design Competition</option>
+                            <option value="Essay Writing Competition">Essay Writing Competition</option>
+                            <option value="FutureTech League">FutureTech League</option>
+                            <option value="Story Writing Competition">Story Writing Competition</option>
+                            <option value="Magazine Design Competition">Magazine Design Competition</option>
+                            <option value="ATL Innovators Lab">ATL Innovators Lab</option>
+                            <option value="EcoVision 3D Challenge">EcoVision 3D Challenge</option>
+                            <option value="Canva Design Contest">Canva Design Contest</option>
+                            <option value="Mathematics Quiz">Mathematics Quiz</option>
+                            <option value="Science Quiz">Science Quiz</option>
+                            <option value="Current Affairs Quiz">Current Affairs Quiz</option>
+                        </select>
+                    </div>
+
+                    <!-- Math Check -->
+                    <div class="captcha_box">
+                        <div class="captcha_text">
+                            <svg style="width: 20px; height: 20px; color: #64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            Quick Math Check: <span id="res_math" style="font-weight: 900; color: #b45309; margin: 0 6px; font-size: 18px; font-family: monospace;">? + ?</span>
+                        </div>
+                        <input type="number" id="res_math_input" class="captcha_input" placeholder="=">
+                    </div>
+
+                    <button type="submit" id="res_submit_btn" class="submit_btn btn_results">
+                        <svg style="width: 22px; height: 22px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        Show My Result
+                    </button>
+                </form>
+
+                <!-- Output Area -->
+                <div id="res_output" class="results_output"></div>
+            </main>
+
+            <!-- Friendly Helpful Tips -->
+            <aside class="faq_section">
+                <h2 class="faq_title">Helpful Tips</h2>
+                <div class="faq_item">
+                    <h3 class="faq_q">
+                        <svg style="width: 20px; height: 20px; color: #D4AF37; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                        Why does it say "Record Not Found"?
+                    </h3>
+                    <p class="faq_a">To protect your privacy, we require an exact match. Make sure you typed your name exactly as you submitted it during registration, and double-check that you selected the correct competition.</p>
+                </div>
+                <div class="faq_item">
+                    <h3 class="faq_q">
+                        <svg style="width: 20px; height: 20px; color: #D4AF37; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                        Do I still get a certificate if I didn't place?
+                    </h3>
+                    <p class="faq_a">Absolutely! We celebrate everyone's hard work. If you participated, you will be able to download a beautiful Certificate of Participation here.</p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- ===================================================================
+             TAB 2: VERIFY CERTIFICATE
+             =================================================================== -->
+        <div id="tab_verify" class="tab-content" role="tabpanel">
+            <main class="portal_card card_gradient_verify">
+                <header class="header_center">
+                    <div class="icon_wrapper icon_verify">
+                        <svg style="width: 40px; height: 40px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h1 class="portal_title">Verify a Certificate</h1>
+                    <p class="portal_subtitle">Ensure a certificate is official. Enter the unique ID found on the document to check its authenticity.</p>
+                </header>
+
+                <form id="form_verify" novalidate>
+                    <!-- ID Input -->
+                    <div class="input_group">
+                        <label class="input_label" for="ver_id">
+                            Certificate ID
+                            <span class="helper_link" id="toggle_helper">Where is this?</span>
+                        </label>
+                        <div id="ver_helper" class="helper_box">
+                            Look at the bottom-left corner of the certificate. You should see a code that looks like <strong>AKF2026-FLM-031</strong>. Just start typing it below, and we'll format it for you!
+                        </div>
+                        <input type="text" id="ver_id" class="form_input" autocomplete="off" spellcheck="false" placeholder="Start typing the code...">
+                    </div>
+
+                    <!-- Math Check -->
+                    <div class="captcha_box">
+                        <div class="captcha_text">
+                            <svg style="width: 20px; height: 20px; color: #ff4800;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Quick Math Check: <span id="ver_math" style="font-weight: 900; color: #2a1b0f; margin: 0 6px; font-size: 18px; font-family: monospace;">? + ?</span>
+                        </div>
+                        <input type="number" id="ver_math_input" class="captcha_input" placeholder="=">
+                    </div>
+
+                    <button type="submit" id="ver_submit_btn" class="submit_btn btn_verify">
+                        <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        Verify Certificate
+                    </button>
+                </form>
+            </main>
+
+            <!-- Verification Info -->
+            <aside class="faq_section">
+                <h2 class="faq_title">How Verification Works</h2>
+                <div class="faq_item">
+                    <h3 class="faq_q">
+                        <svg style="width: 20px; height: 20px; color: #4F46E5; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Why should I verify a certificate?
+                    </h3>
+                    <p class="faq_a">To prevent forgery and ensure that achievements are accurately represented. When you enter a valid ID, our system checks it against our secure database and displays the original, untampered details of the award.</p>
+                </div>
+            </aside>
+        </div>
+
+    </div>
+
+    <!-- Data-driven: competitions students can look up (built from the result tracks) -->
+    <section class="sp_recognised" aria-label="Recognised competitions">
+        <div class="sp_recognised_head">
+            <h2 class="sp_recognised_title">Recognised Competitions</h2>
+            <span class="sp_recognised_count" id="sp_comps_count">&mdash;</span>
+        </div>
+        <p class="sp_recognised_sub">Results &amp; certificates for the <strong>Academic Kickoff Fest 2026</strong> are available across these tracks:</p>
+        <div class="sp_chips" id="sp_comps_list" role="list" aria-label="Recognised competitions"></div>
+    </section>
+
+    <!-- =======================================================================
+         FOOTER WITH ANIMATED SKY
+         ======================================================================= -->
+    <footer class="index-footer">
+      <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>
+      <div class="index-footer__container">
+        <div class="index-footer__brand">
+          <a href="#" class="index-footer__logo-link">
+            <span class="index-footer__title">Inspire<em>Talent</em>Hub</span>
+          </a>
+          <p class="index-footer__sub">Building platforms that inspire creativity, reward hard work, and celebrate the brilliant young minds of tomorrow.</p>
+        </div>
+        <nav class="index-footer__nav">
+          <ul>
+            <li><a href="index.html">About Us</a></li>
+            <li><a href="competition.html">Competitions</a></li>
+            <li><a href="terms.html">Privacy Policy</a></li>
+            <li><a href="Contact.html">Help &amp; Support</a></li>
+          </ul>
+        </nav>
+        <div class="index-footer__bottom">
+          <div class="index-footer__divider"></div>
+          <p class="index-footer__copy">
+            &copy; 2026 Inspire Talent Hub. All Rights Reserved. 
+            <span class="index-footer__tagline">Celebrate Excellence.</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- =======================================================================
+         JAVASCRIPT LOGIC
+         ======================================================================= -->
+    <!-- Canonical results/certificate data (single source of truth) — must load first -->
+    <script src="result_announcer_2026_script.js"></script>
+    <script>
+        "use strict";
+
+        // ---------------------------------------------------------------------
+        // 1. MOCK DATABASE (Shared between both tools)
+        // ---------------------------------------------------------------------
+        // Single source of truth — provided by result_announcer_2026_script.js (window.RESULTS_DB).
+        const Database = Array.isArray(window.RESULTS_DB) ? window.RESULTS_DB : [];
+
+        // Names are stored lowercase in the canonical database; title-case for display.
+        const titleCase = (str) => String(str || "").replace(/\b[a-z]/g, c => c.toUpperCase());
+
+        // ---------------------------------------------------------------------
+        // 2. ERROR HANDLING UTILITIES
+        // ---------------------------------------------------------------------
+        const UIUtils = {
+            showError: (inputEl, message) => {
+                if (!inputEl) return;
+                inputEl.classList.add('input-error-state');
+                
+                // Find or create the error text div underneath the input
+                let errorDiv = inputEl.nextElementSibling;
+                if (!errorDiv || !errorDiv.classList.contains('inline-error-text')) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'inline-error-text';
+                    errorDiv.innerHTML = `<svg style="width:16px;height:16px;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg> <span class="msg"></span>`;
+                    inputEl.parentNode.insertBefore(errorDiv, inputEl.nextSibling);
+                }
+                
+                errorDiv.querySelector('.msg').textContent = message;
+                errorDiv.classList.add('active');
+                
+                // Remove the animation class so it can be re-triggered later
+                setTimeout(() => {
+                    inputEl.classList.remove('input-error-state');
+                    inputEl.style.borderColor = "#EF4444";
+                    inputEl.style.backgroundColor = "#FEF2F2";
+                    inputEl.style.color = "#991B1B";
+                }, 400);
+            },
+
+            clearError: (inputEl) => {
+                if (!inputEl) return;
+                inputEl.classList.remove('input-error-state');
+                inputEl.style.borderColor = "";
+                inputEl.style.backgroundColor = "";
+                inputEl.style.color = "";
+                const errorDiv = inputEl.nextElementSibling;
+                if (errorDiv && errorDiv.classList.contains('inline-error-text')) {
+                    errorDiv.classList.remove('active');
+                }
+            },
+
+            setLoading: (btn, isLoading, defaultHtml) => {
+                if (isLoading) {
+                    btn.disabled = true;
+                    btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 inline" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Checking...`;
+                } else {
+                    btn.disabled = false;
+                    btn.innerHTML = defaultHtml;
+                }
+            }
+        };
+
+        // ---------------------------------------------------------------------
+        // 3. MATH CAPTCHA LOGIC
+        // ---------------------------------------------------------------------
+        class MathCheck {
+            constructor(textId, inputId) {
+                this.textEl = document.getElementById(textId);
+                this.inputEl = document.getElementById(inputId);
+                this.answer = 0;
+                
+                if(this.inputEl) {
+                    this.inputEl.addEventListener('input', () => UIUtils.clearError(this.inputEl));
+                }
+            }
+            refresh() {
+                const n1 = Math.floor(Math.random() * 9) + 1;
+                const n2 = Math.floor(Math.random() * 9) + 1;
+                this.answer = n1 + n2;
+                if (this.textEl) this.textEl.textContent = `${n1} + ${n2}`;
+                if (this.inputEl) {
+                    this.inputEl.value = "";
+                    UIUtils.clearError(this.inputEl);
+                }
+            }
+            isValid() {
+                if (!this.inputEl) return false;
+                const userVal = parseInt(this.inputEl.value, 10);
+                return !isNaN(userVal) && userVal === this.answer;
+            }
+        }
+
+        const ResMath = new MathCheck('res_math', 'res_math_input');
+        const VerMath = new MathCheck('ver_math', 'ver_math_input');
+
+        // ---------------------------------------------------------------------
+        // 4. SMART INPUT MASKING (For Verify ID)
+        // ---------------------------------------------------------------------
+        const verifyInputEl = document.getElementById('ver_id');
+        if (verifyInputEl) {
+            verifyInputEl.classList.add('smart-input');
+            verifyInputEl.addEventListener('input', (e) => {
+                UIUtils.clearError(verifyInputEl);
+                
+                // Strip everything except letters and numbers
+                let val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+                
+                // Add the first dash after AKF2026
+                if (val.length > 7) {
+                    val = val.substring(0, 7) + '-' + val.substring(7);
+                }
+                
+                // Add the second dash where the letters stop and numbers start
+                let parts = val.split('-');
+                if (parts.length > 1) {
+                    let remainder = parts[1];
+                    let lettersMatch = remainder.match(/^[A-Z]+/);
+                    
+                    if (lettersMatch) {
+                        let letterPart = lettersMatch[0];
+                        if (remainder.length > letterPart.length) {
+                            let numberPart = remainder.substring(letterPart.length);
+                            // Keep max 3 digits at the end
+                            if (numberPart.length > 3) numberPart = numberPart.substring(0, 3);
+                            val = parts[0] + '-' + letterPart + '-' + numberPart;
+                        }
+                    }
+                }
+                
+                e.target.value = val;
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // 5. ANIMATIONS (Typewriter & Confetti)
+        // ---------------------------------------------------------------------
+        const typeText = (element, text, speed = 25) => {
+            element.innerHTML = '<span class="cursor">|</span>';
+            let i = 0;
+            const type = () => {
+                if (i < text.length) {
+                    element.innerHTML = element.innerHTML.replace('<span class="cursor">|</span>', '');
+                    element.innerHTML += text.charAt(i) + '<span class="cursor">|</span>';
+                    i++;
+                    setTimeout(type, speed + (Math.random() * 20 - 10));
+                } else {
+                    setTimeout(() => { element.innerHTML = element.innerHTML.replace('<span class="cursor">|</span>', ''); }, 2000);
+                }
+            };
+            setTimeout(type, 400);
+        };
+
+        class Confetti {
+            constructor() {
+                this.canvas = document.createElement('canvas');
+                this.canvas.id = 'confetti-canvas';
+                document.body.appendChild(this.canvas);
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.colors = ['#FFD700', '#DAA520', '#B8860B', '#FFF8DC', '#FFDF00', '#FFFFFF'];
+                this.active = false;
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+            }
+            resize() { this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight; }
+            shoot() {
+                this.active = true;
+                for (let i = 0; i < 150; i++) {
+                    this.particles.push({
+                        x: this.canvas.width / 2, y: this.canvas.height / 2 + 100,
+                        r: Math.random() * 5 + 3, dx: Math.random() * 30 - 15, dy: Math.random() * -25 - 10,
+                        c: this.colors[Math.floor(Math.random() * this.colors.length)],
+                        t: Math.floor(Math.random() * 10) - 10, tA: 0, tD: (Math.random() * 0.07) + 0.05,
+                        s: Math.random() > 0.5 ? 'circle' : 'rect'
+                    });
+                }
+                if (!this.frameId) this.loop();
+            }
+            loop() {
+                if (!this.active && this.particles.length === 0) return;
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                let count = 0;
+                for (let i = 0; i < this.particles.length; i++) {
+                    let p = this.particles[i];
+                    p.dy += 0.3; p.dx *= 0.98; p.x += p.dx; p.y += p.dy; p.tA += p.tD;
+                    if (p.y < this.canvas.height) count++;
+                    this.ctx.beginPath(); this.ctx.lineWidth = p.r; this.ctx.strokeStyle = p.c; this.ctx.fillStyle = p.c;
+                    if (p.s === 'circle') {
+                        this.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); this.ctx.fill();
+                    } else {
+                        this.ctx.moveTo(p.x + p.t + p.r, p.y); this.ctx.lineTo(p.x + p.t, p.y + p.t + p.r); this.ctx.stroke();
+                    }
+                }
+                if (count > 0 && this.active) this.frameId = requestAnimationFrame(() => this.loop());
+                else { this.active = false; this.frameId = null; this.particles = []; this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); }
+            }
+            stop() { this.active = false; }
+        }
+        const MyConfetti = new Confetti();
+
+        // ---------------------------------------------------------------------
+        // 6. RESULT ANNOUNCER EVENT BINDING
+        // ---------------------------------------------------------------------
+        const resForm = document.getElementById('form_results');
+        const resName = document.getElementById('res_name');
+        const resTrack = document.getElementById('res_track');
+        const resBtn = document.getElementById('res_submit_btn');
+        const resOutput = document.getElementById('res_output');
+        const resBtnHtml = resBtn ? resBtn.innerHTML : "";
+
+        // Clear errors on typing
+        if(resName) resName.addEventListener('input', () => UIUtils.clearError(resName));
+        if(resTrack) resTrack.addEventListener('change', () => UIUtils.clearError(resTrack));
+
+        if (resForm) {
+            resForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Clear old state
+                UIUtils.clearError(resName);
+                UIUtils.clearError(resTrack);
+                UIUtils.clearError(ResMath.inputEl);
+                resOutput.classList.remove('show');
+                resOutput.innerHTML = '';
+
+                let hasError = false;
+                const nameVal = resName.value.trim().toLowerCase();
+                const trackVal = resTrack.value;
+
+                if (!nameVal) { UIUtils.showError(resName, "Please type your full name."); hasError = true; }
+                if (!trackVal) { UIUtils.showError(resTrack, "Please choose your competition."); hasError = true; }
+                if (!ResMath.isValid()) {
+                    UIUtils.showError(ResMath.inputEl, "Oops! The math doesn't look right.");
+                    ResMath.refresh();
+                    hasError = true;
+                }
+
+                if (hasError) return;
+
+                // Simulate Network Delay
+                UIUtils.setLoading(resBtn, true, resBtnHtml);
+                
+                setTimeout(() => {
+                    UIUtils.setLoading(resBtn, false, resBtnHtml);
+                    
+                    // Search the single source of truth by name + competition.
+                    const match = Database.find(r => (r.name || '').toLowerCase() === nameVal && r.competitionName === trackVal);
+
+                    if (match) {
+                        const isWinner = match.status === "Winner";
+                        const displayName = titleCase(match.name);
+
+                        if (isWinner) {
+                            resOutput.innerHTML = `
+                                <div class="winner_card">
+                                    <div class="winner_seal">★</div>
+                                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest mb-2">Official Result</p>
+                                    <h2 class="result_name">${displayName}</h2>
+                                    <div class="result_award gold">${match.prize}</div>
+                                    ${match.certId ? `<div class="result_certid"><span class="result_certid_label">Certificate ID</span><span class="result_certid_value">${match.certId}</span></div>` : ''}
+                                    <p class="text-slate-300 max-w-md mx-auto mb-5">Congratulations! You secured a top place in the ${match.competitionName}${match.displaySchool ? ` for ${match.displaySchool}` : ''}.</p>
+                                    <div class="result_notice">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><path d="M16 8h4l3 3v5h-7V8z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                        <span>Your prize, medal, and verifiable <strong>Certificate of Achievement</strong> have been dispatched from our end and will be delivered to your school within <strong>5&ndash;7 working days</strong>. For any further awards-related queries, please contact your school.</span>
+                                    </div>
+                                    ${match.certId ? `<a href="#tab_verify" class="download_inline_btn" onclick="goVerify('${match.certId}'); return false;">Verify My Certificate</a>` : ''}
+                                </div>`;
+                        } else {
+                            resOutput.innerHTML = `
+                                <div class="participant_card">
+                                    <div class="participant_icon"><svg style="width: 30px; height: 30px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                                    <h2 class="result_name">${displayName}</h2>
+                                    <div class="result_award">${match.prize}</div>
+                                    <p class="text-slate-300 max-w-md mx-auto mb-5">We found your record! Thank you for participating in the ${match.competitionName}${match.displaySchool ? ` (${match.displaySchool})` : ''}.</p>
+                                    <div class="result_notice result_notice--participant">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 7l-10 6L2 7"></path></svg>
+                                        <span>Your <strong>Certificate of Participation</strong> will be sent to your email soon.</span>
+                                    </div>
+                                </div>`;
+                        }
+                        resOutput.classList.add('show');
+                    } else {
+                        UIUtils.showError(resName, "We couldn't find a match. Please double-check your spelling and track.");
+                    }
+                    
+                    ResMath.refresh();
+                }, 1000);
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // 7. VERIFICATION ENGINE EVENT BINDING
+        // ---------------------------------------------------------------------
+        const verForm = document.getElementById('form_verify');
+        const verBtn = document.getElementById('ver_submit_btn');
+        const verBtnHtml = verBtn ? verBtn.innerHTML : "";
+
+        // Build the Modal DOM structure
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'cinematic-overlay';
+        modalOverlay.innerHTML = `
+            <div class="cinematic-card">
+                <div class="card-content">
+                    <div class="cert-header">
+                        <svg style="width:18px; height:18px; color:#D4AF37;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Official Authentic Record
+                    </div>
+                    <div class="cert-name" id="mod_name">Name</div>
+                    
+                    <div class="cert-meta-grid">
+                        <div class="meta-item"><label>Certificate ID</label><span class="mono-id" id="mod_id">ID</span></div>
+                        <div class="meta-item"><label>Date Issued</label><span id="mod_date">Date</span></div>
+                        <div class="meta-item"><label>Award Details</label><span id="mod_award">Award</span></div>
+                        <div class="meta-item"><label>Competition</label><span id="mod_track">Track</span></div>
+                    </div>
+                    
+                    <div class="cert-ceremonial-text" id="mod_desc"></div>
+                    <button class="btn-close-modal" id="mod_close">Close Details</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modalOverlay);
+
+        const closeModal = () => {
+            modalOverlay.classList.remove('active');
+            document.getElementById('mod_desc').innerHTML = '';
+            MyConfetti.stop();
+        };
+        
+        document.getElementById('mod_close').addEventListener('click', closeModal);
+        
+        // Toggle helper text
+        const toggleHelper = document.getElementById('toggle_helper');
+        if(toggleHelper) {
+            toggleHelper.addEventListener('click', () => {
+                document.getElementById('ver_helper').classList.toggle('show');
+            });
+        }
+
+        if (verForm) {
+            verForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                UIUtils.clearError(verifyInputEl);
+                UIUtils.clearError(VerMath.inputEl);
+
+                let hasError = false;
+                const idVal = verifyInputEl.value.trim().toUpperCase();
+
+                if (!idVal) { UIUtils.showError(verifyInputEl, "Please enter a Certificate ID."); hasError = true; }
+                if (!VerMath.isValid()) {
+                    UIUtils.showError(VerMath.inputEl, "Oops! The math doesn't look right.");
+                    VerMath.refresh();
+                    hasError = true;
+                }
+
+                if (hasError) return;
+
+                // Simulate Network Delay
+                UIUtils.setLoading(verBtn, true, verBtnHtml);
+
+                setTimeout(() => {
+                    UIUtils.setLoading(verBtn, false, verBtnHtml);
+                    
+                    const match = Database.find(r => r.certId === idVal);
+
+                    if (match) {
+                        // Success! Remove focus from inputs
+                        verifyInputEl.blur();
+                        VerMath.inputEl.blur();
+                        
+                        // Populate Modal
+                        const verifiedName = titleCase(match.name);
+                        document.getElementById('mod_name').textContent = verifiedName;
+                        document.getElementById('mod_id').textContent = match.certId;
+                        document.getElementById('mod_date').textContent = "May 2026";
+                        document.getElementById('mod_award').textContent = match.prize;
+                        document.getElementById('mod_track').textContent = match.competitionName;
+
+                        const friendlyText = `This confirms that ${verifiedName} officially earned the recognition of ${match.prize} in the ${match.competitionName} during the Academic Kickoff Fest 2026. This is a verified, authentic record stored in our database.`;
+                        
+                        modalOverlay.classList.add('active');
+                        typeText(document.getElementById('mod_desc'), friendlyText, 20);
+                        
+                        MyConfetti.shoot();
+                        setTimeout(() => MyConfetti.shoot(), 500); // Double blast!
+                        
+                        verifyInputEl.value = "";
+                    } else {
+                        UIUtils.showError(verifyInputEl, "We couldn't find this ID in our records. Please make sure you typed it correctly.");
+                    }
+                    
+                    VerMath.refresh();
+                }, 1000);
+            });
+        }
+
+        // ---------------------------------------------------------------------
+        // 8. GLOBAL INIT & TAB SWITCHING
+        // ---------------------------------------------------------------------
+        window.switchTab = function(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            const targetBtn = document.getElementById(`btn_tab_${tabName}`);
+            const targetPanel = document.getElementById(`tab_${tabName}`);
+            
+            if(targetBtn && targetPanel) {
+                targetBtn.classList.add('active');
+                targetPanel.classList.add('active');
+            }
+        };
+
+        // Jump from a found result straight to the Verify tab with the ID pre-filled.
+        window.goVerify = function(certId) {
+            switchTab('verify');
+            const idInput = document.getElementById('ver_id');
+            if (idInput) {
+                idInput.value = certId;
+                // Trigger the smart-mask formatter so the ID renders consistently.
+                idInput.dispatchEvent(new Event('input', { bubbles: true }));
+                idInput.focus();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Build the "Recognised Competitions" chips from the result-track list already in the page.
+        (function buildRecognisedComps() {
+            const select = document.getElementById('res_track');
+            const list = document.getElementById('sp_comps_list');
+            const count = document.getElementById('sp_comps_count');
+            if (!select || !list) return;
+            const tracks = [...select.options].filter(o => o.value).map(o => o.textContent.trim());
+            if (count) count.textContent = tracks.length + (tracks.length === 1 ? ' track' : ' tracks');
+            list.innerHTML = '';
+            tracks.forEach(t => {
+                const chip = document.createElement('span');
+                chip.className = 'sp_chip';
+                chip.setAttribute('role', 'listitem');
+                chip.textContent = t.replace(/\s+competition\s*$/i, '').trim();
+                chip.title = t;
+                list.appendChild(chip);
+            });
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger logic
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            if(hamburger) hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+            // Initial Math Generation
+            ResMath.refresh();
+            VerMath.refresh();
+        });
+
+        // ---------------------------------------------------------------------
+        // 9. WEBGL FOOTER ANIMATION (SKY)
+        // ---------------------------------------------------------------------
+        (function initFooterSky() {
+            const canvases = document.querySelectorAll('.webgl-sky');
+            if (canvases.length === 0) return;
+            
+            canvases.forEach(canvas => {
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (!gl) { canvas.style.background = '#07090E'; return; }
+                
+                const vsSource = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+                const fsSource = `
+                    precision mediump float; uniform vec2 u_resolution; uniform float u_time;
+                    vec2 hash(vec2 p) { p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3))); return -1.0 + 2.0 * fract(sin(p) * 43758.5453123); }
+                    float noise(vec2 p) {
+                        const float K1 = 0.366025404; const float K2 = 0.211324865;
+                        vec2 i = floor(p + (p.x + p.y) * K1); vec2 a = p - i + (i.x + i.y) * K2;
+                        vec2 o = (a.x > a.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+                        vec2 b = a - o + K2; vec2 c = a - 1.0 + 2.0 * K2;
+                        vec3 h = max(0.5 - vec3(dot(a, a), dot(b, b), dot(c, c)), 0.0);
+                        vec3 n = h * h * h * h * vec3(dot(a, hash(i + 0.0)), dot(b, hash(i + o)), dot(c, hash(i + 1.0)));
+                        return dot(n, vec3(70.0));
+                    }
+                    float fbm(vec2 uv) { float f = 0.0; vec2 p = uv; float w = 0.5; for(int i = 0; i < 4; i++) { f += w * noise(p); p *= 2.0; w *= 0.5; } return f; }
+                    void main() {
+                        vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+                        vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+                        float t = u_time * 0.05; 
+                        vec2 flow = vec2(fbm(p * 1.5 + vec2(t, t * 0.5)), fbm(p * 1.2 - vec2(t * 0.3, t)));
+                        float dCenter = length(p); float aCenter = atan(p.y, p.x);
+                        flow += vec2(sin(aCenter + t), cos(aCenter + t)) * exp(-dCenter * 1.5) * 1.5;
+                        vec2 brush_uv = p * 3.5 + flow * 2.0;
+                        float strokeVal = fbm(brush_uv * vec2(2.5, 1.0)); strokeVal += fbm(brush_uv * 8.0) * 0.2;
+                        vec3 bgDeep = vec3(0.03, 0.04, 0.05); vec3 darkNavy = vec3(0.05, 0.06, 0.09); vec3 accentBlue = vec3(0.08, 0.1, 0.15); vec3 paleHighlight = vec3(0.12, 0.15, 0.2);
+                        float colorMix = smoothstep(0.1, 0.9, strokeVal + flow.x * 0.2);
+                        vec3 skyColor = mix(bgDeep, darkNavy, smoothstep(0.0, 0.4, colorMix));
+                        skyColor = mix(skyColor, accentBlue, smoothstep(0.3, 0.7, colorMix));
+                        skyColor = mix(skyColor, paleHighlight, smoothstep(0.6, 1.0, colorMix));
+                        float vignette = length(uv - vec2(0.5));
+                        skyColor *= smoothstep(1.2, 0.3, vignette); skyColor *= 0.9; 
+                        gl_FragColor = vec4(skyColor, 1.0);
+                    }
+                `;
+
+                function compileShader(type, source) { 
+                    const s = gl.createShader(type); 
+                    gl.shaderSource(s, source); 
+                    gl.compileShader(s); 
+                    return s; 
+                }
+
+                const vs = compileShader(gl.VERTEX_SHADER, vsSource);
+                const fs = compileShader(gl.FRAGMENT_SHADER, fsSource);
+                const program = gl.createProgram(); 
+                
+                gl.attachShader(program, vs); 
+                gl.attachShader(program, fs); 
+                gl.linkProgram(program);
+                
+                const positionBuffer = gl.createBuffer(); 
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1.0,-1.0, 1.0,-1.0, -1.0,1.0, 1.0,-1.0, 1.0,1.0, -1.0,1.0]), gl.STATIC_DRAW);
+                
+                const positionLocation = gl.getAttribLocation(program, "position"); 
+                gl.enableVertexAttribArray(positionLocation); 
+                gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+                
+                const resolutionLocation = gl.getUniformLocation(program, "u_resolution"); 
+                const timeLocation = gl.getUniformLocation(program, "u_time");
+                
+                function handleResize() { 
+                    const parent = canvas.parentElement; 
+                    canvas.width = parent.offsetWidth || window.innerWidth; 
+                    canvas.height = parent.offsetHeight || window.innerHeight; 
+                    gl.viewport(0, 0, canvas.width, canvas.height); 
+                }
+                
+                window.addEventListener('resize', handleResize);
+                handleResize();
+                
+                function animate(timestamp) { 
+                    gl.useProgram(program); 
+                    gl.uniform2f(resolutionLocation, canvas.width, canvas.height); 
+                    gl.uniform1f(timeLocation, timestamp * 0.001); 
+                    gl.drawArrays(gl.TRIANGLES, 0, 6); 
+                    requestAnimationFrame(animate); 
+                }
+                
+                requestAnimationFrame(animate);
+            });
+        })();
+    </script>
+</body>
+</html>

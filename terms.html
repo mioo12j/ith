@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions | Inspire Talent Hub</title>
+  <meta name="description" content="Terms of Service and Conditions for Inspire Talent Hub.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#e8c66a',   
+              secondary: '#c9a84c', 
+              alpha: 'rgba(232, 198, 106, 0.1)',
+            },
+            base: {
+              DEFAULT: '#02040a',   
+              surface: '#060a14',   
+              surface2: '#0a1020',  
+            }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            heading: ['"Cormorant Garamond"', 'serif'],
+            body: ['"Inter"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #02040a;
+      color: #ffffff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Ambient Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(45deg, rgba(232, 198, 106, 0.03) 0%, rgba(2, 4, 10, 0.05) 100%);
+      z-index: -1;
+    }
+
+    /* =========================================
+       NAVIGATION STYLES
+       ========================================= */
+    .nav-scrolled {
+      background: rgba(3, 6, 13, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; width: 0; height: 1px; bottom: -4px; left: 0;
+      background-color: #e8c66a; transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    @media (max-width: 767.98px) {
+      #navLinks {
+        position: fixed; top: 0; right: -100vw; width: 100vw; height: 100vh;
+        background: rgba(3, 6, 13, 0.98); flex-direction: column; justify-content: center; align-items: center;
+        transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1); z-index: 1000;
+      }
+      #navLinks.open { right: 0; box-shadow: inset 0 0 100px rgba(232, 198, 106, 0.05); }
+      #navLinks li a { font-size: 1.5rem; margin: 1rem 0; display: block; }
+      #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      #hamburger.open span:nth-child(2) { opacity: 0; }
+      #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+
+    /* =========================================
+       PAGE ANIMATIONS
+       ========================================= */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .delay-100 { transition-delay: 100ms; }
+
+    /* =========================================
+       LEGAL DOCUMENT TYPOGRAPHY
+       ========================================= */
+    .legal-content {
+      color: #94a3b8;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .legal-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: #ffffff;
+      margin-top: 3rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(232, 198, 106, 0.15);
+    }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content p { margin-bottom: 1.5rem; text-align: justify; }
+
+    /* =========================================
+       FOOTER STYLES
+       ========================================= */
+    .index-footer { background: #07090E; border-top: 1px solid rgba(201, 168, 76, 0.15); position: relative; overflow: hidden; margin-top: auto; }
+    .index-footer__canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.4; pointer-events: none; }
+    .index-footer__container { padding-block: 4rem 2rem; position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; padding-inline: 2rem; }
+    .index-footer__brand { text-align: center; margin-bottom: 3rem; display: flex; flex-direction: column; align-items: center; }
+    .index-footer__logo-link { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: #c9a84c; margin-bottom: 0.8rem; transition: transform 0.3s ease; }
+    .index-footer__logo-link:hover { transform: scale(1.02); }
+    .index-footer__title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); letter-spacing: 0.08em; color: #ffffff; font-weight: 600; }
+    .index-footer__title em { font-style: normal; color: #c9a84c; }
+    .index-footer__sub { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; max-width: 450px; margin-top: 0.5rem; }
+    .index-footer__nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem 2.5rem; margin-bottom: 3rem; list-style: none; padding: 0; }
+    .index-footer__nav a { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: #94a3b8; text-decoration: none; transition: color 0.3s ease; }
+    .index-footer__nav a:hover { color: #c9a84c; }
+    .index-footer__divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.25), transparent); margin-bottom: 2rem; }
+    .index-footer__copy { text-align: center; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 0.1em; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; text-transform: uppercase; }
+    .index-footer__tagline { color: #c9a84c; font-style: italic; text-transform: none; letter-spacing: 0.05em; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="icon-star" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 md:px-16 py-5 transition-all duration-300">
+    <a href="/" class="flex items-center gap-2 text-brand-secondary hover:scale-105 transition-transform duration-300 z-[1002]">
+      <svg class="w-4 h-4 animate-[spin_12s_linear_infinite] fill-current" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <span class="font-display text-lg font-semibold tracking-wider text-brand-secondary">
+        Inspire<em class="font-heading italic font-light text-white lowercase">Talent</em>Hub
+      </span>
+    </a>
+    <ul id="navLinks" class="flex items-center gap-10 m-0 p-0 list-none">
+      <li><a href="index.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Our Story</a></li>
+      <li><a href="competition.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Competitions</a></li>
+      <li><a href="learnmore.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Learn More</a></li>
+      <li><a href="faq.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">FAQ</a></li>
+      <li><a href="Contact.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Contact</a></li>
+    </ul>
+    <button id="hamburger" class="md:hidden flex flex-col gap-[5px] p-1 bg-transparent border-none cursor-pointer z-[1002]" aria-label="Open menu" aria-expanded="false">
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+    </button>
+  </nav>
+
+  <main class="flex-grow w-full max-w-5xl mx-auto px-6 md:px-12 pt-36 pb-24">
+    
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block py-2 px-6 rounded-full border border-brand-alpha bg-brand-alpha/50 text-brand-primary text-xs font-semibold tracking-[0.3em] uppercase mb-6 backdrop-blur-sm shadow-[0_0_15px_rgba(232,198,106,0.1)]">
+        Legal Document
+      </span>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+        Terms & <em class="font-heading italic font-light text-brand-primary">Conditions</em>
+      </h1>
+      <p class="text-gray-400 text-xs md:text-sm tracking-widest uppercase">Effective Date: April 2026</p>
+    </div>
+
+    <div class="bg-base-surface border border-white/5 rounded-2xl p-8 md:p-12 lg:p-16 shadow-2xl reveal delay-100 relative overflow-hidden">
+      
+      <div class="absolute -top-32 -right-32 w-64 h-64 bg-brand-primary/5 rounded-full blur-[80px] pointer-events-none"></div>
+      
+      <div class="legal-content relative z-10">
+        
+        <p>These Terms of Service and Conditions constitute a formal, legally binding, and enforceable contract between the individual participant, user, purchaser, parent, legal guardian, or any person acting on their behalf, hereinafter referred to as the participant, and Inspire Talent Hub, its parent entities, subsidiaries, directors, and authorized representatives, hereinafter referred to as the company or we. This agreement comprehensively governs the access to, purchase of, registration in, and participation in any competition, event, program, bundle, plan, or offering made available through our digital platforms, including websites, applications, submission portals, and affiliated infrastructure. These terms shall come into full force and effect immediately upon the creation of an account or the successful processing of any financial transaction on the platform. No physical signature or explicit written acknowledgment is required to validate this contract, as the act of making a payment or registering is deemed absolute and unconditional acceptance of all stipulations contained herein.
+
+Recognizing the legal frameworks governing contractual capacity, particularly the Indian Contract Act of 1872 wherein agreements with minors are considered void, it is a strict requirement that any individual making a payment or registering on this platform warrants and represents that they are a legally competent adult of at least eighteen years of age. If the intended participant is a minor, the adult executing the transaction explicitly affirms that they are the legal parent or authorized guardian of said minor. By proceeding, the adult guardian agrees to bear full financial, legal, and operational responsibility for the minor’s participation, conduct, and strict compliance with these terms, thereby legally binding themselves to the obligations of this agreement on the minor's behalf.
+
+The participant acknowledges and agrees that this document represents the complete, exhaustive, and final understanding governing the relationship between the parties, superseding all prior communications, representations, or understandings. No statement, advertisement, promotional material, verbal assurance, social media interaction, sample illustration, or prior communication of any nature shall be deemed to alter, expand, modify, or override the explicit contents of this agreement. Any descriptive language, marketing content, or illustrative presentations utilized by the company are intended solely for general informational and promotional purposes and do not create any enforceable obligation, warranty, or liability beyond the explicit guarantees stated within this text. Any modification to these terms must be expressly incorporated into a written amendment physically signed by authorized representatives of both the participant and the company.
+
+Inspire Talent Hub operates a dynamic digital ecosystem designed for academic challenges and talent recognition, and the participant understands that the structure, format, scheduling, and execution of all competitions are subject to change based on logistical, technical, and administrative necessities. While the company retains ultimate operational authority over the competition framework, including the right to modify competition dates, alter submission portals, or adjust categories to ensure fair play and efficiency, all decisions regarding grading, disqualifications, and event management will be executed utilizing reasonable commercial discretion. This ensures that no action is taken arbitrarily or with malicious intent toward any participant, balancing the platform's need for flexibility with the participant's right to fair treatment.
+
+To ensure absolute clarity and prevent any misrepresentation, the obligations of the company are strictly limited to highly specific guaranteed deliverables based on the participant's final standing. For a participant who does not achieve a winning position, the sole guaranteed deliverable is the issuance of a verifiable certificate of participation, which may be provided in a digital or physical format entirely at the administrative discretion of the company. For a participant who achieves a designated winning position, the guaranteed deliverables include a certificate of achievement alongside the specific, advertised trophy or medal expressly correlated to that exact competition tier. Any other potential incentives, including but not limited to cash prizes, sponsored merchandise, electronic gadgets, or third-party scholarships, are entirely discretionary and contingent upon sponsor fulfillment and overall participation metrics. The company acts solely as a facilitator for these third-party rewards and assumes no liability whatsoever if a sponsor defaults, meaning no claims or grievances may be raised against the company for the modification, substitution, or complete cancellation of any discretionary reward.
+
+The evaluation of submissions utilizes a hybrid approach to ensure both efficiency and accuracy, and the participant explicitly acknowledges and consents that the company may employ automated algorithms, plagiarism checkers, and artificial intelligence technologies to assist in evaluating, grading, and generating feedback for submissions. Individualized, live, or human-to-human feedback is never guaranteed, and any provided feedback may consist merely of standardized rubrics or general observational reports. To maintain systemic fairness and address potential technological anomalies, if a participant genuinely believes a gross technical or systemic error occurred during the grading of their submission, they are permitted to submit a formal request for an administrative review within forty-eight hours of the final results being published. This specific review process is strictly limited to identifying and rectifying system failures or tabulation errors and does not extend to debating the subjective academic quality or artistic merit of the submission, with the findings of the administrative review being considered final, conclusive, and binding.
+
+In compliance with fair trade practices and to protect the operational stability of the platform, the financial terms are structured to be highly restrictive while remaining legally sound. Due to the digital nature of the platform and the immediate, unrecoverable allocation of administrative resources upon registration, all fees paid are strictly non-refundable for any reasons pertaining to user dissatisfaction, scheduling conflicts, illness, personal emergencies, or a failure to submit work before the deadline. A pro-rated or full refund will only be considered and issued in the rare event that the company completely fails to execute the promised competition, such as a catastrophic platform failure exceeding seventy-two hours that prevents all participants from competing, provided that an alternative date or reasonable substitute cannot be facilitated by the company.
+
+Furthermore, the participant agrees to a strict protocol regarding payment disputes and chargebacks initiated through their financial institution or credit card issuer. Before initiating any form of chargeback or payment reversal, the participant is contractually obligated to first contact the company's designated grievance officer in writing to attempt a good-faith resolution of the issue. Initiating a frivolous or uncommunicated chargeback constitutes a material breach of this agreement and will result in the immediate forfeiture of any pending deliverables, the invalidation of any earned certificates, and a permanent ban from accessing the platform or any future events hosted by the company.
+
+Intellectual property rights and academic integrity form the core of the platform's values, requiring the participant to formally warrant that all materials, answers, and projects submitted are entirely their own original creation. By submitting any work to the platform, the participant retains their underlying copyright but unequivocally grants the company a perpetual, royalty-free, worldwide, non-exclusive, and irrevocable license to use, publish, display, and distribute the submission for promotional, educational, and marketing purposes across any media format. The company enforces a zero-tolerance policy regarding academic dishonesty; consequently, any use of unauthorized artificial intelligence generation tools to complete submissions, acts of plagiarism, or cheating will result in immediate disqualification without any possibility of a refund or appeal.
+
+Access to the platform, including user dashboards, submission portals, and resource hubs, is provided strictly on an as-is and as-available basis, with the company reserving the unrestricted right to modify, suspend, restrict, or terminate access for maintenance, security, or operational reasons at any time. It remains the participant's sole responsibility to ensure they possess a stable internet connection, compatible hardware, and suitably updated software to navigate the portals and upload their work well before any stipulated deadlines. The company does not warrant that the platform will be entirely free of interruptions, bugs, or downtime, and explicitly disclaims any liability for missed deadlines or corrupted submissions resulting from local internet service provider failures, power outages, or hardware malfunctions on the participant's end.
+
+To the maximum extent permitted by applicable law, the company, its officers, employees, and affiliates shall not be held liable for any indirect, incidental, punitive, special, or consequential damages, including but not limited to lost educational opportunities, loss of data, or emotional distress, arising directly or indirectly from participation in the platform. In the event that a competent legal authority finds the company liable for any breach of these terms or operational failure, the total cumulative liability of the company shall be strictly capped at, and shall under no circumstances exceed, the exact total monetary amount paid by the participant to the company for that specific and disputed competition cycle.
+
+Believing firmly in resolving disputes amicably and efficiently, the parties agree that in the event of any dispute, claim, or grievance arising out of these terms, the matter must first be submitted to mandatory online mediation facilitated by a neutral third party chosen by the company before any formal litigation can be pursued. If this good-faith mediation fails to yield a resolution, any subsequent legal proceedings shall be subject to the exclusive jurisdiction of the competent courts located in New Delhi, India, subject always to the statutory rights granted under the Consumer Protection Act of 2019. The participant further agrees that any legal claims brought against the company must be conducted entirely in their individual capacity, and they explicitly waive any right to participate as a plaintiff or class member in any purported class action lawsuit or representative proceeding.
+
+If any provision or clause of this agreement is deemed unlawful, void, or for any reason unenforceable by a court of competent jurisdiction, that specific provision shall be severed from this document or limited to the minimum extent necessary, while all remaining clauses shall continue in full force and effect without being legally invalidated. The company reserves the right to modify, update, or revise these terms at any time for future events, and continued use of the platform following the posting of such changes constitutes ongoing acceptance of the revised terms. By proceeding with the payment and registration process, the payer formally confirms that they possess the legal capacity to bind the participant, have read the text comprehensively, understand the distinct legal boundaries established herein, and unconditionally accept this document as the final and binding agreement governing their relationship with the company.</p>
+       
+      </div>
+    </div>
+  </main>
+
+  <footer class="index-footer" role="contentinfo" id="index-footer">
+    <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>
+    <div class="index-footer__container">
+      <div class="index-footer__brand">
+        <a href="#hero" class="index-footer__logo-link hover-target" aria-label="Inspire Talent Hub Home">
+          <svg class="icon-star-small" width="18" height="18" fill="currentColor" aria-hidden="true">
+            <use href="#icon-star"></use>
+          </svg>
+          <span class="index-footer__title">Inspire<em>Talent</em>Hub</span>
+        </a>
+        <p class="index-footer__sub">Architecting the ultimate competitive infrastructure to forge the brilliant leaders of tomorrow.</p>
+      </div>
+      
+      <nav class="index-footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="index.html">Our Heritage</a></li>
+          <li><a href="competition.html" target="_blank" rel="noopener noreferrer">Competitions</a></li>
+          <li><a href="learnmore.html" target="_blank" rel="noopener noreferrer">Learn More</a></li>
+          <li><a href="faq.html" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+          <li><a href="Contact.html" target="_blank" rel="noopener noreferrer">Contact</a></li>
+          <li><a href="terms.html" class="text-brand-primary" target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
+          <li><a href="refund.html" target="_blank" rel="noopener noreferrer">Refund Protocol</a></li>
+        </ul>
+      </nav>
+      
+      <div class="index-footer__bottom">
+        <div class="index-footer__divider" aria-hidden="true"></div>
+        <p class="index-footer__copy">
+          &copy; 2026 Inspire Talent Hub. All Intellectual Rights Strictly Reserved. 
+          <span class="index-footer__tagline">Command the Future.</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // 1. Navigation Scroll & Mobile Menu
+      const nav = document.getElementById('mainNav');
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('nav-scrolled', window.scrollY > 40);
+      }, { passive: true });
+
+      hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // 2. Scroll Reveal
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // 3. Footer WebGL Sky Animation
+      const canvases = document.querySelectorAll('.webgl-sky');
+      canvases.forEach(canvas => {
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) { canvas.style.background = '#07090E'; return; }
+        
+        const vsSource = `attribute vec2 position; void main() { gl_Position = vec4(position, 0.0, 1.0); }`;
+        const fsSource = `
+          precision mediump float; uniform vec2 u_resolution; uniform float u_time;
+          vec2 hash(vec2 p) { p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3))); return -1.0 + 2.0 * fract(sin(p) * 43758.5453123); }
+          float noise(vec2 p) {
+            const float K1 = 0.366025404; const float K2 = 0.211324865;
+            vec2 i = floor(p + (p.x + p.y) * K1); vec2 a = p - i + (i.x + i.y) * K2;
+            vec2 o = (a.x > a.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+            vec2 b = a - o + K2; vec2 c = a - 1.0 + 2.0 * K2;
+            vec3 h = max(0.5 - vec3(dot(a, a), dot(b, b), dot(c, c)), 0.0);
+            vec3 n = h * h * h * h * vec3(dot(a, hash(i + 0.0)), dot(b, hash(i + o)), dot(c, hash(i + 1.0)));
+            return dot(n, vec3(70.0));
+          }
+          float fbm(vec2 uv) { float f = 0.0; vec2 p = uv; float w = 0.5; for(int i = 0; i < 4; i++) { f += w * noise(p); p *= 2.0; w *= 0.5; } return f; }
+          void main() {
+            vec2 uv = gl_FragCoord.xy / u_resolution.xy; vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+            float t = u_time * 0.05;
+            vec2 flow = vec2(fbm(p * 1.5 + vec2(t, t * 0.5)), fbm(p * 1.2 - vec2(t * 0.3, t)));
+            float dCenter = length(p); float aCenter = atan(p.y, p.x);
+            flow += vec2(sin(aCenter + t), cos(aCenter + t)) * exp(-dCenter * 1.5) * 1.5;
+            vec2 brush_uv = p * 3.5 + flow * 2.0; float strokeVal = fbm(brush_uv * vec2(2.5, 1.0)); strokeVal += fbm(brush_uv * 8.0) * 0.2;
+            vec3 bgDeep = vec3(0.03, 0.04, 0.05); vec3 darkNavy = vec3(0.05, 0.06, 0.09); vec3 accentBlue = vec3(0.08, 0.1, 0.15); vec3 paleHighlight = vec3(0.12, 0.15, 0.2);
+            float colorMix = smoothstep(0.1, 0.9, strokeVal + flow.x * 0.2);
+            vec3 skyColor = mix(bgDeep, darkNavy, smoothstep(0.0, 0.4, colorMix));
+            skyColor = mix(skyColor, accentBlue, smoothstep(0.3, 0.7, colorMix)); skyColor = mix(skyColor, paleHighlight, smoothstep(0.6, 1.0, colorMix));
+            float vignette = length(uv - vec2(0.5)); skyColor *= smoothstep(1.2, 0.3, vignette); skyColor *= 0.9;
+            gl_FragColor = vec4(skyColor, 1.0);
+          }
+        `;
+        
+        function compileShader(type, source) {
+          const shader = gl.createShader(type); gl.shaderSource(shader, source); gl.compileShader(shader); return shader;
+        }
+        const vs = compileShader(gl.VERTEX_SHADER, vsSource); const fs = compileShader(gl.FRAGMENT_SHADER, fsSource);
+        const program = gl.createProgram(); gl.attachShader(program, vs); gl.attachShader(program, fs); gl.linkProgram(program);
+        
+        const posBuffer = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+        const posLoc = gl.getAttribLocation(program, "position"); gl.enableVertexAttribArray(posLoc); gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+        
+        const resLoc = gl.getUniformLocation(program, "u_resolution"), timeLoc = gl.getUniformLocation(program, "u_time");
+        
+        function resize() {
+          canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
+          canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
+          gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        window.addEventListener('resize', resize); resize();
+        
+        function render(time) {
+          gl.useProgram(program); gl.uniform2f(resLoc, canvas.width, canvas.height); gl.uniform1f(timeLoc, time * 0.001);
+          gl.drawArrays(gl.TRIANGLES, 0, 6); requestAnimationFrame(render);
+        }
+        requestAnimationFrame(render);
+      });
+
+    });
+  </script>
+
+</body>
+</html>

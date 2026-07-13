@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="https://inspiretalenthub.in/favicon.png">
+  <title>FAQ & Knowledge Base | Inspire Talent Hub</title>
+  <meta name="description" content="Frequently Asked Questions about Inspire Talent Hub competitions, registration, and evaluation processes. Find all your answers here.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#e8c66a',   
+              secondary: '#c9a84c', 
+              alpha: 'rgba(232, 198, 106, 0.1)',
+            },
+            base: {
+              DEFAULT: '#02040a',   
+              surface: '#060a14',   
+              surface2: '#0a1020',  
+            }
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            heading: ['"Cormorant Garamond"', 'serif'],
+            body: ['"Inter"', 'sans-serif'],
+          },
+          backgroundImage: {
+            'gold-gradient': 'linear-gradient(135deg, #e8c66a, #c9a84c)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #02040a;
+      color: #ffffff;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(45deg, rgba(232, 198, 106, 0.02) 0%, rgba(2, 4, 10, 0.05) 100%);
+      z-index: -1;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: rgba(232, 198, 106, 0.3);
+      box-shadow: 0 0 5px rgba(232, 198, 106, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    @keyframes moveParticle {
+      0% { transform: translate(0, 0); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translate(var(--move-x), var(--move-y)); opacity: 0; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute;
+      width: 0; height: 1px;
+      bottom: -4px; left: 0;
+      background-color: #e8c66a;
+      transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .faq-answer {
+      transition: max-height 0.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.3s ease;
+    }
+    
+    .page-btn {
+      transition: all 0.3s ease;
+    }
+    .page-btn.active {
+      background: linear-gradient(135deg, #e8c66a, #c9a84c);
+      color: #02040a;
+      border-color: transparent;
+      box-shadow: 0 0 15px rgba(232, 198, 106, 0.3);
+    }
+
+    /* =========================================================
+       ADDED: NAVIGATION SPECIFIC CSS (Scroll & Mobile)
+       ========================================================= */
+    .nav-scrolled {
+      background: rgba(3, 6, 13, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 767.98px) {
+      #navLinks {
+        position: fixed;
+        top: 0; right: -100vw; /* Hidden off-screen initially */
+        width: 100vw; height: 100vh;
+        background: rgba(3, 6, 13, 0.98);
+        flex-direction: column; justify-content: center; align-items: center;
+        transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        z-index: 1000;
+      }
+      #navLinks.open {
+        right: 0; /* Slide in */
+        box-shadow: inset 0 0 100px rgba(232, 198, 106, 0.05);
+      }
+      #navLinks li a {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+        display: block;
+      }
+      
+      /* Hamburger Animation */
+      #hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      #hamburger.open span:nth-child(2) { opacity: 0; }
+      #hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-[1000] flex items-center justify-between px-6 md:px-16 py-5 transition-all duration-300">
+    
+    <a href="index.html" class="flex items-center gap-2 text-brand-secondary hover:scale-105 transition-transform duration-300 z-[1002]">
+      <svg class="w-4 h-4 animate-[spin_12s_linear_infinite] fill-current" viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <span class="font-display text-lg font-semibold tracking-wider text-brand-secondary">
+        Inspire<em class="font-heading italic font-light text-white lowercase">Talent</em>Hub
+      </span>
+    </a>
+
+    <ul id="navLinks" class="flex items-center gap-10 m-0 p-0 list-none">
+      <li><a href="index.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Our Story</a></li>
+      <li><a href="competition.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Competitions</a></li>
+      <li><a href="learnmore.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Learn More</a></li>
+      <li><a href="faq.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">FAQ</a></li>
+      <li><a href="Contact.html" class="nav-link text-white text-[0.8rem] tracking-[0.15em] uppercase font-medium">Contact</a></li>
+    </ul>
+
+    <button id="hamburger" class="md:hidden flex flex-col gap-[5px] p-1 bg-transparent border-none cursor-pointer z-[1002]" aria-label="Open menu" aria-expanded="false">
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      <span class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+    </button>
+
+  </nav>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const nav = document.getElementById('mainNav');
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      const links = document.querySelectorAll('.nav-link');
+
+      // 1. Scroll Effect
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) {
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+        }
+      }, { passive: true });
+
+      // 2. Mobile Menu Toggle
+      hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+        
+        // Prevent body scrolling when menu is open
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      // 3. Close mobile menu when a link is clicked
+      links.forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+    });
+  </script>
+<body class="bg-base text-gray-200">
+
+  <script>
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+      const moveX = (Math.random() - 0.5) * 150;
+      const moveY = (Math.random() - 0.5) * 150;
+      particle.style.setProperty('--move-x', `${moveX}px`);
+      particle.style.setProperty('--move-y', `${moveY}px`);
+      particle.style.left = `${startX}px`;
+      particle.style.top = `${startY}px`;
+      particle.style.animation = `moveParticle ${4 + Math.random() * 3}s linear infinite`;
+      document.body.appendChild(particle);
+      setTimeout(() => { particle.remove(); }, 6000);
+    }
+    setInterval(createParticle, 400);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+  </script>
+
+
+
+  <section class="pt-40 pb-12 border-b border-white/5 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 reveal">
+      <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-brand-primary/30 bg-brand-alpha backdrop-blur-md mb-6">
+        <i class="ri-search-eye-line text-brand-primary"></i>
+        <span class="font-body text-[10px] font-bold tracking-[0.25em] text-brand-primary uppercase">Knowledge Base</span>
+      </div>
+      <h1 class="font-display text-5xl md:text-7xl text-white mb-6">Frequently Asked <span class="text-brand-primary italic">Questions</span></h1>
+      <p class="font-body text-sm font-light text-gray-400 max-w-2xl mx-auto mb-10">Everything you need to know about navigating the Inspire Talent Hub arenas. Browse below or search directly for your query.</p>
+
+      <div class="max-w-2xl mx-auto relative group">
+        <i class="ri-search-line absolute left-6 top-1/2 -translate-y-1/2 text-xl text-gray-500 group-focus-within:text-brand-primary transition-colors"></i>
+        <input type="text" id="searchInput" placeholder="Search for questions (e.g., Mega Combo, Eligibility)..." class="w-full bg-[#0a1020]/80 backdrop-blur-md border border-white/10 rounded-full py-5 pl-14 pr-6 text-white font-body focus:outline-none focus:border-brand-primary/50 focus:ring-1 focus:ring-brand-primary/50 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.5)] placeholder-gray-600">
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 relative min-h-[500px]">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div id="faqContainer" class="space-y-4 reveal">
+        </div>
+
+      <div id="paginationControls" class="flex justify-center items-center gap-2 mt-16 reveal delay-100 flex-wrap">
+        </div>
+
+    </div>
+  </section>
+
+  <script>
+    const faqData = [
+      { q: "What is Inspire Talent Hub?", a: "Inspire Talent Hub is a student-first platform designed to help young learners discover their strengths, compete with confidence, and grow through recognition and meaningful opportunities. It brings together competitions, mentorship, feedback, and performance-based rewards in one place.", cat: "General" },
+      { q: "Who can participate in Inspire Talent Hub competitions?", a: "Students from grades 6 to 12 are eligible to participate. The competitions are open to learners across all recognized boards (Science, Commerce, Humanities). It also allows participation from students in different countries through its online format.", cat: "Eligibility" },
+      { q: "Which boards are eligible to participate?", a: "All recognized boards are eligible to participate. This means students from a wide range of school systems can join the competitions without board-specific restrictions. The focus is on student talent, creativity, and performance.", cat: "Eligibility" },
+      { q: "Are the competitions held online?", a: "Yes, the competitions are 100% online. Students can participate from anywhere without needing to travel to a physical venue. The online format makes the process more convenient and accessible.", cat: "General" },
+      { q: "What kinds of competitions are available?", a: "We offer categories across Literature, Science and Tech, Business, Visual Arts, Performing Arts, and Film Making. Events include essay writing, coding challenges, business plans, painting, recitation, dance, and short films.", cat: "Events" },
+      { q: "What is the age or grade eligibility for the competitions?", a: "The competitions are specifically open to students from grades 6 through 12. This range includes middle school and high school students, giving them a chance to compete in an appropriate environment.", cat: "Eligibility" },
+      { q: "Can students from outside India participate?", a: "Yes, students from any country can participate in the online categories. The platform has been designed to support global participation, making international participation simple and seamless.", cat: "Eligibility" },
+      { q: "What are the main benefits of participating?", a: "Participants develop critical thinking, problem-solving, creativity, and innovation skills. They receive expert feedback, earn recognition, build confidence, and compete for prizes and certificates.", cat: "Benefits" },
+      { q: "Are scholarships or financial rewards available?", a: "The platform offers monetary prizes and recognition. Winnings can be up to ₹10 lakhs, depending on the category. Participants may also receive certificates, trophies, and other forms of recognition.", cat: "Rewards" },
+      { q: "What is the prize structure like?", a: "Rewards include monetary prizes, physical certificates, and trophies. Some categories also offer rolling trophy eligibility for bulk participation. Prize amounts differ depending on the specific event.", cat: "Rewards" },
+      { q: "How does the evaluation process work?", a: "We use a three-stage framework: Initial Screening (30% weight) for shortlisting, Expert Review (40% weight) for practical depth/technical quality, and a Final Round (30% weight) determining the winners based on overall effectiveness.", cat: "Evaluation" },
+      { q: "What is assessed during the competition?", a: "Judging focuses on creativity, clarity, technical strength, and practical value. Depending on the category, criteria include concept understanding, originality, presentation quality, real-world impact, feasibility, and research depth.", cat: "Evaluation" },
+      { q: "Is the testing and evaluation secure?", a: "Yes, the platform emphasizes secure processing through Razorpay and maintains a trusted, structured environment built to provide a reliable and professional experience for participants.", cat: "Security" },
+      { q: "What does the General Entry package include?", a: "Priced at ₹300 per event, it includes online certificates for all participants. Winners receive physical certificates and trophies. It is the standard entry option for most general competitions.", cat: "Pricing" },
+      { q: "What is the Mega Combo package?", a: "The Mega Combo is a discounted package giving access to 10 competitions for ₹1,500 instead of ₹3,000 (50% off). It's ideal for students aiming for the Rolling Trophy.", cat: "Pricing" },
+      { q: "What is the Tech Single or Science & Tech Pro entry?", a: "Priced at ₹500 per event, it includes all General Entry benefits plus special industry recognition, media attention, and advanced laboratory or technology evaluation.", cat: "Pricing" },
+      { q: "What is the Tech Combo package?", a: "The Tech Combo gives access to 3 Pro Tech competitions for ₹1,000 instead of ₹1,500 (33% off). It is suited for students focused on innovation and technical excellence.", cat: "Pricing" },
+      { q: "What kinds of event categories are available in Literature, Science, Business, and Arts?", a: "Literature: speech/poem/story writing. Science: quizzes, coding, robotics. Business: plans, pitches, mock stock. Arts: painting, digital art, recitation, drama, dance, film making.", cat: "Events" },
+      { q: "Will participants receive certificates?", a: "Yes, online certificates are provided for all participants. Winners receive physical certificates and trophies to showcase their achievement.", cat: "Rewards" },
+      { q: "How do I register for a competition?", a: "Choose your competition package, complete the secure payment process through Razorpay, and receive confirmation by email. Start by clicking the 'Register Now' or 'Get Started' buttons.", cat: "Registration" },
+      { q: "Can students participate in more than one competition?", a: "Yes! Students can participate in multiple competitions. The Mega Combo and Tech Combo are designed specifically for students wanting broader participation across several events at a better value.", cat: "Registration" },
+      { q: "Why should a student join Inspire Talent Hub?", a: "To gain exposure, confidence, and recognition globally. It's a chance to build skills, receive expert feedback, and discover personal strengths through a fair, competitive environment.", cat: "General" },
+      { q: "Do Online Competitions Actually Help With College Applications?", a: "Yes, when chosen carefully, online competitions can add real value to a student’s college application. They demonstrate initiative, intellectual curiosity, and a willingness to go beyond the standard school curriculum. Strong performances, especially at a national or international level, can show admissions officers that a student is capable of competing in challenging environments. Beyond awards, even participation backed by measurable outcomes like rankings, certificates, or detailed performance reports reflects consistency and effort.", cat: "College Apps" },
+      { q: "What's the Difference Between Online Competitions and School Clubs?", a: "School clubs are typically long-term, collaborative, and focused on participation, teamwork, and gradual skill-building within a familiar environment. Online competitions, on the other hand, are performance-driven and time-bound, placing students in a more competitive setting against a wider pool of participants. While clubs help build consistency over time, competitions test how well a student can apply their skills under pressure and stand out.", cat: "General" },
+      { q: "Can My Child Win Real Prizes in Online Academic Competitions?", a: "Yes, many well-structured online competitions offer real and meaningful rewards. These can include cash prizes, certificates, trophies, and sometimes even national recognition or media exposure. In addition to tangible rewards, students also gain valuable intangible benefits such as expert feedback, performance analysis, and skill improvement, which often matter just as much in the long run.", cat: "Rewards" },
+      { q: "Best Online Competitions for Middle School Students", a: "When choosing online competitions for middle school students, the focus should be on platforms that balance challenge with learning. Categories like writing, quizzes, basic coding, art, and public speaking are especially suitable at this stage because they help students explore different interests. The best competitions are not just about winning but about building confidence, curiosity, and a habit of stepping outside the classroom.", cat: "Eligibility" },
+      { q: "How to Get Started with Your First Online Competition", a: "Starting your first online competition is simple if broken down step by step. First, choose a category that genuinely interests you. Next, read the competition guidelines carefully. Once registered, spend some time practicing or refining your idea. Don’t aim for perfection in your first attempt—focus on learning the process and gaining experience. Finally, submit your entry confidently and treat the outcome as feedback for improvement.", cat: "Registration" },
+      { q: "What Skills Do Online Competitions Actually Help You Develop?", a: "Online competitions help develop a wide range of practical and intellectual skills. They improve critical thinking, problem-solving, creativity, and the ability to present ideas clearly. Students also learn time management, as most competitions have strict deadlines. In categories like business or technology, participants gain exposure to real-world thinking such as planning, analysis, and innovation.", cat: "Benefits" },
+      { q: "How Can Online Competitions Help My Child Stand Out to Colleges?", a: "Online competitions give students a clear edge by showcasing initiative, consistency, and real-world application of their skills. Colleges look beyond grades, and participation in structured competitions reflects curiosity, discipline, and the ability to perform under pressure. Additionally, detailed performance reports and feedback help students build a stronger academic profile, which can be highlighted in applications, essays, and interviews.", cat: "College Apps" },
+      { q: "What Skills Do Students Actually Gain From Academic Competitions?", a: "Academic competitions go far beyond subject knowledge. Students develop critical thinking, problem-solving, creativity, and time management skills. They learn how to present ideas clearly, handle competition, and improve through feedback. Over time, this builds confidence, independence, and a growth mindset, all of which are essential for long-term success.", cat: "Benefits" },
+      { q: "Are Online Competitions Better Than Traditional Classroom Learning?", a: "Online competitions are not a replacement for classroom learning, but they are a powerful supplement. While classrooms focus on structured curriculum and foundational knowledge, competitions push students to apply what they’ve learned in dynamic and challenging ways. They encourage independent thinking, creativity, and performance under real conditions. When combined with classroom education, competitions create a more well-rounded and practical learning experience.", cat: "Benefits" },
+      { q: "Best online platforms for student competitions in India", a: "Inspire Talent Hub stands out by offering national-level competitions across multiple domains, participation from 500+ schools, and prizes up to ₹10 lakhs. What makes it stronger is its structured evaluation system, expert feedback, and wide category range, making it a more complete platform compared to basic contest websites.", cat: "General" },
+      { q: "What are the benefits of using an online platform for student contests?", a: "Online platforms remove location barriers and allow students to participate from anywhere with ease. They also offer flexibility, faster submissions, and streamlined evaluation. Platforms like Inspire Talent Hub go further by providing detailed performance reports, expert judging, and exposure to national-level competition.", cat: "Benefits" },
+      { q: "How to register for an online student competition platform", a: "Registration is typically simple and fully digital. On Inspire Talent Hub, students select their preferred competition or combo package, complete a secure payment process, and receive confirmation instantly. The platform is designed to be user-friendly.", cat: "Registration" },
+      { q: "Compare leading platforms for hosting academic challenges for schools", a: "Most platforms focus either on scale or simplicity, but lack depth in evaluation. Inspire Talent Hub differentiates itself through its three-stage evaluation process, expert involvement, and structured feedback system. It is not just about hosting contests, but about building a competitive ecosystem.", cat: "General" },
+      { q: "How do virtual coding competitions work for college students?", a: "Virtual coding competitions typically involve problem-solving tasks submitted online within a time frame. While many platforms cater to college-level, Inspire Talent Hub introduces structured coding and tech competitions even for school students, evaluated by experts for technical accuracy and creativity.", cat: "Events" },
+      { q: "Affordable online student competition platforms with certificate options", a: "Affordability and value are key factors. Inspire Talent Hub offers entry starting at ₹300 per event, with certificates for all participants and physical awards for winners. Combo packages provide further savings, making it highly cost-effective.", cat: "Pricing" },
+      { q: "Features to look for in a platform for virtual science fairs", a: "A strong platform should offer structured evaluation, expert judging, scalability, and clear feedback. Inspire Talent Hub meets these criteria with its three-stage evaluation system, focus on innovation and feasibility, and detailed performance reports.", cat: "Events" },
+      { q: "Academic contests for middle school", a: "Middle school students need competitions that balance challenge with accessibility. Inspire Talent Hub offers age-appropriate competitions for grades 6–8 across writing, science, arts, and more. These contests help students build confidence early.", cat: "Eligibility" },
+      { q: "Academic essay contests", a: "Essay contests are a key part of academic development. Inspire Talent Hub offers structured essay writing competitions evaluated on clarity, creativity, and depth of thought. Participants receive feedback, helping them refine their writing and critical thinking skills.", cat: "Events" },
+      { q: "What are the top academic contests available for high school students in India?", a: "Top contests include competitions in science, business, literature, and technology. Inspire Talent Hub stands out by combining all these categories on one platform, offering national-level exposure, expert feedback, and significant prizes.", cat: "Events" },
+      { q: "Are there mobile apps that help students practice for academic contests effectively?", a: "Yes, mobile apps can help students practice, but the real advantage comes when students move beyond practice and actually compete. Inspire Talent Hub gives students a real contest environment with online participation, expert evaluation, certificates, and prizes.", cat: "Preparation" },
+      { q: "Student entrepreneurship competitions", a: "Student entrepreneurship competitions are ideal for learners who enjoy ideas, leadership, business thinking, and innovation. Inspire Talent Hub includes business plan, startup pitch, marketing strategy, and mock stock events, which are perfect for aspiring young entrepreneurs.", cat: "Events" }
+    ];
+
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let filteredData = [...faqData];
+
+    const faqContainer = document.getElementById('faqContainer');
+    const paginationControls = document.getElementById('paginationControls');
+    const searchInput = document.getElementById('searchInput');
+
+    function renderFAQs() {
+      faqContainer.innerHTML = '';
+      
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const paginatedItems = filteredData.slice(start, end);
+
+      if(paginatedItems.length === 0) {
+        faqContainer.innerHTML = `
+          <div class="text-center py-16 bg-base-surface2 border border-white/5 rounded-xl">
+            <i class="ri-search-line text-4xl text-gray-600 mb-4 block"></i>
+            <h3 class="font-heading text-2xl text-white mb-2">No results found</h3>
+            <p class="font-body text-sm text-gray-500">We couldn't find any questions matching your search.</p>
+          </div>
+        `;
+        paginationControls.innerHTML = '';
+        return;
+      }
+
+      paginatedItems.forEach(faq => {
+        const faqHTML = `
+          <div class="faq-item bg-base-surface2 border border-white/5 rounded-xl overflow-hidden transition-colors hover:border-brand-primary/30">
+            <button class="faq-question w-full p-6 text-left flex gap-4 justify-between items-center focus:outline-none group">
+              <div class="flex-1">
+                <span class="inline-block px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-bold text-brand-primary tracking-widest uppercase mb-2">${faq.cat}</span>
+                <span class="block font-heading text-xl text-white group-hover:text-brand-primary transition-colors leading-snug">${faq.q}</span>
+              </div>
+              <i class="faq-icon ri-add-line text-brand-primary text-xl flex-shrink-0 transition-transform duration-300"></i>
+            </button>
+            <div class="faq-answer max-h-0 opacity-0 overflow-hidden bg-[#040710]">
+              <p class="p-6 pt-0 font-body text-sm font-light text-gray-400 leading-relaxed border-t border-white/5 mt-2 pt-6">
+                ${faq.a}
+              </p>
+            </div>
+          </div>
+        `;
+        faqContainer.insertAdjacentHTML('beforeend', faqHTML);
+      });
+
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+      paginationControls.innerHTML = '';
+
+      if (totalPages <= 1) return;
+
+      // Prev Button
+      const prevBtn = document.createElement('button');
+      prevBtn.innerHTML = '<i class="ri-arrow-left-s-line"></i>';
+      prevBtn.className = `page-btn w-10 h-10 rounded-full flex items-center justify-center border font-body text-sm ${currentPage === 1 ? 'border-white/10 text-gray-600 cursor-not-allowed' : 'border-white/20 text-white hover:border-brand-primary hover:text-brand-primary'}`;
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => { currentPage--; renderFAQs(); window.scrollTo({top: 400, behavior: 'smooth'}); };
+      paginationControls.appendChild(prevBtn);
+
+      // Page Numbers
+      for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.innerText = i;
+        pageBtn.className = `page-btn w-10 h-10 rounded-full flex items-center justify-center border font-body text-sm ${currentPage === i ? 'active font-bold' : 'border-white/20 text-white hover:border-brand-primary hover:text-brand-primary'}`;
+        pageBtn.onclick = () => { currentPage = i; renderFAQs(); window.scrollTo({top: 400, behavior: 'smooth'}); };
+        paginationControls.appendChild(pageBtn);
+      }
+
+      // Next Button
+      const nextBtn = document.createElement('button');
+      nextBtn.innerHTML = '<i class="ri-arrow-right-s-line"></i>';
+      nextBtn.className = `page-btn w-10 h-10 rounded-full flex items-center justify-center border font-body text-sm ${currentPage === totalPages ? 'border-white/10 text-gray-600 cursor-not-allowed' : 'border-white/20 text-white hover:border-brand-primary hover:text-brand-primary'}`;
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => { currentPage++; renderFAQs(); window.scrollTo({top: 400, behavior: 'smooth'}); };
+      paginationControls.appendChild(nextBtn);
+    }
+
+    // Smart Accordion Event Delegation
+    faqContainer.addEventListener('click', (e) => {
+      const questionBtn = e.target.closest('.faq-question');
+      if (!questionBtn) return;
+
+      const item = questionBtn.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const icon = item.querySelector('.faq-icon');
+      const isOpen = !answer.classList.contains('max-h-0');
+      
+      // Close all answers
+      document.querySelectorAll('.faq-answer').forEach(a => {
+        a.classList.add('max-h-0', 'opacity-0');
+        a.classList.remove('opacity-100');
+        a.style.maxHeight = null;
+      });
+      document.querySelectorAll('.faq-icon').forEach(i => {
+        i.classList.remove('ri-subtract-line', 'rotate-180');
+        i.classList.add('ri-add-line');
+      });
+      
+      // Open clicked if it was closed
+      if (!isOpen) {
+        answer.classList.remove('max-h-0', 'opacity-0');
+        answer.classList.add('opacity-100');
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        icon.classList.remove('ri-add-line');
+        icon.classList.add('ri-subtract-line', 'rotate-180');
+      }
+    });
+
+    // Search Engine Logic
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      filteredData = faqData.filter(faq => 
+        faq.q.toLowerCase().includes(query) || 
+        faq.a.toLowerCase().includes(query) ||
+        faq.cat.toLowerCase().includes(query)
+      );
+      currentPage = 1; // Reset to page 1 on search
+      renderFAQs();
+    });
+
+    // Initial Render
+    renderFAQs();
+  </script>
+
+  <section class="py-24 bg-base-surface2 border-t border-white/5 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+      <i class="ri-customer-service-2-line text-5xl text-brand-primary mb-6 inline-block"></i>
+      <h2 class="font-display text-4xl text-white mb-4">Still have questions?</h2>
+      <p class="font-body text-sm font-light text-gray-400 mb-10">Our support team is available to help you navigate the platform and assist with your registration process.</p>
+      
+      <a href="Contact.html" class="bg-gold-gradient text-[#02040a] px-10 py-4 rounded-full font-body text-xs font-bold tracking-[0.2em] uppercase shadow-[0_10px_20px_rgba(232,198,106,0.2)] hover:shadow-[0_15px_30px_rgba(232,198,106,0.4)] transition-all duration-300 transform hover:-translate-y-1 inline-block">
+        Contact the Support Desk
+      </a>
+    </div>
+  </section>
+
+<footer class="index-footer" role="contentinfo" id="index-footer">
+  
+  <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>    
+  
+  <div class="index-footer__container">
+    <div class="index-footer__brand">
+      <a href="#hero" class="index-footer__logo-link hover-target" aria-label="Inspire Talent Hub Home">
+        <svg class="icon-star-small" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <use href="#icon-star"></use>
+        </svg>
+        <span class="index-footer__title">Inspire<em>Talent</em>Hub</span>
+      </a>
+      <p class="index-footer__sub">Architecting the ultimate competitive infrastructure to forge the brilliant leaders of tomorrow.</p>
+    </div>
+    
+    <nav class="index-footer__nav" aria-label="Footer navigation">
+      <ul role="list">
+        <li><a href="index.html">Our Heritage</a></li>
+        <li><a href="competition.html" target="_blank" rel="noopener noreferrer">Competitions</a></li>
+        <li><a href="learnmore.html" target="_blank" rel="noopener noreferrer">Learn More</a></li>
+        <li><a href="faq.html" target="_blank" rel="noopener noreferrer">FAQ</a></li>
+        <li><a href="Contact.html" target="_blank" rel="noopener noreferrer">Contact</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="refund.html">Refund Protocol</a></li>
+      </ul>
+    </nav>
+    
+    <div class="index-footer__bottom">
+      <div class="index-footer__divider" aria-hidden="true"></div>
+      <p class="index-footer__copy">
+        &copy; 2026 Inspire Talent Hub. All Intellectual Rights Strictly Reserved. 
+        <span class="index-footer__tagline">Command the Future.</span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+/* ============================================================
+   INDEX FOOTER STYLES
+============================================================ */
+.index-footer {
+  background: #07090E; /* Deep theme background */
+  border-top: 1px solid rgba(201, 168, 76, 0.15); /* Gold dim border */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Canvas styling so it sits behind the content */
+.index-footer__canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  opacity: 0.4; /* Slightly dimmed so text remains readable */
+  pointer-events: none;
+}
+
+.index-footer__container {
+  padding-block: 4rem 2rem;
+  position: relative;
+  z-index: 1; /* Keeps content above the canvas */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-inline: 2rem;
+}
+
+.index-footer__brand {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.index-footer__logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #c9a84c;
+  margin-bottom: 0.8rem;
+  transition: transform 0.3s ease;
+}
+.index-footer__logo-link:hover {
+  transform: scale(1.02);
+}
+
+.index-footer__title {
+  font-family: inherit; /* Update to var(--font-display) if applicable */
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  font-weight: 600;
+}
+.index-footer__title em {
+  font-style: normal;
+  color: #c9a84c;
+}
+
+.index-footer__sub {
+  font-family: inherit;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 450px;
+  margin-top: 0.5rem;
+}
+
+.index-footer__nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem 2.5rem;
+  margin-bottom: 3rem;
+  list-style: none;
+  padding: 0;
+}
+
+.index-footer__nav a {
+  font-family: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.index-footer__nav a:hover { 
+  color: #c9a84c; 
+}
+
+.index-footer__divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.25), transparent);
+  margin-bottom: 2rem;
+}
+
+.index-footer__copy {
+  text-align: center;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-transform: uppercase;
+}
+
+.index-footer__tagline {
+  color: #c9a84c;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+</style>
+
+<script>
+// ── INDEX FOOTER WEBGL ANIMATION ──────────────────────────────────
+(function initFooterSky() {
+  const canvases = document.querySelectorAll('.webgl-sky');
+  if (canvases.length === 0) return;
+
+  canvases.forEach(canvas => {
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) {
+      canvas.style.background = '#07090E'; // Fallback to theme color
+      return;
+    }
+
+    const vsSource = `
+      attribute vec2 position;
+      void main() {
+        gl_Position = vec4(position, 0.0, 1.0);
+      }
+    `;
+
+    const fsSource = `
+      precision mediump float;
+      uniform vec2 u_resolution;
+      uniform float u_time;
+
+      vec2 hash(vec2 p) {
+          p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
+          return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+      }
+
+      float noise(vec2 p) {
+          const float K1 = 0.366025404;
+          const float K2 = 0.211324865;
+          vec2 i = floor(p + (p.x + p.y) * K1);
+          vec2 a = p - i + (i.x + i.y) * K2;
+          vec2 o = (a.x > a.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+          vec2 b = a - o + K2;
+          vec2 c = a - 1.0 + 2.0 * K2;
+          vec3 h = max(0.5 - vec3(dot(a, a), dot(b, b), dot(c, c)), 0.0);
+          vec3 n = h * h * h * h * vec3(dot(a, hash(i + 0.0)), dot(b, hash(i + o)), dot(c, hash(i + 1.0)));
+          return dot(n, vec3(70.0));
+      }
+
+      float fbm(vec2 uv) {
+          float f = 0.0;
+          vec2 p = uv;
+          float w = 0.5;
+          for(int i = 0; i < 4; i++) {
+              f += w * noise(p);
+              p *= 2.0;
+              w *= 0.5;
+          }
+          return f;
+      }
+
+      void main() {
+          vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+          vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+          
+          float t = u_time * 0.05; // Slightly slower animation for a premium feel
+
+          vec2 flow = vec2(fbm(p * 1.5 + vec2(t, t * 0.5)), fbm(p * 1.2 - vec2(t * 0.3, t)));
+          float dCenter = length(p);
+          float aCenter = atan(p.y, p.x);
+          flow += vec2(sin(aCenter + t), cos(aCenter + t)) * exp(-dCenter * 1.5) * 1.5;
+
+          vec2 brush_uv = p * 3.5 + flow * 2.0;
+          float strokeVal = fbm(brush_uv * vec2(2.5, 1.0));
+          strokeVal += fbm(brush_uv * 8.0) * 0.2;
+
+          // Themed dark colors for Inspire Talent Hub
+          vec3 bgDeep = vec3(0.03, 0.04, 0.05);
+          vec3 darkNavy = vec3(0.05, 0.06, 0.09);
+          vec3 accentBlue = vec3(0.08, 0.1, 0.15);
+          vec3 paleHighlight = vec3(0.12, 0.15, 0.2);
+
+          float colorMix = smoothstep(0.1, 0.9, strokeVal + flow.x * 0.2);
+          vec3 skyColor = mix(bgDeep, darkNavy, smoothstep(0.0, 0.4, colorMix));
+          skyColor = mix(skyColor, accentBlue, smoothstep(0.3, 0.7, colorMix));
+          skyColor = mix(skyColor, paleHighlight, smoothstep(0.6, 1.0, colorMix));
+
+          float vignette = length(uv - vec2(0.5));
+          skyColor *= smoothstep(1.2, 0.3, vignette);
+          skyColor *= 0.9; // Overall darkening
+
+          gl_FragColor = vec4(skyColor, 1.0);
+      }
+    `;
+
+    function createShader(type, source) {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error('Shader error:', gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    }
+
+    const vs = createShader(gl.VERTEX_SHADER, vsSource);
+    const fs = createShader(gl.FRAGMENT_SHADER, fsSource);
+    const program = gl.createProgram();
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1.0, -1.0,  1.0, -1.0, -1.0,  1.0,
+      -1.0,  1.0,  1.0, -1.0,  1.0,  1.0
+    ]), gl.STATIC_DRAW);
+
+    const positionLocation = gl.getAttribLocation(program, "position");
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+    const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+    const timeLocation = gl.getUniformLocation(program, "u_time");
+
+    function resize() {
+      const parent = canvas.parentElement;
+      canvas.width = parent.offsetWidth || window.innerWidth;
+      canvas.height = parent.offsetHeight || window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+
+    const ro = new ResizeObserver(() => resize());
+    ro.observe(canvas.parentElement || document.body);
+    resize();
+
+    function render(time) {
+      gl.useProgram(program);
+      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+      gl.uniform1f(timeLocation, time * 0.001);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
+  });
+})();
+</script>
+
+</body>
+</html>
