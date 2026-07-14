@@ -19,7 +19,8 @@
     const grid = document.getElementById(bar.getAttribute("data-target"));
     if (!grid) return;
     const buttons = qsa("[data-filter]", bar);
-    const items = qsa(".gallery-item", grid);
+    // ".filter-item" lets non-gallery grids (e.g. reviews) reuse this controller
+    const items = qsa(".gallery-item, .filter-item", grid);
     const pageSize = parseInt(grid.getAttribute("data-page-size"), 10) || Infinity;
     const loadMore = document.querySelector(
       '[data-loadmore][data-target="' + grid.id + '"]'

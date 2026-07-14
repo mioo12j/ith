@@ -2786,3 +2786,32 @@ p {
 .confirm-amount { font-family: var(--font-family-display); font-size: var(--font-size-lg); color: var(--color-text-primary); }
 .confirm-id { font-size: var(--font-size-sm); font-weight: 600; color: var(--color-brand-primary); background-color: var(--color-brand-alpha-10); border: 1px solid var(--color-brand-alpha-20); padding: 0.2rem 0.6rem; border-radius: 6px; }
 .confirm-note { display: flex; gap: var(--spacing-3); align-items: flex-start; text-align: left; border: 1px solid var(--color-brand-alpha-20); border-radius: 12px; padding: var(--spacing-4); background-color: var(--color-brand-alpha-10); color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-8); }
+
+/* ==========================================================================
+   23. REVIEWS & TESTIMONIALS PAGE
+       Reuses .testimonial-card, .testimonial-stars, .stat-item, .video-grid.
+   ========================================================================== */
+.review-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--spacing-4); }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-8); }
+.review-card__head { display: flex; align-items: center; gap: var(--spacing-4); }
+.review-avatar {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg); font-weight: 600;
+  color: var(--color-brand-primary);
+  background-color: var(--color-brand-alpha-10);
+  border: 1px solid var(--color-brand-alpha-20);
+}
+.review-card__meta {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem;
+  margin-top: auto; padding-top: var(--spacing-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+}
+.review-card__meta b { color: var(--color-brand-primary); font-weight: 600; }
+@media (max-width: 1024px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .reviews-grid { grid-template-columns: 1fr; } }
