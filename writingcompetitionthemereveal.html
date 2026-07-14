@@ -1,740 +1,283 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" class="premium-theme no-js">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Academic Kickoff Fest 2026 | Official Theme Reveal Portal</title>
-  <meta name="description" content="The official theme reveal for the Inspire Talent Hub Academic Kickoff Fest 2026 writing competition — discover this season&#x27;s themes, guidelines, and how to take part." />
-  <link rel="canonical" href="https://www.Inspiretalenthub.in/writingcompetitionthemereveal.html" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Academic Kickoff Fest 2026 — Theme Reveal Portal | Inspire Talent Hub</title>
+  <meta name="description" content="Official theme-reveal portal for the Inspire Talent Hub Academic Kickoff Fest 2026 — Essay, Story, and Poetry writing competitions with live countdown, timings, guidelines, and submission details." />
+  <meta name="keywords" content="Academic Kickoff Fest 2026, writing competition themes, essay writing, story writing, poetry writing, theme reveal, Inspire Talent Hub" />
+  <meta name="author" content="Inspire Talent Hub" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#03060d" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Academic Kickoff Fest 2026 | Official Theme Reveal Portal" />
-  <meta property="og:description" content="The official theme reveal for the Inspire Talent Hub Academic Kickoff Fest 2026 writing competition — discover this season&#x27;s themes, guidelines, and how to take part." />
+  <meta property="og:title" content="Academic Kickoff Fest 2026 — Theme Reveal Portal | Inspire Talent Hub" />
+  <meta property="og:description" content="Official theme-reveal portal for the Inspire Talent Hub Academic Kickoff Fest 2026 — Essay, Story, and Poetry writing competitions with live countdown, timings, guidelines, and submission details." />
   <meta property="og:url" content="https://www.Inspiretalenthub.in/writingcompetitionthemereveal.html" />
   <meta property="og:site_name" content="Inspire Talent Hub" />
   <meta property="og:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Academic Kickoff Fest 2026 | Official Theme Reveal Portal" />
-  <meta name="twitter:description" content="The official theme reveal for the Inspire Talent Hub Academic Kickoff Fest 2026 writing competition — discover this season&#x27;s themes, guidelines, and how to take part." />
+  <meta name="twitter:title" content="Academic Kickoff Fest 2026 — Theme Reveal Portal | Inspire Talent Hub" />
+  <meta name="twitter:description" content="Official theme-reveal portal for the Inspire Talent Hub Academic Kickoff Fest 2026 — Essay, Story, and Poetry writing competitions with live countdown, timings, guidelines, and submission details." />
   <meta name="twitter:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<script>
-if (typeof tailwind !== 'undefined') tailwind.config = {
-  theme:{
-    extend:{
-      colors:{
-        brand:{
-          primary:'#e8c66a',
-          secondary:'#c9a84c'
-        }
-      },
-      fontFamily:{
-        display:['Playfair Display','serif'],
-        body:['Inter','sans-serif']
-      }
-    }
-  }
-}
-</script>
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-background:#02040a;
-color:white;
-font-family:'Inter',sans-serif;
-overflow-x:hidden;
-}
-
-body::before{
-content:'';
-position:fixed;
-inset:0;
-background:
-radial-gradient(circle at top left,rgba(232,198,106,.08),transparent 30%),
-radial-gradient(circle at bottom right,rgba(232,198,106,.06),transparent 30%);
-pointer-events:none;
-z-index:-1;
-}
-
-.glass{
-background:rgba(255,255,255,.03);
-backdrop-filter:blur(16px);
-border:1px solid rgba(255,255,255,.08);
-}
-
-.hero-grid{
-background-image:
-linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
-linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-background-size:50px 50px;
-}
-
-.gold-gradient{
-background:linear-gradient(90deg,#e8c66a,#fff1b7,#e8c66a);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.theme-card{
-transition:.4s ease;
-}
-
-.theme-card:hover{
-transform:translateY(-6px);
-border-color:rgba(232,198,106,.4);
-}
-
-.theme-blur{
-filter:blur(8px);
-user-select:none;
-pointer-events:none;
-}
-
-.count-box{
-min-height:130px;
-}
-
-.section-badge{
-display:inline-flex;
-padding:10px 18px;
-border-radius:999px;
-font-size:11px;
-letter-spacing:.35em;
-text-transform:uppercase;
-background:rgba(232,198,106,.1);
-border:1px solid rgba(232,198,106,.2);
-color:#e8c66a;
-}
-
-.timeline-item{
-position:relative;
-}
-
-.timeline-item::before{
-content:'';
-position:absolute;
-left:7px;
-top:0;
-width:2px;
-height:100%;
-background:rgba(232,198,106,.3);
-}
-
-.timeline-item::after{
-content:'';
-position:absolute;
-left:0;
-top:20px;
-width:16px;
-height:16px;
-border-radius:999px;
-background:#e8c66a;
-}
-
-.faq-answer{
-max-height:0;
-overflow:hidden;
-transition:max-height .4s ease;
-}
-
-.faq-item.active .faq-answer{
-max-height:250px;
-}
-
-.faq-icon{
-transition:.3s ease;
-}
-
-.faq-item.active .faq-icon{
-transform:rotate(45deg);
-}
-
-.glow{
-animation:glow 3s infinite alternate;
-}
-
-@keyframes glow{
-0%{
-box-shadow:0 0 10px rgba(232,198,106,.15);
-}
-100%{
-box-shadow:0 0 35px rgba(232,198,106,.35);
-}
-}
-
-</style>
+  <link rel="canonical" href="https://www.Inspiretalenthub.in/writingcompetitionthemereveal.html" />
+  <link rel="icon" type="image/jpeg" href="logo.jpeg" />
+  <link rel="apple-touch-icon" href="logo.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.Inspiretalenthub.in/"},
+    {"@type":"ListItem","position":2,"name":"Theme Reveal","item":"https://www.Inspiretalenthub.in/writingcompetitionthemereveal.html"}]}
+  </script>
 </head>
-
-<body oncontextmenu="return false">
-
-<nav class="fixed top-0 left-0 w-full z-50 bg-[#02040ae6] backdrop-blur-xl border-b border-white/5">
-<div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-full border border-brand-primary/30 flex items-center justify-center text-brand-primary text-xl">
-<i class="ri-star-smile-line"></i>
-</div>
-
-<div>
-<p class="font-display text-2xl text-brand-primary">Inspire Talent Hub</p>
-<p class="text-white/50 text-xs tracking-[0.3em] uppercase">Academic Kickoff Fest 2026</p>
-</div>
-</div>
-
-<div class="hidden md:flex items-center gap-8 text-sm text-white/60">
-<a href="#themes" class="hover:text-brand-primary transition">Themes</a>
-<a href="#instructions" class="hover:text-brand-primary transition">Instructions</a>
-<a href="#timeline" class="hover:text-brand-primary transition">Timeline</a>
-<a href="#faq" class="hover:text-brand-primary transition">FAQ</a>
-</div>
-
-</div>
-</nav>
-
-<section class="hero-grid min-h-screen pt-36 pb-24 px-5 relative overflow-hidden">
-
-<div class="absolute top-0 left-0 w-96 h-96 rounded-full bg-brand-primary/10 blur-[150px]"></div>
-<div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-brand-primary/10 blur-[150px]"></div>
-
-<div class="max-w-7xl mx-auto relative z-10">
-
-<div class="text-center mb-16">
-
-<div class="section-badge mb-8">
-Official Competition Portal
-</div>
-
-<h1 class="font-display text-5xl md:text-7xl leading-tight mb-8">
-Academic Kickoff Fest
-<span class="gold-gradient">2026</span>
-</h1>
-
-<p class="max-w-3xl mx-auto text-white/65 text-lg leading-8">
-Official Theme Reveal Platform for the Essay Writing Competition, Story Writing Competition and Poetry Writing Competition.
-</p>
-
-</div>
-
-<div class="glass rounded-[2.5rem] p-8 md:p-12 border border-brand-primary/10">
-
-<div class="grid lg:grid-cols-2 gap-12 items-center">
-
-<div>
-
-<div class="inline-flex px-5 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-300 text-xs tracking-[0.35em] uppercase mb-6">
-Live Countdown
-</div>
-
-<h2 class="font-display text-4xl md:text-5xl leading-tight mb-6">
-Official Themes Reveal On
-<span class="text-brand-primary">25 May 2026</span>
-</h2>
-
-<div class="space-y-5 text-white/70 text-lg leading-8">
-
-<div class="glass rounded-2xl p-5">
-<div class="text-brand-primary font-semibold mb-1">Theme Reveal Time</div>
-<div>25 May 2026 • 4:30 PM IST</div>
-</div>
-
-<div class="glass rounded-2xl p-5">
-<div class="text-brand-primary font-semibold mb-1">Writing Duration</div>
-<div>4:30 PM IST to 6:00 PM IST (90 Minutes)</div>
-</div>
-
-<div class="glass rounded-2xl p-5">
-<div class="text-brand-primary font-semibold mb-1">Submission Window</div>
-<div>6:00 PM IST to 6:10 PM IST (10 Minutes)</div>
-</div>
-
-<div class="glass rounded-2xl p-5">
-<div class="text-brand-primary font-semibold mb-1">Submission Email</div>
-<div>info@inspiretalenthub.in</div>
-</div>
-
-</div>
-
-</div>
-
-<div>
-
-<div class="grid grid-cols-2 md:grid-cols-4 gap-5">
-
-<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
-<div id="days" class="text-5xl font-bold text-brand-primary mb-2">00</div>
-<div class="uppercase tracking-[0.3em] text-xs text-white/50">Days</div>
-</div>
-
-<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
-<div id="hours" class="text-5xl font-bold text-brand-primary mb-2">00</div>
-<div class="uppercase tracking-[0.3em] text-xs text-white/50">Hours</div>
-</div>
-
-<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
-<div id="minutes" class="text-5xl font-bold text-brand-primary mb-2">00</div>
-<div class="uppercase tracking-[0.3em] text-xs text-white/50">Minutes</div>
-</div>
-
-<div class="count-box glass rounded-3xl p-5 text-center border border-brand-primary/10 flex flex-col justify-center">
-<div id="seconds" class="text-5xl font-bold text-brand-primary mb-2">00</div>
-<div class="uppercase tracking-[0.3em] text-xs text-white/50">Seconds</div>
-</div>
-
-</div>
-
-<div class="mt-8 glass rounded-[2rem] p-8 border border-brand-primary/10">
-
-<div class="flex items-center gap-4 mb-5">
-
-<div class="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-2xl">
-<i class="ri-lock-line"></i>
-</div>
-
-<div>
-<h3 class="text-2xl font-semibold">Theme Security Lock</h3>
-<p class="text-white/50">Automatic Reveal System Enabled</p>
-</div>
-
-</div>
-
-<div id="beforeReveal" class="text-white/70 leading-8">
-Themes are currently encrypted and hidden. They will automatically unlock at exactly 4:30 PM IST on 25 May 2026.
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="themes" class="pb-24 px-5">
-
-<div class="max-w-7xl mx-auto">
-
-<div class="text-center mb-14">
-<div class="section-badge mb-6">Official Theme Reveal</div>
-
-<h2 class="font-display text-5xl mb-5">
-Competition Themes
-</h2>
-
-<p class="text-white/65 text-lg max-w-3xl mx-auto leading-8">
-The themes below remain blurred and hidden until the official reveal time reaches 4:30 PM IST.
-</p>
-</div>
-
-<div id="themeRevealContainer" class="grid lg:grid-cols-3 gap-6">
-
-<div class="theme-card glass rounded-[2rem] p-8 border border-brand-primary/10">
-
-<div class="flex items-center gap-4 mb-6">
-
-<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
-<i class="ri-article-line"></i>
-</div>
-
-<div>
-<h3 class="text-2xl font-semibold text-brand-primary">Essay Writing</h3>
-<p class="text-white/50">Grades 8 to 12</p>
-</div>
-
-</div>
-
-<div id="essayTheme" class="theme-blur text-3xl font-display leading-relaxed text-white">
-THEME WILL AUTOMATICALLY REVEAL AT 4:30 PM IST
-</div>
-
-</div>
-
-<div class="theme-card glass rounded-[2rem] p-8 border border-brand-primary/10">
-
-<div class="flex items-center gap-4 mb-6">
-
-<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
-<i class="ri-book-open-line"></i>
-</div>
-
-<div>
-<h3 class="text-2xl font-semibold text-brand-primary">Story Writing</h3>
-<p class="text-white/50">Grades 6 to 10</p>
-</div>
-
-</div>
-
-<div id="storyTheme" class="theme-blur text-3xl font-display leading-relaxed text-white">
-THEME WILL AUTOMATICALLY REVEAL AT 4:30 PM IST
-</div>
-
-</div>
-
-<div class="theme-card glass rounded-[2rem] p-8 border border-brand-primary/10">
-
-<div class="flex items-center gap-4 mb-6">
-
-<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl">
-<i class="ri-quill-pen-line"></i>
-</div>
-
-<div>
-<h3 class="text-2xl font-semibold text-brand-primary">Poetry Writing</h3>
-<p class="text-white/50">Grades 6 to 12</p>
-</div>
-
-</div>
-
-<div id="poetryTheme" class="theme-blur text-3xl font-display leading-relaxed text-white">
-THEME WILL AUTOMATICALLY REVEAL AT 4:30 PM IST
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="instructions" class="py-24 px-5 bg-white/[0.02] border-y border-white/5">
-
-<div class="max-w-7xl mx-auto">
-
-<div class="text-center mb-16">
-<div class="section-badge mb-6">Competition Guidelines</div>
-<h2 class="font-display text-5xl mb-5">Important Instructions</h2>
-<p class="max-w-3xl mx-auto text-white/65 text-lg leading-8">
-Please carefully read all competition instructions before beginning your writing.
-</p>
-</div>
-
-<div class="grid lg:grid-cols-3 gap-6">
-
-<div class="glass rounded-[2rem] p-8">
-<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl mb-6">
-<i class="ri-timer-line"></i>
-</div>
-<h3 class="text-2xl mb-5 font-semibold">Official Timings</h3>
-<ul class="space-y-4 text-white/70 leading-7">
-<li>• Themes reveal at 4:30 PM IST.</li>
-<li>• Writing closes at 6:00 PM IST.</li>
-<li>• Submission closes at 6:10 PM IST.</li>
-<li>• No extensions will be provided.</li>
-</ul>
-</div>
-
-<div class="glass rounded-[2rem] p-8">
-<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl mb-6">
-<i class="ri-file-upload-line"></i>
-</div>
-<h3 class="text-2xl mb-5 font-semibold">Submission Rules</h3>
-<ul class="space-y-4 text-white/70 leading-7">
-<li>• Only typed documents accepted.</li>
-<li>• PDF and DOCX formats only.</li>
-<li>• Email submissions only.</li>
-<li>• Use proper participant details.</li>
-</ul>
-</div>
-
-<div class="glass rounded-[2rem] p-8">
-<div class="w-16 h-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary text-3xl mb-6">
-<i class="ri-shield-check-line"></i>
-</div>
-<h3 class="text-2xl mb-5 font-semibold">Integrity Policy</h3>
-<ul class="space-y-4 text-white/70 leading-7">
-<li>• AI-generated content prohibited.</li>
-<li>• Plagiarism may disqualify entries.</li>
-<li>• Originality checks may be performed.</li>
-<li>• Maintain appropriate language.</li>
-</ul>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="timeline" class="py-24 px-5">
-
-<div class="max-w-5xl mx-auto">
-
-<div class="text-center mb-16">
-<div class="section-badge mb-6">Official Timeline</div>
-<h2 class="font-display text-5xl">Competition Flow</h2>
-</div>
-
-<div class="space-y-10">
-
-<div class="timeline-item pl-10">
-<div class="glass rounded-[2rem] p-8">
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-<div>
-<h3 class="text-3xl mb-3 font-semibold">Theme Reveal</h3>
-<p class="text-white/65 leading-7">
-Official themes become visible automatically.
-</p>
-</div>
-<div class="text-brand-primary tracking-[0.3em] uppercase text-sm">
-4:30 PM IST
-</div>
-</div>
-</div>
-</div>
-
-<div class="timeline-item pl-10">
-<div class="glass rounded-[2rem] p-8">
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-<div>
-<h3 class="text-3xl mb-3 font-semibold">Writing Period Ends</h3>
-<p class="text-white/65 leading-7">
-90 minute writing duration officially concludes.
-</p>
-</div>
-<div class="text-brand-primary tracking-[0.3em] uppercase text-sm">
-6:00 PM IST
-</div>
-</div>
-</div>
-</div>
-
-<div class="timeline-item pl-10">
-<div class="glass rounded-[2rem] p-8">
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-<div>
-<h3 class="text-3xl mb-3 font-semibold">Final Submission Deadline</h3>
-<p class="text-white/65 leading-7">
-Final email submissions close permanently.
-</p>
-</div>
-<div class="text-brand-primary tracking-[0.3em] uppercase text-sm">
-6:10 PM IST
-</div>
-</div>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="faq" class="py-24 px-5 bg-white/[0.02] border-y border-white/5">
-
-<div class="max-w-5xl mx-auto">
-
-<div class="text-center mb-16">
-<div class="section-badge mb-6">FAQ Section</div>
-<h2 class="font-display text-5xl">Frequently Asked Questions</h2>
-</div>
-
-<div class="space-y-5">
-
-<div class="faq-item glass rounded-3xl overflow-hidden">
-<button class="faq-toggle w-full p-6 flex items-center justify-between text-left">
-<span class="text-xl font-semibold">Can handwritten work be submitted?</span>
-<i class="ri-add-line faq-icon text-brand-primary text-2xl"></i>
-</button>
-<div class="faq-answer px-6 pb-6 text-white/65 leading-7">
-No. Only typed PDF or DOCX submissions are accepted.
-</div>
-</div>
-
-<div class="faq-item glass rounded-3xl overflow-hidden">
-<button class="faq-toggle w-full p-6 flex items-center justify-between text-left">
-<span class="text-xl font-semibold">What time does writing end?</span>
-<i class="ri-add-line faq-icon text-brand-primary text-2xl"></i>
-</button>
-<div class="faq-answer px-6 pb-6 text-white/65 leading-7">
-The 90-minute writing duration ends exactly at 6:00 PM IST.
-</div>
-</div>
-
-<div class="faq-item glass rounded-3xl overflow-hidden">
-<button class="faq-toggle w-full p-6 flex items-center justify-between text-left">
-<span class="text-xl font-semibold">What is the final submission deadline?</span>
-<i class="ri-add-line faq-icon text-brand-primary text-2xl"></i>
-</button>
-<div class="faq-answer px-6 pb-6 text-white/65 leading-7">
-The final email submission deadline is 6:10 PM IST.
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="py-24 px-5">
-
-<div class="max-w-4xl mx-auto text-center glass rounded-[2.5rem] p-10 border border-brand-primary/10">
-
-<div class="w-24 h-24 rounded-full bg-brand-primary/10 mx-auto flex items-center justify-center text-brand-primary text-5xl mb-8 glow">
-<i class="ri-mail-send-line"></i>
-</div>
-
-<div class="section-badge mb-6">
-Official Submission Email
-</div>
-
-<h2 class="font-display text-5xl mb-6">
-Submit Your Final Entry
-</h2>
-
-<p class="max-w-2xl mx-auto text-white/65 text-lg leading-8 mb-8">
-After completing your writing, send your final PDF or DOCX file to the official organizing committee email.
-</p>
-
-<a href="mailto:info@inspiretalenthub.in" class="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-brand-primary text-black font-semibold hover:scale-105 transition">
-<i class="ri-mail-line"></i>
-info@inspiretalenthub.in
-</a>
-
-</div>
-
-</section>
-
-<footer class="border-t border-white/5 py-10 px-5">
-
-<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-
-<div>
-<h2 class="font-display text-3xl text-brand-primary">Inspire Talent Hub</h2>
-<p class="text-white/45 mt-2">Academic Kickoff Fest 2026</p>
-</div>
-
-<div class="text-white/45 text-center md:text-right">
-© 2026 Inspire Talent Hub<br>
-All Rights Reserved
-</div>
-
-</div>
-
+<body class="body-dark">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;" xmlns="http://www.w3.org/2000/svg"><defs>
+      <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></symbol>
+      <symbol id="icon-medal" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line><polyline points="2 6 8 10 14 4 22 10"></polyline></symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol>
+      <symbol id="icon-grad" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></symbol>
+      <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></symbol>
+      <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></symbol>
+      <symbol id="icon-pen" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></symbol>
+      <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></symbol>
+      <symbol id="icon-feather" viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></symbol>
+      <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><polyline points="22 6 12 13 2 6"></polyline></symbol>
+    </defs></svg>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-outline" id="cursorOutline" aria-hidden="true"></div>
+  <nav class="index-nav" id="index-mainNav" aria-label="Main navigation">
+    <div class="index-nav__logo"><a href="index.html" class="index-nav__logo-link hover-target" aria-label="Inspire Talent Hub Home"><svg class="icon-star-small" width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg><span class="index-nav__logo-title">Inspire<em>Talent</em>Hub</span></a></div>
+    <button class="index-nav__hamburger" id="index-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="index-nav__links" id="index-navLinks" role="list">
+      <li><a href="about.html" class="index-nav__link">About</a></li>
+      <li><a href="competition.html" class="index-nav__link">Competitions</a></li>
+      <li><a href="gallery.html" class="index-nav__link">Gallery</a></li>
+      <li><a href="reviews.html" class="index-nav__link">Reviews</a></li>
+      <li><a href="faq.html" class="index-nav__link">FAQ</a></li>
+      <li><a href="Contact.html" class="index-nav__link">Contact</a></li>
+      <li><a href="StudentPortal.html" class="index-nav__link">Student Portal</a></li>
+    </ul>
+  </nav>
+  <main id="main-content">
+    <header class="section section-dark" style="padding-top: clamp(8rem, 12vw, 11rem); padding-bottom: 0;">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li><a href="competition.html">Competitions</a></li><li aria-current="page">Theme Reveal</li></ol></nav>
+        <div class="section-header" style="margin-bottom: var(--spacing-12);">
+          <span class="section-tag text-gold">Official Competition Portal</span>
+          <h1 class="section-title text-gold">Academic Kickoff Fest <em>2026</em></h1>
+          <p class="section-desc">The official theme-reveal portal for the Essay, Story, and Poetry writing competitions. Themes unlock automatically at the scheduled reveal time.</p>
+        </div>
+      </div>
+    </header>
+    <section class="section section-dark" style="padding-top:0;">
+      <div class="container">
+        <div class="reveal-grid">
+          <div class="reveal reveal-left">
+            <span class="section-tag text-gold">Key Timings</span>
+            <h2 class="section-title text-gold" style="margin:1.25rem 0 1.75rem; font-size: var(--font-size-3xl);">Themes Reveal on <em>25 May 2026</em></h2>
+            <dl class="timing-list">
+              <div class="timing-row"><dt>Theme Reveal Time</dt><dd>25 May 2026 &middot; 4:30 PM IST</dd></div>
+              <div class="timing-row"><dt>Writing Duration</dt><dd>4:30 PM – 6:00 PM IST (90 min)</dd></div>
+              <div class="timing-row"><dt>Submission Window</dt><dd>6:00 PM – 6:10 PM IST (10 min)</dd></div>
+              <div class="timing-row"><dt>Submission Email</dt><dd>info@inspiretalenthub.in</dd></div>
+            </dl>
+          </div>
+          <div class="reveal reveal-right delay-1">
+            <div class="countdown-card">
+              <div class="countdown-card__head">
+                <div><p>Automatic Reveal</p><h2>Themes Unlock In</h2></div>
+                <span class="countdown-live"><span class="badge-dot" aria-hidden="true"></span>Live</span>
+              </div>
+              <div id="countdown" class="countdown-grid" role="timer" aria-label="Countdown to theme reveal">
+                <div class="countdown-cell"><div id="days" class="countdown-num">00</div><div class="countdown-label">Days</div></div>
+                <div class="countdown-cell"><div id="hours" class="countdown-num">00</div><div class="countdown-label">Hours</div></div>
+                <div class="countdown-cell"><div id="minutes" class="countdown-num">00</div><div class="countdown-label">Minutes</div></div>
+                <div class="countdown-cell"><div id="seconds" class="countdown-num">00</div><div class="countdown-label">Seconds</div></div>
+              </div>
+              <div class="reveal-lock">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"></use></svg>
+                <div>
+                  <h3>Theme Security Lock</h3>
+                  <p id="beforeReveal">Themes are hidden and will unlock automatically at exactly 4:30&nbsp;PM&nbsp;IST on 25&nbsp;May&nbsp;2026.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="themes" class="section section-darker">
+      <div class="container">
+        <div class="section-header reveal"><span class="section-tag text-gold">Official Theme Reveal</span><h2 class="section-title text-gold">Competition <em>Themes</em></h2><p class="section-desc">The prompts below stay blurred until the reveal time reaches 4:30&nbsp;PM&nbsp;IST, then unlock automatically.</p></div>
+        <div class="theme-grid">
+        <article class="theme-card reveal">
+          <div class="theme-card__head">
+            <div class="theme-card__icon"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-pen"></use></svg></div>
+            <div><h3>Essay Writing</h3><span>Grades 8 to 12</span></div>
+          </div>
+          <p id="essayTheme" class="theme-prompt theme-blur" data-theme="A World I Want to Build">Theme unlocks automatically at 4:30&nbsp;PM&nbsp;IST</p>
+        </article>
+        <article class="theme-card reveal">
+          <div class="theme-card__head">
+            <div class="theme-card__icon"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-book"></use></svg></div>
+            <div><h3>Story Writing</h3><span>Grades 6 to 10</span></div>
+          </div>
+          <p id="storyTheme" class="theme-prompt theme-blur" data-theme="The Message That Changed Everything">Theme unlocks automatically at 4:30&nbsp;PM&nbsp;IST</p>
+        </article>
+        <article class="theme-card reveal">
+          <div class="theme-card__head">
+            <div class="theme-card__icon"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-feather"></use></svg></div>
+            <div><h3>Poetry Writing</h3><span>Grades 6 to 12</span></div>
+          </div>
+          <p id="poetryTheme" class="theme-prompt theme-blur" data-theme="When Silence Speaks">Theme unlocks automatically at 4:30&nbsp;PM&nbsp;IST</p>
+        </article>
+        </div>
+      </div>
+    </section>
+    <section id="instructions" class="section section-dark">
+      <div class="container">
+        <div class="section-header reveal"><span class="section-tag text-gold">Competition Guidelines</span><h2 class="section-title text-gold">Important <em>Instructions</em></h2><p class="section-desc">Please read every instruction carefully before you begin writing.</p></div>
+        <div class="feature-grid">
+        <div class="feature-card reveal" style="text-align:left;">
+          <div class="feature-icon" style="margin:0 0 1.5rem;"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-clock"></use></svg></div>
+          <h3>Official Timings</h3>
+          <ul class="check-list" style="margin-top:1rem;"><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Themes reveal at 4:30 PM IST.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Writing closes at 6:00 PM IST.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Submission closes at 6:10 PM IST.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>No extensions will be provided.</li></ul>
+        </div>
+        <div class="feature-card reveal" style="text-align:left;">
+          <div class="feature-icon" style="margin:0 0 1.5rem;"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-upload"></use></svg></div>
+          <h3>Submission Rules</h3>
+          <ul class="check-list" style="margin-top:1rem;"><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Only typed documents are accepted.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>PDF and DOCX formats only.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Email submissions only.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Use proper participant details.</li></ul>
+        </div>
+        <div class="feature-card reveal" style="text-align:left;">
+          <div class="feature-icon" style="margin:0 0 1.5rem;"><svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-shield"></use></svg></div>
+          <h3>Integrity Policy</h3>
+          <ul class="check-list" style="margin-top:1rem;"><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>AI-generated content is prohibited.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Plagiarism may disqualify entries.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Originality checks may be performed.</li><li><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#icon-check"></use></svg>Maintain appropriate language.</li></ul>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section id="timeline" class="section section-darker">
+      <div class="container">
+        <div class="section-header reveal"><span class="section-tag text-gold">Official Timeline</span><h2 class="section-title text-gold">Competition <em>Flow</em></h2></div>
+        <div class="timeline reveal">
+        <div class="timeline-item">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="timeline-year">4:30 PM IST</div>
+          <div class="timeline-title">Theme Reveal</div>
+          <p>Official themes become visible automatically.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="timeline-year">6:00 PM IST</div>
+          <div class="timeline-title">Writing Period Ends</div>
+          <p>The 90-minute writing duration officially concludes.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="timeline-year">6:10 PM IST</div>
+          <div class="timeline-title">Final Submission Deadline</div>
+          <p>Final email submissions close permanently.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+    <section id="faq" class="section section-dark">
+      <div class="container">
+        <div class="section-header reveal"><span class="section-tag text-gold">FAQ</span><h2 class="section-title text-gold">Frequently Asked <em>Questions</em></h2></div>
+        <div class="faq-list reveal" style="max-width:860px;margin:0 auto;">
+      <details class="faq-item"><summary>Can handwritten work be submitted?</summary><p>No. Only typed PDF or DOCX submissions are accepted.</p></details>
+      <details class="faq-item"><summary>What time does writing end?</summary><p>The 90-minute writing duration ends exactly at 6:00 PM IST.</p></details>
+      <details class="faq-item"><summary>What is the final submission deadline?</summary><p>The final email submission deadline is 6:10 PM IST.</p></details>
+        </div>
+      </div>
+    </section>
+    <section class="section section-darker">
+      <div class="container reveal" style="text-align:center; max-width:760px;">
+        <div class="feature-icon" style="margin:0 auto 2rem;"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-mail"></use></svg></div>
+        <span class="section-tag text-gold">Official Submission Email</span>
+        <h2 class="section-title text-gold" style="margin:1.25rem 0 1rem;">Submit Your Final <em>Entry</em></h2>
+        <p class="section-desc" style="margin-bottom:2.5rem;">After completing your writing, send your final PDF or DOCX file to the official organizing-committee email before the deadline.</p>
+        <div class="hero-cta-group" style="justify-content:center;">
+          <div class="btn-magnetic-wrap"><a href="mailto:info@inspiretalenthub.in" class="btn btn-gold hover-target"><span>info@inspiretalenthub.in</span><div class="btn-ripple" aria-hidden="true"></div></a></div>
+          <div class="btn-magnetic-wrap"><a href="competition.html" class="btn btn-outline text-gold hover-target"><span>All Competitions</span></a></div>
+        </div>
+      </div>
+    </section>
+    <section class="section section-darker"><div class="container reveal" style="text-align:center;">
+        <div class="gallery-cross-links" style="margin-top:0;border-top:none;padding-top:0;"><p>Explore more:</p><div class="gallery-cross-links__row"><a href="competition.html" class="hover-target">Competitions</a><a href="events.html" class="hover-target">Events</a><a href="workshops.html" class="hover-target">Workshops</a><a href="resources.html" class="hover-target">Resources</a><a href="faq.html" class="hover-target">FAQ</a></div></div>
+      </div></section>
+  <script>
+  (function () {
+    var revealDate = new Date("May 25, 2026 16:30:00 GMT+0530").getTime();
+    var ids = ['days', 'hours', 'minutes', 'seconds'];
+    var els = {};
+    ids.forEach(function (id) { els[id] = document.getElementById(id); });
+    var themeEls = ['essayTheme', 'storyTheme', 'poetryTheme'].map(function (id) { return document.getElementById(id); });
+    var beforeReveal = document.getElementById('beforeReveal');
+    var revealed = false;
+
+    function revealThemes() {
+      if (revealed) return;
+      revealed = true;
+      themeEls.forEach(function (el) {
+        if (!el) return;
+        el.textContent = el.getAttribute('data-theme') || el.textContent;
+        el.classList.remove('theme-blur');
+      });
+      if (beforeReveal) beforeReveal.textContent = 'Themes unlocked. Participants may now begin writing.';
+    }
+
+    function tick() {
+      var distance = revealDate - Date.now();
+      if (distance <= 0) {
+        ids.forEach(function (id) { if (els[id]) els[id].textContent = '00'; });
+        revealThemes();
+        clearInterval(timer);
+        return;
+      }
+      var d = Math.floor(distance / 86400000);
+      var h = Math.floor((distance % 86400000) / 3600000);
+      var m = Math.floor((distance % 3600000) / 60000);
+      var s = Math.floor((distance % 60000) / 1000);
+      if (els.days) els.days.textContent = String(d).padStart(2, '0');
+      if (els.hours) els.hours.textContent = String(h).padStart(2, '0');
+      if (els.minutes) els.minutes.textContent = String(m).padStart(2, '0');
+      if (els.seconds) els.seconds.textContent = String(s).padStart(2, '0');
+    }
+
+    var timer = setInterval(tick, 1000);
+    tick();
+  })();
+  </script>
+  </main>
+<footer class="index-footer" role="contentinfo" id="index-footer">
+  <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>
+  <div class="index-footer__container">
+    <div class="index-footer__brand"><a href="index.html" class="index-footer__logo-link hover-target" aria-label="Inspire Talent Hub Home"><span class="index-footer__title">Inspire<em>Talent</em>Hub</span></a>
+      <p class="index-footer__sub">India’s student competition and talent-discovery platform — fair, transparent, merit-based competitions for students across India.</p></div>
+    <nav class="index-footer__cols" aria-label="Footer navigation">
+      <div class="index-footer__col"><h3>Explore</h3><ul role="list"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="competition.html">Competitions</a></li><li><a href="events.html">Events</a></li><li><a href="workshops.html">Workshops</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+      <div class="index-footer__col"><h3>Community</h3><ul role="list"><li><a href="reviews.html">Reviews</a></li><li><a href="success-stories.html">Success Stories</a></li><li><a href="schools.html">Schools</a></li><li><a href="teachers.html">Teachers</a></li><li><a href="campus-ambassador.html">Campus Ambassador</a></li></ul></div>
+      <div class="index-footer__col"><h3>Get Involved</h3><ul role="list"><li><a href="partners.html">Partners</a></li><li><a href="scholarships.html">Scholarships</a></li><li><a href="careers.html">Careers</a></li><li><a href="media.html">Media Coverage</a></li><li><a href="downloads.html">Downloads</a></li></ul></div>
+      <div class="index-footer__col"><h3>Support</h3><ul role="list"><li><a href="resources.html">Resources</a></li><li><a href="news.html">News</a></li><li><a href="verifycertificate.html">Verify Certificate</a></li><li><a href="faq.html">FAQ</a></li><li><a href="Contact.html">Contact</a></li><li><a href="StudentPortal.html">Student Portal</a></li></ul></div>
+    </nav>
+    <div class="index-footer__bottom">
+      <div class="index-footer__divider" aria-hidden="true"></div>
+      <nav class="index-footer__legal" aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="cookies.html">Cookie Policy</a><a href="terms.html">Terms of Service</a><a href="refund.html">Refund Policy</a><a href="accessibility.html">Accessibility</a><a href="disclaimer.html">Disclaimer</a><a href="sitemap.html">Sitemap</a></nav>
+      <p class="index-footer__copy">&copy; 2026 Inspire Talent Hub. All Intellectual Rights Strictly Reserved. <span class="index-footer__tagline">Command the Future.</span></p>
+    </div>
+  </div>
 </footer>
-
-<script>
-
-const revealDate = new Date("May 25, 2026 16:30:00 GMT+0530").getTime();
-
-const daysEl = document.getElementById('days');
-const hoursEl = document.getElementById('hours');
-const minutesEl = document.getElementById('minutes');
-const secondsEl = document.getElementById('seconds');
-
-const essayTheme = document.getElementById('essayTheme');
-const storyTheme = document.getElementById('storyTheme');
-const poetryTheme = document.getElementById('poetryTheme');
-
-const beforeReveal = document.getElementById('beforeReveal');
-
-function revealThemes(){
-
-essayTheme.innerHTML = "A World I Want to Build";
-storyTheme.innerHTML = "The Message That Changed Everything";
-poetryTheme.innerHTML = "When Silence Speaks";
-
-essayTheme.classList.remove('theme-blur');
-storyTheme.classList.remove('theme-blur');
-poetryTheme.classList.remove('theme-blur');
-
-beforeReveal.innerHTML = "Themes successfully unlocked. Participants may now begin writing.";
-}
-
-function updateCountdown(){
-
-const now = new Date().getTime();
-const distance = revealDate - now;
-
-if(distance <= 0){
-
-daysEl.innerText = '00';
-hoursEl.innerText = '00';
-minutesEl.innerText = '00';
-secondsEl.innerText = '00';
-
-revealThemes();
-
-return;
-}
-
-const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-daysEl.innerText = String(days).padStart(2,'0');
-hoursEl.innerText = String(hours).padStart(2,'0');
-minutesEl.innerText = String(minutes).padStart(2,'0');
-secondsEl.innerText = String(seconds).padStart(2,'0');
-
-}
-
-setInterval(updateCountdown,1000);
-updateCountdown();
-
-document.querySelectorAll('.faq-item').forEach(item=>{
-
-const btn = item.querySelector('.faq-toggle');
-
-btn.addEventListener('click',()=>{
-item.classList.toggle('active');
-});
-
-});
-
-document.addEventListener('contextmenu',event=>event.preventDefault());
-
-document.onkeydown = function(e) {
-
-if (e.keyCode == 123) {
-return false;
-}
-
-if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-return false;
-}
-
-if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-return false;
-}
-
-if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-return false;
-}
-
-if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-return false;
-}
-
-}
-
-</script>
-
+  <script src="script.js" defer></script>
 </body>
 </html>
