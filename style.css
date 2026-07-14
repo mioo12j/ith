@@ -2954,3 +2954,70 @@ p {
 }
 .info-note svg { flex-shrink: 0; color: var(--color-brand-primary); margin-top: 2px; }
 .info-note p { margin: 0; }
+
+/* ==========================================================================
+   26. POLISH PASS — mobile grid fixes, premium section depth, typography
+       (appended last so responsive rules win over earlier base grids)
+   ========================================================================== */
+
+/* ── CRITICAL mobile fixes: stats & testimonials were stuck at desktop cols ── */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .testimonial-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 440px) {
+  .recap-stats { grid-template-columns: 1fr; }
+}
+
+/* Guarantee big numbers never crop: allow wrapping, keep them fluid */
+.stat-number, .stat-static, .recap-stat b, .mini-stat b, .countdown-num {
+  overflow-wrap: break-word;
+  word-break: normal;
+  max-width: 100%;
+}
+
+/* ── Premium section depth (kills the "flat black blocks" feel) ── */
+.section-dark { background-image: radial-gradient(130% 90% at 50% -20%, rgba(232, 198, 106, 0.045), transparent 55%); }
+.section-darker { background-image: radial-gradient(120% 90% at 50% 120%, rgba(232, 198, 106, 0.04), transparent 55%); }
+/* Subtle gold hairline between stacked sections for layered rhythm */
+.section + .section { border-top: 1px solid rgba(232, 198, 106, 0.06); }
+
+/* Refined glass/lift on cards for a richer, more luxurious surface */
+.feature-card, .testimonial-card, .stat-item, .cat-item, .recap-card,
+.video-card, .process-step, .countdown-card, .confirm-card {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.stat-item, .cat-item {
+  background-color: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ── Typography refinements (tighter display type, better rhythm) ── */
+.section-title, .comp-hero__title, .case-study__title, .recap-title {
+  letter-spacing: -0.01em;
+}
+.section-title { line-height: 1.12; }
+.hero-title, .comp-hero__title { text-wrap: balance; }
+.section-desc { text-wrap: pretty; }
+.section-tag { font-weight: 600; }
+.timeline-title, .feature-card h3, .video-name, .process-step h3 { letter-spacing: 0.01em; }
+
+/* Comfortable touch targets & spacing on small screens */
+@media (max-width: 480px) {
+  .btn { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
+  .index-nav__link { padding: 0.35rem 0; }
+  .section-header { margin-bottom: var(--spacing-12); }
+}
+
+/* Small-screen safety: let confirmation rows wrap instead of overflowing */
+@media (max-width: 380px) {
+  .confirm-row { flex-wrap: wrap; }
+  .confirm-row > span { min-width: 0; }
+}

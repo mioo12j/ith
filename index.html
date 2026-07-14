@@ -553,7 +553,7 @@
 
         </div>
 
-       <div class="core-values-wrapper reveal delay-2" style="margin-top: 8rem; padding: 2rem;">
+       <div class="core-values-wrapper reveal delay-2" style="margin-top: 4rem; padding: 0;">
 
   
  <div class="core-values-wrapper2026" id="values-section2026">
@@ -636,10 +636,11 @@
     --local-brand-alpha-40: rgba(232, 198, 106, 0.40);
     --local-text-muted: #94a3b8;
     
-    margin-top: 8rem;
-    padding: 2rem;
+    margin-top: 0;
+    padding: 2.5rem;
+    border-radius: 20px;
     /* Ensure the background matches the cards for the neuromorphic effect to work */
-    background-color: var(--local-bg-surface); 
+    background-color: var(--local-bg-surface);
   }
 
   /* Typography styling */
@@ -672,7 +673,7 @@
   /* Grid Layout */
   .values-grid2026 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
     gap: 2.5rem;
   }
 
@@ -718,6 +719,14 @@
   .luxury-value-card2026.is-visible2026 {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Mobile: relax padding/gaps so cards breathe and never crop */
+  @media (max-width: 600px) {
+    .core-values-wrapper2026 { padding: 1.25rem; }
+    .values-grid2026 { gap: 1.25rem; }
+    .title-text2026 { font-size: 1.75rem; margin-bottom: 2rem; }
+    .luxury-value-card2026 { padding: 2rem 1.25rem; }
   }
 </style>
 
