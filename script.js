@@ -216,27 +216,32 @@ const MathUtils = {
     const revealElements = DOM.getAll('.reveal');
     if (!revealElements.length) return;
 
+    const revealAll = () => revealElements.forEach(el => el.classList.add('visible'));
+
+    // Failsafe: if IntersectionObserver is unavailable, never hide content.
+    if (!('IntersectionObserver' in window)) { revealAll(); return; }
+
     const observerOptions = {
         root: null,
         rootMargin: "0px 0px -12% 0px", // Trigger slightly before element enters view
         threshold: 0.1
     };
-    
+
     const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const el = entry.target;
-                
+
                 // Read optional data-delay attribute for staggered animations
                 const delay = el.getAttribute('data-delay');
                 if (delay) el.style.transitionDelay = `${delay}ms`;
-                
+
                 el.classList.add('visible');
                 observer.unobserve(el); // Prevent re-triggering for performance
             }
         });
     }, observerOptions);
-    
+
     revealElements.forEach(el => {
         // Exclude hero elements as they are managed by the cinematic loader
         if (!el.closest('#hero')) {
