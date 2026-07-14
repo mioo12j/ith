@@ -1539,7 +1539,12 @@ select#res_track:hover {
             // Hamburger logic
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('navLinks');
-            if(hamburger) hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+            if(hamburger) hamburger.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('open');
+                hamburger.setAttribute('aria-expanded', isOpen);
+                if (isOpen) { window.__navY = window.scrollY; var b=document.body.style; b.position='fixed'; b.top=(-window.__navY)+'px'; b.left='0'; b.right='0'; b.width='100%'; b.overflow='hidden'; }
+                else { var b=document.body.style; b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; b.overflow=''; window.scrollTo(0, window.__navY||0); }
+            });
 
             // Initial Math Generation
             ResMath.refresh();

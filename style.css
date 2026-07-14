@@ -3073,3 +3073,21 @@ p {
 .sitemap-col ul { display: flex; flex-direction: column; gap: 0.6rem; }
 .sitemap-col a { color: var(--color-text-secondary); transition: color var(--duration-fast); }
 .sitemap-col a:hover { color: var(--color-brand-primary); }
+
+/* ==========================================================================
+   28. UNIVERSAL MOBILE NAV — robust scroll lock (position-fixed technique)
+   ========================================================================== */
+body.nav-scroll-lock {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+}
+/* Ensure the mobile drawer always sits above page content and the hamburger
+   above the drawer so it can toggle it closed (no z-index conflicts). */
+@media (max-width: 768px) {
+  .index-nav { z-index: var(--z-index-nav); }
+  .index-nav__links { z-index: calc(var(--z-index-nav) - 1); }
+  .index-nav__hamburger { z-index: calc(var(--z-index-nav) + 1); }
+}

@@ -616,7 +616,12 @@ body::before {
             const helperBtn = document.getElementById('btn_helper_verification_fest_2026');
             const helperBox = document.getElementById('box_helper_verification_fest_2026');
 
-            hamburger.addEventListener('click', () => { navLinks.classList.toggle('open'); });
+            hamburger.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('open');
+                hamburger.setAttribute('aria-expanded', isOpen);
+                if (isOpen) { window.__navY = window.scrollY; var b=document.body.style; b.position='fixed'; b.top=(-window.__navY)+'px'; b.left='0'; b.right='0'; b.width='100%'; b.overflow='hidden'; }
+                else { var b=document.body.style; b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; b.overflow=''; window.scrollTo(0, window.__navY||0); }
+            });
             
             // Tooltip toggle
             if(helperBtn) {

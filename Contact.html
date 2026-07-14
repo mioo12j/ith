@@ -346,7 +346,15 @@
         const isOpen = navLinks.classList.toggle('open');
         hamburger.classList.toggle('open', isOpen);
         hamburger.setAttribute('aria-expanded', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+        if (isOpen) {
+          window.__navY = window.scrollY;
+          var b = document.body.style;
+          b.position='fixed'; b.top=(-window.__navY)+'px'; b.left='0'; b.right='0'; b.width='100%'; b.overflow='hidden';
+        } else {
+          var b = document.body.style;
+          b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; b.overflow='';
+          window.scrollTo(0, window.__navY||0);
+        }
       });
 
       document.querySelectorAll('.nav-link').forEach(link => {
@@ -354,7 +362,9 @@
           navLinks.classList.remove('open');
           hamburger.classList.remove('open');
           hamburger.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
+          var b = document.body.style;
+          b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; b.overflow='';
+          window.scrollTo(0, window.__navY||0);
         });
       });
 

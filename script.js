@@ -589,33 +589,85 @@ const MathUtils = {
 console.log('%c✦ Inspire Talent Hub Engine Initialized', 'color: #c9a84c; font-size: 14px; font-weight: bold;');
 
 
-// ── INDEX NAVIGATION SCRIPT ──────────────────────────────────
-(function initIndexNav() {
+// ── UNIVERSAL NAVIGATION CONTROLLER ──────────────────────────────────
+// One robust implementation shared by every page. Uses a position-fixed
+// scroll lock (reliable on iOS/Android, unlike body{overflow:hidden}) with
+// scroll-position restoration, so the menu opens/closes consistently no matter
+// where the user has scrolled — including at the very bottom of a long page.
+(function initUniversalNav() {
   const nav = document.getElementById('index-mainNav');
   const hamburger = document.getElementById('index-hamburger');
   const navLinks = document.getElementById('index-navLinks');
+  if (!nav || !hamburger || !navLinks) return;
 
-  // Toggle background blur on scroll
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+  let isOpen = false;
+  let lockedScrollY = 0;
 
-  // Open/Close mobile menu
-  hamburger.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    hamburger.classList.toggle('open', isOpen);
-    hamburger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+  // Background blur on scroll
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  function lockScroll() {
+    lockedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.classList.add('nav-scroll-lock');
+  }
+  function unlockScroll() {
+    document.body.classList.remove('nav-scroll-lock');
+    document.body.style.top = '';
+    window.scrollTo(0, lockedScrollY);
+  }
+
+  function openMenu() {
+    if (isOpen) return;
+    isOpen = true;
+    navLinks.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Close menu');
+    lockScroll();
+    // Move focus to the first link once the drawer has painted (rAF avoids
+    // focusing while it is still visibility:hidden mid-transition).
+    requestAnimationFrame(() => {
+      const first = navLinks.querySelector('a');
+      if (first && isOpen) first.focus();
+    });
+  }
+  function closeMenu(restoreFocus) {
+    if (!isOpen) return;
+    isOpen = false;
+    navLinks.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open menu');
+    unlockScroll();
+    if (restoreFocus) hamburger.focus();
+  }
+  function toggleMenu() { isOpen ? closeMenu(true) : openMenu(); }
+
+  hamburger.addEventListener('click', toggleMenu);
+
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => closeMenu(false));
   });
 
-  // Close menu when a link is clicked
-  navLinks.querySelectorAll('.index-nav__link').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
+  // Escape closes; basic focus trap keeps tabbing inside the open drawer
+  document.addEventListener('keydown', (e) => {
+    if (!isOpen) return;
+    if (e.key === 'Escape') { closeMenu(true); return; }
+    if (e.key === 'Tab') {
+      const focusables = [hamburger, ...navLinks.querySelectorAll('a')];
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  // If the viewport grows to desktop while open (e.g. rotate), reset cleanly
+  window.addEventListener('resize', () => {
+    if (isOpen && window.innerWidth > 768) closeMenu(false);
   });
 })();
 // ── INDEX FOOTER WEBGL ANIMATION ──────────────────────────────────
