@@ -61,6 +61,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.Inspiretalenthub.in/resources.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.Inspiretalenthub.in/news.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.Inspiretalenthub.in/events.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.Inspiretalenthub.in/workshops.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.Inspiretalenthub.in/verifycertificate.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
