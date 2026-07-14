@@ -1,84 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" class="premium-theme no-js">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Successful | Inspire Talent</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+
+  <title>Registration Confirmed | Inspire Talent Hub</title>
   <meta name="description" content="Your Inspire Talent Hub registration is confirmed. Thank you for taking part in the Academic Kickoff Fest 2026." />
   <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#03060d" />
   <link rel="canonical" href="https://www.Inspiretalenthub.in/success.html" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
-        .success-pulse { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-    </style>
+  <link rel="icon" type="image/jpeg" href="logo.jpeg" />
+  <link rel="apple-touch-icon" href="logo.jpeg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="body-dark">
 
-    <div class="bg-white max-w-lg w-full rounded-[2rem] shadow-2xl p-8 md:p-12 text-center border border-slate-100 relative overflow-hidden">
-        
-        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-emerald-50 to-white"></div>
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
-        <div class="relative z-10">
-            <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 success-pulse shadow-lg text-white">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-                </svg>
-            </div>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-            <h1 class="text-3xl font-extrabold text-slate-900 mb-2">Registration Confirmed!</h1>
-            <p class="text-slate-500 mb-8 font-medium">Thank you for your payment. Your spot at the Academic Kickoff Fest 2026 is officially secured.</p>
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></symbol>
+    </defs>
+  </svg>
 
-            <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 text-left mb-8 shadow-sm">
-                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 border-b border-slate-200 pb-2">Transaction Summary</h3>
-                
-                <div class="flex justify-between items-center mb-3">
-                    <span class="text-slate-600 font-semibold">Amount Paid:</span>
-                    <span id="display-amount" class="text-xl font-extrabold text-slate-900">Loading...</span>
-                </div>
-                
-                <div class="flex justify-between items-center">
-                    <span class="text-slate-600 font-semibold">Transaction ID:</span>
-                    <span id="display-id" class="text-sm font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">Loading...</span>
-                </div>
-            </div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-outline" id="cursorOutline" aria-hidden="true"></div>
 
-            <div class="bg-amber-50 border border-amber-200 text-amber-800 rounded-xl p-4 text-sm font-medium mb-8 text-left flex gap-3 items-start">
-                <span class="text-xl">⚠️</span>
-                <p>Please take a screenshot of this page and keep your Transaction ID safe for your records. If you experience any issues, you will be contacted shortly.</p>
-            </div>
-
-            <a href="index.html" class="inline-block w-full bg-slate-900 hover:bg-indigo-600 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-md active:scale-95">
-                Return to Homepage
-            </a>
-        </div>
+  <nav class="index-nav" id="index-mainNav" aria-label="Main navigation">
+    <div class="index-nav__logo">
+      <a href="index.html" class="index-nav__logo-link hover-target" aria-label="Inspire Talent Hub Home">
+        <svg class="icon-star-small" width="16" height="16" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
+        <span class="index-nav__logo-title">Inspire<em>Talent</em>Hub</span>
+      </a>
     </div>
+    <button class="index-nav__hamburger" id="index-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="index-nav__links" id="index-navLinks" role="list">
+      <li><a href="index.html#about" class="index-nav__link">Our Story</a></li>
+      <li><a href="competition.html" class="index-nav__link">Competitions</a></li>
+      <li><a href="gallery.html" class="index-nav__link">Gallery</a></li>
+      <li><a href="learnmore.html" class="index-nav__link">Learn More</a></li>
+      <li><a href="faq.html" class="index-nav__link">FAQ</a></li>
+      <li><a href="Contact.html" class="index-nav__link">Contact</a></li>
+      <li><a href="StudentPortal.html" class="index-nav__link">Student Portal</a></li>
+    </ul>
+  </nav>
 
-    <script>
-        // When the page loads, grab the data saved by competition.html
-        document.addEventListener("DOMContentLoaded", () => {
-            const txnId = localStorage.getItem("txn_id");
-            const txnAmount = localStorage.getItem("txn_amount");
+  <main id="main-content" class="confirm-page">
+    <div class="confirm-card">
+      <div class="confirm-badge" aria-hidden="true">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-check"></use></svg>
+      </div>
 
-            if (txnId && txnAmount) {
-                document.getElementById("display-id").innerText = txnId;
-                document.getElementById("display-amount").innerText = txnAmount;
-                
-                // Optional: Clear the storage so it doesn't stay there forever
-                localStorage.removeItem("txn_id");
-                localStorage.removeItem("txn_amount");
-            } else {
-                // Fallback just in case they reload the page directly
-                document.getElementById("display-id").innerText = "Not Available";
-                document.getElementById("display-amount").innerText = "Verification Pending";
-            }
-        });
-    </script>
+      <h1 class="section-title text-gold" style="margin-bottom: 0.75rem;">Registration <em>Confirmed</em></h1>
+      <p class="section-desc" style="max-width: 46ch;">
+        Thank you — your spot at the Academic Kickoff Fest 2026 is officially secured. A confirmation will follow by email.
+      </p>
+
+      <div class="confirm-summary">
+        <h2>Transaction Summary</h2>
+        <div class="confirm-row">
+          <span>Amount Paid</span>
+          <span id="display-amount" class="confirm-amount">Loading…</span>
+        </div>
+        <div class="confirm-row">
+          <span>Transaction ID</span>
+          <span id="display-id" class="confirm-id">Loading…</span>
+        </div>
+      </div>
+
+      <div class="confirm-note">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink:0;color:var(--color-brand-primary);"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        <p style="margin:0;">Please take a screenshot of this page and keep your Transaction ID safe for your records. If you experience any issues, our team will reach out shortly.</p>
+      </div>
+
+      <div class="hero-cta-group" style="justify-content:center;">
+        <div class="btn-magnetic-wrap">
+          <a href="index.html" class="btn btn-gold hover-target"><span>Return to Homepage</span><div class="btn-ripple" aria-hidden="true"></div></a>
+        </div>
+        <div class="btn-magnetic-wrap">
+          <a href="verifycertificate.html" class="btn btn-outline text-gold hover-target"><span>Verify a Certificate</span></a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="index-footer" role="contentinfo" id="index-footer">
+    <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>
+    <div class="index-footer__container">
+      <div class="index-footer__brand">
+        <a href="index.html" class="index-footer__logo-link hover-target" aria-label="Inspire Talent Hub Home">
+          <span class="index-footer__title">Inspire<em>Talent</em>Hub</span>
+        </a>
+        <p class="index-footer__sub">Architecting the ultimate competitive infrastructure to forge the brilliant leaders of tomorrow.</p>
+      </div>
+      <nav class="index-footer__nav" aria-label="Footer navigation">
+        <ul role="list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="competition.html">Competitions</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="learnmore.html">Learn More</a></li>
+          <li><a href="verifycertificate.html">Verify Certificate</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="Contact.html">Contact</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="refund.html">Refund Protocol</a></li>
+        </ul>
+      </nav>
+      <div class="index-footer__bottom">
+        <div class="index-footer__divider" aria-hidden="true"></div>
+        <p class="index-footer__copy">
+          &copy; 2026 Inspire Talent Hub. All Intellectual Rights Strictly Reserved.
+          <span class="index-footer__tagline">Command the Future.</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+  <script>
+    // Display the transaction data saved by the registration flow (competition.html)
+    document.addEventListener("DOMContentLoaded", function () {
+      var txnId = localStorage.getItem("txn_id");
+      var txnAmount = localStorage.getItem("txn_amount");
+      var idEl = document.getElementById("display-id");
+      var amtEl = document.getElementById("display-amount");
+      if (txnId && txnAmount) {
+        idEl.textContent = txnId;
+        amtEl.textContent = txnAmount;
+        localStorage.removeItem("txn_id");
+        localStorage.removeItem("txn_amount");
+      } else {
+        idEl.textContent = "Not Available";
+        amtEl.textContent = "Verification Pending";
+      }
+    });
+  </script>
 </body>
 </html>

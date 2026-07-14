@@ -2687,3 +2687,102 @@ p {
   transition: color var(--duration-fast);
 }
 .gallery-cross-links__row a:hover { color: var(--color-brand-primary); }
+
+/* ==========================================================================
+   22. COMPETITION (COMING SOON) & SUCCESS (CONFIRMATION) PAGES
+       Rebranded to the gold/navy system — all values from design tokens.
+   ========================================================================== */
+
+/* ── Competition hero ── */
+.comp-hero {
+  position: relative;
+  padding-top: clamp(9rem, 14vw, 12rem);
+  padding-bottom: var(--section-padding-y);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 8%, rgba(232, 198, 106, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(201, 168, 76, 0.06), transparent 45%),
+    var(--color-bg-base);
+}
+.comp-orb { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; z-index: 0; }
+.comp-orb--1 { width: 320px; height: 320px; top: -60px; left: -80px; background: radial-gradient(circle, rgba(232, 198, 106, 0.22), transparent 70%); }
+.comp-orb--2 { width: 360px; height: 360px; bottom: -100px; right: -90px; background: radial-gradient(circle, rgba(201, 168, 76, 0.16), transparent 70%); }
+.comp-hero .container { position: relative; z-index: 1; }
+.comp-hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
+.comp-hero__title { font-family: var(--font-family-display); font-size: var(--font-size-3xl); line-height: 1.08; color: var(--color-text-primary); margin-bottom: var(--spacing-6); }
+.comp-hero__title em { font-family: var(--font-family-heading); font-style: italic; color: var(--color-brand-primary); }
+
+/* ── Mini stat tiles ── */
+.mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-4); margin-top: var(--spacing-8); }
+.mini-stat { padding: var(--spacing-6) var(--spacing-4); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; background-color: rgba(255, 255, 255, 0.01); text-align: center; }
+.mini-stat b { display: block; font-family: var(--font-family-display); font-size: var(--font-size-xl); color: var(--color-brand-primary); line-height: 1; }
+.mini-stat span { display: block; margin-top: 0.45rem; font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+
+/* ── Countdown card ── */
+.countdown-card {
+  border: 1px solid var(--color-brand-alpha-20);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 80% 0%, rgba(232, 198, 106, 0.06), transparent 45%),
+    var(--color-bg-surface-1);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+.countdown-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-4); margin-bottom: var(--spacing-6); }
+.countdown-card__head h2 { font-family: var(--font-family-heading); font-size: var(--font-size-xl); color: var(--color-text-primary); margin: 0; }
+.countdown-card__head p { font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-tertiary); margin: 0 0 0.25rem; }
+.countdown-live {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 0.85rem; border-radius: 100px;
+  border: 1px solid var(--color-brand-alpha-20);
+  background-color: var(--color-brand-alpha-10);
+  color: var(--color-brand-primary);
+  font-size: var(--font-size-xs); letter-spacing: 0.08em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.countdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--spacing-3); }
+.countdown-cell { text-align: center; padding: var(--spacing-4) var(--spacing-2); border-radius: 12px; background-color: rgba(2, 4, 10, 0.5); border: 1px solid rgba(255, 255, 255, 0.06); }
+.countdown-num { font-family: var(--font-family-display); font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--color-brand-primary); line-height: 1; font-variant-numeric: tabular-nums; }
+.countdown-label { margin-top: 0.45rem; font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-tertiary); }
+.countdown-note { margin-top: var(--spacing-6); font-size: var(--font-size-sm); color: var(--color-text-tertiary); }
+
+@media (max-width: 900px) { .comp-hero__grid { grid-template-columns: 1fr; gap: var(--spacing-12); } }
+@media (max-width: 480px) { .countdown-grid { grid-template-columns: repeat(2, 1fr); } .mini-stats { grid-template-columns: 1fr; } }
+
+/* ── Success / confirmation page ── */
+.confirm-page {
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(8rem, 13vw, 11rem) var(--container-padding-x) var(--section-padding-y);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(232, 198, 106, 0.07), transparent 55%),
+    var(--color-bg-base);
+}
+.confirm-card {
+  width: 100%; max-width: 580px;
+  border: 1px solid var(--color-brand-alpha-20);
+  border-radius: 20px;
+  background-color: var(--color-bg-surface-1);
+  padding: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+}
+.confirm-badge {
+  width: 84px; height: 84px; margin: 0 auto var(--spacing-6);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--color-brand-primary);
+  border: 2px solid var(--color-brand-alpha-40);
+  background-color: var(--color-brand-alpha-10);
+  animation: confirmPulse 2.4s infinite;
+}
+@keyframes confirmPulse {
+  0% { box-shadow: 0 0 0 0 rgba(232, 198, 106, 0.35); }
+  70% { box-shadow: 0 0 0 18px rgba(232, 198, 106, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(232, 198, 106, 0); }
+}
+.confirm-summary { text-align: left; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: var(--spacing-6); margin: var(--spacing-8) 0; background-color: rgba(255, 255, 255, 0.01); }
+.confirm-summary h2 { font-size: var(--font-size-xs); letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-tertiary); border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: var(--spacing-3); margin-bottom: var(--spacing-4); }
+.confirm-row { display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-4); margin-bottom: var(--spacing-3); }
+.confirm-row:last-child { margin-bottom: 0; }
+.confirm-row > span:first-child { color: var(--color-text-tertiary); }
+.confirm-amount { font-family: var(--font-family-display); font-size: var(--font-size-lg); color: var(--color-text-primary); }
+.confirm-id { font-size: var(--font-size-sm); font-weight: 600; color: var(--color-brand-primary); background-color: var(--color-brand-alpha-10); border: 1px solid var(--color-brand-alpha-20); padding: 0.2rem 0.6rem; border-radius: 6px; }
+.confirm-note { display: flex; gap: var(--spacing-3); align-items: flex-start; text-align: left; border: 1px solid var(--color-brand-alpha-20); border-radius: 12px; padding: var(--spacing-4); background-color: var(--color-brand-alpha-10); color: var(--color-text-secondary); font-size: var(--font-size-sm); margin-bottom: var(--spacing-8); }
