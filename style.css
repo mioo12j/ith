@@ -3150,3 +3150,349 @@ body.nav-scroll-lock {
   transition: filter var(--duration-slow);
 }
 .theme-prompt.theme-blur { filter: blur(8px); user-select: none; }
+
+/* ==========================================================================
+   30. CERTIFICATE VERIFICATION MODULE (verifycertificate.html)
+   Self-contained verification card, captcha, results grid, recognised-comp
+   chips and support FAQ. Preserves the JS contract in script_verification.js.
+   ========================================================================== */
+        /* --- VERIFICATION MODULE UI --- */
+        .page_container_verification_fest_2026 {
+            width: 100%; max-width: 800px; margin: 140px auto 80px auto; padding: 0 20px;
+            animation: slideUpFade_verification_fest_2026 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .card_verification_fest_2026 {
+            background: #ffffff; border-radius: 28px; padding: 48px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;
+            position: relative; overflow: hidden; margin-bottom: 30px;
+        }
+
+        .card_verification_fest_2026::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+            background: linear-gradient(90deg, #4f46e5, #ec4899);
+        }
+
+        .header_verification_fest_2026 { text-align: center; margin-bottom: 40px; }
+        
+        .shield_wrapper_verification_fest_2026 {
+            width: 80px; height: 80px; margin: 0 auto 20px auto; background: #e0e7ff; border-radius: 24px;
+            display: flex; align-items: center; justify-content: center; color: #4f46e5;
+            animation: float_verification_fest_2026 4s ease-in-out infinite;
+        }
+
+        .title_verification_fest_2026 { font-size: 36px; font-weight: 900; color: #0f172a; margin-bottom: 12px; letter-spacing: -0.03em; }
+        .subtitle_verification_fest_2026 { font-size: 16px; color: #64748b; font-weight: 500; line-height: 1.6; max-width: 500px; margin: 0 auto; }
+
+        /* Search Input */
+        .search_container_verification_fest_2026 { margin-bottom: 24px; position: relative; }
+        .search_label_verification_fest_2026 { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+        .helper_link_verification_fest_2026 { color: #4f46e5; text-transform: none; letter-spacing: normal; cursor: pointer; text-decoration: underline; font-size: 12px; }
+        .search_input_verification_fest_2026 { width: 100%; padding: 20px 24px; font-family: 'Plus Jakarta Sans', monospace; font-size: 18px; font-weight: 800; color: #0f172a; background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 16px; text-transform: uppercase; letter-spacing: 2px; outline: none; transition: all 0.3s ease; }
+        .search_input_verification_fest_2026:focus { border-color: #4f46e5; background: #ffffff; box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.15); }
+
+        /* Helper Box (Hidden by default) */
+        .helper_box_verification_fest_2026 { background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 12px; margin-bottom: 24px; font-size: 13px; color: #475569; display: none; }
+        .helper_box_verification_fest_2026.show_verification_fest_2026 { display: block; animation: fadeInDown_verification_fest_2026 0.3s ease; }
+
+        /* Captcha Box */
+        .captcha_box_verification_fest_2026 { display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; border: 1px solid #e2e8f0; padding: 16px 24px; border-radius: 16px; margin-bottom: 24px; transition: all 0.3s ease; }
+        .captcha_box_verification_fest_2026:focus-within { border-color: #4f46e5; background: #ffffff; }
+        .captcha_text_verification_fest_2026 { font-size: 14px; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px; }
+        .captcha_input_verification_fest_2026 { width: 80px; padding: 12px; font-size: 16px; font-weight: 800; text-align: center; border: 2px solid #cbd5e1; border-radius: 10px; outline: none; transition: border-color 0.3s ease; }
+        .captcha_input_verification_fest_2026:focus { border-color: #4f46e5; }
+
+        /* Button */
+        .verify_btn_verification_fest_2026 { width: 100%; padding: 20px; font-size: 18px; font-weight: 800; color: #ffffff; background: #0f172a; border: none; border-radius: 16px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .verify_btn_verification_fest_2026:hover { background: #4f46e5; transform: translateY(-3px); box-shadow: 0 15px 25px -5px rgba(79, 70, 229, 0.4); }
+
+        /* Loading Skeleton */
+        .skeleton_loader_verification_fest_2026 { display: none; margin-top: 40px; padding-top: 40px; border-top: 2px dashed #e2e8f0; }
+        .skeleton_loader_verification_fest_2026.active_verification_fest_2026 { display: block; }
+        .skel_line_verification_fest_2026 { height: 20px; background: #e2e8f0; border-radius: 10px; margin-bottom: 16px; animation: pulse_verification_fest_2026 1.5s infinite ease-in-out; }
+        .skel_box_verification_fest_2026 { height: 80px; background: #e2e8f0; border-radius: 16px; margin-bottom: 16px; animation: pulse_verification_fest_2026 1.5s infinite ease-in-out; }
+
+        /* Error Banner */
+        .error_box_verification_fest_2026 { background: #fef2f2; color: #b91c1c; padding: 16px; border-radius: 12px; font-size: 14px; font-weight: 700; text-align: center; border: 1px solid #fecaca; margin-top: 20px; animation: shake_verification_fest_2026 0.4s ease-in-out; }
+
+        /* Results Panel */
+        .results_panel_verification_fest_2026 { margin-top: 40px; padding-top: 40px; border-top: 2px dashed #e2e8f0; }
+        
+        .badge_verification_fest_2026 { display: inline-flex; align-items: center; gap: 8px; background: #10b981; color: #ffffff; padding: 8px 16px; border-radius: 99px; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); animation: popIn_verification_fest_2026 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+        .data_grid_verification_fest_2026 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .data_row_verification_fest_2026 { background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; opacity: 0; transform: translateY(20px); animation: staggerFade_verification_fest_2026 0.5s ease forwards; }
+        .data_row_full_verification_fest_2026 { grid-column: 1 / -1; }
+        
+        /* Staggered animations */
+        .delay_1_verification_fest_2026 { animation-delay: 0.1s; }
+        .delay_2_verification_fest_2026 { animation-delay: 0.2s; }
+        .delay_3_verification_fest_2026 { animation-delay: 0.3s; }
+        .delay_4_verification_fest_2026 { animation-delay: 0.4s; }
+
+        .label_verification_fest_2026 { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; }
+        .value_verification_fest_2026 { font-size: 18px; font-weight: 800; color: #0f172a; }
+        .value_id_verification_fest_2026 { font-family: monospace; letter-spacing: 2px; color: #4f46e5; }
+        .value_rank_verification_fest_2026 { color: #ec4899; }
+
+        .download_btn_verification_fest_2026 { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 30px; padding: 20px; font-size: 16px; font-weight: 800; color: #4f46e5; background: #e0e7ff; border-radius: 16px; text-decoration: none; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .download_btn_verification_fest_2026::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.5s ease; }
+        .download_btn_verification_fest_2026:hover { background: #4f46e5; color: #ffffff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); }
+        .download_btn_verification_fest_2026:hover::before { left: 100%; }
+
+        .hidden_verification_fest_2026 { display: none !important; }
+
+        /* FAQ Section */
+        .faq_section_verification_fest_2026 { background: #ffffff; border-radius: 24px; padding: 40px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; }
+        .faq_title_verification_fest_2026 { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 20px; }
+        .faq_item_verification_fest_2026 { margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 16px; }
+        .faq_q_verification_fest_2026 { font-size: 15px; font-weight: 700; color: #334155; margin-bottom: 8px; }
+        .faq_a_verification_fest_2026 { font-size: 14px; color: #64748b; line-height: 1.5; }
+
+        /* Keyframes */
+        @keyframes slideUpFade_verification_fest_2026 { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes float_verification_fest_2026 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes popIn_verification_fest_2026 { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes staggerFade_verification_fest_2026 { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes shake_verification_fest_2026 { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+        @keyframes pulse_verification_fest_2026 { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes fadeInDown_verification_fest_2026 { 0% { opacity: 0; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 640px) {
+            .card_verification_fest_2026, .faq_section_verification_fest_2026 { padding: 32px 20px; }
+            .data_grid_verification_fest_2026 { grid-template-columns: 1fr; }
+            .title_verification_fest_2026 { font-size: 28px; }
+            .captcha_box_verification_fest_2026 { flex-direction: column; gap: 16px; align-items: stretch; }
+        }
+.page_container_verification_fest_2026 {
+    animation: slideUpFade_verification_fest_2026 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.card_verification_fest_2026 {
+    background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(6, 10, 20, 0.98));
+    border: 1px solid rgba(232, 198, 106, 0.16);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+.card_verification_fest_2026::before {
+    background: linear-gradient(90deg, #e8c66a, #c9a84c);
+}
+
+.title_verification_fest_2026 {
+    color: #ffffff;
+}
+
+.subtitle_verification_fest_2026 {
+    color: #94a3b8;
+}
+
+.shield_wrapper_verification_fest_2026 {
+    background: rgba(232, 198, 106, 0.10);
+    color: #e8c66a;
+}
+
+.search_label_verification_fest_2026 {
+    color: #ffffff;
+}
+
+.helper_link_verification_fest_2026 {
+    color: #e8c66a;
+}
+
+.search_input_verification_fest_2026 {
+    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    border: 1px solid rgba(232, 198, 106, 0.18);
+}
+
+.search_input_verification_fest_2026:focus {
+    border-color: #e8c66a;
+    box-shadow: 0 0 0 5px rgba(232, 198, 106, 0.12);
+}
+
+.helper_box_verification_fest_2026 {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.12);
+    color: #cbd5e1;
+}
+
+.captcha_box_verification_fest_2026 {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.12);
+}
+
+.captcha_box_verification_fest_2026:focus-within {
+    border-color: #e8c66a;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.captcha_text_verification_fest_2026 {
+    color: #cbd5e1;
+}
+
+.captcha_input_verification_fest_2026 {
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    border: 1px solid rgba(232, 198, 106, 0.18);
+}
+
+.captcha_input_verification_fest_2026:focus {
+    border-color: #e8c66a;
+}
+
+.verify_btn_verification_fest_2026 {
+    background: linear-gradient(135deg, #e8c66a, #c9a84c);
+    color: #02040a;
+    box-shadow: 0 15px 25px -5px rgba(232, 198, 106, 0.25);
+}
+
+.verify_btn_verification_fest_2026:hover {
+    background: linear-gradient(135deg, #f0d98a, #e8c66a);
+    color: #02040a;
+}
+
+.skeleton_loader_verification_fest_2026 {
+    border-top: 2px dashed rgba(232, 198, 106, 0.18);
+}
+
+.skel_line_verification_fest_2026,
+.skel_box_verification_fest_2026 {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.error_box_verification_fest_2026 {
+    background: rgba(127, 29, 29, 0.25);
+    color: #fecaca;
+    border: 1px solid rgba(248, 113, 113, 0.25);
+}
+
+.results_panel_verification_fest_2026 {
+    border-top: 2px dashed rgba(232, 198, 106, 0.18);
+}
+
+.badge_verification_fest_2026 {
+    background: rgba(232, 198, 106, 0.12);
+    color: #e8c66a;
+    box-shadow: 0 4px 10px rgba(232, 198, 106, 0.12);
+}
+
+.data_row_verification_fest_2026 {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.10);
+}
+
+.label_verification_fest_2026 {
+    color: #94a3b8;
+}
+
+.value_verification_fest_2026 {
+    color: #ffffff;
+}
+
+.value_id_verification_fest_2026 {
+    color: #e8c66a;
+}
+
+.value_rank_verification_fest_2026 {
+    color: #fbbf24;
+}
+
+.download_btn_verification_fest_2026 {
+    background: rgba(232, 198, 106, 0.10);
+    color: #e8c66a;
+    border: 1px solid rgba(232, 198, 106, 0.16);
+}
+
+.download_btn_verification_fest_2026:hover {
+    background: #e8c66a;
+    color: #02040a;
+}
+
+.faq_section_verification_fest_2026 {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.10);
+}
+
+.faq_title_verification_fest_2026,
+.faq_q_verification_fest_2026 {
+    color: #ffffff;
+}
+
+.faq_a_verification_fest_2026 {
+    color: #94a3b8;
+}
+/* Find this in your theme overrides */
+.search_input_verification_fest_2026:focus {
+    border-color: #e8c66a;
+    /* If this has 'background: #ffffff;' change it to a dark color */
+    background: rgba(255, 255, 255, 0.05); 
+    box-shadow: 0 0 0 5px rgba(232, 198, 106, 0.12);
+}
+
+/* ===== Recognised Competitions (built at runtime from the certificate DB) ===== */
+.verify_recognised_fest_2026 {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px dashed rgba(232, 198, 106, 0.18);
+}
+.verify_recognised_head_fest_2026 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.verify_recognised_title_fest_2026 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+}
+.verify_recognised_count_fest_2026 {
+    font-size: 12px;
+    font-weight: 800;
+    color: #e8c66a;
+    background: rgba(232, 198, 106, 0.10);
+    border: 1px solid rgba(232, 198, 106, 0.22);
+    padding: 4px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+.verify_recognised_sub_fest_2026 {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+.verify_recognised_sub_fest_2026 strong { color: #e8c66a; font-weight: 600; }
+.verify_chips_fest_2026 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.verify_chip_fest_2026 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(232, 198, 106, 0.14);
+    padding: 8px 14px;
+    border-radius: 12px;
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.verify_chip_fest_2026:hover {
+    border-color: rgba(232, 198, 106, 0.42);
+    background: rgba(232, 198, 106, 0.07);
+    transform: translateY(-2px);
+}
+.verify_chip_fest_2026::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #e8c66a;
+    flex-shrink: 0;
+}
+
