@@ -2815,3 +2815,65 @@ p {
 .review-card__meta b { color: var(--color-brand-primary); font-weight: 600; }
 @media (max-width: 1024px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .reviews-grid { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   24. TIMELINE, CASE STUDIES & PROCESS STEPS
+       (Student Success Stories + About pages) — built from design tokens.
+   ========================================================================== */
+
+/* ── Vertical timeline (journey / milestones / roadmap) ── */
+.timeline { position: relative; max-width: 880px; margin: 0 auto; }
+.timeline::before {
+  content: ''; position: absolute; left: 19px; top: 6px; bottom: 6px; width: 2px;
+  background: linear-gradient(180deg, var(--color-brand-primary), var(--color-brand-alpha-20), transparent);
+}
+.timeline-item { position: relative; padding-left: 60px; padding-bottom: var(--spacing-12); }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: 11px; top: 4px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background-color: var(--color-bg-base);
+  border: 2px solid var(--color-brand-primary);
+  box-shadow: 0 0 0 4px var(--color-brand-alpha-10);
+}
+.timeline-year { font-family: var(--font-family-display); color: var(--color-brand-primary); font-size: var(--font-size-lg); line-height: 1.1; margin-bottom: 0.25rem; }
+.timeline-title { font-family: var(--font-family-heading); color: var(--color-text-primary); font-size: var(--font-size-lg); margin-bottom: 0.4rem; }
+.timeline-item p { color: var(--color-text-tertiary); margin: 0; }
+
+/* Compact timeline used inside case-study cards */
+.timeline--compact .timeline-item { padding-bottom: var(--spacing-6); padding-left: 44px; }
+.timeline--compact::before { left: 11px; }
+.timeline--compact .timeline-dot { left: 3px; width: 14px; height: 14px; top: 5px; }
+.timeline--compact .timeline-title { font-size: var(--font-size-base); margin-bottom: 0.15rem; }
+
+/* ── Case-study layout (Success Stories) ── */
+.case-study { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.case-study + .case-study { margin-top: var(--section-padding-y); }
+.case-study__media { position: relative; }
+.case-study__media img { width: 100%; height: auto; display: block; border-radius: 16px; border: 1px solid var(--color-brand-alpha-20); }
+.case-study__ribbon {
+  position: absolute; top: 14px; left: 14px;
+  padding: 0.35rem 0.9rem; border-radius: 100px;
+  background-color: rgba(2, 4, 10, 0.75);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  color: var(--color-brand-primary); font-size: var(--font-size-xs); letter-spacing: 0.08em; text-transform: uppercase;
+}
+.case-study__eyebrow { display: block; color: var(--color-brand-primary); font-size: var(--font-size-xs); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: var(--spacing-3); }
+.case-study__title { font-family: var(--font-family-display); font-size: var(--font-size-2xl); color: var(--color-text-primary); line-height: 1.15; margin-bottom: var(--spacing-4); }
+.case-study__title em { font-family: var(--font-family-heading); font-style: italic; color: var(--color-brand-primary); }
+.case-study__badges { display: flex; flex-wrap: wrap; gap: var(--spacing-2); margin: var(--spacing-6) 0; }
+.case-study__badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.85rem; border-radius: 100px; border: 1px solid var(--color-brand-alpha-20); background-color: var(--color-brand-alpha-10); color: var(--color-brand-primary); font-size: var(--font-size-xs); }
+.case-study--reverse .case-study__media { order: 2; }
+
+@media (max-width: 900px) {
+  .case-study { grid-template-columns: 1fr; gap: var(--spacing-8); }
+  .case-study--reverse .case-study__media { order: 0; }
+}
+
+/* ── Numbered process steps (judging methodology / how it works) ── */
+.process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--spacing-8); counter-reset: step; }
+.process-step { position: relative; padding: var(--spacing-8) var(--spacing-6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; background-color: var(--color-bg-surface-1); transition: transform var(--duration-mid) var(--ease-lux), border-color var(--duration-mid) var(--ease-lux); }
+.process-step:hover { transform: translateY(-6px); border-color: var(--color-brand-alpha-40); }
+.process-step::before { counter-increment: step; content: counter(step, decimal-leading-zero); display: block; font-family: var(--font-family-display); font-size: var(--font-size-2xl); color: var(--color-brand-primary); line-height: 1; margin-bottom: var(--spacing-4); opacity: 0.85; }
+.process-step h3 { font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-primary); margin-bottom: var(--spacing-3); }
+.process-step p { color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin: 0; }
