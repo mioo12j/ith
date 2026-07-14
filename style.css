@@ -3091,3 +3091,8 @@ body.nav-scroll-lock {
   .index-nav__links { z-index: calc(var(--z-index-nav) - 1); }
   .index-nav__hamburger { z-index: calc(var(--z-index-nav) + 1); }
 }
+
+/* ── FAQ page: search + filter controls ── */
+.faq-controls { max-width: 860px; margin: 0 auto var(--spacing-8); }
+.faq-search { margin-bottom: var(--spacing-6); }
+.faq-search::-webkit-search-cancel-button { filter: invert(0.6); }
