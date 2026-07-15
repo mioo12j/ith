@@ -3867,3 +3867,15 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
     animation: none !important; opacity: 1 !important; transform: none !important; }
   .cred__name .tw-cursor { animation: none !important; }
 }
+
+/* ---- Admin toast (export confirmation) ---- */
+.admin-toast { position: fixed; left: 50%; bottom: 24px; z-index: 5000; display: inline-flex; align-items: center;
+  gap: 0.6rem; padding: 0.75rem 1.3rem; border-radius: 100px; max-width: calc(100vw - 2rem);
+  background: rgba(16,185,129,0.16); border: 1px solid rgba(16,185,129,0.4); color: #34d399;
+  font-size: var(--font-size-sm); font-weight: 600; box-shadow: 0 14px 40px rgba(0,0,0,0.4);
+  transform: translate(-50%, 20px); opacity: 0; animation: admin-toast-in 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+.admin-toast svg { width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
+.admin-toast.is-out { animation: admin-toast-out 0.4s ease forwards; }
+@keyframes admin-toast-in { to { transform: translate(-50%, 0); opacity: 1; } }
+@keyframes admin-toast-out { to { transform: translate(-50%, 20px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .admin-toast { animation: none !important; opacity: 1 !important; transform: translate(-50%, 0) !important; } }
