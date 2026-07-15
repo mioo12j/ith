@@ -4,4 +4,10 @@ Allow: /
 # Transactional / thank-you pages don't need indexing
 Disallow: /success.html
 
+# Administrative build tool — not for public crawling or indexing
+Disallow: /admin.html
+
+# Personalised certificate pages are generated per Certificate ID (noindex)
+Disallow: /certificate.html
+
 Sitemap: https://www.Inspiretalenthub.in/sitemap.xml
