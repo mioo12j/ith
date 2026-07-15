@@ -87,47 +87,41 @@
       <div id="certValid" hidden style="width:100%;display:flex;flex-direction:column;align-items:center;gap:var(--spacing-8);">
         <h1 class="sr-only">Certificate for <span id="cH1Name"></span></h1>
         <article class="cert-sheet" id="certSheet" aria-label="Certificate">
+          <span class="cert-corner cert-corner--tl" aria-hidden="true"></span>
+          <span class="cert-corner cert-corner--tr" aria-hidden="true"></span>
+          <span class="cert-corner cert-corner--bl" aria-hidden="true"></span>
+          <span class="cert-corner cert-corner--br" aria-hidden="true"></span>
           <div class="cert-inner">
-            <div class="cert-brandrow">
-              <svg fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg>
-              <span class="cert-brand">Inspire<em>Talent</em>Hub</span>
-            </div>
-            <div class="cert-event" id="cEvent">Academic Kickoff Fest</div>
-            <div class="cert-kind" id="cKind">Certificate of <span>Achievement</span></div>
-            <div class="cert-presented">This certificate is proudly presented to</div>
+            <div class="cert-topline"><i aria-hidden="true"></i><span class="cert-fest" id="cEvent">Academic Kickoff Fest 2026</span><i aria-hidden="true"></i></div>
+            <h2 class="cert-title">Certificate</h2>
+            <div class="cert-subtitle" id="cKind">of Achievement</div>
+            <div class="cert-orn" aria-hidden="true">&#10086;</div>
+            <p class="cert-presented">This Certificate is Proudly Presented To</p>
             <div class="cert-name" id="cName">Participant Name</div>
-            <div class="cert-name-rule" aria-hidden="true"></div>
-            <p class="cert-cite" id="cCite"></p>
+            <p class="cert-citation" id="cCite"></p>
             <div class="cert-foot">
               <div class="cert-sign">
-                <div class="cert-sign-line"></div>
-                <div class="cert-sign-name" id="cOrganizer">Inspire Talent Hub</div>
-                <div class="cert-sign-role">Organizing Committee</div>
+                <img class="cert-sign-img" src="assets/cert/signature.png" alt="Signature of Siddhant Kumar, Event Coordinator" width="220" height="110" />
+                <div class="cert-sign-line" aria-hidden="true"></div>
+                <div class="cert-sign-name">Siddhant Kumar</div>
+                <div class="cert-sign-role">Event Coordinator</div>
               </div>
-              <div class="cert-seal" aria-label="Official seal placeholder">
-                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-star"></use></svg>
-                <span>Official<br>Seal</span>
+              <div class="cert-seal-wrap">
+                <img class="cert-seal-img" src="assets/cert/seal.png" alt="Inspire Talent Hub Achievement Award official seal" width="220" height="220" />
               </div>
-              <div class="cert-sign">
-                <div class="cert-sign-line"></div>
-                <div class="cert-sign-name">Evaluation Panel</div>
-                <div class="cert-sign-role">Head of Evaluation</div>
-              </div>
-            </div>
-            <div class="cert-baseline">
-              <div class="cert-meta">
+              <div class="cert-verify-col">
                 <div class="cert-qr" id="cQr" aria-label="Verification QR code"></div>
-                <div class="cert-verify"><b>Scan to verify</b><span id="cVerifyUrl"></span></div>
+                <div class="cert-verify-label">Verify Certificate</div>
               </div>
-              <div class="cert-id-badge"><b>Certificate ID</b><span id="cId"></span></div>
             </div>
+            <div class="cert-id-line">Certificate ID: <span id="cId"></span></div>
           </div>
         </article>
         <div class="cert-actions">
           <button type="button" id="btnPrint" class="btn btn-gold hover-target"><span>Download / Print Certificate</span></button>
           <a href="#" id="btnVerify" class="btn btn-outline text-gold hover-target"><span>Verify This Certificate</span></a>
         </div>
-        <p class="result-note" style="text-align:center;max-width:640px;">Use your browser&rsquo;s print dialog and choose &ldquo;Save as PDF&rdquo; for a digital copy, or print directly. The certificate prints on a single A4 landscape page.</p>
+        <p class="result-note" style="text-align:center;max-width:640px;">Use your browser&rsquo;s print dialog and choose &ldquo;Save as PDF&rdquo; for a digital copy, or print directly. The certificate prints on a single A4 portrait page. To verify it, scan the QR code or visit the <a href="verifycertificate.html" class="faq-inline-link">verification page</a> with the Certificate ID.</p>
       </div>
     </section>
   </main>
@@ -176,25 +170,33 @@
       }
 
       // Populate certificate
-      var isWinner = /winner|runner|1st|2nd|3rd|first|second|third|gold|silver|bronze/i.test(rec.resultStatus + ' ' + rec.rank);
-      document.getElementById('cKind').innerHTML = 'Certificate of <span>' + (isWinner ? 'Achievement' : 'Participation') + '</span>';
+      var isWinner = /winner|runner|1st|2nd|3rd|first|second|third|gold|silver|bronze|finalist/i.test(rec.resultStatus + ' ' + rec.rank);
+      document.getElementById('cKind').textContent = 'of ' + (isWinner ? 'Achievement' : 'Participation');
       document.getElementById('cName').textContent = rec.name;
       document.getElementById('cH1Name').textContent = rec.name;
-      var organizer = (C.meta() && C.meta().organizer) || 'Inspire Talent Hub';
       var eventName = (C.meta() && C.meta().event) || 'Academic Kickoff Fest';
       document.getElementById('cEvent').textContent = eventName + ' ' + esc(rec.year);
-      document.getElementById('cOrganizer').textContent = organizer;
 
-      var achievement = rec.rank || rec.resultStatus || 'participation';
-      var cat = rec.category ? ' (' + esc(rec.category) + ')' : '';
-      var cite = 'for ' + (isWinner ? 'achieving <strong>' + esc(achievement) + '</strong>' : '<strong>outstanding participation</strong>') +
-        ' in the <strong>' + esc(rec.competition) + '</strong>' + cat +
-        ', held as part of the ' + esc(eventName) + ' ' + esc(rec.year) + '.';
+      // Rich, personalised citation (mirrors the printed certificate style).
+      var comp = esc(rec.competition);
+      var evYr = esc(eventName) + ' ' + esc(rec.year);
+      var cite;
+      if (isWinner) {
+        var placement = rec.rank ? ('securing <strong>' + esc(rec.rank) + '</strong>') : ('an outstanding performance');
+        cite = 'For ' + placement + ' in the <strong>' + comp + '</strong> at ' + evYr +
+          ', a prestigious national-level academic competition, demonstrating exceptional talent, innovation, academic excellence, and outstanding performance among participants from over 500 schools across the nation. ' +
+          'This achievement reflects remarkable dedication, perseverance, creativity, and a strong commitment to excellence. ' +
+          'May this accomplishment inspire continued learning, growth, and even greater success in the future.';
+      } else {
+        cite = 'For active and enthusiastic participation in the <strong>' + comp + '</strong> at ' + evYr +
+          ', a prestigious national-level academic competition, demonstrating commendable curiosity, effort, and a genuine spirit of learning alongside participants from over 500 schools across the nation. ' +
+          'This certificate celebrates the dedication, courage, and commitment shown throughout the competition. ' +
+          'May this experience inspire continued learning, growth, and even greater success in the future.';
+      }
       document.getElementById('cCite').innerHTML = cite;
 
       document.getElementById('cId').textContent = rec.certId;
       var vurl = C.verifyUrl(rec.certId);
-      document.getElementById('cVerifyUrl').textContent = vurl.replace(/^https?:\/\//, '');
       document.getElementById('btnVerify').setAttribute('href', 'verifycertificate.html?id=' + encodeURIComponent(rec.certId));
 
       // QR code (links to verification URL)
