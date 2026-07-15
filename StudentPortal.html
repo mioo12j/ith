@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Student Portal — Results & Certificate Verification | Inspire Talent Hub</title>
-  <meta name="description" content="Check your Inspire Talent Hub Academic Kickoff Fest 2026 competition results and download your certificate, or verify any certificate’s authenticity — securely in your browser." />
-  <meta name="keywords" content="student portal, competition results, certificate verification, Academic Kickoff Fest 2026, download certificate, Inspire Talent Hub" />
+  <title>Results Portal — Check Results & Download Certificates | Inspire Talent Hub</title>
+  <meta name="description" content="Search your Inspire Talent Hub competition results by Certificate ID, registration number, or name, and download your official, verifiable certificate once results are published." />
+  <meta name="keywords" content="results portal, check results, competition results, download certificate, Inspire Talent Hub, Academic Kickoff Fest" />
   <meta name="author" content="Inspire Talent Hub" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#03060d" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Student Portal — Results & Certificate Verification | Inspire Talent Hub" />
-  <meta property="og:description" content="Check your Inspire Talent Hub Academic Kickoff Fest 2026 competition results and download your certificate, or verify any certificate’s authenticity — securely in your browser." />
+  <meta property="og:title" content="Results Portal — Check Results & Download Certificates | Inspire Talent Hub" />
+  <meta property="og:description" content="Search your Inspire Talent Hub competition results by Certificate ID, registration number, or name, and download your official, verifiable certificate once results are published." />
   <meta property="og:url" content="https://www.Inspiretalenthub.in/StudentPortal.html" />
   <meta property="og:site_name" content="Inspire Talent Hub" />
   <meta property="og:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Student Portal — Results & Certificate Verification | Inspire Talent Hub" />
-  <meta name="twitter:description" content="Check your Inspire Talent Hub Academic Kickoff Fest 2026 competition results and download your certificate, or verify any certificate’s authenticity — securely in your browser." />
+  <meta name="twitter:title" content="Results Portal — Check Results & Download Certificates | Inspire Talent Hub" />
+  <meta name="twitter:description" content="Search your Inspire Talent Hub competition results by Certificate ID, registration number, or name, and download your official, verifiable certificate once results are published." />
   <meta name="twitter:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
   <link rel="canonical" href="https://www.Inspiretalenthub.in/StudentPortal.html" />
   <link rel="icon" type="image/jpeg" href="logo.jpeg" />
@@ -30,624 +30,10 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
     {"@type":"ListItem","position":1,"name":"Home","item":"https://www.Inspiretalenthub.in/"},
-    {"@type":"ListItem","position":2,"name":"Student Portal","item":"https://www.Inspiretalenthub.in/StudentPortal.html"}]}
+    {"@type":"ListItem","position":2,"name":"Results Portal","item":"https://www.Inspiretalenthub.in/StudentPortal.html"}]}
   </script>
-  <style>
-:root {
-            --easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
-            --easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
-            --shadow-hover: 0 20px 40px rgba(0,0,0,0.08);
-            --shadow-modal: 0 25px 50px -12px rgba(0,0,0,0.5);
-            --gold-gradient: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
-        }
-.tab-controller { 
-            max-width: 600px; margin: 120px auto 30px auto; background: #ffffff; 
-            padding: 8px; border-radius: 99px; box-shadow: var(--shadow-soft); 
-            display: flex; border: 1px solid #e2e8f0; position: relative; z-index: 10; 
-        }
-.tab-btn { 
-            flex: 1; padding: 16px 24px; border-radius: 99px; font-weight: 800; 
-            font-size: 0.95rem; color: #64748b; transition: all 0.3s ease; 
-            text-align: center; cursor: pointer; text-transform: uppercase; 
-            letter-spacing: 0.05em; border: none; background: transparent; 
-        }
-.tab-btn:hover { color: #0f172a; background: #f1f5f9; }
-.tab-btn.active { background: #0f172a; color: #ffffff; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2); }
-.tab-content { display: none; opacity: 0; transform: translateY(10px); transition: all 0.4s ease; }
-.tab-content.active { display: block; opacity: 1; transform: translateY(0); animation: slideUpFade 0.5s ease forwards; }
-.portal_container { width: 100%; max-width: 800px; margin: 0 auto 80px auto; padding: 0 20px; }
-.portal_card { 
-            background: #ffffff; border-radius: 28px; padding: 48px; 
-            box-shadow: var(--shadow-soft); border: 1px solid #e2e8f0; 
-            position: relative; overflow: hidden; margin-bottom: 30px; 
-            transition: box-shadow 0.3s ease; 
-        }
-.portal_card:hover { box-shadow: var(--shadow-hover); }
-.card_gradient_results::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #c9a84c, #b45309); }
-.card_gradient_verify::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #4f46e5, #ec4899); }
-.header_center { text-align: center; margin-bottom: 40px; }
-.icon_wrapper { 
-            width: 80px; height: 80px; margin: 0 auto 20px auto; border-radius: 24px; 
-            display: flex; align-items: center; justify-content: center; 
-            animation: float 4s ease-in-out infinite; 
-        }
-.icon_results { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
-.icon_verify { background: #e0e7ff; color: #4f46e5; border: 1px solid #c7d2fe; }
-.portal_title { font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 12px; font-family: 'Playfair Display', serif; }
-.portal_subtitle { font-size: 16px; color: #64748b; font-weight: 500; line-height: 1.6; max-width: 500px; margin: 0 auto; }
-.input_group { margin-bottom: 24px; position: relative; }
-.input_label { 
-            display: flex; justify-content: space-between; align-items: center; 
-            font-size: 13px; font-weight: 800; color: #0f172a; 
-            text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; 
-        }
-.form_input { 
-            width: 100%; padding: 18px 24px; font-family: 'Plus Jakarta Sans', sans-serif; 
-            font-size: 16px; font-weight: 700; color: #0f172a; background: #f8fafc; 
-            border: 2px solid #cbd5e1; border-radius: 16px; outline: none; 
-            transition: all 0.3s ease; 
-        }
-.form_input:focus { border-color: #0f172a; background: #ffffff; box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05); }
-select.form_input { 
-            appearance: none; cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); 
-            background-repeat: no-repeat; background-position: right 20px center; background-size: 20px; 
-        }
-.smart-input { text-transform: uppercase; letter-spacing: 2px; font-family: 'Fira Code', monospace; font-weight: 700; }
-.smart-input::placeholder { color: #94A3B8; font-weight: 400; letter-spacing: normal; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: none; }
-.helper_box { background: #f8fafc; border: 1px solid #e2e8f0; padding: 16px; border-radius: 12px; margin-bottom: 24px; font-size: 13px; color: #475569; display: none; line-height: 1.5; }
-.helper_box.show { display: block; animation: slideUpFade 0.3s ease; }
-.helper_link { color: #4f46e5; text-transform: none; letter-spacing: normal; cursor: pointer; text-decoration: underline; font-size: 12px; font-weight: 600; }
-.captcha_box { 
-            display: flex; align-items: center; justify-content: space-between; 
-            background: #f1f5f9; border: 1px solid #e2e8f0; padding: 16px 24px; 
-            border-radius: 16px; margin-bottom: 24px; transition: all 0.3s ease; 
-        }
-.captcha_box:focus-within { border-color: #0f172a; background: #ffffff; }
-.captcha_text { font-size: 14px; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px; }
-.captcha_input { 
-            width: 80px; padding: 12px; font-size: 16px; font-weight: 800; 
-            text-align: center; border: 2px solid #cbd5e1; border-radius: 10px; 
-            outline: none; transition: border-color 0.3s ease; 
-        }
-.captcha_input:focus { border-color: #0f172a; }
-.submit_btn { 
-            width: 100%; padding: 20px; font-size: 18px; font-weight: 800; 
-            color: #ffffff; background: #0f172a; border: none; border-radius: 16px; 
-            cursor: pointer; transition: all 0.3s ease; display: flex; 
-            align-items: center; justify-content: center; gap: 12px; 
-        }
-.btn_results:hover { background: #b45309; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(180, 83, 9, 0.2); }
-.btn_verify:hover { background: #4f46e5; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2); }
-.submit_btn:disabled { opacity: 0.7; cursor: wait; transform: none !important; box-shadow: none !important; }
-.input-error-state { border-color: var(--brand-error) !important; background-color: #FEF2F2 !important; color: #991B1B !important; animation: errorShake 0.4s var(--easing-spring) both; }
-.inline-error-text { 
-            color: var(--brand-error); font-size: 0.85rem; margin-top: 0.4rem; 
-            font-weight: 600; display: none; align-items: center; gap: 6px; 
-            animation: fadeIn 0.3s ease; 
-        }
-.inline-error-text.active { display: flex; }
-.results_output { display: none; margin-top: 40px; padding-top: 40px; border-top: 2px dashed #e2e8f0; }
-.results_output.show { display: block; animation: slideUpFade 0.5s ease forwards; }
-.winner_card { 
-            background: #fffdf8; border: 2px solid #e8c66a; padding: 40px; 
-            border-radius: 20px; text-align: center; position: relative; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(232, 198, 106, 0.1);
-        }
-.winner_card::before { 
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; 
-            background: repeating-linear-gradient(45deg, #c9a84c, #c9a84c 10px, #0f172a 10px, #0f172a 20px); 
-        }
-.winner_seal { 
-            width: 70px; height: 70px; background: #b45309; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; 
-            color: #fff; box-shadow: 0 4px 15px rgba(180, 83, 9, 0.4); border: 2px dashed #fcd34d; font-size: 28px; 
-        }
-.participant_card { background: #f8fafc; border: 1px solid #cbd5e1; padding: 40px; border-radius: 20px; text-align: center; }
-.participant_icon { 
-            width: 60px; height: 60px; background: #e0e7ff; color: #4f46e5; 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            margin: 0 auto 20px auto; font-size: 24px; 
-        }
-.result_name { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; color: #0f172a; margin-bottom: 8px; text-transform: capitalize; }
-.result_award { 
-            font-size: 20px; font-weight: 900; color: #0f172a; margin: 16px 0; 
-            background: #fff; padding: 12px 24px; border-radius: 12px; display: inline-block; 
-            border: 1px solid #cbd5e1; box-shadow: 0 4px 6px rgba(0,0,0,0.02); 
-        }
-.result_award.gold { color: #b45309; border-color: #fde68a; background: #fffcf2; }
-.download_inline_btn { 
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px; 
-            margin-top: 20px; padding: 16px 32px; font-size: 15px; font-weight: 800; 
-            color: #ffffff; background: #0f172a; border-radius: 12px; text-decoration: none; 
-            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.05em; 
-        }
-.download_inline_btn:hover { background: #b45309; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(180, 83, 9, 0.2); }
-.faq_section { background: #ffffff; border-radius: 24px; padding: 40px; box-shadow: var(--shadow-soft); border: 1px solid #e2e8f0; margin-top: 30px; }
-.faq_title { font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
-.faq_item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed #e2e8f0; }
-.faq_item:last-child { border: none; margin: 0; padding: 0; }
-.faq_q { font-size: 16px; font-weight: 800; color: #1e293b; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
-.faq_a { font-size: 15px; color: #475569; line-height: 1.6; padding-left: 30px; }
-.cinematic-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(8px); 
-            -webkit-backdrop-filter: blur(8px); z-index: 9000; display: flex; 
-            align-items: center; justify-content: center; opacity: 0; pointer-events: none; 
-            transition: opacity 0.4s ease; 
-        }
-.cinematic-overlay.active { opacity: 1; pointer-events: all; }
-.cinematic-card { 
-            background: #ffffff; width: 90%; max-width: 600px; border-radius: 24px; 
-            padding: 3rem; box-shadow: var(--shadow-modal), 0 0 0 2px #D4AF37; 
-            transform: translateY(50px) scale(0.95); opacity: 0; 
-            transition: all 0.5s var(--easing-spring); position: relative; overflow: hidden; 
-        }
-.cinematic-overlay.active .cinematic-card { transform: translateY(0) scale(1); opacity: 1; }
-.cinematic-card::before { 
-            content: "AUTHENTIC"; position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%) rotate(-20deg); font-size: 6rem; 
-            font-weight: 900; color: rgba(212, 175, 55, 0.03); pointer-events: none; z-index: 0; 
-        }
-.card-content { position: relative; z-index: 1; text-align: center; }
-.cert-header { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #64748B; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.cert-name { 
-            font-size: 2.8rem; font-family: 'Playfair Display', serif; font-weight: 900; 
-            margin-bottom: 1.5rem; background: var(--gold-gradient); background-size: 200% auto; 
-            color: #000; background-clip: text; -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; animation: goldShimmer 4s infinite linear; line-height: 1.2; 
-        }
-.cert-meta-grid { 
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; 
-            background: #F8FAFC; padding: 1.5rem; border-radius: 16px; border: 1px solid #E2E8F0; 
-            margin-bottom: 2rem; text-align: left; 
-        }
-.meta-item label { display: block; font-size: 0.75rem; color: #64748B; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.meta-item span { display: block; font-weight: 700; color: #0F172A; font-size: 1.1rem; }
-.meta-item .mono-id { font-family: 'Fira Code', monospace; color: #4F46E5; font-size: 1rem; }
-.cert-ceremonial-text { 
-            font-family: 'Georgia', serif; font-size: 1.1rem; line-height: 1.8; color: #475569; 
-            border-left: 4px solid #D4AF37; padding-left: 1.5rem; margin-bottom: 2.5rem; 
-            text-align: left; min-height: 140px; font-style: italic; 
-        }
-.cursor { display: inline-block; width: 3px; background-color: #D4AF37; animation: blink 1s infinite; margin-left: 4px; vertical-align: bottom; height: 1.2em; }
-.btn-close-modal { 
-            background: #f1f5f9; color: #0F172A; border: 2px solid #cbd5e1; padding: 1rem 3rem; 
-            border-radius: 9999px; font-weight: 800; text-transform: uppercase; cursor: pointer; 
-            transition: all 0.3s ease; 
-        }
-.btn-close-modal:hover { background: #e2e8f0; border-color: #94a3b8; transform: translateY(-2px); }
-#confetti-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; }
-@keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-@keyframes errorShake { 
-            10%, 90% { transform: translate3d(-1px, 0, 0); } 
-            20%, 80% { transform: translate3d(2px, 0, 0); } 
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 
-            40%, 60% { transform: translate3d(4px, 0, 0); } 
-        }
-@keyframes goldShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-.index-footer__canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.5; pointer-events: none; }
-.index-footer__container { padding-block: 5rem 2rem; position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding-inline: 2rem; }
-.index-footer__brand { text-align: center; margin-bottom: 4rem; display: flex; flex-direction: column; align-items: center; }
-.index-footer__title { font-family: "Playfair Display", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: 0.1em; color: #ffffff; font-weight: 700; text-transform: uppercase; }
-.index-footer__title em { font-style: italic; color: #c9a84c; font-family: "Cormorant Garamond", serif; font-weight: 300; text-transform: lowercase; font-size: 1.2em; }
-.index-footer__sub { font-family: "Inter", sans-serif; color: #94a3b8; font-size: 1rem; line-height: 1.7; max-width: 500px; margin-top: 0.5rem; font-weight: 400; }
-.index-footer__nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 3rem; margin-bottom: 4rem; list-style: none; padding: 0; }
-.index-footer__nav a { font-family: "Inter", sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8; font-weight: 600; text-decoration: none; transition: color 0.3s ease; }
-.index-footer__nav a:hover { color: #e8c66a; }
-.index-footer__divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent); margin-bottom: 2.5rem; }
-.index-footer__copy { text-align: center; font-family: "Inter", sans-serif; font-size: 0.8rem; color: rgba(255, 255, 255, 0.5); letter-spacing: 0.1em; }
-.index-footer__tagline { color: #e8c66a; font-style: italic; text-transform: none; letter-spacing: 0.05em; font-family: 'Playfair Display', serif; display: block; margin-top: 10px;}
-@media (max-width: 767.98px) {
-  #navLinks.open { right: 0; }
-  .cinematic-card { padding: 2rem 1.5rem; }
-  .cert-name { font-size: 2rem; }
-  .cert-meta-grid { grid-template-columns: 1fr; gap: 1rem; }
-}
-@media (max-width: 640px) {
-  .portal_card, .faq_section { padding: 32px 20px; }
-  .portal_title { font-size: 26px; }
-  .captcha_box { flex-direction: column; gap: 16px; align-items: stretch; }
-  .tab-controller { flex-direction: column; margin-top: 100px; border-radius: 20px; }
-  .tab-btn { border-radius: 12px; }
-}
-:root {
-    --brand-gold: #e8c66a;
-    --brand-gold-2: #c9a84c;
-    --brand-gold-soft: rgba(232, 198, 106, 0.10);
-    --brand-bg: #02040a;
-    --brand-surface: rgba(255, 255, 255, 0.03);
-    --brand-surface-2: rgba(255, 255, 255, 0.05);
-    --brand-border: rgba(232, 198, 106, 0.16);
-    --brand-text: #ffffff;
-    --brand-muted: #94a3b8;
-    --brand-dark: #0f172a;
-    --brand-error: #ef4444;
-}
-.tab-controller {
-    background: rgba(8, 12, 22, 0.95);
-    border: 1px solid rgba(232, 198, 106, 0.14);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-}
-.tab-btn {
-    color: #94a3b8;
-}
-.tab-btn:hover {
-    color: #ffffff;
-    background: rgba(232, 198, 106, 0.08);
-}
-.tab-btn.active {
-    background: linear-gradient(135deg, #e8c66a, #c9a84c);
-    color: #02040a;
-    box-shadow: 0 10px 20px rgba(232, 198, 106, 0.18);
-}
-.portal_container {
-    color: var(--brand-text);
-}
-.portal_card {
-    background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(6, 10, 20, 0.98));
-    border: 1px solid rgba(232, 198, 106, 0.14);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-}
-.portal_card:hover {
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-}
-.card_gradient_results::before {
-    background: linear-gradient(90deg, #e8c66a, #b45309);
-}
-.card_gradient_verify::before {
-    background: linear-gradient(90deg, #e8c66a, #c9a84c);
-}
-.icon_results {
-    background: rgba(232, 198, 106, 0.10);
-    color: var(--brand-gold);
-    border: 1px solid rgba(232, 198, 106, 0.18);
-}
-.icon_verify {
-    background: rgba(232, 198, 106, 0.10);
-    color: var(--brand-gold);
-    border: 1px solid rgba(232, 198, 106, 0.18);
-}
-.portal_title {
-    color: #ffffff;
-}
-.portal_subtitle {
-    color: var(--brand-muted);
-}
-.input_label {
-    color: #ffffff;
-}
-.form_input {
-    background: rgba(255, 255, 255, 0.03);
-    color: #ffffff;
-    border: 1px solid rgba(232, 198, 106, 0.16);
-}
-.form_input:focus {
-    border-color: var(--brand-gold);
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 0 0 4px rgba(232, 198, 106, 0.10);
-}
-select.form_input {
-    background-color: rgba(255, 255, 255, 0.03);
-}
-.smart-input::placeholder {
-    color: #64748b;
-}
-.helper_box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(232, 198, 106, 0.12);
-    color: #cbd5e1;
-}
-.helper_link {
-    color: var(--brand-gold);
-}
-.captcha_box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(232, 198, 106, 0.12);
-}
-.captcha_box:focus-within {
-    border-color: var(--brand-gold);
-    background: rgba(255, 255, 255, 0.05);
-}
-.captcha_text {
-    color: #cbd5e1;
-}
-.captcha_input {
-    background: rgba(255, 255, 255, 0.04);
-    color: #ffffff;
-    border: 1px solid rgba(232, 198, 106, 0.16);
-}
-.captcha_input:focus {
-    border-color: var(--brand-gold);
-}
-.submit_btn {
-    background: linear-gradient(135deg, #e8c66a, #c9a84c);
-    color: #02040a;
-    box-shadow: 0 14px 24px rgba(232, 198, 106, 0.18);
-}
-.submit_btn:hover {
-    background: linear-gradient(135deg, #f1d98c, #e8c66a);
-    color: #02040a;
-}
-.btn_results:hover {
-    background: linear-gradient(135deg, #e8c66a, #b45309);
-    color: #02040a;
-    box-shadow: 0 12px 24px rgba(180, 83, 9, 0.22);
-}
-.btn_verify:hover {
-    background: linear-gradient(135deg, #e8c66a, #c9a84c);
-    color: #02040a;
-    box-shadow: 0 12px 24px rgba(232, 198, 106, 0.18);
-}
-.input-error-state {
-    border-color: var(--brand-error) !important;
-    background-color: rgba(239, 68, 68, 0.08) !important;
-    color: #fecaca !important;
-}
-.inline-error-text {
-    color: #fca5a5;
-}
-.results_output {
-    border-top: 2px dashed rgba(232, 198, 106, 0.16);
-}
-.winner_card {
-    background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(6, 10, 20, 0.98));
-    border: 1px solid rgba(232, 198, 106, 0.18);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
-}
-.winner_card::before {
-    background: linear-gradient(90deg, #e8c66a, #c9a84c);
-}
-.winner_seal {
-    background: linear-gradient(135deg, #e8c66a, #c9a84c);
-    color: #02040a;
-    border: 2px dashed rgba(255, 255, 255, 0.5);
-}
-.participant_card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(232, 198, 106, 0.12);
-}
-.participant_icon {
-    background: rgba(232, 198, 106, 0.10);
-    color: var(--brand-gold);
-    border: 1px solid rgba(232, 198, 106, 0.16);
-}
-.result_name {
-    color: #ffffff;
-}
-.result_award {
-    background: rgba(232, 198, 106, 0.08);
-    color: #ffffff;
-    border: 1px solid rgba(232, 198, 106, 0.16);
-}
-.result_award.gold {
-    background: rgba(232, 198, 106, 0.12);
-    color: var(--brand-gold);
-    border-color: rgba(232, 198, 106, 0.24);
-}
-.download_inline_btn {
-    background: linear-gradient(135deg, #e8c66a, #c9a84c);
-    color: #02040a;
-}
-.download_inline_btn:hover {
-    background: linear-gradient(135deg, #f1d98c, #e8c66a);
-    color: #02040a;
-}
-.faq_section {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(232, 198, 106, 0.10);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
-}
-.faq_title {
-    color: #ffffff;
-    border-bottom: 2px solid rgba(232, 198, 106, 0.12);
-}
-.faq_q {
-    color: #ffffff;
-}
-.faq_a {
-    color: #94a3b8;
-}
-.cinematic-overlay {
-    background: rgba(2, 6, 23, 0.88);
-}
-.cinematic-card {
-    background: linear-gradient(145deg, rgba(10, 16, 32, 0.98), rgba(6, 10, 20, 0.98));
-    border: 1px solid rgba(232, 198, 106, 0.18);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(232, 198, 106, 0.10);
-}
-.cert-header {
-    color: #94a3b8;
-}
-.cert-name {
-    background: linear-gradient(90deg, #e8c66a, #fff1b7, #e8c66a);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.cert-meta-grid {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(232, 198, 106, 0.12);
-}
-.meta-item label {
-    color: #94a3b8;
-}
-.meta-item span {
-    color: #ffffff;
-}
-.meta-item .mono-id {
-    color: var(--brand-gold);
-}
-.cert-ceremonial-text {
-    color: #cbd5e1;
-    border-left: 4px solid var(--brand-gold);
-}
-.btn-close-modal {
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    border: 1px solid rgba(232, 198, 106, 0.16);
-}
-.btn-close-modal:hover {
-    background: rgba(232, 198, 106, 0.12);
-    border-color: rgba(232, 198, 106, 0.24);
-}
-.index-footer__title em,
-.index-footer__logo-link {
-    color: var(--brand-gold);
-}
-.index-footer__nav a:hover,
-.index-footer__tagline {
-    color: var(--brand-gold);
-}
-.index-footer__divider {
-    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.25), transparent);
-}
-select#res_track {
-    background-color: #060a14 !important; /* Dark background */
-    color: #ffffff !important;           /* White text */
-    border: 1px solid rgba(232, 198, 106, 0.3) !important;
-}
-select#res_track option {
-    background-color: #060a14;
-    color: #ffffff;
-    padding: 10px;
-}
-select#res_track:hover {
-    border-color: var(--brand-gold) !important;
-}
-.sp_recognised {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto 60px auto;
-    padding: 32px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(232, 198, 106, 0.12);
-    border-radius: 24px;
-}
-.sp_recognised_head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 8px;
-}
-.sp_recognised_title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: #ffffff;
-}
-.sp_recognised_count {
-    font-size: 12px;
-    font-weight: 800;
-    color: #e8c66a;
-    background: rgba(232, 198, 106, 0.10);
-    border: 1px solid rgba(232, 198, 106, 0.22);
-    padding: 4px 12px;
-    border-radius: 999px;
-    white-space: nowrap;
-}
-.sp_recognised_sub {
-    font-size: 14px;
-    color: #94a3b8;
-    line-height: 1.6;
-    margin-bottom: 18px;
-}
-.sp_recognised_sub strong { color: #e8c66a; font-weight: 600; }
-.sp_chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-.sp_chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #e2e8f0;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(232, 198, 106, 0.14);
-    padding: 8px 14px;
-    border-radius: 12px;
-    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-}
-.sp_chip:hover {
-    border-color: rgba(232, 198, 106, 0.42);
-    background: rgba(232, 198, 106, 0.07);
-    transform: translateY(-2px);
-}
-.sp_chip::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #e8c66a;
-    flex-shrink: 0;
-}
-@media (max-width: 640px) {
-  .sp_recognised { padding: 24px 18px; margin-bottom: 40px; }
-}
-.result_certid {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    margin: 6px 0 16px;
-}
-.result_certid_label {
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #94a3b8;
-}
-.result_certid_value {
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: #e8c66a;
-    background: rgba(232, 198, 106, 0.10);
-    border: 1px solid rgba(232, 198, 106, 0.22);
-    padding: 5px 14px;
-    border-radius: 8px;
-}
-.result_notice {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    text-align: left;
-    max-width: 32rem;
-    margin: 0 auto 24px;
-    padding: 16px 18px;
-    border-radius: 14px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #cbd5e1;
-    background: rgba(232, 198, 106, 0.08);
-    border: 1px solid rgba(232, 198, 106, 0.22);
-}
-.result_notice svg {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    color: #e8c66a;
-    margin-top: 1px;
-}
-.result_notice strong { color: #ffffff; font-weight: 700; }
-.result_notice--participant {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: rgba(232, 198, 106, 0.14);
-}
-.result_notice--participant svg { color: #94a3b8; }
-  </style>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebPage","name":"Student Portal — Results & Certificate Verification","description":"Check your Academic Kickoff Fest 2026 competition results and verify certificate authenticity.","url":"https://www.Inspiretalenthub.in/StudentPortal.html","isPartOf":{"@type":"WebSite","name":"Inspire Talent Hub","url":"https://www.Inspiretalenthub.in/"}}
+  {"@context":"https://schema.org","@type":"WebPage","name":"Results Portal — Inspire Talent Hub","description":"Search published competition results and download your verifiable certificate.","url":"https://www.Inspiretalenthub.in/StudentPortal.html","isPartOf":{"@type":"WebSite","name":"Inspire Talent Hub","url":"https://www.Inspiretalenthub.in/"}}
   </script>
 </head>
 <body class="body-dark">
@@ -686,171 +72,53 @@ select#res_track:hover {
     </ul>
   </nav>
   <main id="main-content">
-    <section class="section section-dark" style="padding:clamp(7rem,11vw,9rem) 0 0;">
+    <header class="section section-dark" style="padding-top: clamp(8rem, 12vw, 11rem); padding-bottom: 0;">
       <div class="container">
-        <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Student Portal</li></ol></nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Results Portal</li></ol></nav>
+        <div class="section-header" style="margin-bottom: var(--spacing-10);">
+          <span class="section-tag text-gold">Results &amp; Certificates</span>
+          <h1 class="section-title text-gold">Results <em>Portal</em></h1>
+          <p class="section-desc">Once results are officially published, search for your record to view your result and download your verifiable certificate. Enter any one or more details below &mdash; the more you provide, the more precise the match.</p>
+        </div>
+      </div>
+    </header>
+    <section class="section section-dark" style="padding-top:0;">
+      <div class="container">
+        <div id="notPublished" class="info-note reveal" hidden style="max-width:900px;margin:0 auto var(--spacing-8);"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><p>Results for this event have not been published yet. Please check back after the official announcement.</p></div>
+
+        <form id="portalForm" class="portal-search-card reveal" aria-labelledby="searchHeading" novalidate>
+          <h2 id="searchHeading" class="sr-only">Search for your result</h2>
+          <div class="portal-grid">
+            <div class="form-field"><label class="form-label" for="q_certId">Certificate ID</label><input type="text" id="q_certId" class="form-input" placeholder="e.g. ITH-2026-POETRY-A7F3K9" autocomplete="off" spellcheck="false"></div>
+            <div class="form-field"><label class="form-label" for="q_regNo">Registration Number</label><input type="text" id="q_regNo" class="form-input" placeholder="e.g. ITH2026-1001" autocomplete="off" spellcheck="false"></div>
+            <div class="form-field"><label class="form-label" for="q_name">Participant Name</label><input type="text" id="q_name" class="form-input" placeholder="Your full name" autocomplete="off" spellcheck="false"></div>
+            <div class="form-field"><label class="form-label" for="q_email">Email Address <span style="color:var(--color-text-tertiary);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label><input type="email" id="q_email" class="form-input" placeholder="you@example.com" autocomplete="off" spellcheck="false"></div>
+            <div class="form-field"><label class="form-label" for="q_school">School Name <span style="color:var(--color-text-tertiary);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label><input type="text" id="q_school" class="form-input" placeholder="Your school" autocomplete="off" spellcheck="false"></div>
+            <div class="form-field"><label class="form-label" for="q_competition">Competition</label>
+              <select id="q_competition" class="form-input"><option value="">Any competition</option></select></div>
+            <div class="form-field"><label class="form-label" for="q_year">Year</label>
+              <select id="q_year" class="form-input"><option value="">Any year</option></select></div>
+          </div>
+          <div class="cert-actions" style="justify-content:flex-start;margin-top:var(--spacing-6);">
+            <button type="submit" class="btn btn-gold hover-target"><span>Search Results</span><div class="btn-ripple" aria-hidden="true"></div></button>
+            <button type="reset" id="portalReset" class="btn btn-outline text-gold hover-target"><span>Clear</span></button>
+          </div>
+          <p class="portal-hint">Have a Certificate ID or QR code and just want to confirm a certificate is genuine? Use the <a href="verifycertificate.html" class="faq-inline-link">Certificate Verification</a> page.</p>
+        </form>
+
+        <div id="resultsArea" aria-live="polite"></div>
       </div>
     </section>
-    <div class="tab-controller px-2" role="tablist">
-        <button class="tab-btn active" id="btn_tab_results" role="tab" onclick="switchTab('results')">Check Results</button>
-        <button class="tab-btn" id="btn_tab_verify" role="tab" onclick="switchTab('verify')">Verify Certificate</button>
-    </div>
-
-    <div class="portal_container">
-
-        <!-- ===================================================================
-             TAB 1: CHECK RESULTS (NO SCHOOL SELECTION)
-             =================================================================== -->
-        <div id="tab_results" class="tab-content active" role="tabpanel">
-            <main class="portal_card card_gradient_results">
-                <header class="header_center">
-                    <div class="icon_wrapper icon_results">
-                        <svg style="width: 40px; height: 40px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h1 class="portal_title">Competition Results</h1>
-                    <p class="portal_subtitle">Find out how you did! Enter your name and select your competition to see your standing and download your certificate.</p>
-                </header>
-
-                <form id="form_results" novalidate>
-                    <!-- Name Input -->
-                    <div class="input_group">
-                        <label class="input_label" for="res_name">Your Full Name</label>
-                        <input type="text" id="res_name" class="form_input" placeholder="e.g. Aditi Sharma" autocomplete="off" spellcheck="false">
-                    </div>
-
-                    <!-- Competition Track -->
-                    <div class="input_group">
-                        <label class="input_label" for="res_track">Competition Track</label>
-                        <select id="res_track" class="form_input">
-                            <option value="" disabled selected>Select your competition...</option>
-                            <option value="EcoRise Business Blueprint">EcoRise Business Blueprint</option>
-                            <option value="Filmmaking Competition">Filmmaking Competition</option>
-                            <option value="Poetry Writing Competition">Poetry Writing Competition</option>
-                            <option value="Meme Design Competition">Meme Design Competition</option>
-                            <option value="Essay Writing Competition">Essay Writing Competition</option>
-                            <option value="FutureTech League">FutureTech League</option>
-                            <option value="Story Writing Competition">Story Writing Competition</option>
-                            <option value="Magazine Design Competition">Magazine Design Competition</option>
-                            <option value="ATL Innovators Lab">ATL Innovators Lab</option>
-                            <option value="EcoVision 3D Challenge">EcoVision 3D Challenge</option>
-                            <option value="Canva Design Contest">Canva Design Contest</option>
-                            <option value="Mathematics Quiz">Mathematics Quiz</option>
-                            <option value="Science Quiz">Science Quiz</option>
-                            <option value="Current Affairs Quiz">Current Affairs Quiz</option>
-                        </select>
-                    </div>
-
-                    <!-- Math Check -->
-                    <div class="captcha_box">
-                        <div class="captcha_text">
-                            <svg style="width: 20px; height: 20px; color: #64748b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            Quick Math Check: <span id="res_math" style="font-weight: 900; color: #b45309; margin: 0 6px; font-size: 18px; font-family: monospace;">? + ?</span>
-                        </div>
-                        <input type="number" id="res_math_input" class="captcha_input" placeholder="=">
-                    </div>
-
-                    <button type="submit" id="res_submit_btn" class="submit_btn btn_results">
-                        <svg style="width: 22px; height: 22px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        Show My Result
-                    </button>
-                </form>
-
-                <!-- Output Area -->
-                <div id="res_output" class="results_output"></div>
-            </main>
-
-            <!-- Friendly Helpful Tips -->
-            <aside class="faq_section">
-                <h2 class="faq_title">Helpful Tips</h2>
-                <div class="faq_item">
-                    <h3 class="faq_q">
-                        <svg style="width: 20px; height: 20px; color: #D4AF37; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                        Why does it say "Record Not Found"?
-                    </h3>
-                    <p class="faq_a">To protect your privacy, we require an exact match. Make sure you typed your name exactly as you submitted it during registration, and double-check that you selected the correct competition.</p>
-                </div>
-                <div class="faq_item">
-                    <h3 class="faq_q">
-                        <svg style="width: 20px; height: 20px; color: #D4AF37; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                        Do I still get a certificate if I didn't place?
-                    </h3>
-                    <p class="faq_a">Absolutely! We celebrate everyone's hard work. If you participated, you will be able to download a beautiful Certificate of Participation here.</p>
-                </div>
-            </aside>
-        </div>
-
-        <!-- ===================================================================
-             TAB 2: VERIFY CERTIFICATE
-             =================================================================== -->
-        <div id="tab_verify" class="tab-content" role="tabpanel">
-            <main class="portal_card card_gradient_verify">
-                <header class="header_center">
-                    <div class="icon_wrapper icon_verify">
-                        <svg style="width: 40px; height: 40px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <h2 class="portal_title">Verify a Certificate</h2>
-                    <p class="portal_subtitle">Ensure a certificate is official. Enter the unique ID found on the document to check its authenticity.</p>
-                </header>
-
-                <form id="form_verify" novalidate>
-                    <!-- ID Input -->
-                    <div class="input_group">
-                        <label class="input_label" for="ver_id">
-                            Certificate ID
-                            <span class="helper_link" id="toggle_helper">Where is this?</span>
-                        </label>
-                        <div id="ver_helper" class="helper_box">
-                            Look at the bottom-left corner of the certificate. You should see a code that looks like <strong>AKF2026-FLM-031</strong>. Just start typing it below, and we'll format it for you!
-                        </div>
-                        <input type="text" id="ver_id" class="form_input" autocomplete="off" spellcheck="false" placeholder="Start typing the code...">
-                    </div>
-
-                    <!-- Math Check -->
-                    <div class="captcha_box">
-                        <div class="captcha_text">
-                            <svg style="width: 20px; height: 20px; color: #ff4800;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Quick Math Check: <span id="ver_math" style="font-weight: 900; color: #2a1b0f; margin: 0 6px; font-size: 18px; font-family: monospace;">? + ?</span>
-                        </div>
-                        <input type="number" id="ver_math_input" class="captcha_input" placeholder="=">
-                    </div>
-
-                    <button type="submit" id="ver_submit_btn" class="submit_btn btn_verify">
-                        <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        Verify Certificate
-                    </button>
-                </form>
-            </main>
-
-            <!-- Verification Info -->
-            <aside class="faq_section">
-                <h2 class="faq_title">How Verification Works</h2>
-                <div class="faq_item">
-                    <h3 class="faq_q">
-                        <svg style="width: 20px; height: 20px; color: #4F46E5; flex-shrink: 0;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        Why should I verify a certificate?
-                    </h3>
-                    <p class="faq_a">To prevent forgery and ensure that achievements are accurately represented. When you enter a valid ID, our system checks it against our secure database and displays the original, untampered details of the award.</p>
-                </div>
-            </aside>
-        </div>
-
-    </div>
-
-    <!-- Data-driven: competitions students can look up (built from the result tracks) -->
-    <section class="sp_recognised" aria-label="Recognised competitions">
-        <div class="sp_recognised_head">
-            <h2 class="sp_recognised_title">Recognised Competitions</h2>
-            <span class="sp_recognised_count" id="sp_comps_count">&mdash;</span>
-        </div>
-        <p class="sp_recognised_sub">Results &amp; certificates for the <strong>Academic Kickoff Fest 2026</strong> are available across these tracks:</p>
-        <div class="sp_chips" id="sp_comps_list" role="list" aria-label="Recognised competitions"></div>
-    </section>
-
-    <!-- =======================================================================
-         FOOTER WITH ANIMATED SKY
-         ======================================================================= -->
-    <section class="section section-darker"><div class="container reveal" style="text-align:center;">
-        <div class="gallery-cross-links" style="margin-top:0;border-top:none;padding-top:0;"><p>Explore more:</p><div class="gallery-cross-links__row"><a href="verifycertificate.html" class="hover-target">Verify Certificate</a><a href="competition.html" class="hover-target">Competitions</a><a href="hall-of-fame.html" class="hover-target">Hall of Fame</a><a href="faq.html" class="hover-target">FAQ</a><a href="Contact.html" class="hover-target">Contact</a></div></div>
+    <section class="section section-darker"><div class="container">
+      <div class="section-header reveal"><span class="section-tag text-gold">How It Works</span><h2 class="section-title text-gold">From Result to <em>Certificate</em></h2></div>
+      <div class="process-grid">
+        <div class="process-step reveal delay-1"><h3>1. Search</h3><p>Enter your Certificate ID, registration number, or name once results are published.</p></div>
+        <div class="process-step reveal delay-2"><h3>2. View Your Result</h3><p>See your competition, category, and result status in a clear summary.</p></div>
+        <div class="process-step reveal delay-3"><h3>3. Download</h3><p>If eligible, download a professional, verifiable certificate as a PDF.</p></div>
+        <div class="process-step reveal delay-1"><h3>4. Verify Anytime</h3><p>Anyone can confirm the certificate later using its ID or QR code.</p></div>
+      </div>
+    </div></section>    <section class="section section-darker"><div class="container reveal" style="text-align:center;">
+        <div class="gallery-cross-links" style="margin-top:0;border-top:none;padding-top:0;"><p>Explore more:</p><div class="gallery-cross-links__row"><a href="verifycertificate.html" class="hover-target">Verify a Certificate</a><a href="how-competitions-work.html" class="hover-target">How Competitions Work</a><a href="hall-of-fame.html" class="hover-target">Hall of Fame</a><a href="competition.html" class="hover-target">Competitions</a><a href="faq.html" class="hover-target">FAQ</a></div></div>
       </div></section>
   </main>
 <footer class="index-footer" role="contentinfo" id="index-footer">
@@ -862,7 +130,7 @@ select#res_track:hover {
       <div class="index-footer__col"><h3>Explore</h3><ul role="list"><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="competition.html">Competitions</a></li><li><a href="events.html">Events</a></li><li><a href="workshops.html">Workshops</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
       <div class="index-footer__col"><h3>Community</h3><ul role="list"><li><a href="reviews.html">Reviews</a></li><li><a href="success-stories.html">Success Stories</a></li><li><a href="schools.html">Schools</a></li><li><a href="teachers.html">Teachers</a></li><li><a href="campus-ambassador.html">Campus Ambassador</a></li></ul></div>
       <div class="index-footer__col"><h3>Get Involved</h3><ul role="list"><li><a href="partners.html">Partners</a></li><li><a href="scholarships.html">Scholarships</a></li><li><a href="careers.html">Careers</a></li><li><a href="media.html">Media Coverage</a></li><li><a href="downloads.html">Downloads</a></li></ul></div>
-      <div class="index-footer__col"><h3>Support</h3><ul role="list"><li><a href="resources.html">Resources</a></li><li><a href="news.html">News</a></li><li><a href="verifycertificate.html">Verify Certificate</a></li><li><a href="faq.html">FAQ</a></li><li><a href="Contact.html">Contact</a></li><li><a href="StudentPortal.html" aria-current="page">Student Portal</a></li><li><a href="benefits-of-student-competitions.html">Why Competitions Matter</a></li><li><a href="competition-preparation-guide.html">Preparation Guide</a></li></ul></div>
+      <div class="index-footer__col"><h3>Support</h3><ul role="list"><li><a href="resources.html">Resources</a></li><li><a href="news.html">News</a></li><li><a href="verifycertificate.html">Verify Certificate</a></li><li><a href="faq.html">FAQ</a></li><li><a href="Contact.html">Contact</a></li><li><a href="StudentPortal.html" aria-current="page">Student Portal</a></li></ul></div>
     </nav>
     <div class="index-footer__bottom">
       <div class="index-footer__divider" aria-hidden="true"></div>
@@ -872,470 +140,92 @@ select#res_track:hover {
   </div>
 </footer>
   <script src="script.js" defer></script>
-  <!-- Canonical results/certificate data (single source of truth) — must load first -->
-  <script src="result_announcer_2026_script.js"></script>
+  <script src="assets/js/ith-qr.js"></script>
+  <script src="assets/js/ith-cert-core.js"></script>
+  <script src="data/certificates.js"></script>
   <script>
-        "use strict";
+  (function () {
+    var C = window.ITHCert;
+    function el(id) { return document.getElementById(id); }
+    function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
 
-        // ---------------------------------------------------------------------
-        // 1. MOCK DATABASE (Shared between both tools)
-        // ---------------------------------------------------------------------
-        // Single source of truth — provided by result_announcer_2026_script.js (window.RESULTS_DB).
-        const Database = Array.isArray(window.RESULTS_DB) ? window.RESULTS_DB : [];
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!C.resultsPublished()) { el('notPublished').hidden = false; }
 
-        // Names are stored lowercase in the canonical database; title-case for display.
-        const titleCase = (str) => String(str || "").replace(/\b[a-z]/g, c => c.toUpperCase());
+      // Populate competition + year dropdowns from the dataset
+      var comps = {}, years = {};
+      C.records().forEach(function (r) { if (r.competition) comps[r.competition] = 1; if (r.year) years[r.year] = 1; });
+      Object.keys(comps).sort().forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; el('q_competition').appendChild(o); });
+      Object.keys(years).sort().reverse().forEach(function (y) { var o = document.createElement('option'); o.value = y; o.textContent = y; el('q_year').appendChild(o); });
 
-        // ---------------------------------------------------------------------
-        // 2. ERROR HANDLING UTILITIES
-        // ---------------------------------------------------------------------
-        const UIUtils = {
-            showError: (inputEl, message) => {
-                if (!inputEl) return;
-                inputEl.classList.add('input-error-state');
-                
-                // Find or create the error text div underneath the input
-                let errorDiv = inputEl.nextElementSibling;
-                if (!errorDiv || !errorDiv.classList.contains('inline-error-text')) {
-                    errorDiv = document.createElement('div');
-                    errorDiv.className = 'inline-error-text';
-                    errorDiv.innerHTML = `<svg style="width:16px;height:16px;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg> <span class="msg"></span>`;
-                    inputEl.parentNode.insertBefore(errorDiv, inputEl.nextSibling);
-                }
-                
-                errorDiv.querySelector('.msg').textContent = message;
-                errorDiv.classList.add('active');
-                
-                // Remove the animation class so it can be re-triggered later
-                setTimeout(() => {
-                    inputEl.classList.remove('input-error-state');
-                    inputEl.style.borderColor = "#EF4444";
-                    inputEl.style.backgroundColor = "#FEF2F2";
-                    inputEl.style.color = "#991B1B";
-                }, 400);
-            },
+      // Pre-fill from URL (e.g. ?id= or ?name=)
+      var params = new URLSearchParams(location.search);
+      if (params.get('id')) el('q_certId').value = params.get('id');
+      if (params.get('name')) el('q_name').value = params.get('name');
+      if (params.get('id') || params.get('name')) runSearch();
 
-            clearError: (inputEl) => {
-                if (!inputEl) return;
-                inputEl.classList.remove('input-error-state');
-                inputEl.style.borderColor = "";
-                inputEl.style.backgroundColor = "";
-                inputEl.style.color = "";
-                const errorDiv = inputEl.nextElementSibling;
-                if (errorDiv && errorDiv.classList.contains('inline-error-text')) {
-                    errorDiv.classList.remove('active');
-                }
-            },
+      el('portalForm').addEventListener('submit', function (e) { e.preventDefault(); runSearch(); });
+      el('portalReset').addEventListener('click', function () { setTimeout(function () { el('resultsArea').innerHTML = ''; }, 0); });
+    });
 
-            setLoading: (btn, isLoading, defaultHtml) => {
-                if (isLoading) {
-                    btn.disabled = true;
-                    btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 inline" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Checking...`;
-                } else {
-                    btn.disabled = false;
-                    btn.innerHTML = defaultHtml;
-                }
-            }
-        };
+    function runSearch() {
+      var q = {
+        certId: el('q_certId').value, regNo: el('q_regNo').value, name: el('q_name').value,
+        email: el('q_email').value, school: el('q_school').value,
+        competition: el('q_competition').value, year: el('q_year').value
+      };
+      var area = el('resultsArea');
+      var res = C.search(q);
+      if (!res.ok) { area.innerHTML = notice('Please enter at least one search detail above.'); return; }
+      if (res.results.length === 0) { area.innerHTML = notice('No matching record was found. Please check your details — names must match how you registered — or try a different field such as your Certificate ID or registration number.'); return; }
+      if (res.results.length > 8) { area.innerHTML = notice('We found ' + res.results.length + ' matching records. Please add more details (such as your school or registration number) to narrow the search.'); return; }
+      area.innerHTML = res.results.map(card).join('');
+      // move focus to results for screen readers
+      var first = area.querySelector('.result-card'); if (first) first.setAttribute('tabindex', '-1');
+    }
 
-        // ---------------------------------------------------------------------
-        // 3. MATH CAPTCHA LOGIC
-        // ---------------------------------------------------------------------
-        class MathCheck {
-            constructor(textId, inputId) {
-                this.textEl = document.getElementById(textId);
-                this.inputEl = document.getElementById(inputId);
-                this.answer = 0;
-                
-                if(this.inputEl) {
-                    this.inputEl.addEventListener('input', () => UIUtils.clearError(this.inputEl));
-                }
-            }
-            refresh() {
-                const n1 = Math.floor(Math.random() * 9) + 1;
-                const n2 = Math.floor(Math.random() * 9) + 1;
-                this.answer = n1 + n2;
-                if (this.textEl) this.textEl.textContent = `${n1} + ${n2}`;
-                if (this.inputEl) {
-                    this.inputEl.value = "";
-                    UIUtils.clearError(this.inputEl);
-                }
-            }
-            isValid() {
-                if (!this.inputEl) return false;
-                const userVal = parseInt(this.inputEl.value, 10);
-                return !isNaN(userVal) && userVal === this.answer;
-            }
-        }
+    function notice(msg) {
+      return '<div class="result-card"><div class="result-cta"><p class="result-note" style="margin:0;">' + esc(msg) + '</p></div></div>';
+    }
 
-        const ResMath = new MathCheck('res_math', 'res_math_input');
-        const VerMath = new MathCheck('ver_math', 'ver_math_input');
+    function cell(label, value) {
+      return '<div class="result-cell"><dt>' + esc(label) + '</dt><dd>' + (value ? esc(value) : '&mdash;') + '</dd></div>';
+    }
 
-        // ---------------------------------------------------------------------
-        // 4. SMART INPUT MASKING (For Verify ID)
-        // ---------------------------------------------------------------------
-        const verifyInputEl = document.getElementById('ver_id');
-        if (verifyInputEl) {
-            verifyInputEl.classList.add('smart-input');
-            verifyInputEl.addEventListener('input', (e) => {
-                UIUtils.clearError(verifyInputEl);
-                
-                // Strip everything except letters and numbers
-                let val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-                
-                // Add the first dash after AKF2026
-                if (val.length > 7) {
-                    val = val.substring(0, 7) + '-' + val.substring(7);
-                }
-                
-                // Add the second dash where the letters stop and numbers start
-                let parts = val.split('-');
-                if (parts.length > 1) {
-                    let remainder = parts[1];
-                    let lettersMatch = remainder.match(/^[A-Z]+/);
-                    
-                    if (lettersMatch) {
-                        let letterPart = lettersMatch[0];
-                        if (remainder.length > letterPart.length) {
-                            let numberPart = remainder.substring(letterPart.length);
-                            // Keep max 3 digits at the end
-                            if (numberPart.length > 3) numberPart = numberPart.substring(0, 3);
-                            val = parts[0] + '-' + letterPart + '-' + numberPart;
-                        }
-                    }
-                }
-                
-                e.target.value = val;
-            });
-        }
+    function card(rec) {
+      var isWinner = /winner|runner|1st|2nd|3rd|first|second|third|finalist|gold|silver|bronze/i.test(rec.resultStatus + ' ' + rec.rank);
+      var badgeClass = isWinner ? 'result-badge--win' : 'result-badge--part';
+      var badgeText = rec.resultStatus || 'Participant';
+      var eligible = C.certificateEligible(rec);
+      var certState = eligible ? 'Available' : (rec.certificateAvailable ? 'Pending' : 'Not available');
 
-        // ---------------------------------------------------------------------
-        // 5. ANIMATIONS (Typewriter & Confetti)
-        // ---------------------------------------------------------------------
-        const typeText = (element, text, speed = 25) => {
-            element.innerHTML = '<span class="cursor">|</span>';
-            let i = 0;
-            const type = () => {
-                if (i < text.length) {
-                    element.innerHTML = element.innerHTML.replace('<span class="cursor">|</span>', '');
-                    element.innerHTML += text.charAt(i) + '<span class="cursor">|</span>';
-                    i++;
-                    setTimeout(type, speed + (Math.random() * 20 - 10));
-                } else {
-                    setTimeout(() => { element.innerHTML = element.innerHTML.replace('<span class="cursor">|</span>', ''); }, 2000);
-                }
-            };
-            setTimeout(type, 400);
-        };
+      var cta;
+      if (eligible) {
+        cta = '<a class="btn btn-gold hover-target" href="' + esc(C.certificateUrl(rec.certId)) + '"><span>Download Certificate</span><div class="btn-ripple" aria-hidden="true"></div></a>'
+            + '<a class="btn btn-outline text-gold hover-target" href="verifycertificate.html?id=' + encodeURIComponent(rec.certId) + '"><span>Verify</span></a>';
+      } else {
+        cta = '<p class="result-note" style="margin:0;">A certificate is not currently available for this record. Please check back after results are finalised.</p>';
+      }
 
-        class Confetti {
-            constructor() {
-                this.canvas = document.createElement('canvas');
-                this.canvas.id = 'confetti-canvas';
-                document.body.appendChild(this.canvas);
-                this.ctx = this.canvas.getContext('2d');
-                this.particles = [];
-                this.colors = ['#FFD700', '#DAA520', '#B8860B', '#FFF8DC', '#FFDF00', '#FFFFFF'];
-                this.active = false;
-                this.resize();
-                window.addEventListener('resize', () => this.resize());
-            }
-            resize() { this.canvas.width = window.innerWidth; this.canvas.height = window.innerHeight; }
-            shoot() {
-                this.active = true;
-                for (let i = 0; i < 150; i++) {
-                    this.particles.push({
-                        x: this.canvas.width / 2, y: this.canvas.height / 2 + 100,
-                        r: Math.random() * 5 + 3, dx: Math.random() * 30 - 15, dy: Math.random() * -25 - 10,
-                        c: this.colors[Math.floor(Math.random() * this.colors.length)],
-                        t: Math.floor(Math.random() * 10) - 10, tA: 0, tD: (Math.random() * 0.07) + 0.05,
-                        s: Math.random() > 0.5 ? 'circle' : 'rect'
-                    });
-                }
-                if (!this.frameId) this.loop();
-            }
-            loop() {
-                if (!this.active && this.particles.length === 0) return;
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                let count = 0;
-                for (let i = 0; i < this.particles.length; i++) {
-                    let p = this.particles[i];
-                    p.dy += 0.3; p.dx *= 0.98; p.x += p.dx; p.y += p.dy; p.tA += p.tD;
-                    if (p.y < this.canvas.height) count++;
-                    this.ctx.beginPath(); this.ctx.lineWidth = p.r; this.ctx.strokeStyle = p.c; this.ctx.fillStyle = p.c;
-                    if (p.s === 'circle') {
-                        this.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); this.ctx.fill();
-                    } else {
-                        this.ctx.moveTo(p.x + p.t + p.r, p.y); this.ctx.lineTo(p.x + p.t, p.y + p.t + p.r); this.ctx.stroke();
-                    }
-                }
-                if (count > 0 && this.active) this.frameId = requestAnimationFrame(() => this.loop());
-                else { this.active = false; this.frameId = null; this.particles = []; this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); }
-            }
-            stop() { this.active = false; }
-        }
-        const MyConfetti = new Confetti();
-
-        // ---------------------------------------------------------------------
-        // 6. RESULT ANNOUNCER EVENT BINDING
-        // ---------------------------------------------------------------------
-        const resForm = document.getElementById('form_results');
-        const resName = document.getElementById('res_name');
-        const resTrack = document.getElementById('res_track');
-        const resBtn = document.getElementById('res_submit_btn');
-        const resOutput = document.getElementById('res_output');
-        const resBtnHtml = resBtn ? resBtn.innerHTML : "";
-
-        // Clear errors on typing
-        if(resName) resName.addEventListener('input', () => UIUtils.clearError(resName));
-        if(resTrack) resTrack.addEventListener('change', () => UIUtils.clearError(resTrack));
-
-        if (resForm) {
-            resForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Clear old state
-                UIUtils.clearError(resName);
-                UIUtils.clearError(resTrack);
-                UIUtils.clearError(ResMath.inputEl);
-                resOutput.classList.remove('show');
-                resOutput.innerHTML = '';
-
-                let hasError = false;
-                const nameVal = resName.value.trim().toLowerCase();
-                const trackVal = resTrack.value;
-
-                if (!nameVal) { UIUtils.showError(resName, "Please type your full name."); hasError = true; }
-                if (!trackVal) { UIUtils.showError(resTrack, "Please choose your competition."); hasError = true; }
-                if (!ResMath.isValid()) {
-                    UIUtils.showError(ResMath.inputEl, "Oops! The math doesn't look right.");
-                    ResMath.refresh();
-                    hasError = true;
-                }
-
-                if (hasError) return;
-
-                // Simulate Network Delay
-                UIUtils.setLoading(resBtn, true, resBtnHtml);
-                
-                setTimeout(() => {
-                    UIUtils.setLoading(resBtn, false, resBtnHtml);
-                    
-                    // Search the single source of truth by name + competition.
-                    const match = Database.find(r => (r.name || '').toLowerCase() === nameVal && r.competitionName === trackVal);
-
-                    if (match) {
-                        const isWinner = match.status === "Winner";
-                        const displayName = titleCase(match.name);
-
-                        if (isWinner) {
-                            resOutput.innerHTML = `
-                                <div class="winner_card">
-                                    <div class="winner_seal">★</div>
-                                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest mb-2">Official Result</p>
-                                    <h2 class="result_name">${displayName}</h2>
-                                    <div class="result_award gold">${match.prize}</div>
-                                    ${match.certId ? `<div class="result_certid"><span class="result_certid_label">Certificate ID</span><span class="result_certid_value">${match.certId}</span></div>` : ''}
-                                    <p class="text-slate-300 max-w-md mx-auto mb-5">Congratulations! You secured a top place in the ${match.competitionName}${match.displaySchool ? ` for ${match.displaySchool}` : ''}.</p>
-                                    <div class="result_notice">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><path d="M16 8h4l3 3v5h-7V8z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                                        <span>Your prize, medal, and verifiable <strong>Certificate of Achievement</strong> have been dispatched from our end and will be delivered to your school within <strong>5&ndash;7 working days</strong>. For any further awards-related queries, please contact your school.</span>
-                                    </div>
-                                    ${match.certId ? `<a href="#tab_verify" class="download_inline_btn" onclick="goVerify('${match.certId}'); return false;">Verify My Certificate</a>` : ''}
-                                </div>`;
-                        } else {
-                            resOutput.innerHTML = `
-                                <div class="participant_card">
-                                    <div class="participant_icon"><svg style="width: 30px; height: 30px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
-                                    <h2 class="result_name">${displayName}</h2>
-                                    <div class="result_award">${match.prize}</div>
-                                    <p class="text-slate-300 max-w-md mx-auto mb-5">We found your record! Thank you for participating in the ${match.competitionName}${match.displaySchool ? ` (${match.displaySchool})` : ''}.</p>
-                                    <div class="result_notice result_notice--participant">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M22 7l-10 6L2 7"></path></svg>
-                                        <span>Your <strong>Certificate of Participation</strong> will be sent to your email soon.</span>
-                                    </div>
-                                </div>`;
-                        }
-                        resOutput.classList.add('show');
-                    } else {
-                        UIUtils.showError(resName, "We couldn't find a match. Please double-check your spelling and track.");
-                    }
-                    
-                    ResMath.refresh();
-                }, 1000);
-            });
-        }
-
-        // ---------------------------------------------------------------------
-        // 7. VERIFICATION ENGINE EVENT BINDING
-        // ---------------------------------------------------------------------
-        const verForm = document.getElementById('form_verify');
-        const verBtn = document.getElementById('ver_submit_btn');
-        const verBtnHtml = verBtn ? verBtn.innerHTML : "";
-
-        // Build the Modal DOM structure
-        const modalOverlay = document.createElement('div');
-        modalOverlay.className = 'cinematic-overlay';
-        modalOverlay.innerHTML = `
-            <div class="cinematic-card">
-                <div class="card-content">
-                    <div class="cert-header">
-                        <svg style="width:18px; height:18px; color:#D4AF37;" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        Official Authentic Record
-                    </div>
-                    <div class="cert-name" id="mod_name">Name</div>
-                    
-                    <div class="cert-meta-grid">
-                        <div class="meta-item"><label>Certificate ID</label><span class="mono-id" id="mod_id">ID</span></div>
-                        <div class="meta-item"><label>Date Issued</label><span id="mod_date">Date</span></div>
-                        <div class="meta-item"><label>Award Details</label><span id="mod_award">Award</span></div>
-                        <div class="meta-item"><label>Competition</label><span id="mod_track">Track</span></div>
-                    </div>
-                    
-                    <div class="cert-ceremonial-text" id="mod_desc"></div>
-                    <button class="btn-close-modal" id="mod_close">Close Details</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modalOverlay);
-
-        const closeModal = () => {
-            modalOverlay.classList.remove('active');
-            document.getElementById('mod_desc').innerHTML = '';
-            MyConfetti.stop();
-        };
-        
-        document.getElementById('mod_close').addEventListener('click', closeModal);
-        
-        // Toggle helper text
-        const toggleHelper = document.getElementById('toggle_helper');
-        if(toggleHelper) {
-            toggleHelper.addEventListener('click', () => {
-                document.getElementById('ver_helper').classList.toggle('show');
-            });
-        }
-
-        if (verForm) {
-            verForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                UIUtils.clearError(verifyInputEl);
-                UIUtils.clearError(VerMath.inputEl);
-
-                let hasError = false;
-                const idVal = verifyInputEl.value.trim().toUpperCase();
-
-                if (!idVal) { UIUtils.showError(verifyInputEl, "Please enter a Certificate ID."); hasError = true; }
-                if (!VerMath.isValid()) {
-                    UIUtils.showError(VerMath.inputEl, "Oops! The math doesn't look right.");
-                    VerMath.refresh();
-                    hasError = true;
-                }
-
-                if (hasError) return;
-
-                // Simulate Network Delay
-                UIUtils.setLoading(verBtn, true, verBtnHtml);
-
-                setTimeout(() => {
-                    UIUtils.setLoading(verBtn, false, verBtnHtml);
-                    
-                    const match = Database.find(r => r.certId === idVal);
-
-                    if (match) {
-                        // Success! Remove focus from inputs
-                        verifyInputEl.blur();
-                        VerMath.inputEl.blur();
-                        
-                        // Populate Modal
-                        const verifiedName = titleCase(match.name);
-                        document.getElementById('mod_name').textContent = verifiedName;
-                        document.getElementById('mod_id').textContent = match.certId;
-                        document.getElementById('mod_date').textContent = "May 2026";
-                        document.getElementById('mod_award').textContent = match.prize;
-                        document.getElementById('mod_track').textContent = match.competitionName;
-
-                        const friendlyText = `This confirms that ${verifiedName} officially earned the recognition of ${match.prize} in the ${match.competitionName} during the Academic Kickoff Fest 2026. This is a verified, authentic record stored in our database.`;
-                        
-                        modalOverlay.classList.add('active');
-                        typeText(document.getElementById('mod_desc'), friendlyText, 20);
-                        
-                        MyConfetti.shoot();
-                        setTimeout(() => MyConfetti.shoot(), 500); // Double blast!
-                        
-                        verifyInputEl.value = "";
-                    } else {
-                        UIUtils.showError(verifyInputEl, "We couldn't find this ID in our records. Please make sure you typed it correctly.");
-                    }
-                    
-                    VerMath.refresh();
-                }, 1000);
-            });
-        }
-
-        // ---------------------------------------------------------------------
-        // 8. GLOBAL INIT & TAB SWITCHING
-        // ---------------------------------------------------------------------
-        window.switchTab = function(tabName) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            const targetBtn = document.getElementById(`btn_tab_${tabName}`);
-            const targetPanel = document.getElementById(`tab_${tabName}`);
-            
-            if(targetBtn && targetPanel) {
-                targetBtn.classList.add('active');
-                targetPanel.classList.add('active');
-            }
-        };
-
-        // Jump from a found result straight to the Verify tab with the ID pre-filled.
-        window.goVerify = function(certId) {
-            switchTab('verify');
-            const idInput = document.getElementById('ver_id');
-            if (idInput) {
-                idInput.value = certId;
-                // Trigger the smart-mask formatter so the ID renders consistently.
-                idInput.dispatchEvent(new Event('input', { bubbles: true }));
-                idInput.focus();
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
-        // Build the "Recognised Competitions" chips from the result-track list already in the page.
-        (function buildRecognisedComps() {
-            const select = document.getElementById('res_track');
-            const list = document.getElementById('sp_comps_list');
-            const count = document.getElementById('sp_comps_count');
-            if (!select || !list) return;
-            const tracks = [...select.options].filter(o => o.value).map(o => o.textContent.trim());
-            if (count) count.textContent = tracks.length + (tracks.length === 1 ? ' track' : ' tracks');
-            list.innerHTML = '';
-            tracks.forEach(t => {
-                const chip = document.createElement('span');
-                chip.className = 'sp_chip';
-                chip.setAttribute('role', 'listitem');
-                chip.textContent = t.replace(/\s+competition\s*$/i, '').trim();
-                chip.title = t;
-                list.appendChild(chip);
-            });
-        })();
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Hamburger logic
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-            if(hamburger) hamburger.addEventListener('click', () => {
-                const isOpen = navLinks.classList.toggle('open');
-                hamburger.setAttribute('aria-expanded', isOpen);
-                if (isOpen) { window.__navY = window.scrollY; var b=document.body.style; b.position='fixed'; b.top=(-window.__navY)+'px'; b.left='0'; b.right='0'; b.width='100%'; b.overflow='hidden'; }
-                else { var b=document.body.style; b.position=''; b.top=''; b.left=''; b.right=''; b.width=''; b.overflow=''; window.scrollTo(0, window.__navY||0); }
-            });
-
-            // Initial Math Generation
-            ResMath.refresh();
-            VerMath.refresh();
-        });
+      return '<article class="result-card">' +
+        '<div class="result-card__head">' +
+          '<h2 class="result-card__name">' + esc(rec.name) + '</h2>' +
+          '<span class="result-badge ' + badgeClass + '">' + esc(badgeText) + (rec.rank && rec.rank !== rec.resultStatus ? ' &middot; ' + esc(rec.rank) : '') + '</span>' +
+        '</div>' +
+        '<dl class="result-grid">' +
+          cell('School', rec.school) +
+          cell('Competition', rec.competition) +
+          cell('Category', rec.category) +
+          cell('Year', rec.year) +
+          cell('Participation Status', rec.participationStatus) +
+          cell('Result Status', rec.resultStatus) +
+          cell('Certificate ID', rec.certId) +
+          cell('Certificate', certState) +
+        '</dl>' +
+        '<div class="result-cta">' + cta + '</div>' +
+      '</article>';
+    }
+  })();
   </script>
 </body>
 </html>
