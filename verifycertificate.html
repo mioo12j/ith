@@ -92,8 +92,22 @@
           <p id="v_help" class="portal-hint" style="margin-top:0.75rem;">The Certificate ID is printed on the certificate, in the format <strong>ITH-YEAR-COMPETITION-CODE</strong>.</p>
           <div class="cert-actions" style="justify-content:flex-start;margin-top:var(--spacing-5);">
             <button type="submit" class="btn btn-gold hover-target"><span>Verify Certificate</span><div class="btn-ripple" aria-hidden="true"></div></button>
+            <button type="button" id="scanBtn" class="btn btn-outline text-gold hover-target"><span>Scan QR Code</span></button>
           </div>
         </form>
+
+        <div id="qrScanner" class="qr-scanner reveal" hidden>
+          <div class="qr-scanner__view">
+            <video id="scanVideo" playsinline muted></video>
+            <div class="qr-scanner__reticle" aria-hidden="true"><span></span></div>
+          </div>
+          <div class="qr-scanner__bar">
+            <p class="qr-scanner__status" id="scanStatus">Point your camera at the QR code on the certificate.</p>
+            <button type="button" id="scanCancel" class="btn btn-outline text-gold hover-target"><span>Cancel</span></button>
+          </div>
+        </div>
+        <div id="qrFallback" class="qr-fallback info-note" hidden><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg><p id="qrFallbackMsg">In-page scanning isn&rsquo;t supported on this browser. Just point your phone&rsquo;s <strong>camera app</strong> at the certificate&rsquo;s QR code &mdash; it opens this page and verifies automatically &mdash; or type the Certificate ID above.</p></div>
+
         <div id="verifyResult" aria-live="polite"></div>
       </div>
     </section>
@@ -135,11 +149,81 @@
     function el(id) { return document.getElementById(id); }
     function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
 
+    // Extract a Certificate ID from a scanned QR payload (a verification URL, a
+    // bare ?id=... query, or the ID itself). Exposed for testing.
+    function extractCertId(text) {
+      var s = String(text || '').trim();
+      if (!s) return '';
+      var m = s.match(/[?&]id=([^&\s]+)/i);
+      if (m) { try { return decodeURIComponent(m[1]); } catch (e) { return m[1]; } }
+      // Otherwise treat a plausible ID token as the ID
+      var t = s.match(/\b([A-Z]{2,4}\d{0,4}[-][A-Z0-9-]{4,})\b/i);
+      return t ? t[1] : s;
+    }
+    window.__extractCertId = extractCertId;
+
+    var scanStream = null, scanRAF = null, detector = null;
+
     document.addEventListener('DOMContentLoaded', function () {
       el('verifyForm').addEventListener('submit', function (e) { e.preventDefault(); verify(el('v_id').value); });
       var id = new URLSearchParams(location.search).get('id');
       if (id) { el('v_id').value = id; verify(id); }
+
+      el('scanBtn').addEventListener('click', startScan);
+      el('scanCancel').addEventListener('click', stopScan);
     });
+
+    function startScan() {
+      el('qrFallback').hidden = true;
+      var hasDetector = ('BarcodeDetector' in window);
+      var hasCamera = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+      if (!hasDetector || !hasCamera) {
+        if (!hasCamera) el('qrFallbackMsg').innerHTML = 'This browser can\u2019t open the camera here. Point your phone\u2019s <strong>camera app</strong> at the certificate\u2019s QR code to verify, or type the Certificate ID above.';
+        el('qrFallback').hidden = false;
+        return;
+      }
+      try { detector = new window.BarcodeDetector({ formats: ['qr_code'] }); }
+      catch (e) { el('qrFallback').hidden = false; return; }
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+        .then(function (stream) {
+          scanStream = stream;
+          var v = el('scanVideo');
+          v.srcObject = stream; v.setAttribute('playsinline', '');
+          el('qrScanner').hidden = false;
+          el('scanStatus').textContent = 'Point your camera at the QR code on the certificate.';
+          return v.play();
+        })
+        .then(function () { tick(); })
+        .catch(function () {
+          el('qrFallbackMsg').innerHTML = 'We couldn\u2019t access the camera (permission denied or unavailable). Point your phone\u2019s <strong>camera app</strong> at the QR code to verify, or type the Certificate ID above.';
+          el('qrFallback').hidden = false;
+          stopScan();
+        });
+    }
+
+    function tick() {
+      var v = el('scanVideo');
+      if (!scanStream || !detector || v.readyState < 2) { scanRAF = requestAnimationFrame(tick); return; }
+      detector.detect(v).then(function (codes) {
+        if (codes && codes.length) {
+          var id = extractCertId(codes[0].rawValue);
+          el('scanStatus').textContent = 'QR detected — verifying…';
+          stopScan();
+          el('v_id').value = id;
+          verify(id);
+          return;
+        }
+        scanRAF = requestAnimationFrame(tick);
+      }).catch(function () { scanRAF = requestAnimationFrame(tick); });
+    }
+
+    function stopScan() {
+      if (scanRAF) { cancelAnimationFrame(scanRAF); scanRAF = null; }
+      if (scanStream) { scanStream.getTracks().forEach(function (t) { t.stop(); }); scanStream = null; }
+      var v = el('scanVideo'); if (v) v.srcObject = null;
+      el('qrScanner').hidden = true;
+    }
 
     function cell(label, value) {
       return '<div class="result-cell"><dt>' + esc(label) + '</dt><dd>' + (value ? esc(value) : '&mdash;') + '</dd></div>';
