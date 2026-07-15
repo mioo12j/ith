@@ -152,6 +152,7 @@
   <script src="script.js" defer></script>
   <script src="assets/js/ith-qr.js"></script>
   <script src="assets/js/ith-cert-core.js"></script>
+  <script src="assets/js/ith-cert-fx.js"></script>
   <script src="data/certificates.js"></script>
   <script>
   (function () {
@@ -202,8 +203,40 @@
       } catch (e) { document.getElementById('cQr').textContent = 'QR'; }
 
       document.title = 'Certificate — ' + rec.name + ' | Inspire Talent Hub';
-      valid.hidden = false;
-      document.getElementById('btnPrint').addEventListener('click', function () { window.print(); });
+
+      // Reveal: brief "preparing" loader, then animate the certificate sheet in.
+      var reduce = window.ITHFx && window.ITHFx.reduceMotion();
+      var stage = document.getElementById('mainSection');
+      var loader = document.createElement('div');
+      loader.className = 'cs-loader';
+      loader.innerHTML = '<div class="cs-spinner" role="status" aria-label="Preparing certificate"></div><p>Preparing your certificate<span class="cs-loader__dots"></span></p>';
+      stage.appendChild(loader);
+      setTimeout(function () {
+        loader.remove();
+        valid.hidden = false;
+        var sheet = document.getElementById('certSheet');
+        if (!reduce) sheet.classList.add('cs-enter');
+      }, reduce ? 0 : 780);
+
+      // Download / Print: loading spinner → success toast → print dialog.
+      document.getElementById('btnPrint').addEventListener('click', function () {
+        var btn = this;
+        if (btn.classList.contains('is-loading')) return;
+        btn.classList.add('is-loading');
+        setTimeout(function () {
+          btn.classList.remove('is-loading');
+          var actions = btn.parentNode;
+          var existing = actions.parentNode.querySelector('.cert-toast');
+          if (!existing) {
+            var toast = document.createElement('div');
+            toast.className = 'cert-toast';
+            toast.setAttribute('role', 'status');
+            toast.innerHTML = '<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Certificate ready — opening print dialog';
+            actions.parentNode.insertBefore(toast, actions.nextSibling);
+          }
+          setTimeout(function () { window.print(); }, reduce ? 100 : 420);
+        }, reduce ? 150 : 900);
+      });
     });
   })();
   </script>
