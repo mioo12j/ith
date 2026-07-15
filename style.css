@@ -3521,17 +3521,31 @@ body.nav-scroll-lock {
   font-family: var(--font-family-heading);
 }
 .cert-sheet::before { content: ''; position: absolute; inset: 3.2cqw;
-  border: 2px solid rgba(201,168,76,0.75); pointer-events: none; }
+  border: 2px solid rgba(201,168,76,0.75); pointer-events: none; z-index: 2; }
 .cert-sheet::after { content: ''; position: absolute; inset: 3.9cqw;
-  border: 0.8px solid rgba(201,168,76,0.45); pointer-events: none; }
-.cert-inner { position: absolute; inset: 0; display: flex; flex-direction: column;
+  border: 0.8px solid rgba(201,168,76,0.45); pointer-events: none; z-index: 2;
+  box-shadow: inset 0 0 60px rgba(201,168,76,0.10); }
+/* Faint guilloché-style concentric texture + emblem watermark */
+.cert-watermark { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: url('assets/cert/seal.png') center 45% / 50cqw auto no-repeat;
+  opacity: 0.055; }
+.cert-watermark::after { content: ''; position: absolute; inset: 0;
+  background:
+    repeating-radial-gradient(circle at 50% 44%, transparent 0 5cqw, rgba(201,168,76,0.02) 5cqw 5.12cqw),
+    radial-gradient(ellipse at 50% 42%, transparent 58%, rgba(120,90,20,0.06) 100%); }
+.cert-inner { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column;
   align-items: center; text-align: center; padding: 7.5cqw 8cqw 5.5cqw; }
-/* Corner flourishes */
-.cert-corner { position: absolute; width: 8cqw; height: 8cqw; border: 2px solid #c9a84c; pointer-events: none; opacity: 0.85; }
+/* Corner flourishes with a small diamond accent */
+.cert-corner { position: absolute; width: 8cqw; height: 8cqw; border: 2px solid #c9a84c; pointer-events: none; opacity: 0.9; z-index: 2; }
+.cert-corner::after { content: ''; position: absolute; width: 1.8cqw; height: 1.8cqw; background: #c9a84c; transform: rotate(45deg); }
 .cert-corner--tl { top: 5cqw; left: 5cqw; border-right: 0; border-bottom: 0; }
+.cert-corner--tl::after { top: -0.9cqw; left: -0.9cqw; }
 .cert-corner--tr { top: 5cqw; right: 5cqw; border-left: 0; border-bottom: 0; }
+.cert-corner--tr::after { top: -0.9cqw; right: -0.9cqw; }
 .cert-corner--bl { bottom: 5cqw; left: 5cqw; border-right: 0; border-top: 0; }
+.cert-corner--bl::after { bottom: -0.9cqw; left: -0.9cqw; }
 .cert-corner--br { bottom: 5cqw; right: 5cqw; border-left: 0; border-top: 0; }
+.cert-corner--br::after { bottom: -0.9cqw; right: -0.9cqw; }
 
 .cert-topline { display: flex; align-items: center; justify-content: center; gap: 2.5cqw; color: #9a7b2e; margin-bottom: 3cqw; }
 .cert-topline i { display: block; width: 9cqw; height: 1px; background: linear-gradient(90deg, transparent, #c9a84c); }
@@ -3539,10 +3553,14 @@ body.nav-scroll-lock {
 .cert-fest { font-family: var(--font-family-body); font-size: 2.5cqw; letter-spacing: 0.22em; text-transform: uppercase; color: #8a6d28; font-weight: 700; white-space: nowrap; }
 .cert-title { font-family: var(--font-family-display); font-weight: 700; font-size: 12cqw; line-height: 0.95;
   color: #b28f30;
-  background: linear-gradient(180deg, #c9a84c, #a5822c); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  margin: 0; }
-.cert-subtitle { font-family: var(--font-family-heading); font-size: 4.4cqw; letter-spacing: 0.32em; text-transform: uppercase; color: #1b2436; margin-top: 1cqw; }
-.cert-orn { color: #c9a84c; font-size: 3.4cqw; margin: 2.6cqw 0 2.6cqw; letter-spacing: 0.5em; }
+  background: linear-gradient(175deg, #e6c766 4%, #b8912f 46%, #8a6a21 78%, #d4ad4a 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0.4cqw 0.5cqw rgba(120,90,20,0.28)); margin: 0; }
+.cert-subtitle { font-family: var(--font-family-heading); font-size: 4.4cqw; letter-spacing: 0.34em; text-transform: uppercase; color: #1b2436; margin-top: 1cqw; }
+.cert-divider { display: flex; align-items: center; justify-content: center; gap: 2cqw; margin: 3cqw 0; width: 40cqw; }
+.cert-divider span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #c9a84c); }
+.cert-divider span:last-child { background: linear-gradient(90deg, #c9a84c, transparent); }
+.cert-divider b { color: #c9a84c; font-size: 2.6cqw; line-height: 1; }
 .cert-presented { font-family: var(--font-family-heading); font-style: italic; font-size: 3.5cqw; color: #55607a; margin-bottom: 1.5cqw; }
 .cert-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 9cqw; color: #12305c; line-height: 1.05; margin-bottom: 3.2cqw; }
 .cert-citation { font-family: var(--font-family-heading); font-size: 3.15cqw; line-height: 1.65; color: #3a4256;
