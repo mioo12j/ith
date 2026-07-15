@@ -142,23 +142,29 @@
   <script src="script.js" defer></script>
   <script src="assets/js/ith-qr.js"></script>
   <script src="assets/js/ith-cert-core.js"></script>
+  <script src="assets/js/ith-cert-fx.js"></script>
   <script src="data/certificates.js"></script>
   <script>
   (function () {
     var C = window.ITHCert;
     function el(id) { return document.getElementById(id); }
     function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+    function isWin(rec) { return /winner|runner|1st|2nd|3rd|first|second|third|finalist|gold|silver|bronze/i.test(rec.resultStatus + ' ' + rec.rank); }
+
+    var LOADING_HTML = '<div class="cs-modal__loader"><div class="cs-loader"><div class="cs-spinner" role="status" aria-label="Searching results"></div><p>Searching results<span class="cs-loader__dots"></span></p></div></div>';
+    var MEDAL_SVG = '<svg class="cs-badge-icon" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--color-brand-primary)" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-medal"></use></svg>';
+    var STAR_SVG = '<svg class="cs-badge-icon" fill="currentColor" style="color:var(--color-brand-primary)" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-star"></use></svg>';
+    var CROSS_SVG = '<svg class="cs-badge-icon" viewBox="0 0 52 52" aria-hidden="true"><circle class="cs-cross__circle" cx="26" cy="26" r="24"/><line class="cs-cross__line" x1="18" y1="18" x2="34" y2="34"/><line class="cs-cross__line cs-cross__line--2" x1="34" y1="18" x2="18" y2="34"/></svg>';
+    var SEARCH_SVG = '<svg class="cs-badge-icon" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-brand-primary)" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
 
     document.addEventListener('DOMContentLoaded', function () {
       if (!C.resultsPublished()) { el('notPublished').hidden = false; }
 
-      // Populate competition + year dropdowns from the dataset
       var comps = {}, years = {};
       C.records().forEach(function (r) { if (r.competition) comps[r.competition] = 1; if (r.year) years[r.year] = 1; });
       Object.keys(comps).sort().forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; el('q_competition').appendChild(o); });
       Object.keys(years).sort().reverse().forEach(function (y) { var o = document.createElement('option'); o.value = y; o.textContent = y; el('q_year').appendChild(o); });
 
-      // Pre-fill from URL (e.g. ?id= or ?name=)
       var params = new URLSearchParams(location.search);
       if (params.get('id')) el('q_certId').value = params.get('id');
       if (params.get('name')) el('q_name').value = params.get('name');
@@ -168,59 +174,117 @@
       el('portalReset').addEventListener('click', function () { setTimeout(function () { el('resultsArea').innerHTML = ''; }, 0); });
     });
 
+    function inlineHint(msg) {
+      el('resultsArea').innerHTML = '<div class="result-card cs-reveal"><div class="result-cta"><p class="result-note" style="margin:0;">' + esc(msg) + '</p></div></div>';
+    }
+
     function runSearch() {
       var q = {
         certId: el('q_certId').value, regNo: el('q_regNo').value, name: el('q_name').value,
         email: el('q_email').value, school: el('q_school').value,
         competition: el('q_competition').value, year: el('q_year').value
       };
-      var area = el('resultsArea');
-      var res = C.search(q);
-      if (!res.ok) { area.innerHTML = notice('Please enter at least one search detail above.'); return; }
-      if (res.results.length === 0) { area.innerHTML = notice('No matching record was found. Please check your details — names must match how you registered — or try a different field such as your Certificate ID or registration number.'); return; }
-      if (res.results.length > 8) { area.innerHTML = notice('We found ' + res.results.length + ' matching records. Please add more details (such as your school or registration number) to narrow the search.'); return; }
-      area.innerHTML = res.results.map(card).join('');
-      // move focus to results for screen readers
-      var first = area.querySelector('.result-card'); if (first) first.setAttribute('tabindex', '-1');
+      el('resultsArea').innerHTML = '';
+      var any = ['certId', 'regNo', 'name', 'email', 'school', 'competition', 'year'].some(function (k) { return String(q[k]).trim(); });
+      if (!any) { inlineHint('Please enter at least one search detail above to find your result.'); return; }
+      var m = window.ITHFx.modal({ label: 'Your competition result' });
+      m.setContent(LOADING_HTML);
+      var wait = window.ITHFx.reduceMotion() ? 0 : 900;
+      setTimeout(function () { renderSearch(q, m); }, wait);
     }
 
-    function notice(msg) {
-      return '<div class="result-card"><div class="result-cta"><p class="result-note" style="margin:0;">' + esc(msg) + '</p></div></div>';
+    function gridItem(label, value, opts, i) {
+      opts = opts || {};
+      var span = opts.span ? ' span2' : '';
+      var ddcls = opts.mono ? ' class="mono"' : '';
+      return '<div class="' + span.trim() + '" style="animation-delay:' + (0.6 + i * 0.09).toFixed(2) + 's">' +
+        '<dt>' + esc(label) + '</dt><dd' + ddcls + '>' + (value ? esc(value) : '&mdash;') + '</dd></div>';
+    }
+
+    function renderSearch(q, m) {
+      var res = C.search(q);
+      if (!res.ok) { m.close(); inlineHint('Please enter at least one search detail above.'); return; }
+      var list = res.results;
+      if (list.length === 0) {
+        m.setContent(messageCred('error', CROSS_SVG, 'No Match', 'No Result Found', 'We couldn&rsquo;t find a matching record. Names must match how you registered &mdash; try your Certificate ID or registration number instead.'));
+        return;
+      }
+      if (list.length > 8) {
+        m.setContent(messageCred('note', SEARCH_SVG, 'Refine Search', list.length + ' Records Found', 'Please add more details &mdash; such as your school or registration number &mdash; to narrow down to your result.'));
+        return;
+      }
+      if (list.length === 1) {
+        var rec = list[0];
+        m.setContent(resultCred(rec));
+        window.ITHFx.typeText(m.card.querySelector('#credName'), rec.name, { speed: 60, delay: 480 });
+        if (isWin(rec)) window.ITHFx.confetti(m.card.querySelector('.cred'));
+        return;
+      }
+      m.setContent('<div class="cs-modal__note" style="text-align:left; padding:1.25rem;">' +
+        '<p class="cred__present" style="opacity:1;animation:none;margin-bottom:1rem;text-align:center;">' + list.length + ' matching results</p>' +
+        '<div class="cs-modal__scroll">' + list.map(function (r, i) { return card(r, i); }).join('') + '</div></div>');
+    }
+
+    function messageCred(kind, icon, tag, title, msg) {
+      return '<div class="cred ' + (kind === 'error' ? 'cred--error' : '') + '">' +
+        '<div class="cred__seal">' + icon + '</div>' +
+        '<div class="cred__tag">' + esc(tag) + '</div>' +
+        '<h2 class="cred__title">' + esc(title) + '</h2>' +
+        '<p class="cred__sub">' + msg + '</p></div>';
+    }
+
+    function resultCred(rec) {
+      var winner = isWin(rec);
+      var eligible = C.certificateEligible(rec);
+      var certState = eligible ? 'Available' : (rec.certificateAvailable ? 'Pending' : 'Not available');
+      var resultText = rec.resultStatus + (rec.rank && rec.rank !== rec.resultStatus ? ' \u00b7 ' + rec.rank : '');
+      var items = [
+        gridItem('School', rec.school, { span: true }, 0),
+        gridItem('Competition', rec.competition, {}, 1),
+        gridItem('Category', rec.category, {}, 2),
+        gridItem('Result', resultText, {}, 3),
+        gridItem('Year', rec.year, {}, 4),
+        gridItem('Certificate ID', rec.certId, { mono: true, span: true }, 5),
+        gridItem('Certificate', certState, { span: true }, 6)
+      ].join('');
+      var cta = eligible
+        ? '<div class="cred__cta"><a class="btn btn-gold hover-target" href="' + esc(C.certificateUrl(rec.certId)) + '"><span>Download Certificate</span><div class="btn-ripple" aria-hidden="true"></div></a> <a class="btn btn-outline text-gold hover-target" href="verifycertificate.html?id=' + encodeURIComponent(rec.certId) + '"><span>Verify</span></a></div>'
+        : '<div class="cred__cta"><p class="result-note" style="margin:0;">A certificate is not currently available for this record yet. Please check back after results are finalised.</p></div>';
+      return '<div class="cred">' +
+        '<div class="cred__seal">' + (winner ? MEDAL_SVG : STAR_SVG) + '</div>' +
+        '<div class="cred__tag">' + (winner ? '\u2726 Achievement Unlocked \u2726' : 'Official Result') + '</div>' +
+        '<h2 class="cred__title">' + (winner ? 'Congratulations!' : 'Result Found') + '</h2>' +
+        '<p class="cred__present">Result for</p>' +
+        '<p class="cred__name" id="credName"></p>' +
+        '<div class="cred__divider" aria-hidden="true"></div>' +
+        '<div class="cred__grid">' + items + '</div>' +
+        cta +
+      '</div>';
     }
 
     function cell(label, value) {
       return '<div class="result-cell"><dt>' + esc(label) + '</dt><dd>' + (value ? esc(value) : '&mdash;') + '</dd></div>';
     }
 
-    function card(rec) {
-      var isWinner = /winner|runner|1st|2nd|3rd|first|second|third|finalist|gold|silver|bronze/i.test(rec.resultStatus + ' ' + rec.rank);
-      var badgeClass = isWinner ? 'result-badge--win' : 'result-badge--part';
+    function card(rec, i) {
+      var winner = isWin(rec);
+      var badgeClass = winner ? 'result-badge--win' : 'result-badge--part';
       var badgeText = rec.resultStatus || 'Participant';
       var eligible = C.certificateEligible(rec);
       var certState = eligible ? 'Available' : (rec.certificateAvailable ? 'Pending' : 'Not available');
-
-      var cta;
-      if (eligible) {
-        cta = '<a class="btn btn-gold hover-target" href="' + esc(C.certificateUrl(rec.certId)) + '"><span>Download Certificate</span><div class="btn-ripple" aria-hidden="true"></div></a>'
-            + '<a class="btn btn-outline text-gold hover-target" href="verifycertificate.html?id=' + encodeURIComponent(rec.certId) + '"><span>Verify</span></a>';
-      } else {
-        cta = '<p class="result-note" style="margin:0;">A certificate is not currently available for this record. Please check back after results are finalised.</p>';
-      }
-
-      return '<article class="result-card">' +
+      var cta = eligible
+        ? '<a class="btn btn-gold hover-target" href="' + esc(C.certificateUrl(rec.certId)) + '"><span>Download Certificate</span><div class="btn-ripple" aria-hidden="true"></div></a> <a class="btn btn-outline text-gold hover-target" href="verifycertificate.html?id=' + encodeURIComponent(rec.certId) + '"><span>Verify</span></a>'
+        : '<p class="result-note" style="margin:0;">A certificate is not currently available for this record.</p>';
+      return '<article class="result-card cs-reveal" style="animation-delay:' + (0.05 + (i || 0) * 0.08).toFixed(2) + 's">' +
         '<div class="result-card__head">' +
           '<h2 class="result-card__name">' + esc(rec.name) + '</h2>' +
           '<span class="result-badge ' + badgeClass + '">' + esc(badgeText) + (rec.rank && rec.rank !== rec.resultStatus ? ' &middot; ' + esc(rec.rank) : '') + '</span>' +
         '</div>' +
         '<dl class="result-grid">' +
-          cell('School', rec.school) +
-          cell('Competition', rec.competition) +
-          cell('Category', rec.category) +
-          cell('Year', rec.year) +
-          cell('Participation Status', rec.participationStatus) +
-          cell('Result Status', rec.resultStatus) +
-          cell('Certificate ID', rec.certId) +
-          cell('Certificate', certState) +
+          cell('School', rec.school) + cell('Competition', rec.competition) +
+          cell('Category', rec.category) + cell('Year', rec.year) +
+          cell('Participation Status', rec.participationStatus) + cell('Result Status', rec.resultStatus) +
+          cell('Certificate ID', rec.certId) + cell('Certificate', certState) +
         '</dl>' +
         '<div class="result-cta">' + cta + '</div>' +
       '</article>';

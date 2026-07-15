@@ -3648,3 +3648,222 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
   padding: var(--spacing-4) var(--spacing-5); background: var(--color-bg-surface-1); }
 .qr-scanner__status { font-size: var(--font-size-sm); color: var(--color-text-secondary); margin: 0; }
 .qr-fallback { max-width: 680px; margin: var(--spacing-6) auto 0; }
+
+/* ==========================================================================
+   32. CERTIFICATE SYSTEM — PREMIUM MOTION & MICRO-INTERACTIONS
+   GPU-friendly (transform/opacity only). All entrance/looping motion is
+   disabled under prefers-reduced-motion (final states shown instantly).
+   ========================================================================== */
+
+/* ---- Loading states ---- */
+.cs-loader { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--spacing-4);
+  padding: clamp(2rem, 6vw, 3.5rem); text-align: center; }
+.cs-spinner { width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--color-brand-alpha-20);
+  border-top-color: var(--color-brand-primary); animation: cs-spin 0.8s linear infinite; }
+.cs-loader p { color: var(--color-text-tertiary); font-size: var(--font-size-sm); margin: 0; letter-spacing: 0.04em; }
+.cs-loader__dots::after { content: ''; animation: cs-dots 1.4s steps(4, end) infinite; }
+@keyframes cs-spin { to { transform: rotate(360deg); } }
+@keyframes cs-dots { 0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; } }
+
+/* Skeleton shimmer for pending cards */
+.cs-skeleton { position: relative; overflow: hidden; background: var(--color-bg-surface-1);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; height: 92px; }
+.cs-skeleton + .cs-skeleton { margin-top: var(--spacing-4); }
+.cs-skeleton::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(232,198,106,0.08) 50%, transparent 80%);
+  transform: translateX(-100%); animation: cs-sweep 1.3s ease-in-out infinite; }
+@keyframes cs-sweep { to { transform: translateX(100%); } }
+
+/* ---- Card entrance + stagger ---- */
+.cs-reveal { opacity: 0; transform: translateY(18px) scale(0.985); animation: cs-card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes cs-card-in { to { opacity: 1; transform: none; } }
+.cs-stagger > * { opacity: 0; transform: translateY(12px); animation: cs-cell-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes cs-cell-in { to { opacity: 1; transform: none; } }
+
+/* ---- Verified credential card ---- */
+.verify-result.is-verified { position: relative; border-color: var(--color-brand-alpha-40);
+  background:
+    radial-gradient(circle at 50% -10%, rgba(232,198,106,0.10), transparent 55%),
+    var(--color-bg-surface-1);
+  box-shadow: 0 0 0 1px var(--color-brand-alpha-20), 0 24px 60px rgba(0,0,0,0.45), 0 0 46px rgba(232,198,106,0.10);
+  animation: cs-credential-glow 3.6s ease-in-out 0.5s infinite; }
+@keyframes cs-credential-glow {
+  0%, 100% { box-shadow: 0 0 0 1px var(--color-brand-alpha-20), 0 24px 60px rgba(0,0,0,0.45), 0 0 40px rgba(232,198,106,0.08); }
+  50% { box-shadow: 0 0 0 1px var(--color-brand-alpha-40), 0 24px 60px rgba(0,0,0,0.45), 0 0 66px rgba(232,198,106,0.20); }
+}
+.verify-result__confetti { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
+
+/* Animated checkmark / cross badge */
+.cs-badge-icon { width: 3rem; height: 3rem; flex-shrink: 0; }
+.cs-check__circle { stroke: #34d399; stroke-width: 2.5; fill: none; stroke-dasharray: 151; stroke-dashoffset: 151;
+  animation: cs-draw 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.1s forwards; }
+.cs-check__path { stroke: #34d399; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; fill: none;
+  stroke-dasharray: 42; stroke-dashoffset: 42; animation: cs-draw 0.35s cubic-bezier(0.65, 0, 0.45, 1) 0.55s forwards; }
+.cs-cross__circle { stroke: #f87171; stroke-width: 2.5; fill: none; stroke-dasharray: 151; stroke-dashoffset: 151;
+  animation: cs-draw 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.1s forwards; }
+.cs-cross__line { stroke: #f87171; stroke-width: 4; stroke-linecap: round; fill: none; stroke-dasharray: 20; stroke-dashoffset: 20;
+  animation: cs-draw 0.28s ease 0.55s forwards; }
+.cs-cross__line--2 { animation-delay: 0.72s; }
+@keyframes cs-draw { to { stroke-dashoffset: 0; } }
+
+/* Shimmer sweep on the status badge (periodic, gentle) */
+.verify-status { position: relative; overflow: hidden; }
+.verify-status.is-shimmer::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 60%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,0.16), transparent);
+  transform: translateX(-180%); animation: cs-badge-shimmer 3.8s ease-in-out 0.8s infinite; }
+@keyframes cs-badge-shimmer { 0% { transform: translateX(-180%); } 28%, 100% { transform: translateX(320%); } }
+
+.verify-status b { display: block; }
+.verify-genuine-tag { display: inline-block; margin-top: 0.35rem; font-size: var(--font-size-xs); font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brand-primary);
+  opacity: 0; transform: translateY(6px); animation: cs-cell-in 0.5s ease 0.9s forwards; }
+
+/* Error state entrance */
+.verify-result.is-error { animation: cs-card-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards, cs-error-nudge 0.5s ease 0.5s; }
+@keyframes cs-error-nudge { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+/* ---- Result cards (portal) hover + progressive reveal ---- */
+.result-card { transition: transform var(--duration-base) var(--ease-out, ease), border-color var(--duration-base), box-shadow var(--duration-base); }
+.result-card:hover { transform: translateY(-4px); border-color: var(--color-brand-alpha-40);
+  box-shadow: 0 20px 46px rgba(0,0,0,0.4), 0 0 34px rgba(232,198,106,0.08); }
+.result-cell { transition: background var(--duration-fast); }
+.result-cell:hover { background: rgba(232,198,106,0.04); }
+.result-badge { transition: transform var(--duration-base); }
+.result-badge--win { animation: cs-badge-pop 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both; }
+@keyframes cs-badge-pop { 0% { opacity: 0; transform: scale(0.4); } 100% { opacity: 1; transform: scale(1); } }
+.count-up { font-variant-numeric: tabular-nums; }
+
+/* Admin stat hover */
+.admin-stat { transition: transform var(--duration-base), border-color var(--duration-base); }
+.admin-stat:hover { transform: translateY(-3px); border-color: var(--color-brand-alpha-40); }
+
+/* ---- Certificate sheet entrance + download button states ---- */
+.cert-sheet.cs-enter { animation: cs-sheet-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes cs-sheet-in { 0% { opacity: 0; transform: translateY(26px) scale(0.96); } 100% { opacity: 1; transform: none; } }
+.btn.is-loading { pointer-events: none; opacity: 0.85; }
+.btn.is-loading span { visibility: hidden; }
+.btn.is-loading::after { content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.35); border-top-color: #02040a; animation: cs-spin 0.7s linear infinite; }
+.cert-toast { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1.2rem; border-radius: 100px;
+  background: rgba(16,185,129,0.14); border: 1px solid rgba(16,185,129,0.35); color: #34d399;
+  font-size: var(--font-size-sm); font-weight: 600; opacity: 0; transform: translateY(8px);
+  animation: cs-cell-in 0.5s ease forwards; }
+.cert-toast svg { width: 1.1rem; height: 1.1rem; }
+
+/* ---- Reduced motion: show final states, no looping/entrance motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .cs-reveal, .cs-stagger > *, .cert-sheet.cs-enter, .verify-genuine-tag, .result-badge--win,
+  .verify-result.is-verified, .verify-result.is-error, .cert-toast {
+    animation: none !important; opacity: 1 !important; transform: none !important;
+  }
+  .verify-status.is-shimmer::after, .cs-skeleton::after { animation: none !important; }
+  .cs-check__circle, .cs-check__path, .cs-cross__circle, .cs-cross__line { stroke-dashoffset: 0 !important; animation: none !important; }
+  .cs-spinner, .btn.is-loading::after { animation-duration: 1.4s; }
+}
+
+/* ==========================================================================
+   33. CERTIFICATE SYSTEM — PREMIUM RESULT MODAL (pop-up)
+   Verification and results appear in an animated, focused overlay.
+   ========================================================================== */
+.cs-modal-overlay {
+  position: fixed; inset: 0; z-index: 4000; display: flex; align-items: center; justify-content: center;
+  padding: clamp(1rem, 4vw, 2.5rem); overflow-y: auto;
+  background: radial-gradient(circle at 50% 30%, rgba(232,198,106,0.06), transparent 60%), rgba(2, 4, 10, 0.74);
+  -webkit-backdrop-filter: blur(9px) saturate(1.1); backdrop-filter: blur(9px) saturate(1.1);
+  opacity: 0; animation: cs-fade-in 0.3s ease forwards;
+}
+.cs-modal-overlay.is-closing { animation: cs-fade-out 0.24s ease forwards; }
+@keyframes cs-fade-in { to { opacity: 1; } }
+@keyframes cs-fade-out { to { opacity: 0; } }
+.cs-modal { position: relative; width: 100%; max-width: 660px; margin: auto; }
+.cs-modal__card {
+  position: relative; border-radius: 22px; overflow: hidden;
+  opacity: 0; transform: translateY(26px) scale(0.94);
+  animation: cs-modal-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.06s forwards;
+}
+@keyframes cs-modal-in { to { opacity: 1; transform: none; } }
+.cs-modal__close {
+  position: absolute; top: 0.75rem; right: 0.75rem; z-index: 6; width: 2.3rem; height: 2.3rem; border-radius: 50%;
+  border: 1px solid var(--color-brand-alpha-20); background: rgba(2, 4, 10, 0.55); color: var(--color-text-secondary);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: color var(--duration-fast), border-color var(--duration-fast), transform var(--duration-base);
+}
+.cs-modal__close:hover, .cs-modal__close:focus-visible { color: var(--color-brand-primary); border-color: var(--color-brand-alpha-40); transform: rotate(90deg); outline: none; }
+/* Neutralise the standalone card margins when hosted inside the modal */
+.cs-modal .verify-result, .cs-modal .result-card { margin: 0 !important; }
+.cs-modal .result-card + .result-card { margin-top: var(--spacing-4) !important; }
+.cs-modal__scroll { max-height: 86vh; overflow-y: auto; overflow-x: hidden; }
+.cs-modal__note { border-radius: 22px; background: var(--color-bg-surface-1); border: 1px solid var(--color-brand-alpha-20);
+  padding: clamp(1.75rem, 5vw, 2.75rem); text-align: center; }
+.cs-modal__note .cs-badge-icon { margin: 0 auto var(--spacing-4); }
+.cs-modal__note h3 { font-family: var(--font-family-heading); font-size: var(--font-size-2xl); color: var(--color-text-primary); margin: 0 0 0.5rem; }
+.cs-modal__note p { color: var(--color-text-tertiary); margin: 0 auto; max-width: 44ch; }
+.cs-modal__loader { border-radius: 22px; background: var(--color-bg-surface-1); border: 1px solid var(--color-brand-alpha-20); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-modal-overlay, .cs-modal__card { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .cs-modal__close:hover { transform: none; }
+}
+
+/* ==========================================================================
+   34. CERTIFICATE SYSTEM — CENTERED CREDENTIAL (verified modal) + typewriter
+   ========================================================================== */
+.cred { position: relative; text-align: center; overflow: hidden;
+  padding: clamp(2.25rem, 5vw, 3.25rem) clamp(1.5rem, 5vw, 2.75rem) clamp(2rem, 4vw, 2.75rem);
+  background:
+    radial-gradient(circle at 50% -5%, rgba(232,198,106,0.16), transparent 58%),
+    radial-gradient(circle at 50% 110%, rgba(232,198,106,0.08), transparent 55%),
+    var(--color-bg-surface-1);
+}
+.cred__seal { width: clamp(4.2rem, 12vw, 5.2rem); height: clamp(4.2rem, 12vw, 5.2rem); margin: 0 auto var(--spacing-5);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--color-brand-alpha-40);
+  background: radial-gradient(circle, rgba(232,198,106,0.18), rgba(2,4,10,0.2) 72%);
+  box-shadow: 0 0 34px rgba(232,198,106,0.28), inset 0 0 18px rgba(232,198,106,0.12);
+  animation: cred-seal-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) both, cred-seal-glow 3.4s ease-in-out 0.7s infinite; }
+.cred__seal .cs-badge-icon { width: 58%; height: 58%; }
+@keyframes cred-seal-in { 0% { opacity: 0; transform: scale(0.35) rotate(-35deg); } 100% { opacity: 1; transform: none; } }
+@keyframes cred-seal-glow { 0%, 100% { box-shadow: 0 0 30px rgba(232,198,106,0.22), inset 0 0 18px rgba(232,198,106,0.10); }
+  50% { box-shadow: 0 0 52px rgba(232,198,106,0.40), inset 0 0 22px rgba(232,198,106,0.18); } }
+.cred__tag { display: inline-block; font-family: var(--font-family-body); font-size: var(--font-size-xs);
+  letter-spacing: 0.34em; text-transform: uppercase; font-weight: 700; color: var(--color-brand-primary);
+  margin-bottom: var(--spacing-3); opacity: 0; transform: translateY(8px); animation: cs-cell-in 0.5s ease 0.4s forwards; }
+.cred__title { font-family: var(--font-family-display); font-size: clamp(1.8rem, 6vw, 2.8rem); line-height: 1.04; font-weight: 700;
+  background: linear-gradient(120deg, #c9a84c 0%, #fff1b7 48%, #e8c66a 100%); -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: #e8c66a; margin: 0 0 var(--spacing-4);
+  opacity: 0; transform: translateY(14px) scale(0.96); animation: cs-card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards; }
+.cred__present { font-family: var(--font-family-body); font-size: var(--font-size-xs); letter-spacing: 0.26em;
+  text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--spacing-2);
+  opacity: 0; animation: cs-cell-in 0.5s ease 0.5s forwards; }
+.cred__name { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 600; font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+  color: #12305c; color: var(--color-text-primary); margin: 0 auto var(--spacing-3); min-height: 1.3em; letter-spacing: 0.01em; }
+.cred__name .tw-cursor { color: var(--color-brand-primary); font-style: normal; margin-left: 1px; animation: tw-blink 1s steps(1) infinite; }
+@keyframes tw-blink { 50% { opacity: 0; } }
+.cred__divider { width: min(52%, 240px); height: 1px; margin: 0 auto var(--spacing-5);
+  background: linear-gradient(90deg, transparent, var(--color-brand-primary), transparent);
+  opacity: 0; animation: cs-cell-in 0.5s ease 0.6s forwards; }
+.cred__sub { font-family: var(--font-family-heading); font-size: var(--font-size-base); color: var(--color-text-secondary);
+  max-width: 44ch; margin: 0 auto var(--spacing-7); line-height: 1.6; }
+.cred__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-5) var(--spacing-6);
+  max-width: 480px; margin: 0 auto var(--spacing-7); text-align: center; }
+@media (max-width: 460px) { .cred__grid { grid-template-columns: 1fr; gap: var(--spacing-4); } }
+.cred__grid > div { opacity: 0; transform: translateY(12px); animation: cs-cell-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.cred__grid .span2 { grid-column: 1 / -1; }
+.cred__grid dt { font-family: var(--font-family-body); font-size: var(--font-size-xs); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--color-brand-primary); margin-bottom: 0.3rem; }
+.cred__grid dd { margin: 0; font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-primary); }
+.cred__grid dd.mono { font-family: 'Courier New', monospace; letter-spacing: 0.06em; color: var(--color-brand-primary); font-size: var(--font-size-base); }
+.cred__cta { opacity: 0; animation: cs-cell-in 0.5s ease 0.9s forwards; }
+
+/* Centered error credential */
+.cred--error { background: radial-gradient(circle at 50% -5%, rgba(239,68,68,0.12), transparent 58%), var(--color-bg-surface-1); }
+.cred--error .cred__seal { border-color: rgba(248,113,113,0.4); background: radial-gradient(circle, rgba(248,113,113,0.16), rgba(2,4,10,0.2) 72%);
+  box-shadow: 0 0 30px rgba(248,113,113,0.22); animation: cred-seal-in 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+.cred--error .cred__title { background: none; -webkit-text-fill-color: initial; color: #f87171; }
+.cred--error .cred__tag { color: #f87171; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cred__seal, .cred__tag, .cred__title, .cred__present, .cred__divider, .cred__grid > div, .cred__cta {
+    animation: none !important; opacity: 1 !important; transform: none !important; }
+  .cred__name .tw-cursor { animation: none !important; }
+}

@@ -142,6 +142,7 @@
 </footer>
   <script src="script.js" defer></script>
   <script src="assets/js/ith-cert-core.js"></script>
+  <script src="assets/js/ith-cert-fx.js"></script>
   <script src="data/certificates.js"></script>
   <script>
   (function () {
@@ -225,47 +226,75 @@
       el('qrScanner').hidden = true;
     }
 
-    function cell(label, value) {
-      return '<div class="result-cell"><dt>' + esc(label) + '</dt><dd>' + (value ? esc(value) : '&mdash;') + '</dd></div>';
+    function cell(label, value, i) {
+      var delay = (0.35 + (i || 0) * 0.07).toFixed(2);
+      return '<div class="result-cell" style="animation-delay:' + delay + 's"><dt>' + esc(label) + '</dt><dd>' + (value ? esc(value) : '&mdash;') + '</dd></div>';
     }
+
+    var CHECK_SVG = '<svg class="cs-badge-icon" viewBox="0 0 52 52" aria-hidden="true"><circle class="cs-check__circle" cx="26" cy="26" r="24"/><path class="cs-check__path" d="M15 27l7.5 7.5L38 19"/></svg>';
+    var CROSS_SVG = '<svg class="cs-badge-icon" viewBox="0 0 52 52" aria-hidden="true"><circle class="cs-cross__circle" cx="26" cy="26" r="24"/><line class="cs-cross__line" x1="18" y1="18" x2="34" y2="34"/><line class="cs-cross__line cs-cross__line--2" x1="34" y1="18" x2="18" y2="34"/></svg>';
+
+    var LOADING_HTML =
+      '<div class="cs-modal__loader"><div class="cs-loader">' +
+        '<div class="cs-spinner" role="status" aria-label="Verifying certificate"></div>' +
+        '<p>Verifying certificate<span class="cs-loader__dots"></span></p>' +
+      '</div></div>';
 
     function verify(rawId) {
       var id = String(rawId || '').trim();
-      var out = el('verifyResult');
-      if (!id) { out.innerHTML = ''; el('v_id').focus(); return; }
+      if (!id) { el('v_id').focus(); return; }
+      var m = window.ITHFx.modal({ label: 'Certificate verification' });
+      m.setContent(LOADING_HTML);
+      var wait = window.ITHFx.reduceMotion() ? 0 : 900;
+      setTimeout(function () { renderResult(id, m); }, wait);
+    }
+
+    function gridItem(label, value, opts, i) {
+      opts = opts || {};
+      var span = opts.span ? ' span2' : '';
+      var ddcls = opts.mono ? ' class="mono"' : '';
+      return '<div class="' + span.trim() + '" style="animation-delay:' + (0.6 + i * 0.09).toFixed(2) + 's">' +
+        '<dt>' + esc(label) + '</dt><dd' + ddcls + '>' + (value ? esc(value) : '&mdash;') + '</dd></div>';
+    }
+
+    function renderResult(id, m) {
       var rec = C.findByCertId(id);
 
       if (!rec) {
-        out.innerHTML =
-          '<div class="verify-result">' +
-            '<div class="verify-status verify-status--bad">' +
-              '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>' +
-              '<div><b>Not Verified</b><span>No certificate matches the ID &ldquo;' + esc(id) + '&rdquo;. Please check the ID and try again.</span></div>' +
-            '</div>' +
-          '</div>';
+        m.setContent(
+          '<div class="cred cred--error">' +
+            '<div class="cred__seal">' + CROSS_SVG + '</div>' +
+            '<div class="cred__tag">Verification Failed</div>' +
+            '<h2 class="cred__title">Not Verified</h2>' +
+            '<p class="cred__sub">No certificate matches the ID &ldquo;' + esc(id) + '&rdquo;. Please double-check the ID and try again, or scan the QR code printed on the certificate.</p>' +
+          '</div>');
         return;
       }
 
       var available = C.certificateEligible(rec);
-      out.innerHTML =
-        '<div class="verify-result">' +
-          '<div class="verify-status verify-status--ok">' +
-            '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>' +
-            '<div><b>Genuine Certificate</b><span>This is an authentic certificate issued by Inspire Talent Hub.</span></div>' +
-          '</div>' +
-          '<dl class="result-grid">' +
-            cell('Certificate Status', 'Verified') +
-            cell('Participant Name', rec.name) +
-            cell('Competition', rec.competition) +
-            cell('Category', rec.category) +
-            cell('Result', rec.resultStatus + (rec.rank && rec.rank !== rec.resultStatus ? ' (' + rec.rank + ')' : '')) +
-            cell('Issue Date', rec.issueDate) +
-            cell('Certificate ID', rec.certId) +
-            cell('Verification Status', 'Authentic \u2713') +
-          '</dl>' +
+      var resultText = rec.resultStatus + (rec.rank && rec.rank !== rec.resultStatus ? ' \u00b7 ' + rec.rank : '');
+      var items = [
+        gridItem('Competition', rec.competition, {}, 0),
+        gridItem('Category', rec.category, {}, 1),
+        gridItem('Result', resultText, {}, 2),
+        gridItem('Issue Date', rec.issueDate, {}, 3),
+        gridItem('Certificate ID', rec.certId, { mono: true, span: true }, 4)
+      ].join('');
+
+      m.setContent(
+        '<div class="cred">' +
+          '<div class="cred__seal">' + CHECK_SVG + '</div>' +
+          '<div class="cred__tag">\u2726 Verified Genuine Certificate \u2726</div>' +
+          '<h2 class="cred__title">Certificate Verified</h2>' +
+          '<p class="cred__present">This certificate is issued to</p>' +
+          '<p class="cred__name" id="credName"></p>' +
+          '<div class="cred__divider" aria-hidden="true"></div>' +
+          '<div class="cred__grid">' + items + '</div>' +
           (available ?
-            '<div class="result-cta"><a class="btn btn-outline text-gold hover-target" href="' + esc(C.certificateUrl(rec.certId)) + '"><span>View Certificate</span></a></div>' : '') +
-        '</div>';
+            '<div class="cred__cta"><a class="btn btn-gold hover-target" href="' + esc(C.certificateUrl(rec.certId)) + '"><span>View Certificate</span><div class="btn-ripple" aria-hidden="true"></div></a></div>' : '') +
+        '</div>');
+      window.ITHFx.typeText(m.card.querySelector('#credName'), rec.name, { speed: 60, delay: 480 });
+      window.ITHFx.confetti(m.card.querySelector('.cred'));
     }
   })();
   </script>
