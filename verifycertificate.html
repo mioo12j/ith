@@ -150,24 +150,48 @@
     function el(id) { return document.getElementById(id); }
     function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
 
-    // Extract a Certificate ID from a scanned QR payload (a verification URL, a
-    // bare ?id=... query, or the ID itself). Exposed for testing.
+    // Extract a Certificate ID from a scanned QR payload or a link. Handles new
+    // verification URLs (?id=...), older/alternate certificate links that used a
+    // different query key (?cert=, ?certid=, ?code=, ?c=, ?ref=, ?q=), a bare
+    // Certificate ID, or an ID sitting anywhere in the text. Exposed for testing.
     function extractCertId(text) {
       var s = String(text || '').trim();
       if (!s) return '';
-      var m = s.match(/[?&]id=([^&\s]+)/i);
-      if (m) { try { return decodeURIComponent(m[1]); } catch (e) { return m[1]; } }
-      // Otherwise treat a plausible ID token as the ID
-      var t = s.match(/\b([A-Z]{2,4}\d{0,4}[-][A-Z0-9-]{4,})\b/i);
+      var m = s.match(/[?&](?:id|cert|certid|cert_id|certificate|code|c|ref|q)=([^&\s#]+)/i);
+      if (m) { try { return decodeURIComponent(m[1]).trim(); } catch (e) { return m[1]; } }
+      // Otherwise treat a plausible ID token (anywhere in the string) as the ID.
+      var t = s.match(/\b([A-Z]{2,5}\d{0,4}[-][A-Z0-9-]{4,})\b/i);
       return t ? t[1] : s;
     }
     window.__extractCertId = extractCertId;
+
+    // Read a Certificate ID from the current page URL. Supports the standard
+    // ?id= param plus legacy/alternate keys, and, as a last resort, any plausible
+    // ID token in the query or hash so old QR codes still land verified.
+    function idFromUrl() {
+      var p = new URLSearchParams(location.search);
+      var keys = ['id', 'cert', 'certid', 'cert_id', 'certificate', 'code', 'c', 'ref', 'q'];
+      for (var i = 0; i < keys.length; i++) {
+        var v = p.get(keys[i]);
+        if (v && v.trim()) return v.trim();
+      }
+      var hash = (location.hash || '').replace(/^#/, '');
+      if (hash) {
+        var hp = new URLSearchParams(hash);
+        for (var j = 0; j < keys.length; j++) {
+          var hv = hp.get(keys[j]);
+          if (hv && hv.trim()) return hv.trim();
+        }
+      }
+      var token = extractCertId(location.search + ' ' + hash);
+      return (token && token !== (location.search + ' ' + hash).trim()) ? token : '';
+    }
 
     var scanStream = null, scanRAF = null, detector = null;
 
     document.addEventListener('DOMContentLoaded', function () {
       el('verifyForm').addEventListener('submit', function (e) { e.preventDefault(); verify(el('v_id').value); });
-      var id = new URLSearchParams(location.search).get('id');
+      var id = idFromUrl();
       if (id) { el('v_id').value = id; verify(id); }
 
       el('scanBtn').addEventListener('click', startScan);

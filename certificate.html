@@ -86,6 +86,7 @@
       <!-- Valid certificate -->
       <div id="certValid" hidden style="width:100%;display:flex;flex-direction:column;align-items:center;gap:var(--spacing-8);">
         <h1 class="sr-only">Certificate for <span id="cH1Name"></span></h1>
+        <div class="cert-viewport" id="certViewport">
         <article class="cert-sheet" id="certSheet" aria-label="Certificate">
           <div class="cert-watermark" aria-hidden="true"></div>
           <span class="cert-corner cert-corner--tl" aria-hidden="true"></span>
@@ -93,6 +94,8 @@
           <span class="cert-corner cert-corner--bl" aria-hidden="true"></span>
           <span class="cert-corner cert-corner--br" aria-hidden="true"></span>
           <div class="cert-inner">
+            <img class="cert-emblem" src="assets/cert/emblem.png" alt="Inspire Talent Hub emblem" width="150" height="180" />
+            <div class="cert-wordmark" aria-hidden="true">Inspire&nbsp;Talent&nbsp;Hub</div>
             <div class="cert-topline"><i aria-hidden="true"></i><span class="cert-fest" id="cEvent">Academic Kickoff Fest 2026</span><i aria-hidden="true"></i></div>
             <h2 class="cert-title">Certificate</h2>
             <div class="cert-subtitle" id="cKind">of Achievement</div>
@@ -118,6 +121,7 @@
             <div class="cert-id-line">Certificate ID: <span id="cId"></span></div>
           </div>
         </article>
+        </div>
         <div class="cert-actions">
           <button type="button" id="btnPrint" class="btn btn-gold hover-target"><span>Download / Print Certificate</span></button>
           <a href="#" id="btnVerify" class="btn btn-outline text-gold hover-target"><span>Verify This Certificate</span></a>
@@ -207,6 +211,19 @@
 
       document.title = 'Certificate — ' + rec.name + ' | Inspire Talent Hub';
 
+      // Scale the fixed-size (794x1123) sheet uniformly to fit its container,
+      // so the layout never reflows or clips at any width.
+      var SHEET_W = 794, SHEET_H = 1123;
+      function fitCert() {
+        var vp = document.getElementById('certViewport');
+        var sheet = document.getElementById('certSheet');
+        if (!vp || !sheet) return;
+        var scale = Math.min(1, vp.clientWidth / SHEET_W);
+        sheet.style.transform = 'scale(' + scale + ')';
+        vp.style.height = (SHEET_H * scale) + 'px';
+      }
+      window.addEventListener('resize', fitCert);
+
       // Reveal: brief "preparing" loader, then animate the certificate sheet in.
       var reduce = window.ITHFx && window.ITHFx.reduceMotion();
       var stage = document.getElementById('mainSection');
@@ -217,8 +234,8 @@
       setTimeout(function () {
         loader.remove();
         valid.hidden = false;
-        var sheet = document.getElementById('certSheet');
-        if (!reduce) sheet.classList.add('cs-enter');
+        fitCert();
+        if (!reduce) document.getElementById('certViewport').classList.add('cs-enter');
       }, reduce ? 0 : 780);
 
       // Download / Print: loading spinner → success toast → print dialog.

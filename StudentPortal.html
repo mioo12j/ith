@@ -213,16 +213,44 @@
         m.setContent(messageCred('note', SEARCH_SVG, 'Refine Search', list.length + ' Records Found', 'Please add more details &mdash; such as your school or registration number &mdash; to narrow down to your result.'));
         return;
       }
-      if (list.length === 1) {
-        var rec = list[0];
-        m.setContent(resultCred(rec));
-        window.ITHFx.typeText(m.card.querySelector('#credName'), rec.name, { speed: 60, delay: 480 });
-        if (isWin(rec)) window.ITHFx.confetti(m.card.querySelector('.cred'));
-        return;
-      }
-      m.setContent('<div class="cs-modal__note" style="text-align:left; padding:1.25rem;">' +
-        '<p class="cred__present" style="opacity:1;animation:none;margin-bottom:1rem;text-align:center;">' + list.length + ' matching results</p>' +
-        '<div class="cs-modal__scroll">' + list.map(function (r, i) { return card(r, i); }).join('') + '</div></div>');
+      if (list.length === 1) { showSingle(list[0], m, null); return; }
+      showSelect(list, m);
+    }
+
+    function showSingle(rec, m, backList) {
+      m.setContent(resultCred(rec, !!backList));
+      window.ITHFx.typeText(m.card.querySelector('#credName'), rec.name, { speed: 60, delay: 480 });
+      if (isWin(rec)) window.ITHFx.confetti(m.card.querySelector('.cred'));
+      var back = m.card.querySelector('#credBack');
+      if (back) back.addEventListener('click', function (e) { e.preventDefault(); showSelect(backList, m); });
+    }
+
+    function showSelect(list, m) {
+      m.setContent(
+        '<div class="cred">' +
+          '<div class="cred__seal">' + SEARCH_SVG + '</div>' +
+          '<div class="cred__tag">Multiple Records Found</div>' +
+          '<h2 class="cred__title">Select Your Result</h2>' +
+          '<p class="cred__present">We found ' + list.length + ' matching records &mdash; choose yours</p>' +
+          '<div class="cred-picklist">' + list.map(pickRow).join('') + '</div>' +
+        '</div>');
+      m.card.querySelectorAll('.cred-pick').forEach(function (btn) {
+        btn.addEventListener('click', function () { showSingle(list[+btn.getAttribute('data-idx')], m, list); });
+      });
+    }
+
+    function pickRow(rec, i) {
+      var winner = isWin(rec);
+      // Keep the badge short (e.g. "2nd Place" from "2nd Place - Silver Medalist")
+      var placeShort = rec.rank ? rec.rank.split(/\s*[-\u2013]\s*/)[0].trim() : (winner ? 'Winner' : 'Participant');
+      var badge = '<span class="cred-pick__badge ' + (winner ? 'win' : 'part') + '">' + esc(placeShort) + '</span>';
+      var meta = esc(rec.competition) + (rec.year ? ' &middot; ' + esc(rec.year) : '');
+      var arrow = '<svg class="cred-pick__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+      return '<button type="button" class="cred-pick" data-idx="' + i + '" style="animation-delay:' + (0.15 + i * 0.06).toFixed(2) + 's">' +
+        '<span class="cred-pick__icon">' + (winner ? MEDAL_SVG : STAR_SVG) + '</span>' +
+        '<span class="cred-pick__body"><span class="cred-pick__name">' + esc(rec.name) + '</span><span class="cred-pick__meta">' + meta + '</span></span>' +
+        badge + arrow +
+      '</button>';
     }
 
     function messageCred(kind, icon, tag, title, msg) {
@@ -233,7 +261,7 @@
         '<p class="cred__sub">' + msg + '</p></div>';
     }
 
-    function resultCred(rec) {
+    function resultCred(rec, withBack) {
       var winner = isWin(rec);
       var eligible = C.certificateEligible(rec);
       var certState = eligible ? 'Available' : (rec.certificateAvailable ? 'Pending' : 'Not available');
@@ -250,7 +278,8 @@
       var cta = eligible
         ? '<div class="cred__cta"><a class="btn btn-gold hover-target" href="' + esc(C.certificateUrl(rec.certId)) + '"><span>Download Certificate</span><div class="btn-ripple" aria-hidden="true"></div></a> <a class="btn btn-outline text-gold hover-target" href="verifycertificate.html?id=' + encodeURIComponent(rec.certId) + '"><span>Verify</span></a></div>'
         : '<div class="cred__cta"><p class="result-note" style="margin:0;">A certificate is not currently available for this record yet. Please check back after results are finalised.</p></div>';
-      return '<div class="cred">' +
+      var backBtn = withBack ? '<button type="button" id="credBack" class="cred-back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Back</button>' : '';
+      return '<div class="cred">' + backBtn +
         '<div class="cred__seal">' + (winner ? MEDAL_SVG : STAR_SVG) + '</div>' +
         '<div class="cred__tag">' + (winner ? '\u2726 Achievement Unlocked \u2726' : 'Official Result') + '</div>' +
         '<h2 class="cred__title">' + (winner ? 'Congratulations!' : 'Result Found') + '</h2>' +
