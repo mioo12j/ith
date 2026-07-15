@@ -1509,10 +1509,13 @@ footer input:focus, footer textarea:focus {
   .nav-hamburger { display: flex; }
   
   /* Hero Adjustments */
-  .hero-content { padding-top: 6rem; }
+  .hero { height: auto; min-height: 100vh; padding-top: 7rem; padding-bottom: 2.5rem; }
+  .hero-content { padding-top: 0; padding-bottom: 1rem; }
   .hero-cta-group { flex-direction: column; width: 100%; }
   .btn-magnetic-wrap { width: 100%; padding: 0.5rem 0; }
   .btn { width: 100%; }
+  /* Decorative scroll hint would overlap the stacked CTA buttons on small screens */
+  .hero-scroll-indicator { display: none; }
   
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .comp-grid { grid-template-columns: 1fr; }
