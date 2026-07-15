@@ -3511,7 +3511,7 @@ body.nav-scroll-lock {
 .cert-actions { display: flex; flex-wrap: wrap; gap: var(--spacing-4); justify-content: center; }
 /* The sheet is drawn at a fixed A4 @96dpi size and scaled uniformly to fit the
    viewport (via JS), so text proportions never shift and nothing is ever clipped. */
-.cert-viewport { position: relative; width: 100%; max-width: 794px; margin: 0 auto; overflow: hidden; }
+.cert-viewport { position: relative; width: 100%; max-width: 900px; margin: 0 auto; overflow: hidden; }
 .cert-sheet {
   position: relative; width: 794px; height: 1123px;
   container-type: inline-size; transform-origin: top left;
@@ -3572,8 +3572,8 @@ body.nav-scroll-lock {
 .cert-divider b { color: #c9a84c; font-size: 2.6cqw; line-height: 1; }
 .cert-presented { font-family: var(--font-family-heading); font-style: italic; font-size: 3.5cqw; color: #55607a; margin-bottom: 1.5cqw; }
 .cert-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 8.2cqw; color: #12305c; line-height: 1.05; margin-bottom: 2.6cqw; }
-.cert-citation { font-family: var(--font-family-heading); font-size: 3.7cqw; line-height: 1.72; color: #37405a;
-  max-width: 82cqw; margin: 0 auto; text-align: center; }
+.cert-citation { font-family: var(--font-family-heading); font-size: 4.15cqw; line-height: 1.7; color: #333c56;
+  max-width: 84cqw; margin: 0 auto; text-align: center; }
 .cert-citation strong { color: #12305c; font-weight: 600; }
 
 .cert-foot { margin-top: auto; width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 3cqw; }
@@ -3629,6 +3629,18 @@ body.nav-scroll-lock {
 .verify-status--bad { background: rgba(239,68,68,0.12); color: #f87171; }
 .verify-status b { font-size: var(--font-size-xl); display: block; }
 .verify-status span { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+
+/* ---- Admin password gate ---- */
+.admin-gate { min-height: 78vh; display: flex; align-items: center; padding-top: clamp(7rem, 12vw, 10rem); }
+.admin-gate__card { max-width: 480px; margin: 0 auto; text-align: center;
+  border: 1px solid var(--color-brand-alpha-20); border-radius: 20px;
+  background: radial-gradient(circle at 50% 0%, rgba(232,198,106,0.07), transparent 60%), var(--color-bg-surface-1);
+  padding: clamp(2rem, 5vw, 3rem); box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+.admin-gate__form { display: flex; flex-direction: column; gap: var(--spacing-4); margin-top: var(--spacing-6); text-align: left; }
+.admin-gate__form .btn { justify-content: center; }
+.admin-gate__err { display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center;
+  margin-top: var(--spacing-5); color: #f87171; font-size: var(--font-size-sm); font-weight: 600; }
+.admin-gate__err svg { flex-shrink: 0; }
 
 /* ---- Admin importer ---- */
 .admin-shell { max-width: 1040px; margin: 0 auto; }

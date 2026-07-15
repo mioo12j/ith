@@ -69,6 +69,25 @@
     </ul>
   </nav>
   <main id="main-content">
+    <section class="section section-dark admin-gate" id="adminGate">
+      <div class="container">
+        <div class="admin-gate__card reveal">
+          <div class="feature-icon" style="margin:0 auto 1.75rem;"><svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-lock"></use></svg></div>
+          <span class="section-tag text-gold">Restricted Area</span>
+          <h1 class="section-title text-gold" style="font-size:var(--font-size-3xl);margin-top:0.75rem;">Admin <em>Access</em></h1>
+          <p class="section-desc">This administration area is password protected. Please enter the admin password to continue.</p>
+          <form id="adminGateForm" class="admin-gate__form" autocomplete="off">
+            <div class="form-field"><label class="form-label sr-only" for="adminPass">Admin password</label>
+              <input type="password" id="adminPass" class="form-input" placeholder="Enter admin password" autocomplete="current-password" required></div>
+            <button type="submit" class="btn btn-gold hover-target"><span>Unlock Admin</span><div class="btn-ripple" aria-hidden="true"></div></button>
+          </form>
+          <p id="adminGateErr" class="admin-gate__err" role="alert" hidden><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Incorrect password. Please try again.</p>
+          <p class="result-note" style="margin-top:1.5rem;">Access is limited to authorised Inspire Talent Hub administrators. If you need access, please <a href="Contact.html" class="faq-inline-link">contact the team</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <div id="adminApp" hidden>
     <header class="section section-dark" style="padding-top: clamp(8rem, 12vw, 11rem); padding-bottom: 0;">
       <div class="container">
         <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Admin &middot; Data Import</li></ol></nav>
@@ -144,6 +163,8 @@
 
       </div>
     </section>
+    </div>
+
   </main>
 <footer class="index-footer" role="contentinfo" id="index-footer">
   <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>
@@ -168,6 +189,48 @@
   <script src="assets/js/ith-cert-fx.js"></script>
   <script src="data/certificates.js"></script>
   <script>
+  // ---- Admin password gate (client-side) ----
+  (function () {
+    // SHA-256 of the admin password. Client-side gating only keeps casual
+    // visitors out; it is not a substitute for server-side authentication.
+    var HASH = 'bf5415673de990354652f4efe1619670b8d7aa714f70ba2a11b6823d00886cb4';
+    var KEY = 'ith_admin_unlocked';
+    function reveal() {
+      var g = document.getElementById('adminGate');
+      var app = document.getElementById('adminApp');
+      if (g) g.parentNode.removeChild(g);
+      if (app) app.hidden = false;
+    }
+    function sha256hex(str) {
+      var enc = new TextEncoder().encode(str);
+      return crypto.subtle.digest('SHA-256', enc).then(function (buf) {
+        return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+          return ('0' + b.toString(16)).slice(-2);
+        }).join('');
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      try { if (sessionStorage.getItem(KEY) === '1') { reveal(); return; } } catch (e) {}
+      var form = document.getElementById('adminGateForm');
+      var err = document.getElementById('adminGateErr');
+      var input = document.getElementById('adminPass');
+      if (!form) return;
+      if (input) input.focus();
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var pass = input.value || '';
+        sha256hex(pass).then(function (h) {
+          if (h === HASH) {
+            try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+            reveal();
+          } else {
+            if (err) err.hidden = false;
+            input.value = ''; input.focus();
+          }
+        }).catch(function () { if (err) err.hidden = false; });
+      });
+    });
+  })();
   (function () {
     var C = window.ITHCert;
     function el(id) { return document.getElementById(id); }

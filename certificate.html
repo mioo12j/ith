@@ -213,12 +213,12 @@
 
       // Scale the fixed-size (794x1123) sheet uniformly to fit its container,
       // so the layout never reflows or clips at any width.
-      var SHEET_W = 794, SHEET_H = 1123;
+      var SHEET_W = 794, SHEET_H = 1123, MAX_SCALE = 900 / 794;
       function fitCert() {
         var vp = document.getElementById('certViewport');
         var sheet = document.getElementById('certSheet');
         if (!vp || !sheet) return;
-        var scale = Math.min(1, vp.clientWidth / SHEET_W);
+        var scale = Math.min(MAX_SCALE, vp.clientWidth / SHEET_W);
         sheet.style.transform = 'scale(' + scale + ')';
         vp.style.height = (SHEET_H * scale) + 'px';
       }
