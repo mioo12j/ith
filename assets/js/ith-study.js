@@ -18,6 +18,10 @@
   var BOARD = 'cbse';
   var state = { grade: null, subjectId: null, chapter: null };
 
+  function activeBoards() {
+    return (SYL.boards || []).filter(function (b) { return b.active && SYL.tree[b.id]; });
+  }
+
   function subjects(grade) { return (SYL.tree[BOARD] && SYL.tree[BOARD][grade]) || []; }
   function subject(grade, sid) { return subjects(grade).filter(function (s) { return s.id === sid; })[0]; }
   function key(grade, sid, chapter) { return BOARD + '|' + grade + '|' + sid + '|' + slug(chapter); }
@@ -80,9 +84,32 @@
     });
   }
 
+  // ---- Board switcher ----
+  function renderBoards() {
+    var host = el('shBoards'); if (!host) return;
+    var boards = activeBoards();
+    host.innerHTML = '';
+    // Only show the switcher when more than one board is available.
+    if (boards.length < 2) { host.hidden = true; return; }
+    host.hidden = false;
+    boards.forEach(function (bd) {
+      var b = ce('button', 'sh-board' + (bd.id === BOARD ? ' is-active' : ''), esc(bd.name));
+      b.type = 'button';
+      b.setAttribute('aria-pressed', bd.id === BOARD ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        if (BOARD === bd.id) return;
+        BOARD = bd.id; renderGrades();
+      });
+      host.appendChild(b);
+    });
+  }
+
   // ---- Grade ----
   function renderGrades() {
     state.grade = null; state.subjectId = null; state.chapter = null;
+    // If the current board has no tree (e.g. a default that is inactive), fall back.
+    if (!SYL.tree[BOARD]) { var ab = activeBoards()[0]; if (ab) BOARD = ab.id; }
+    renderBoards();
     var g = el('shGradeGrid'); g.innerHTML = '';
     SYL.grades.forEach(function (grade) {
       var b = ce('button', 'sh-grade', '<span class="sh-grade__n">' + grade + '</span><span class="sh-grade__l">Class ' + grade + '</span><span class="sh-grade__s">' + subjects(grade).length + ' subjects</span>');

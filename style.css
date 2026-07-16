@@ -3853,6 +3853,22 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .sh-back svg { transform: rotate(180deg); width: 16px; height: 16px; }
 .sh-back:hover { border-color: var(--color-brand-alpha-40); color: var(--color-brand-primary); }
 
+/* Board switcher */
+.sh-boards { display: flex; width: max-content; max-width: 100%; flex-wrap: wrap; justify-content: center;
+  gap: 0.35rem; padding: 0.35rem; margin: 0 auto var(--spacing-7);
+  border-radius: 999px; border: 1px solid var(--color-brand-alpha-20);
+  background: var(--color-bg-surface-1); }
+.sh-boards[hidden] { display: none; }
+.sh-board { appearance: none; border: 0; cursor: pointer; padding: 0.55rem 1.4rem; border-radius: 999px;
+  font-family: var(--font-family-body); font-weight: 600; font-size: var(--font-size-sm);
+  color: var(--color-text-secondary); background: transparent;
+  transition: color var(--duration-fast), background var(--duration-fast), box-shadow var(--duration-fast); }
+.sh-board:hover { color: var(--color-text-primary); }
+.sh-board.is-active { color: #1a1200;
+  background: linear-gradient(135deg, var(--color-brand-primary), #f0d488);
+  box-shadow: 0 6px 18px rgba(232,198,106,0.3); }
+.sh-boards-wrap { text-align: center; }
+
 /* Grade grid */
 .sh-grades { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--spacing-4); }
 .sh-grade { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem;
