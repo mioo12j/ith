@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Study Hub — Chapter-wise CBSE/NCERT Practice Tests (Class 6–12) | Inspire Talent Hub</title>
-  <meta name="description" content="Generate free chapter-wise practice tests for CBSE / NCERT Classes 6 to 12 across Maths, Science, Social Science and English. Instant scoring, explanations and a full answer review." />
-  <meta name="keywords" content="CBSE practice test, NCERT chapter wise test, class 6 to 12, maths science social science quiz, online test generator India" />
+  <title>Study Hub — Chapter-wise CBSE/NCERT Notes, Flashcards & Tests (Class 6–12) | Inspire Talent Hub</title>
+  <meta name="description" content="Free chapter-wise learning for CBSE / NCERT Classes 6 to 12: revision notes, flashcards, a match game, instant practice tests and printable worksheets across Maths, Science, Social Science and English." />
+  <meta name="keywords" content="CBSE study, NCERT notes flashcards, chapter wise test, class 6 to 12, worksheet pdf, revision, online study India" />
   <meta name="author" content="Inspire Talent Hub" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="theme-color" content="#03060d" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Study Hub — Chapter-wise CBSE/NCERT Practice Tests (Class 6–12) | Inspire Talent Hub" />
-  <meta property="og:description" content="Generate free chapter-wise practice tests for CBSE / NCERT Classes 6 to 12 across Maths, Science, Social Science and English. Instant scoring, explanations and a full answer review." />
+  <meta property="og:title" content="Study Hub — Chapter-wise CBSE/NCERT Notes, Flashcards & Tests (Class 6–12) | Inspire Talent Hub" />
+  <meta property="og:description" content="Free chapter-wise learning for CBSE / NCERT Classes 6 to 12: revision notes, flashcards, a match game, instant practice tests and printable worksheets across Maths, Science, Social Science and English." />
   <meta property="og:url" content="https://www.Inspiretalenthub.in/study.html" />
   <meta property="og:site_name" content="Inspire Talent Hub" />
   <meta property="og:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Study Hub — Chapter-wise CBSE/NCERT Practice Tests (Class 6–12) | Inspire Talent Hub" />
-  <meta name="twitter:description" content="Generate free chapter-wise practice tests for CBSE / NCERT Classes 6 to 12 across Maths, Science, Social Science and English. Instant scoring, explanations and a full answer review." />
+  <meta name="twitter:title" content="Study Hub — Chapter-wise CBSE/NCERT Notes, Flashcards & Tests (Class 6–12) | Inspire Talent Hub" />
+  <meta name="twitter:description" content="Free chapter-wise learning for CBSE / NCERT Classes 6 to 12: revision notes, flashcards, a match game, instant practice tests and printable worksheets across Maths, Science, Social Science and English." />
   <meta name="twitter:image" content="https://www.Inspiretalenthub.in/logo.jpeg" />
   <link rel="canonical" href="https://www.Inspiretalenthub.in/study.html" />
   <link rel="icon" type="image/jpeg" href="logo.jpeg" />
@@ -76,7 +76,7 @@
         <div class="section-header" style="margin-bottom: var(--spacing-12);">
           <span class="section-tag text-gold">Study Hub</span>
           <h1 class="section-title text-gold">Study <em>Hub</em></h1>
-          <p class="section-desc">Your CBSE / NCERT study companion for Classes 6 to 12. Pick your class, choose a subject, open a chapter, and generate an instant practice test — with explanations and a full review, chapter by chapter.</p>
+          <p class="section-desc">Your CBSE / NCERT study companion for Classes 6 to 12. Pick your class, choose a subject, open a chapter, then learn with notes, flashcards, a match game, chapter tests, and printable worksheets.</p>
         </div>
       </div>
     </header>
@@ -84,7 +84,6 @@
       <div class="container sh-shell">
         <span id="shTop" class="sr-only" tabindex="-1"></span>
 
-        <!-- Path / breadcrumb -->
         <div id="shPath" class="sh-path" aria-label="Your selection"></div>
 
         <!-- STEP 1: Grade -->
@@ -95,7 +94,7 @@
             <p class="section-desc">Select your grade to see its subjects and chapters. Everything runs in your browser &mdash; free, unlimited, and private.</p>
           </div>
           <div id="shGradeGrid" class="sh-grades" role="group" aria-label="Choose a class"></div>
-          <div class="sh-note reveal"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-shield"></use></svg> <p>Built on the <strong>CBSE / NCERT</strong> curriculum. Tests are added chapter by chapter &mdash; ready chapters are marked, and more arrive regularly.</p></div>
+          <div class="sh-note reveal"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-shield"></use></svg> <p>Built on the <strong>CBSE / NCERT</strong> curriculum. Learning tools are added chapter by chapter &mdash; ready chapters are marked, and more arrive regularly.</p></div>
         </div>
 
         <!-- STEP 2: Subject -->
@@ -107,7 +106,7 @@
           <div id="shSubjectGrid" class="sh-cards"></div>
         </div>
 
-        <!-- STEP 3: Chapter -->
+        <!-- STEP 3: Chapter list -->
         <div id="shChapter" class="sh-step" hidden>
           <div class="sh-step__head">
             <button type="button" id="shChapterBack" class="sh-back hover-target"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron"></use></svg><span>Subjects</span></button>
@@ -116,29 +115,25 @@
               <p id="shChapterSub" class="sh-step__sub"></p>
             </div>
           </div>
-
-          <div class="sh-controls">
-            <div class="sh-ctrl">
-              <label for="shDiff">Difficulty</label>
-              <select id="shDiff" class="form-select"><option value="any">Any</option><option value="1">Easy</option><option value="2">Medium</option><option value="3">Hard</option></select>
-            </div>
-            <div class="sh-ctrl">
-              <label for="shCount">Length</label>
-              <select id="shCount" class="form-select"><option value="auto">All in chapter</option><option value="5">5 questions</option><option value="10">10 questions</option></select>
-            </div>
-            <div class="sh-ctrl sh-ctrl--switch">
-              <label for="shTimed">Timed</label>
-              <label class="pa-switch"><input type="checkbox" id="shTimed" /><span class="pa-switch__track" aria-hidden="true"><span class="pa-switch__thumb"></span></span><span class="pa-switch__label">30s / question</span></label>
-            </div>
-            <button type="button" id="shMixed" class="btn btn-gold hover-target sh-mixed" hidden><span>Mixed Test</span><div class="btn-ripple" aria-hidden="true"></div></button>
-          </div>
-
           <div id="shChapterList" class="sh-chapters"></div>
         </div>
 
-        <!-- STEP 4: Quiz -->
-        <div id="shQuiz" class="sh-step" hidden>
-          <div id="shQuizRoot"></div>
+        <!-- STEP 4: Chapter hub (tools) -->
+        <div id="shHub" class="sh-step" hidden>
+          <div class="sh-step__head">
+            <button type="button" id="shHubBack" class="sh-back hover-target"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron"></use></svg><span>Chapters</span></button>
+            <div>
+              <h2 id="shHubTitle" class="sh-step__title">Chapter</h2>
+              <p id="shHubSub" class="sh-step__sub">Choose how you want to study this chapter.</p>
+            </div>
+          </div>
+          <div id="shHubTools" class="sh-tools"></div>
+        </div>
+
+        <!-- STEP 5: Active tool -->
+        <div id="shTool" class="sh-step" hidden>
+          <button type="button" id="shToolBack" class="sh-back hover-target" style="margin-bottom:var(--spacing-6);"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron"></use></svg><span>Chapter menu</span></button>
+          <div id="shToolRoot"></div>
         </div>
 
         <p class="result-note" style="text-align:center;max-width:640px;margin:var(--spacing-10) auto 0;">The Study Hub is for self-study. For a mixed general-knowledge challenge, try the <a href="practice.html" class="faq-inline-link">Practice Arena</a>. To learn <em>how</em> to study effectively, see our <a href="resources.html" class="faq-inline-link">Resources</a>.</p>
@@ -151,7 +146,7 @@
     <div class="index-footer__brand"><a href="index.html" class="index-footer__logo-link hover-target" aria-label="Inspire Talent Hub Home"><span class="index-footer__title">Inspire<em>Talent</em>Hub</span></a>
       <p class="index-footer__sub">India’s student competition and talent-discovery platform — fair, transparent, merit-based competitions for students across India.</p></div>
     <nav class="index-footer__cols" aria-label="Footer navigation">
-      <div class="index-footer__col"><h3>Explore</h3><ul role="list"><li><a href="index.html">Home</a></li><li><a href="study.html">Study Hub</a></li><li><a href="about.html">About Us</a></li><li><a href="competition.html">Competitions</a></li><li><a href="events.html">Events</a></li><li><a href="workshops.html">Workshops</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+      <div class="index-footer__col"><h3>Explore</h3><ul role="list"><li><a href="index.html">Home</a></li><li><a href="study.html" aria-current="page">Study Hub</a></li><li><a href="about.html">About Us</a></li><li><a href="competition.html">Competitions</a></li><li><a href="events.html">Events</a></li><li><a href="workshops.html">Workshops</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
       <div class="index-footer__col"><h3>Community</h3><ul role="list"><li><a href="reviews.html">Reviews</a></li><li><a href="success-stories.html">Success Stories</a></li><li><a href="schools.html">Schools</a></li><li><a href="teachers.html">Teachers</a></li><li><a href="campus-ambassador.html">Campus Ambassador</a></li></ul></div>
       <div class="index-footer__col"><h3>Get Involved</h3><ul role="list"><li><a href="partners.html">Partners</a></li><li><a href="scholarships.html">Scholarships</a></li><li><a href="careers.html">Careers</a></li><li><a href="media.html">Media Coverage</a></li><li><a href="downloads.html">Downloads</a></li></ul></div>
       <div class="index-footer__col"><h3>Support</h3><ul role="list"><li><a href="resources.html">Resources</a></li><li><a href="practice.html">Practice Arena</a></li><li><a href="news.html">News</a></li><li><a href="verifycertificate.html">Verify Certificate</a></li><li><a href="faq.html">FAQ</a></li><li><a href="Contact.html">Contact</a></li><li><a href="StudentPortal.html">Student Portal</a></li></ul></div>
@@ -166,8 +161,11 @@
   <script src="script.js" defer></script>
   <script src="assets/js/ith-cert-fx.js"></script>
   <script src="assets/js/ith-quiz.js"></script>
+  <script src="assets/js/ith-flashcards.js"></script>
+  <script src="assets/js/ith-match.js"></script>
   <script src="data/syllabus.js"></script>
   <script src="data/study-questions.js"></script>
+  <script src="data/study-content.js"></script>
   <script src="assets/js/ith-study.js"></script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 /* Inspire Talent Hub — Study Hub.
- * Grade -> Subject -> Chapter navigation over window.ITH_SYLLABUS, generating
- * chapter-wise tests from window.ITH_STUDY_Q via the shared ITHQuiz runner.
+ * Grade -> Subject -> Chapter -> chapter hub (Notes / Flashcards / Match / Test /
+ * Worksheet), over window.ITH_SYLLABUS + window.ITH_STUDY_Q + window.ITH_STUDY_CONTENT.
  */
 (function () {
   'use strict';
-  var SYL = window.ITH_SYLLABUS, QB = window.ITH_STUDY_Q || {};
+  var SYL = window.ITH_SYLLABUS, QB = window.ITH_STUDY_Q || {}, CT = window.ITH_STUDY_CONTENT || {};
   if (!SYL) return;
 
   function el(id) { return document.getElementById(id); }
@@ -12,31 +12,38 @@
   function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
   function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
   function icon(name, size) { size = size || 24; return '<svg width="' + size + '" height="' + size + '" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-' + name + '"></use></svg>'; }
+  function reduceMotion() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
   var BOARD = 'cbse';
-  var state = { grade: null, subjectId: null };
+  var state = { grade: null, subjectId: null, chapter: null };
 
   function subjects(grade) { return (SYL.tree[BOARD] && SYL.tree[BOARD][grade]) || []; }
   function subject(grade, sid) { return subjects(grade).filter(function (s) { return s.id === sid; })[0]; }
   function key(grade, sid, chapter) { return BOARD + '|' + grade + '|' + sid + '|' + slug(chapter); }
   function chapterQs(grade, sid, chapter) { return QB[key(grade, sid, chapter)] || []; }
+  function content(grade, sid, chapter) { return CT[key(grade, sid, chapter)] || {}; }
+  function hasCards(g, s, c) { var x = content(g, s, c).cards; return x && x.length; }
+  function hasNotes(g, s, c) { var x = content(g, s, c); return (x.notes && x.notes.length) || (x.formulas && x.formulas.length); }
+  function isOpen(g, s, c) { return chapterQs(g, s, c).length > 0 || hasCards(g, s, c) || hasNotes(g, s, c); }
   function readyCount(grade, sid) {
     var s = subject(grade, sid); if (!s) return 0;
-    return s.chapters.filter(function (c) { return chapterQs(grade, sid, c).length > 0; }).length;
+    return s.chapters.filter(function (c) { return isOpen(grade, sid, c); }).length;
   }
 
+  var STEPS = ['shGrade', 'shSubject', 'shChapter', 'shHub', 'shTool'];
   function goTo(step) {
-    ['shGrade', 'shSubject', 'shChapter', 'shQuiz'].forEach(function (id) { var n = el(id); if (n) n.hidden = (id !== step); });
-    updatePath(step);
-    var scroller = el('shTop'); if (scroller && scroller.scrollIntoView) scroller.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+    STEPS.forEach(function (id) { var n = el(id); if (n) n.hidden = (id !== step); });
+    updatePath();
+    var t = el('shTop'); if (t && t.scrollIntoView) t.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
   }
-  function reduceMotion() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 
-  function updatePath(step) {
+  function updatePath() {
     var p = el('shPath'); if (!p) return;
-    var parts = [{ label: 'Class', on: function () { goTo('shGrade'); } }];
-    if (state.grade) parts.push({ label: 'Class ' + state.grade, on: function () { renderSubjects(); } });
-    if (state.grade && state.subjectId) { var s = subject(state.grade, state.subjectId); parts.push({ label: s ? s.name : '', on: function () { renderChapters(); } }); }
+    var parts = [{ label: 'Class', on: renderGrades }];
+    if (state.grade) parts.push({ label: 'Class ' + state.grade, on: renderSubjects });
+    if (state.grade && state.subjectId) { var s = subject(state.grade, state.subjectId); parts.push({ label: s ? s.name : '', on: renderChapters }); }
+    if (state.chapter) parts.push({ label: state.chapter, on: renderHub });
     p.innerHTML = '';
     parts.forEach(function (part, i) {
       if (i > 0) p.appendChild(ce('span', 'sh-path__sep', icon('chevron', 14)));
@@ -49,12 +56,12 @@
 
   // ---- Grade ----
   function renderGrades() {
+    state.grade = null; state.subjectId = null; state.chapter = null;
     var g = el('shGradeGrid'); g.innerHTML = '';
     SYL.grades.forEach(function (grade) {
-      var subs = subjects(grade).length;
-      var b = ce('button', 'sh-grade', '<span class="sh-grade__n">' + grade + '</span><span class="sh-grade__l">Class ' + grade + '</span><span class="sh-grade__s">' + subs + ' subjects</span>');
+      var b = ce('button', 'sh-grade', '<span class="sh-grade__n">' + grade + '</span><span class="sh-grade__l">Class ' + grade + '</span><span class="sh-grade__s">' + subjects(grade).length + ' subjects</span>');
       b.type = 'button';
-      b.addEventListener('click', function () { state.grade = grade; state.subjectId = null; renderSubjects(); });
+      b.addEventListener('click', function () { state.grade = grade; state.subjectId = null; state.chapter = null; renderSubjects(); });
       g.appendChild(b);
     });
     goTo('shGrade');
@@ -62,12 +69,13 @@
 
   // ---- Subject ----
   function renderSubjects() {
+    state.chapter = null;
     var wrap = el('shSubjectGrid'); wrap.innerHTML = '';
     el('shSubjectTitle').textContent = 'Class ' + state.grade + ' — choose a subject';
     subjects(state.grade).forEach(function (s) {
       var total = s.chapters.length, ready = readyCount(state.grade, s.id);
       var badge = ready > 0 ? '<span class="sh-sub__ready">' + ready + ' of ' + total + ' chapters ready</span>'
-                            : '<span class="sh-sub__soon">' + total + ' chapters · tests coming soon</span>';
+                            : '<span class="sh-sub__soon">' + total + ' chapters · content coming soon</span>';
       var b = ce('button', 'sh-sub', '<span class="sh-sub__ic">' + icon(s.icon || 'book', 26) + '</span><span class="sh-sub__body"><span class="sh-sub__name">' + esc(s.name) + '</span>' + badge + '</span><span class="sh-sub__arrow">' + icon('chevron', 20) + '</span>');
       b.type = 'button';
       b.addEventListener('click', function () { state.subjectId = s.id; renderChapters(); });
@@ -76,85 +84,128 @@
     goTo('shSubject');
   }
 
-  // ---- Chapter ----
+  // ---- Chapter list ----
   function renderChapters() {
+    state.chapter = null;
     var s = subject(state.grade, state.subjectId); if (!s) return;
     el('shChapterTitle').textContent = 'Class ' + state.grade + ' · ' + s.name;
-    var ready = readyCount(state.grade, state.subjectId), total = s.chapters.length;
-    el('shChapterSub').textContent = ready > 0
-      ? 'Pick a chapter to generate a test, or take a mixed test across all ready chapters.'
-      : 'Chapter tests for this subject are being added. Explore the chapters below.';
-
-    var mixBtn = el('shMixed');
-    if (ready > 1) {
-      mixBtn.hidden = false;
-      mixBtn.querySelector('span').textContent = 'Mixed Test · ' + s.name;
-    } else { mixBtn.hidden = true; }
-
+    var ready = readyCount(state.grade, state.subjectId);
+    el('shChapterSub').textContent = ready > 0 ? 'Open a chapter to study with notes, flashcards, a match game and tests.'
+      : 'Learning content for this subject is being added. Explore the chapters below.';
     var list = el('shChapterList'); list.innerHTML = '';
     s.chapters.forEach(function (chapter, i) {
-      var qs = chapterQs(state.grade, state.subjectId, chapter);
-      var has = qs.length > 0;
-      var card = ce('button', 'sh-chap' + (has ? '' : ' is-soon'),
-        '<span class="sh-chap__no">' + (i + 1) + '</span>' +
-        '<span class="sh-chap__name">' + esc(chapter) + '</span>' +
-        (has ? '<span class="sh-chap__badge">' + qs.length + ' Qs</span><span class="sh-chap__go">' + icon('chevron', 18) + '</span>'
-             : '<span class="sh-chap__soon">Coming soon</span>'));
+      var open = isOpen(state.grade, state.subjectId, chapter);
+      var card = ce('button', 'sh-chap' + (open ? '' : ' is-soon'),
+        '<span class="sh-chap__no">' + (i + 1) + '</span><span class="sh-chap__name">' + esc(chapter) + '</span>' +
+        (open ? '<span class="sh-chap__badge">Study</span><span class="sh-chap__go">' + icon('chevron', 18) + '</span>' : '<span class="sh-chap__soon">Coming soon</span>'));
       card.type = 'button';
-      if (has) card.addEventListener('click', function () { startChapter(chapter); });
+      if (open) card.addEventListener('click', function () { state.chapter = chapter; renderHub(); });
       else card.disabled = true;
       list.appendChild(card);
     });
     goTo('shChapter');
   }
 
-  function opts() {
-    var count = el('shCount') ? el('shCount').value : 'auto';
-    var diff = el('shDiff') ? el('shDiff').value : 'any';
-    var timed = el('shTimed') ? el('shTimed').checked : false;
-    return { count: count, diff: diff, timed: timed };
-  }
-  function pickQuestions(pool) {
-    var o = opts();
-    var list = pool.filter(function (q) { return o.diff === 'any' || String(q.d) === o.diff; });
-    list = shuffle(list);
-    if (o.count !== 'auto' && o.count !== 'all') list = list.slice(0, Math.min(parseInt(o.count, 10), list.length));
-    return list;
-  }
-  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  // ---- Chapter hub (tool tiles) ----
+  function renderHub() {
+    var g = state.grade, sid = state.subjectId, ch = state.chapter, s = subject(g, sid);
+    el('shHubTitle').textContent = ch;
+    el('shHubSub').textContent = 'Class ' + g + ' · ' + (s ? s.name : '') + ' — choose how to study.';
+    var tools = el('shHubTools'); tools.innerHTML = '';
+    var qn = chapterQs(g, sid, ch).length, ct = content(g, sid, ch);
+    var cards = ct.cards || [], notes = ct.notes || [], formulas = ct.formulas || [];
 
-  function startChapter(chapter) {
-    var s = subject(state.grade, state.subjectId);
-    var pool = chapterQs(state.grade, state.subjectId, chapter).map(function (q) { return { q: q.q, o: q.o, a: q.a, e: q.e, d: q.d, meta: chapter }; });
-    launch(pool, 'Class ' + state.grade + ' · ' + s.name + ' · ' + chapter, function () { return pickQuestions(pool); });
+    if (notes.length || formulas.length) tools.appendChild(tile('book', 'Revision Notes', notes.length + (formulas.length ? ' points · ' + formulas.length + ' formulas' : ' key points'), showNotes));
+    if (cards.length) tools.appendChild(tile('star', 'Flashcards', cards.length + ' cards to flip & learn', launchFlash));
+    if (cards.length >= 3) tools.appendChild(tile('grad', 'Match-up Game', 'Match terms to meanings, beat the clock', launchMatch));
+    if (qn) tools.appendChild(tile('chart', 'Practice Test', qn + ' questions with instant feedback', launchTest));
+    if (qn) tools.appendChild(tile('pen', 'Printable Worksheet', 'Download / print with answer key', printWorksheet));
+
+    goTo('shHub');
   }
-  function startMixed() {
-    var s = subject(state.grade, state.subjectId);
-    var pool = [];
-    s.chapters.forEach(function (chapter) {
-      chapterQs(state.grade, state.subjectId, chapter).forEach(function (q) { pool.push({ q: q.q, o: q.o, a: q.a, e: q.e, d: q.d, meta: chapter }); });
-    });
-    launch(pool, 'Class ' + state.grade + ' · ' + s.name + ' · Mixed', function () { return pickQuestions(pool); });
+  function tile(ic, name, sub, fn) {
+    var b = ce('button', 'sh-tool', '<span class="sh-tool__ic">' + icon(ic, 26) + '</span><span class="sh-tool__name">' + esc(name) + '</span><span class="sh-tool__sub">' + esc(sub) + '</span>');
+    b.type = 'button'; b.addEventListener('click', fn); return b;
   }
 
-  function launch(pool, label, regen) {
-    var picked = pickQuestions(pool);
-    if (!picked.length) return;
-    goTo('shQuiz');
-    window.ITHQuiz.start(picked, {
-      root: el('shQuizRoot'),
-      timed: opts().timed,
-      metaLabel: label,
-      onExit: function () { renderChapters(); },
-      onRetry: regen
+  function metaLabel() { var s = subject(state.grade, state.subjectId); return 'Class ' + state.grade + ' · ' + (s ? s.name : '') + ' · ' + state.chapter; }
+  function toolRoot() { el('shToolBack').onclick = renderHub; goTo('shTool'); return el('shToolRoot'); }
+
+  function launchTest() {
+    var pool = chapterQs(state.grade, state.subjectId, state.chapter).map(function (q) { return { q: q.q, o: q.o, a: q.a, e: q.e, meta: state.chapter }; });
+    if (!pool.length) return;
+    window.ITHQuiz.start(shuffle(pool), { root: toolRoot(), metaLabel: metaLabel(), onExit: renderHub, onRetry: function () { return shuffle(pool); } });
+  }
+  function launchFlash() {
+    var cards = (content(state.grade, state.subjectId, state.chapter).cards || []).map(function (c) { return { f: c.f, b: c.b }; });
+    if (!cards.length) return;
+    window.ITHFlash.start(cards, { root: toolRoot(), title: metaLabel(), onExit: renderHub });
+  }
+  function launchMatch() {
+    var cards = (content(state.grade, state.subjectId, state.chapter).cards || []).map(function (c) { return { f: c.f, b: c.b }; });
+    if (cards.length < 3) return;
+    window.ITHMatch.start(cards, { root: toolRoot(), title: metaLabel(), onExit: renderHub });
+  }
+
+  // ---- Notes view ----
+  function showNotes() {
+    var ct = content(state.grade, state.subjectId, state.chapter);
+    var notes = ct.notes || [], formulas = ct.formulas || [];
+    var html = '<article class="notes">' +
+      '<div class="notes__head"><span class="notes__tag">Revision Notes</span><h2 class="notes__title">' + esc(state.chapter) + '</h2><p class="notes__meta">' + esc(metaLabel()) + '</p></div>';
+    if (notes.length) {
+      html += '<h3 class="notes__h3">Key Points</h3><ul class="notes__list">';
+      notes.forEach(function (n) { html += '<li>' + esc(n) + '</li>'; });
+      html += '</ul>';
+    }
+    if (formulas.length) {
+      html += '<h3 class="notes__h3">Formulas to Remember</h3><div class="notes__formulas">';
+      formulas.forEach(function (f) { html += '<div class="notes__formula"><span class="notes__fname">' + esc(f.n) + '</span><span class="notes__fexpr">' + esc(f.x) + '</span></div>'; });
+      html += '</div>';
+    }
+    html += '<div class="notes__cta">';
+    if (hasCards(state.grade, state.subjectId, state.chapter)) html += '<button type="button" class="btn btn-gold hover-target" data-n-flash><span>Practise with Flashcards</span></button>';
+    if (chapterQs(state.grade, state.subjectId, state.chapter).length) html += '<button type="button" class="btn btn-outline text-gold hover-target" data-n-test><span>Take the Test</span></button>';
+    html += '</div></article>';
+    var root = toolRoot(); root.innerHTML = html;
+    var f = root.querySelector('[data-n-flash]'); if (f) f.addEventListener('click', launchFlash);
+    var t = root.querySelector('[data-n-test]'); if (t) t.addEventListener('click', launchTest);
+  }
+
+  // ---- Printable worksheet ----
+  function printWorksheet() {
+    var qs = chapterQs(state.grade, state.subjectId, state.chapter);
+    if (!qs.length) return;
+    var s = subject(state.grade, state.subjectId);
+    var LET = ['A', 'B', 'C', 'D', 'E', 'F'];
+    var head = '<div class="ws__brand">Inspire Talent Hub · Study Hub</div>' +
+      '<h1 class="ws__title">' + esc(state.chapter) + '</h1>' +
+      '<p class="ws__meta">Class ' + state.grade + ' · ' + esc(s ? s.name : '') + ' · Worksheet (' + qs.length + ' questions)</p>' +
+      '<p class="ws__meta">Name: ______________________________   Date: ____________</p><hr class="ws__rule">';
+    var body = '<ol class="ws__list">';
+    qs.forEach(function (q) {
+      body += '<li><p class="ws__q">' + esc(q.q) + '</p><div class="ws__opts">';
+      q.o.forEach(function (o, i) { body += '<span class="ws__opt">' + LET[i] + ') ' + esc(o) + '</span>'; });
+      body += '</div></li>';
     });
+    body += '</ol>';
+    var keyList = qs.map(function (q, i) { return (i + 1) + '. ' + LET[q.a]; }).join('   ');
+    var key = '<div class="ws__key"><h2 class="ws__key-title">Answer Key</h2><p>' + esc(keyList) + '</p></div>';
+    var root = toolRoot();
+    root.innerHTML = '<div class="ws-preview"><div class="ws-preview__bar"><p>Worksheet ready. Use your browser to print or save as PDF.</p>' +
+      '<button type="button" class="btn btn-gold hover-target" data-ws-print><span>Print / Save as PDF</span></button></div>' +
+      '<div class="ws-sheet" id="wsSheet">' + head + body + key + '</div></div>';
+    root.querySelector('[data-ws-print]').addEventListener('click', function () { window.print(); });
+    document.body.classList.add('ws-printing');
+    // Clean up the print flag if the user navigates away.
+    el('shToolBack').onclick = function () { document.body.classList.remove('ws-printing'); renderHub(); };
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!el('shGrade')) return;
-    if (el('shMixed')) el('shMixed').addEventListener('click', startMixed);
     if (el('shChapterBack')) el('shChapterBack').addEventListener('click', renderSubjects);
     if (el('shSubjectBack')) el('shSubjectBack').addEventListener('click', renderGrades);
+    if (el('shHubBack')) el('shHubBack').addEventListener('click', renderChapters);
     renderGrades();
   });
 })();
