@@ -22,7 +22,33 @@
   function subject(grade, sid) { return subjects(grade).filter(function (s) { return s.id === sid; })[0]; }
   function key(grade, sid, chapter) { return BOARD + '|' + grade + '|' + sid + '|' + slug(chapter); }
   function chapterQs(grade, sid, chapter) { return QB[key(grade, sid, chapter)] || []; }
-  function content(grade, sid, chapter) { return CT[key(grade, sid, chapter)] || {}; }
+  // Authored content (CT) is always preferred. When a chapter has questions but no
+  // hand-written flashcards / notes, we derive them from the question bank so every
+  // open chapter offers Revision Notes and Flashcards, not just a test.
+  function derive(grade, sid, chapter) {
+    var qs = chapterQs(grade, sid, chapter);
+    if (!qs.length) return { cards: [], notes: [] };
+    var cards = qs.map(function (q) { return { f: q.q, b: q.o[q.a] + (q.e ? ' — ' + q.e : '') }; });
+    var seen = {}, notes = [];
+    qs.forEach(function (q) {
+      var t = q.e || (q.q + ' ' + q.o[q.a]);
+      if (t && !seen[t]) { seen[t] = 1; notes.push(t); }
+    });
+    return { cards: cards, notes: notes };
+  }
+  function content(grade, sid, chapter) {
+    var authored = CT[key(grade, sid, chapter)] || {};
+    var base = derive(grade, sid, chapter);
+    var authoredCards = authored.cards && authored.cards.length;
+    var authoredNotes = authored.notes && authored.notes.length;
+    return {
+      cards: authoredCards ? authored.cards : base.cards,
+      notes: authoredNotes ? authored.notes : base.notes,
+      formulas: authored.formulas || [],
+      // Match-up needs short term/meaning pairs; only authored card sets qualify.
+      authoredCards: !!authoredCards
+    };
+  }
   function hasCards(g, s, c) { var x = content(g, s, c).cards; return x && x.length; }
   function hasNotes(g, s, c) { var x = content(g, s, c); return (x.notes && x.notes.length) || (x.formulas && x.formulas.length); }
   function isOpen(g, s, c) { return chapterQs(g, s, c).length > 0 || hasCards(g, s, c) || hasNotes(g, s, c); }
@@ -117,7 +143,7 @@
 
     if (notes.length || formulas.length) tools.appendChild(tile('book', 'Revision Notes', notes.length + (formulas.length ? ' points · ' + formulas.length + ' formulas' : ' key points'), showNotes));
     if (cards.length) tools.appendChild(tile('star', 'Flashcards', cards.length + ' cards to flip & learn', launchFlash));
-    if (cards.length >= 3) tools.appendChild(tile('grad', 'Match-up Game', 'Match terms to meanings, beat the clock', launchMatch));
+    if (ct.authoredCards && cards.length >= 3) tools.appendChild(tile('grad', 'Match-up Game', 'Match terms to meanings, beat the clock', launchMatch));
     if (qn) tools.appendChild(tile('chart', 'Practice Test', qn + ' questions with instant feedback', launchTest));
     if (qn) tools.appendChild(tile('pen', 'Printable Worksheet', 'Download / print with answer key', printWorksheet));
 
