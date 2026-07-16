@@ -29,7 +29,9 @@
   var QUIZ_HTML =
     '<div class="pa-quiz" data-q-card>' +
       '<div class="pa-quiz__top"><span class="pa-quiz__prog" data-q-prog></span>' +
-        '<span class="pa-quiz__timer" aria-label="Elapsed time"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-clock"></use></svg><span data-q-elapsed>0:00</span></span></div>' +
+        '<span class="pa-quiz__topright">' +
+          '<span class="pa-combo" data-q-combo hidden aria-live="polite"><svg width="15" height="15" fill="currentColor" aria-hidden="true"><use href="#icon-star"></use></svg><b data-q-combo-n>2</b><span>streak</span></span>' +
+          '<span class="pa-quiz__timer" aria-label="Elapsed time"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-clock"></use></svg><span data-q-elapsed>0:00</span></span></span></div>' +
       '<div class="pa-progress" role="progressbar" aria-label="Quiz progress"><div class="pa-progress__bar" data-q-bar></div></div>' +
       '<div class="pa-per" data-q-perwrap hidden><div class="pa-per__track"><div class="pa-per__bar" data-q-perbar></div></div><span class="pa-per__text" data-q-pertext>30s</span></div>' +
       '<div class="pa-q"><span class="pa-q__tag" data-q-tag></span><h2 class="pa-q__text" data-q-text></h2></div>' +
@@ -60,10 +62,14 @@
       explain: q('[data-q-explain]'), next: q('[data-q-next]'), quit: q('[data-q-quit]'),
       ring: q('[data-r-ring]'), num: q('[data-r-num]'), den: q('[data-r-den]'),
       msg: q('[data-r-msg]'), meta: q('[data-r-meta]'), bd: q('[data-r-bd]'),
-      retry: q('[data-r-retry]'), back: q('[data-r-back]'), review: q('[data-r-review]')
+      retry: q('[data-r-retry]'), back: q('[data-r-back]'), review: q('[data-r-review]'),
+      combo: q('[data-q-combo]'), comboN: q('[data-q-combo-n]')
     };
+    var OK_MSG = ['Correct!', 'Nice!', 'Well done!', 'Exactly!', 'Spot on!', 'Brilliant!', 'You got it!'];
+    var NO_MSG = ['Not quite.', 'Close one!', 'Good try.', 'Almost!'];
+    function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
 
-    var items, index, startedAt, elapsed = 0, perTimer = null, elapsedTimer = null;
+    var items, index, startedAt, elapsed = 0, perTimer = null, elapsedTimer = null, streak = 0, bestStreak = 0;
 
     function build(list) {
       return list.map(function (it) {
@@ -74,7 +80,8 @@
     }
 
     function run(list) {
-      items = build(list); index = 0; elapsed = 0; startedAt = Date.now();
+      items = build(list); index = 0; elapsed = 0; startedAt = Date.now(); streak = 0; bestStreak = 0;
+      if (els.combo) els.combo.hidden = true;
       els.rCard.hidden = true; els.qCard.hidden = false;
       if (!reduceMotion()) { els.qCard.classList.remove('pa-in'); void els.qCard.offsetWidth; els.qCard.classList.add('pa-in'); }
       startElapsed(); render();
@@ -125,11 +132,31 @@
         if (k === idx && idx !== it.correct) b.classList.add('is-wrong');
       });
       var ok = idx === it.correct;
+      // Session-only streak / combo (nothing is stored).
+      if (ok) { streak++; if (streak > bestStreak) bestStreak = streak; } else { streak = 0; }
+      updateCombo();
+      if (ok) {
+        var cell = btns[it.correct];
+        if (cell && !reduceMotion()) { cell.classList.remove('pa-pop'); void cell.offsetWidth; cell.classList.add('pa-pop'); }
+      }
+      var head = ok ? pick(OK_MSG) : (idx === -1 ? 'Time’s up.' : pick(NO_MSG));
+      if (ok && streak >= 3) head = streak + ' in a row — ' + head;
       els.explain.className = 'pa-explain ' + (ok ? 'is-ok' : 'is-no');
-      els.explain.innerHTML = '<strong>' + (ok ? 'Correct!' : (idx === -1 ? 'Time’s up.' : 'Not quite.')) + '</strong> ' + esc(it.e || '');
+      els.explain.innerHTML = '<strong>' + head + '</strong> ' + esc(it.e || '');
       els.explain.hidden = false;
       els.next.hidden = false; els.next.focus();
       els.bar.style.width = ((index + 1) / items.length * 100) + '%';
+    }
+
+    function updateCombo() {
+      if (!els.combo) return;
+      if (streak >= 2) {
+        els.comboN.textContent = streak;
+        els.combo.hidden = false;
+        if (!reduceMotion()) { els.combo.classList.remove('pa-combo--bump'); void els.combo.offsetWidth; els.combo.classList.add('pa-combo--bump'); }
+      } else {
+        els.combo.hidden = true;
+      }
     }
 
     function finish() {
@@ -140,7 +167,8 @@
       if (!reduceMotion()) { els.rCard.classList.remove('pa-in'); void els.rCard.offsetWidth; els.rCard.classList.add('pa-in'); }
       els.msg.textContent = pct >= 90 ? 'Outstanding!' : pct >= 70 ? 'Great work!' : pct >= 50 ? 'Good effort — keep going.' : 'A solid start — practice makes progress.';
       els.den.textContent = '/ ' + total;
-      els.meta.textContent = (opts.metaLabel ? opts.metaLabel + ' · ' : '') + fmt(elapsed) + ' taken';
+      els.meta.textContent = (opts.metaLabel ? opts.metaLabel + ' · ' : '') + fmt(elapsed) + ' taken' +
+        (bestStreak >= 3 ? ' · best streak ' + bestStreak : '');
       animateScore(correct, pct);
 
       // breakdown by meta tag
