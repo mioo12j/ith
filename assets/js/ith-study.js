@@ -178,10 +178,13 @@
     if (!qs.length) return;
     var s = subject(state.grade, state.subjectId);
     var LET = ['A', 'B', 'C', 'D', 'E', 'F'];
-    var head = '<div class="ws__brand">Inspire Talent Hub · Study Hub</div>' +
-      '<h1 class="ws__title">' + esc(state.chapter) + '</h1>' +
-      '<p class="ws__meta">Class ' + state.grade + ' · ' + esc(s ? s.name : '') + ' · Worksheet (' + qs.length + ' questions)</p>' +
-      '<p class="ws__meta">Name: ______________________________   Date: ____________</p><hr class="ws__rule">';
+    var head = '<div class="ws__head">' +
+        '<img class="ws__logo" src="assets/cert/logo.png" alt="Inspire Talent Hub" width="150" height="150">' +
+        '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub · Study Hub</div>' +
+          '<h1 class="ws__title">' + esc(state.chapter) + '</h1>' +
+          '<p class="ws__meta">Class ' + state.grade + ' · ' + esc(s ? s.name : '') + ' · Worksheet · ' + qs.length + ' questions</p></div>' +
+      '</div>' +
+      '<p class="ws__meta ws__namebar">Name: ______________________________   Class/Sec: __________   Date: ____________</p><hr class="ws__rule">';
     var body = '<ol class="ws__list">';
     qs.forEach(function (q) {
       body += '<li><p class="ws__q">' + esc(q.q) + '</p><div class="ws__opts">';
@@ -194,7 +197,7 @@
     var root = toolRoot();
     root.innerHTML = '<div class="ws-preview"><div class="ws-preview__bar"><p>Worksheet ready. Use your browser to print or save as PDF.</p>' +
       '<button type="button" class="btn btn-gold hover-target" data-ws-print><span>Print / Save as PDF</span></button></div>' +
-      '<div class="ws-sheet" id="wsSheet">' + head + body + key + '</div></div>';
+      '<div class="ws-sheet" id="wsSheet"><img class="ws__wm" src="assets/cert/seal.png" alt="" aria-hidden="true"><div class="ws__inner">' + head + body + key + '</div></div></div>';
     root.querySelector('[data-ws-print]').addEventListener('click', function () { window.print(); });
     document.body.classList.add('ws-printing');
     // Clean up the print flag if the user navigates away.

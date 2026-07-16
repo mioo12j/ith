@@ -4012,10 +4012,19 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .ws-preview__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
   padding: 1rem 1.3rem; border-radius: 14px; background: rgba(232,198,106,0.06); border: 1px solid var(--color-brand-alpha-20); margin-bottom: var(--spacing-6); }
 .ws-preview__bar p { margin: 0; color: var(--color-text-secondary); font-size: var(--font-size-sm); }
-.ws-sheet { background: #fff; color: #14203a; border-radius: 12px; padding: clamp(1.5rem, 4vw, 2.5rem); max-width: 820px; margin: 0 auto; }
+.ws-sheet { position: relative; overflow: hidden; background: #fff; color: #14203a; border-radius: 12px;
+  padding: clamp(1.5rem, 4vw, 2.5rem); max-width: 820px; margin: 0 auto;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.ws__wm { position: absolute; top: 50%; left: 50%; width: 62%; max-width: 460px; transform: translate(-50%, -50%);
+  opacity: 0.06; z-index: 0; pointer-events: none; user-select: none; }
+.ws__inner { position: relative; z-index: 1; }
+.ws__head { display: flex; align-items: center; gap: 1rem; }
+.ws__logo { width: 66px; height: auto; flex-shrink: 0; }
+.ws__headtext { min-width: 0; }
 .ws__brand { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: #9a7b2e; }
-.ws__title { font-family: var(--font-family-display); font-size: 1.7rem; margin: 0.3rem 0 0.2rem; color: #12305c; }
+.ws__title { font-family: var(--font-family-display); font-size: 1.7rem; margin: 0.2rem 0 0.15rem; color: #12305c; }
 .ws__meta { font-size: 0.9rem; color: #55607a; margin: 0.15rem 0; }
+.ws__namebar { margin-top: 0.9rem; }
 .ws__rule { border: 0; border-top: 2px solid #c9a84c; margin: 1rem 0 1.4rem; }
 .ws__list { padding-left: 1.4rem; display: grid; gap: 1.1rem; }
 .ws__list li { line-height: 1.5; }
@@ -4337,5 +4346,7 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
   body.ws-printing * { visibility: hidden !important; }
   body.ws-printing #wsSheet, body.ws-printing #wsSheet * { visibility: visible !important; }
   body.ws-printing #wsSheet { position: absolute; left: 0; top: 0; width: 100%; max-width: none;
-    box-shadow: none; border-radius: 0; padding: 12mm 14mm; }
+    box-shadow: none; border-radius: 0; padding: 12mm 14mm;
+    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body.ws-printing .ws__wm { opacity: 0.07 !important; }
 }
