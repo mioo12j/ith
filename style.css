@@ -4051,6 +4051,40 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .ws__key-title { font-size: 1.1rem; color: #12305c; margin: 0 0 0.4rem; }
 .ws__key p { font-family: 'Courier New', monospace; color: #33415c; margin: 0; letter-spacing: 0.04em; }
 
+/* ---- Exam paper (multi-section worksheet) ---- */
+.ws-preview__opts { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+.ws-preview__lbl { display: inline-flex; align-items: center; gap: 0.5rem; font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+.ws-preview__sel { padding: 0.4rem 0.6rem; border-radius: 8px; border: 1px solid var(--color-brand-alpha-20);
+  background: var(--color-bg-surface-1); color: var(--color-text-primary); font-family: var(--font-family-body); }
+.ws-paper { position: relative; overflow: hidden; }
+.ws-paper + .ws-paper { margin-top: 2.4rem; padding-top: 2.4rem; border-top: 2px dashed #c9a84c; }
+.ws__stamp { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 0.15rem;
+  font-size: 0.85rem; font-weight: 600; color: #12305c; white-space: nowrap; }
+.ws__namebar { margin-top: 0.9rem; font-size: 0.9rem; color: #55607a; }
+.ws__instr { margin: 0.8rem 0 0; padding: 0.7rem 0.9rem; border-radius: 8px; background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.4); font-size: 0.85rem; color: #3a4462; line-height: 1.55; }
+.ws__sec { font-family: var(--font-family-display); font-size: 1.15rem; color: #12305c; margin: 1.5rem 0 0.3rem;
+  padding-bottom: 0.25rem; border-bottom: 1.5px solid #c9a84c; }
+.ws__sec-note { font-family: var(--font-family-body); font-size: 0.8rem; font-weight: 400; color: #7a6320; }
+.ws__qrow { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
+.ws__marks { font-size: 0.85rem; font-weight: 700; color: #9a7b2e; flex-shrink: 0; }
+.ws__lines { margin: 0.4rem 0 0.2rem; background-image: repeating-linear-gradient(to bottom, transparent, transparent 1.55rem, #c7d0e0 1.55rem, #c7d0e0 calc(1.55rem + 1px)); }
+.ws__lines--1 { height: 1.6rem; }
+.ws__lines--2 { height: 3.15rem; }
+.ws__lines--3 { height: 4.7rem; }
+.ws__lines--5 { height: 7.8rem; }
+.ws__case { margin: 0.6rem 0 0.4rem; padding: 0.8rem 1rem; border-radius: 8px; background: #f4f1e6; border-left: 3px solid #c9a84c; }
+.ws__case-lead { margin: 0 0 0.4rem; font-weight: 600; color: #12305c; font-size: 0.9rem; }
+.ws__case-body { margin: 0; color: #33415c; line-height: 1.6; font-size: 0.92rem; }
+.ws__list--case { margin-top: 0.8rem; }
+.ws__keypage { position: relative; z-index: 1; }
+.ws__head--key { gap: 0.7rem; }
+.ws__title--sm { font-size: 1.2rem; }
+.ws__keylist { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.5rem; }
+.ws__keylist li { line-height: 1.5; color: #33415c; font-size: 0.92rem; padding-bottom: 0.4rem; border-bottom: 1px dotted #d9cfa8; }
+.ws__keyq { font-weight: 700; color: #12305c; }
+.ws__keynote { margin: 1rem 0 0; font-size: 0.8rem; font-style: italic; color: #6b7488; }
+
 @media (max-width: 520px) {
   .mt__opts, .ws__opts { grid-template-columns: 1fr; }
   .fc__actions { grid-template-columns: 1fr; }
@@ -4362,7 +4396,14 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
   body.ws-printing * { visibility: hidden !important; }
   body.ws-printing #wsSheet, body.ws-printing #wsSheet * { visibility: visible !important; }
   body.ws-printing #wsSheet { position: absolute; left: 0; top: 0; width: 100%; max-width: none;
-    box-shadow: none; border-radius: 0; padding: 12mm 14mm;
+    box-shadow: none; border-radius: 0; padding: 0; background: #fff;
     -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  /* Each question paper and each answer key prints on its own A4 page. */
+  body.ws-printing .ws-paper { break-inside: auto; break-after: page; page-break-after: always;
+    padding: 12mm 14mm; margin: 0; border-top: 0 !important; overflow: visible; }
+  body.ws-printing .ws-paper:last-child { break-after: auto; page-break-after: auto; }
   body.ws-printing .ws__wm { opacity: 0.07 !important; }
+  body.ws-printing .ws__sec, body.ws-printing .ws__case { break-after: avoid; page-break-after: avoid; }
+  body.ws-printing .ws__list li { break-inside: avoid; page-break-inside: avoid; }
+  body.ws-printing .ws__lines { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 }

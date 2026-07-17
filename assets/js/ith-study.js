@@ -225,33 +225,177 @@
     var t = root.querySelector('[data-n-test]'); if (t) t.addEventListener('click', launchTest);
   }
 
-  // ---- Printable worksheet ----
+  // ---- Printable exam paper (worksheet) ----
+  // Builds a full competency-style question paper per chapter with five sections:
+  // A objective (MCQ), B very-short, C short, D long, E case/source-based.
+  // ~80% of the marks are competency-based (application, analysis, case study).
+  var LET = ['A', 'B', 'C', 'D', 'E', 'F'];
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function ansLines(n) { return '<div class="ws__lines ws__lines--' + n + '" aria-hidden="true"></div>'; }
+  function cleanTerm(f) { return String(f).replace(/[:?.\s]+$/, '').trim(); }
+
+  // Turn a flashcard (term -> definition) into an open-ended question + model answer.
+  function cardQ(card, kind) {
+    var f = String(card.f).trim(), term = cleanTerm(f), isQ = /\?$/.test(f);
+    var stem;
+    if (kind === 'vsa') stem = isQ ? f : pick(['Define / state: ', 'What is meant by ', 'Name / state: ']) + term + '.';
+    else stem = isQ ? f : pick(['Explain briefly: ', 'Write a short note on ', 'With an example, explain ', 'Why is the following important? ']) + term + '.';
+    return { q: stem, a: card.b, marks: kind === 'vsa' ? 1 : 2, comp: !isQ };
+  }
+  function longQ(notes, ch) {
+    var body = notes.slice(0, 3).join(' ');
+    var stem = pick([
+      'Explain in detail, in your own words, the key ideas of ',
+      'Discuss, with suitable examples, the main points of ',
+      'A student is asked to summarise the chapter for a junior. Describe the important ideas of '
+    ]) + '“' + ch + '”.';
+    return { q: stem, a: body, marks: 3, comp: true };
+  }
+  function caseQ(notes, qs, cards, ch) {
+    var passage = notes.slice(0, Math.min(4, notes.length)).join(' ');
+    var subs = [];
+    // two objective sub-questions from the MCQ bank + one short answer from a card
+    qs.slice(0, 2).forEach(function (q) { subs.push({ type: 'mcq', q: q.q, o: q.o, a: q.a }); });
+    if (cards[0]) { var c = cardQ(cards[0], 'sa'); subs.push({ type: 'sa', q: c.q, a: c.a }); }
+    return { passage: passage, subs: subs, ch: ch };
+  }
+
+  function buildPaper(setNo) {
+    var g = state.grade, sid = state.subjectId, ch = state.chapter, s = subject(g, sid);
+    var ct = content(g, sid, ch);
+    var qs = shuffle(chapterQs(g, sid, ch));
+    var cards = shuffle((ct.cards || []).slice());
+    var notes = shuffle((ct.notes || []).slice());
+
+    var secA = qs.slice(0, Math.min(4, qs.length));
+    var caseQs = qs.slice(4);                        // reserve remaining MCQs for the case study
+    var vsaCards = cards.slice(0, 3);
+    var saCards = cards.slice(3, 6);
+    var laNotes = notes.slice(0, 3);
+    var caseNotes = notes.slice(3, 7).length >= 2 ? notes.slice(3, 7) : notes.slice(0, 4);
+    var caseCards = cards.slice(6, 7).length ? cards.slice(6, 7) : cards.slice(0, 1);
+    var cs = caseQ(caseNotes, caseQs.length >= 2 ? caseQs : qs.slice(0, 2), caseCards, ch);
+
+    var marks = 0;
+    var key = [];   // {label, ans}
+    var qn = 0;     // running question number
+    var html = '';
+
+    // ---- Section A: Objective / competency MCQ ----
+    if (secA.length) {
+      html += '<h2 class="ws__sec">Section A &middot; Objective <span class="ws__sec-note">(competency-based, 1 mark each)</span></h2><ol class="ws__list">';
+      secA.forEach(function (q) {
+        qn++; marks += 1;
+        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(q.q) + '</p><span class="ws__marks">[1]</span></div><div class="ws__opts">';
+        q.o.forEach(function (o, i) { html += '<span class="ws__opt">(' + LET[i].toLowerCase() + ') ' + esc(o) + '</span>'; });
+        html += '</div></li>';
+        key.push({ label: 'Q' + qn, ans: '(' + LET[q.a].toLowerCase() + ') ' + q.o[q.a] });
+      });
+      html += '</ol>';
+    }
+
+    // ---- Section B: Very short answer ----
+    if (vsaCards.length) {
+      html += '<h2 class="ws__sec">Section B &middot; Very Short Answer <span class="ws__sec-note">(1 mark each)</span></h2><ol class="ws__list">';
+      vsaCards.forEach(function (c) {
+        qn++; marks += 1; var it = cardQ(c, 'vsa');
+        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[1]</span></div>' + ansLines(1) + '</li>';
+        key.push({ label: 'Q' + qn, ans: it.a });
+      });
+      html += '</ol>';
+    }
+
+    // ---- Section C: Short answer ----
+    if (saCards.length) {
+      html += '<h2 class="ws__sec">Section C &middot; Short Answer <span class="ws__sec-note">(competency-based, 2 marks each)</span></h2><ol class="ws__list">';
+      saCards.forEach(function (c) {
+        qn++; marks += 2; var it = cardQ(c, 'sa');
+        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[2]</span></div>' + ansLines(2) + '</li>';
+        key.push({ label: 'Q' + qn, ans: it.a });
+      });
+      html += '</ol>';
+    }
+
+    // ---- Section D: Long answer ----
+    if (laNotes.length) {
+      html += '<h2 class="ws__sec">Section D &middot; Long Answer <span class="ws__sec-note">(competency-based, 3 marks)</span></h2><ol class="ws__list">';
+      var la = longQ(laNotes, ch); qn++; marks += 3;
+      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(la.q) + '</p><span class="ws__marks">[3]</span></div>' + ansLines(5) + '</li>';
+      key.push({ label: 'Q' + qn, ans: la.a });
+      html += '</ol>';
+    }
+
+    // ---- Section E: Case / source-based (competency) ----
+    if (cs.subs.length) {
+      html += '<h2 class="ws__sec">Section E &middot; Case-Based Study <span class="ws__sec-note">(competency-based)</span></h2>';
+      html += '<div class="ws__case"><p class="ws__case-lead">Read the passage and answer the questions that follow.</p>' +
+        '<p class="ws__case-body">' + esc(cs.passage) + '</p></div><ol class="ws__list ws__list--case">';
+      cs.subs.forEach(function (sub) {
+        qn++;
+        if (sub.type === 'mcq') {
+          marks += 1;
+          html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(sub.q) + '</p><span class="ws__marks">[1]</span></div><div class="ws__opts">';
+          sub.o.forEach(function (o, i) { html += '<span class="ws__opt">(' + LET[i].toLowerCase() + ') ' + esc(o) + '</span>'; });
+          html += '</div></li>';
+          key.push({ label: 'Q' + qn, ans: '(' + LET[sub.a].toLowerCase() + ') ' + sub.o[sub.a] });
+        } else {
+          marks += 2;
+          html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(sub.q) + '</p><span class="ws__marks">[2]</span></div>' + ansLines(2) + '</li>';
+          key.push({ label: 'Q' + qn, ans: sub.a });
+        }
+      });
+      html += '</ol>';
+    }
+
+    var head = '<div class="ws__head">' +
+        '<img class="ws__logo" src="assets/cert/logo.png" alt="Inspire Talent Hub" width="120" height="120">' +
+        '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub &middot; Study Hub</div>' +
+          '<h1 class="ws__title">' + esc(ch) + '</h1>' +
+          '<p class="ws__meta">Class ' + g + ' &middot; ' + esc(s ? s.name : '') + ' &middot; Question Paper &mdash; Set ' + setNo + '</p></div>' +
+        '<div class="ws__stamp"><span>Time: 45 min</span><span>Max Marks: ' + marks + '</span></div>' +
+      '</div>' +
+      '<p class="ws__namebar">Name: ____________________________   Class/Sec: __________   Roll No.: ______   Date: ____________</p>' +
+      '<div class="ws__instr"><strong>General Instructions:</strong> (i) All questions are compulsory. (ii) The paper has five sections A&ndash;E. ' +
+        '(iii) Marks are shown against each question. (iv) About 80% of the paper is competency-based (application, analysis and case study). ' +
+        '(v) Write neatly in the space provided.</div><hr class="ws__rule">';
+
+    var keyHtml = '<div class="ws__keypage"><div class="ws__head ws__head--key">' +
+        '<img class="ws__logo" src="assets/cert/logo.png" alt="" width="70" height="70">' +
+        '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub &middot; Answer Key</div>' +
+        '<h2 class="ws__title ws__title--sm">' + esc(ch) + ' &mdash; Set ' + setNo + '</h2></div></div>' +
+        '<ol class="ws__keylist">' +
+        key.map(function (k) { return '<li><span class="ws__keyq">' + esc(k.label) + '.</span> ' + esc(k.ans) + '</li>'; }).join('') +
+        '</ol><p class="ws__keynote">For short, long and case-based questions the answer key gives the key points expected; accept any correct equivalent explanation.</p></div>';
+
+    return '<section class="ws-paper"><img class="ws__wm" src="assets/cert/seal.png" alt="" aria-hidden="true"><div class="ws__inner">' +
+      head + html + '</div></section>' +
+      '<section class="ws-paper ws-paper--key"><img class="ws__wm" src="assets/cert/seal.png" alt="" aria-hidden="true"><div class="ws__inner">' +
+      keyHtml + '</div></section>';
+  }
+
+  function renderWorksheet(root, count) {
+    var papers = '';
+    for (var i = 1; i <= count; i++) papers += buildPaper(i);
+    root.querySelector('#wsSheet').innerHTML = papers;
+  }
+
   function printWorksheet() {
     var qs = chapterQs(state.grade, state.subjectId, state.chapter);
     if (!qs.length) return;
-    var s = subject(state.grade, state.subjectId);
-    var LET = ['A', 'B', 'C', 'D', 'E', 'F'];
-    var head = '<div class="ws__head">' +
-        '<img class="ws__logo" src="assets/cert/logo.png" alt="Inspire Talent Hub" width="150" height="150">' +
-        '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub · Study Hub</div>' +
-          '<h1 class="ws__title">' + esc(state.chapter) + '</h1>' +
-          '<p class="ws__meta">Class ' + state.grade + ' · ' + esc(s ? s.name : '') + ' · Worksheet · ' + qs.length + ' questions</p></div>' +
-      '</div>' +
-      '<p class="ws__meta ws__namebar">Name: ______________________________   Class/Sec: __________   Date: ____________</p><hr class="ws__rule">';
-    var body = '<ol class="ws__list">';
-    qs.forEach(function (q) {
-      body += '<li><p class="ws__q">' + esc(q.q) + '</p><div class="ws__opts">';
-      q.o.forEach(function (o, i) { body += '<span class="ws__opt">' + LET[i] + ') ' + esc(o) + '</span>'; });
-      body += '</div></li>';
-    });
-    body += '</ol>';
-    var keyList = qs.map(function (q, i) { return (i + 1) + '. ' + LET[q.a]; }).join('   ');
-    var key = '<div class="ws__key"><h2 class="ws__key-title">Answer Key</h2><p>' + esc(keyList) + '</p></div>';
     var root = toolRoot();
-    root.innerHTML = '<div class="ws-preview"><div class="ws-preview__bar"><p>Worksheet ready. Use your browser to print or save as PDF.</p>' +
+    root.innerHTML = '<div class="ws-preview"><div class="ws-preview__bar">' +
+      '<div class="ws-preview__opts">' +
+        '<label class="ws-preview__lbl">Papers at once' +
+          '<select data-ws-count class="ws-preview__sel"><option value="1">1 set</option><option value="3">3 sets</option><option value="5">5 sets</option></select></label>' +
+        '<button type="button" class="btn btn-outline text-gold hover-target" data-ws-regen><span>Regenerate</span></button>' +
+      '</div>' +
       '<button type="button" class="btn btn-gold hover-target" data-ws-print><span>Print / Save as PDF</span></button></div>' +
-      '<div class="ws-sheet" id="wsSheet"><img class="ws__wm" src="assets/cert/seal.png" alt="" aria-hidden="true"><div class="ws__inner">' + head + body + key + '</div></div></div>';
+      '<div class="ws-sheet" id="wsSheet"></div></div>';
+    renderWorksheet(root, 1);
+    var sel = root.querySelector('[data-ws-count]');
     root.querySelector('[data-ws-print]').addEventListener('click', function () { window.print(); });
+    root.querySelector('[data-ws-regen]').addEventListener('click', function () { renderWorksheet(root, parseInt(sel.value, 10) || 1); });
+    sel.addEventListener('change', function () { renderWorksheet(root, parseInt(sel.value, 10) || 1); });
     document.body.classList.add('ws-printing');
     // Clean up the print flag if the user navigates away.
     el('shToolBack').onclick = function () { document.body.classList.remove('ws-printing'); renderHub(); };
