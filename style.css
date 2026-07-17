@@ -1953,6 +1953,27 @@ p {
 .index-nav__link:hover { color: #c9a84c; }
 .index-nav__link:hover::after { width: 100%; }
 
+/* Study Hub — highlighted call-to-action in the main nav */
+.index-nav__link--study {
+  display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap;
+  padding: 0.5rem 0.95rem; border-radius: 999px; letter-spacing: 0.1em;
+  color: #1a1200 !important;
+  background: linear-gradient(135deg, #e8c66a, #f0d488);
+  box-shadow: 0 6px 18px rgba(232,198,106,0.32);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+.index-nav__link--study::after { display: none; }
+.index-nav__link--study:hover {
+  color: #1a1200 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(232,198,106,0.45);
+  filter: brightness(1.04);
+}
+.index-nav__link--study[aria-current="page"] {
+  box-shadow: 0 0 0 2px rgba(232,198,106,0.5), 0 6px 18px rgba(232,198,106,0.32);
+}
+.index-nav__link-ic { flex-shrink: 0; }
+
 /* Mobile Hamburger Base */
 .index-nav__hamburger {
   display: none;
