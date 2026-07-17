@@ -347,6 +347,13 @@
       html += '</ol>';
     }
 
+    // Section-wise marks (for the marking scheme).
+    var mA = secA.length, mB = vsaCards.length, mC = saCards.length * 2, mD = (laNotes.length ? 3 : 0), mE = 0;
+    cs.subs.forEach(function (sub) { mE += sub.type === 'mcq' ? 1 : 2; });
+    var scheme = [['A', 'Objective (MCQ)', mA], ['B', 'Very Short Answer', mB], ['C', 'Short Answer', mC], ['D', 'Long Answer', mD], ['E', 'Case-Based', mE]]
+      .filter(function (r) { return r[2] > 0; })
+      .map(function (r) { return '<span class="ws__scheme-cell"><b>' + r[0] + '</b> ' + esc(r[1]) + ' &middot; ' + r[2] + 'm</span>'; }).join('');
+
     var head = '<div class="ws__head">' +
         '<img class="ws__logo" src="assets/cert/logo.png" alt="Inspire Talent Hub" width="120" height="120">' +
         '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub &middot; Study Hub</div>' +
@@ -357,7 +364,8 @@
       '<p class="ws__namebar">Name: ____________________________   Class/Sec: __________   Roll No.: ______   Date: ____________</p>' +
       '<div class="ws__instr"><strong>General Instructions:</strong> (i) All questions are compulsory. (ii) The paper has five sections A&ndash;E. ' +
         '(iii) Marks are shown against each question. (iv) About 80% of the paper is competency-based (application, analysis and case study). ' +
-        '(v) Write neatly in the space provided.</div><hr class="ws__rule">';
+        '(v) Write neatly in the space provided.</div>' +
+      '<div class="ws__scheme"><span class="ws__scheme-title">Marking scheme:</span>' + scheme + '</div><hr class="ws__rule">';
 
     var keyHtml = '<div class="ws__keypage"><div class="ws__head ws__head--key">' +
         '<img class="ws__logo" src="assets/cert/logo.png" alt="" width="70" height="70">' +

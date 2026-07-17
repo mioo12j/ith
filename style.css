@@ -4084,6 +4084,10 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .ws__namebar { margin-top: 0.9rem; font-size: 0.9rem; color: #55607a; }
 .ws__instr { margin: 0.8rem 0 0; padding: 0.7rem 0.9rem; border-radius: 8px; background: rgba(201,168,76,0.1);
   border: 1px solid rgba(201,168,76,0.4); font-size: 0.85rem; color: #3a4462; line-height: 1.55; }
+.ws__scheme { margin: 0.7rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.9rem; font-size: 0.8rem; color: #3a4462; }
+.ws__scheme-title { font-weight: 700; color: #12305c; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.75rem; }
+.ws__scheme-cell { padding: 0.15rem 0.5rem; border-radius: 6px; background: rgba(18,48,92,0.06); border: 1px solid rgba(18,48,92,0.12); }
+.ws__scheme-cell b { color: #9a7b2e; }
 .ws__sec { font-family: var(--font-family-display); font-size: 1.15rem; color: #12305c; margin: 1.5rem 0 0.3rem;
   padding-bottom: 0.25rem; border-bottom: 1.5px solid #c9a84c; }
 .ws__sec-note { font-family: var(--font-family-body); font-size: 0.8rem; font-weight: 400; color: #7a6320; }
