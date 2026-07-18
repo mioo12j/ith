@@ -4091,6 +4091,9 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .ws__sec { font-family: var(--font-family-display); font-size: 1.15rem; color: #12305c; margin: 1.5rem 0 0.3rem;
   padding-bottom: 0.25rem; border-bottom: 1.5px solid #c9a84c; }
 .ws__sec-note { font-family: var(--font-family-body); font-size: 0.8rem; font-weight: 400; color: #7a6320; }
+.ws__secinstr { margin: 0.15rem 0 0.6rem; font-size: 0.82rem; font-style: italic; color: #55607a; }
+.ws__opts--ar { grid-template-columns: 1fr; gap: 0.15rem; }
+.ws__scheme-cell--tot { background: rgba(201,168,76,0.16); border-color: rgba(201,168,76,0.5); }
 .ws__qrow { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
 .ws__marks { font-size: 0.85rem; font-weight: 700; color: #9a7b2e; flex-shrink: 0; }
 .ws__lines { margin: 0.4rem 0 0.2rem; background-image: repeating-linear-gradient(to bottom, transparent, transparent 1.55rem, #c7d0e0 1.55rem, #c7d0e0 calc(1.55rem + 1px)); }

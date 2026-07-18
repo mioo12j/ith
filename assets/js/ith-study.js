@@ -225,155 +225,221 @@
     var t = root.querySelector('[data-n-test]'); if (t) t.addEventListener('click', launchTest);
   }
 
-  // ---- Printable exam paper (worksheet) ----
-  // Builds a full competency-style question paper per chapter with five sections:
-  // A objective (MCQ), B very-short, C short, D long, E case/source-based.
-  // ~80% of the marks are competency-based (application, analysis, case study).
+  // ===== CBSE 50-mark question-paper engine =====
+  // Sections A (20 MCQ incl. assertion-reason & competency) · B VSA (2m) · C SA (3m)
+  // · D Medium (4m) · E Long (5m) · F Case/Source-based (5m). Total = exactly 50.
   var LET = ['A', 'B', 'C', 'D', 'E', 'F'];
+  var AR_OPTS = [
+    'Both A and R are true and R is the correct explanation of A',
+    'Both A and R are true but R is not the correct explanation of A',
+    'A is true but R is false',
+    'A is false but R is true'
+  ];
   function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
   function ansLines(n) { return '<div class="ws__lines ws__lines--' + n + '" aria-hidden="true"></div>'; }
   function cleanTerm(f) { return String(f).replace(/[:?.\s]+$/, '').trim(); }
+  function lc(s) { s = String(s).trim(); return s.charAt(0).toLowerCase() + s.slice(1); }
+  function cap(s) { s = String(s).trim(); return s.charAt(0).toUpperCase() + s.slice(1); }
+  function stripDot(s) { return String(s).replace(/[.\s]+$/, ''); }
+  function normKey(s) { return String(s).toLowerCase().replace(/\s+/g, ' ').trim(); }
+  function shuffleOpts(item) {
+    var correct = item.o[item.a], o = shuffle(item.o.slice());
+    return { q: item.q, o: o, a: o.indexOf(correct), e: item.e, comp: item.comp };
+  }
 
-  // Turn a flashcard (term -> definition) into an open-ended question + model answer.
-  function cardQ(card, kind) {
-    var f = String(card.f).trim(), term = cleanTerm(f), isQ = /\?$/.test(f);
-    var stem;
-    if (kind === 'vsa') stem = isQ ? f : pick(['Define / state: ', 'What is meant by ', 'Name / state: ']) + term + '.';
-    else stem = isQ ? f : pick(['Explain briefly: ', 'Write a short note on ', 'With an example, explain ', 'Why is the following important? ']) + term + '.';
-    return { q: stem, a: card.b, marks: kind === 'vsa' ? 1 : 2, comp: !isQ };
+  // Drop flashcards whose term repeats, so no question is generated twice.
+  function dedupeCards(cards) {
+    var seen = {}, out = [];
+    (cards || []).forEach(function (c) { var k = normKey(cleanTerm(c.f)); if (seen[k]) return; seen[k] = 1; out.push(c); });
+    return out;
   }
-  function longQ(notes, ch) {
-    var body = notes.slice(0, 3).join(' ');
-    var stem = pick([
-      'Explain in detail, in your own words, the key ideas of ',
-      'Discuss, with suitable examples, the main points of ',
-      'A student is asked to summarise the chapter for a junior. Describe the important ideas of '
-    ]) + '“' + ch + '”.';
-    return { q: stem, a: body, marks: 3, comp: true };
+  // Build a large, de-duplicated objective (MCQ + assertion-reason) pool for a chapter.
+  function objectivePool(g, sid, ch) {
+    var ct = content(g, sid, ch), cards = dedupeCards(ct.cards);
+    var backs = cards.map(function (c) { return c.b; });
+    var terms = cards.map(function (c) { return cleanTerm(c.f); });
+    // How often each definition appears — reverse MCQs are only safe when the
+    // definition maps to exactly one term (otherwise two options would be correct).
+    var backFreq = {};
+    cards.forEach(function (c) { var k = normKey(stripDot(c.b)); backFreq[k] = (backFreq[k] || 0) + 1; });
+    var pool = [], seen = {};
+    function add(it, k) { k = normKey(k); if (seen[k]) return; seen[k] = 1; pool.push(it); }
+
+    // 1) Authored MCQs (options randomised).
+    chapterQs(g, sid, ch).forEach(function (q) {
+      add(shuffleOpts({ q: q.q, o: q.o.slice(), a: q.a, e: q.e, comp: false, diff: 1 }), q.q);
+    });
+    // 2) Card-forward MCQs: describe the term (recall).
+    cards.forEach(function (c, i) {
+      var term = cleanTerm(c.f), od = backs.filter(function (b, j) { return j !== i && b !== c.b; });
+      if (od.length < 3) return;
+      var opts = shuffle([c.b].concat(shuffle(od).slice(0, 3)));
+      add({ q: /\?$/.test(c.f) ? c.f : 'Which of the following correctly describes “' + term + '”?',
+        o: opts, a: opts.indexOf(c.b), e: term + ' — ' + c.b, comp: false, diff: 1 }, 'fwd-' + term);
+    });
+    // 3) Card-reverse MCQs: identify the term from its description (application).
+    //    Only when the definition is unique and specific (single correct answer).
+    cards.forEach(function (c, i) {
+      if (/\?$/.test(c.f)) return;
+      var defKey = normKey(stripDot(c.b));
+      if (backFreq[defKey] !== 1) return;                          // ambiguous → skip
+      if (stripDot(c.b).replace(/[^a-z0-9]/gi, '').length < 8) return; // too generic → skip
+      var term = cleanTerm(c.f), ot = terms.filter(function (t, j) { return j !== i && t !== term; });
+      if (ot.length < 3) return;
+      var opts = shuffle([term].concat(shuffle(ot).slice(0, 3)));
+      add({ q: 'Identify the correct term: “' + stripDot(c.b) + '.”',
+        o: opts, a: opts.indexOf(term), e: c.b + ' → ' + term, comp: true, diff: 2 }, 'rev-' + defKey);
+    });
+    // 4) Assertion-Reason (competency). Uses true/false definition statements so the
+    //    answer is always determinable as (c) A true R false, or (d) A false R true.
+    function desc(card, back) { return cap(cleanTerm(card.f)) + ' is correctly described as “' + lc(stripDot(back)) + '”.'; }
+    if (cards.length >= 2) {
+      var idx = shuffle(cards.map(function (_, i) { return i; }));
+      for (var n = 0; n < Math.min(4, cards.length); n++) {
+        var i1 = idx[n], i2 = idx[(n + 1) % idx.length];
+        if (i1 === i2) continue;
+        var c1 = cards[i1], c2 = cards[i2];
+        if (n % 2 === 0) { // A true, R false -> (c)
+          add({ ar: true, A: desc(c1, c1.b), R: desc(c2, c1.b), a: 2, comp: true, diff: 3 }, 'ar-c-' + i1 + '-' + i2);
+        } else {           // A false, R true -> (d)
+          add({ ar: true, A: desc(c1, c2.b), R: desc(c2, c2.b), a: 3, comp: true, diff: 3 }, 'ar-d-' + i1 + '-' + i2);
+        }
+      }
+    }
+    return pool;
   }
-  function caseQ(notes, qs, cards, ch) {
-    var passage = notes.slice(0, Math.min(4, notes.length)).join(' ');
-    var subs = [];
-    // two objective sub-questions from the MCQ bank + one short answer from a card
-    qs.slice(0, 2).forEach(function (q) { subs.push({ type: 'mcq', q: q.q, o: q.o, a: q.a }); });
-    if (cards[0]) { var c = cardQ(cards[0], 'sa'); subs.push({ type: 'sa', q: c.q, a: c.a }); }
-    return { passage: passage, subs: subs, ch: ch };
+
+  // ---- Subjective question builders (question + model-answer + competency flag) ----
+  function qVSA(card) {
+    var t = cleanTerm(card.f), isQ = /\?$/.test(card.f);
+    return { q: isQ ? ('Answer in brief: ' + card.f) : pick(['Define the term ', 'State the meaning of ', 'What is meant by ']) + t + '?',
+      a: card.b, comp: false };
+  }
+  function qSA(card) {
+    var t = cleanTerm(card.f);
+    return { q: pick(['Explain, with a suitable example, ', 'Give reasons: why is it important to understand ',
+      'Distinguish clearly and explain ']) + t + '.', a: card.b, comp: true };
+  }
+  function qLONG(notes, ch) {
+    return { q: pick([
+      'Explain in detail, with suitable examples, the important principles of “' + ch + '”.',
+      'Discuss comprehensively the main concepts of “' + ch + '” and their significance.'
+    ]), a: notes.slice(0, 3).join(' '), comp: true };
   }
 
   function buildPaper(setNo) {
     var g = state.grade, sid = state.subjectId, ch = state.chapter, s = subject(g, sid);
     var ct = content(g, sid, ch);
-    var qs = shuffle(chapterQs(g, sid, ch));
-    var cards = shuffle((ct.cards || []).slice());
+    var cards = shuffle(dedupeCards(ct.cards));
     var notes = shuffle((ct.notes || []).slice());
+    var objAll = shuffle(objectivePool(g, sid, ch));
+    // Easy recall first, application/assertion-reason later (logical difficulty progression).
+    objAll.sort(function (a, b) { return (a.diff || 1) - (b.diff || 1); });
+    // Reserve two objective items for the case study so they never repeat in Section A.
+    var caseMcq = objAll.filter(function (o) { return !o.ar; }).slice(-2);
+    var caseSet = {}; caseMcq.forEach(function (o) { caseSet[normKey(o.q)] = 1; });
+    var secA = objAll.filter(function (o) { return o.ar || !caseSet[normKey(o.q)]; }).slice(0, 20);
 
-    var secA = qs.slice(0, Math.min(4, qs.length));
-    var caseQs = qs.slice(4);                        // reserve remaining MCQs for the case study
+    // Distinct source pools for subjective sections (avoid overlap → no duplicates).
     var vsaCards = cards.slice(0, 3);
-    var saCards = cards.slice(3, 6);
-    var laNotes = notes.slice(0, 3);
-    var caseNotes = notes.slice(3, 7).length >= 2 ? notes.slice(3, 7) : notes.slice(0, 4);
-    var caseCards = cards.slice(6, 7).length ? cards.slice(6, 7) : cards.slice(0, 1);
-    var cs = caseQ(caseNotes, caseQs.length >= 2 ? caseQs : qs.slice(0, 2), caseCards, ch);
+    var saCards = cards.slice(3, 5);
+    var saItems = saCards.map(qSA);
+    if (!saItems.length) saItems = [{ q: 'Explain, with an example, one important idea from “' + ch + '”.', a: notes.slice(0, 1).join(' '), comp: true }];
+    var medPrompts = shuffle([
+      'Apply your understanding of “' + ch + '” to a real-life situation and explain your reasoning.',
+      'Analyse the key ideas of “' + ch + '” and explain how they are connected, with examples.',
+      'A student is investigating “' + ch + '”. Explain what they should observe and why.',
+      'Using suitable examples, explain how the concepts of “' + ch + '” are useful in everyday life.'
+    ]);
+    var medQ = { q: medPrompts[0], a: notes.slice(0, 2).join(' '), comp: true };
+    var med2 = { q: medPrompts[1], a: shuffle(notes.slice()).slice(0, 2).join(' '), comp: true };
+    var longQn = qLONG(notes, ch);
+    var caseNotes = notes.slice(0, Math.min(4, notes.length));
+    var caseShort = { q: 'Based on the passage above, ' + lc(pick(['explain the underlying concept in your own words.', 'give one real-life application of the idea described.', 'justify why this idea is important, with an example.'])), a: caseNotes.slice(0, 2).join(' '), comp: true };
 
-    var marks = 0;
-    var key = [];   // {label, ans}
-    var qn = 0;     // running question number
-    var html = '';
+    var key = [], qn = 0, html = '', totalMarks = 0, compMarks = 0;
+    function addKey(ans) { qn++; key.push({ label: 'Q' + qn, ans: ans }); return qn; }
+    function count(m, comp) { totalMarks += m; if (comp) compMarks += m; }
 
-    // ---- Section A: Objective / competency MCQ ----
-    if (secA.length) {
-      html += '<h2 class="ws__sec">Section A &middot; Objective <span class="ws__sec-note">(competency-based, 1 mark each)</span></h2><ol class="ws__list">';
-      secA.forEach(function (q) {
-        qn++; marks += 1;
-        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(q.q) + '</p><span class="ws__marks">[1]</span></div><div class="ws__opts">';
-        q.o.forEach(function (o, i) { html += '<span class="ws__opt">(' + LET[i].toLowerCase() + ') ' + esc(o) + '</span>'; });
+    // ---- Section A: 20 objective (1 mark each) ----
+    html += '<h2 class="ws__sec">Section A &middot; Objective <span class="ws__sec-note">(' + secA.length + ' questions &times; 1 mark; includes assertion-reason &amp; competency items)</span></h2>';
+    html += '<p class="ws__secinstr">Choose the correct option. For assertion-reason items, use the code given with the question.</p><ol class="ws__list">';
+    secA.forEach(function (o) {
+      count(1, o.comp);
+      if (o.ar) {
+        var num = addKey('(' + LET[o.a].toLowerCase() + ') ' + AR_OPTS[o.a]);
+        html += '<li><div class="ws__qrow"><p class="ws__q">Assertion (A): ' + esc(o.A) + '<br>Reason (R): ' + esc(o.R) + '</p><span class="ws__marks">[1]</span></div><div class="ws__opts ws__opts--ar">';
+        AR_OPTS.forEach(function (t, i) { html += '<span class="ws__opt">(' + LET[i].toLowerCase() + ') ' + esc(t) + '</span>'; });
         html += '</div></li>';
-        key.push({ label: 'Q' + qn, ans: '(' + LET[q.a].toLowerCase() + ') ' + q.o[q.a] });
-      });
-      html += '</ol>';
-    }
+      } else {
+        var num2 = addKey('(' + LET[o.a].toLowerCase() + ') ' + o.o[o.a]);
+        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(o.q) + '</p><span class="ws__marks">[1]</span></div><div class="ws__opts">';
+        o.o.forEach(function (opt, i) { html += '<span class="ws__opt">(' + LET[i].toLowerCase() + ') ' + esc(opt) + '</span>'; });
+        html += '</div></li>';
+      }
+    });
+    html += '</ol>';
 
-    // ---- Section B: Very short answer ----
-    if (vsaCards.length) {
-      html += '<h2 class="ws__sec">Section B &middot; Very Short Answer <span class="ws__sec-note">(1 mark each)</span></h2><ol class="ws__list">';
-      vsaCards.forEach(function (c) {
-        qn++; marks += 1; var it = cardQ(c, 'vsa');
-        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[1]</span></div>' + ansLines(1) + '</li>';
-        key.push({ label: 'Q' + qn, ans: it.a });
-      });
-      html += '</ol>';
-    }
+    // ---- Section B: Very Short Answer (2 marks each) ----
+    html += '<h2 class="ws__sec">Section B &middot; Very Short Answer <span class="ws__sec-note">(2 marks each)</span></h2><ol class="ws__list">';
+    vsaCards.forEach(function (c) { var it = qVSA(c); count(2, it.comp); addKey(it.a);
+      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[2]</span></div>' + ansLines(2) + '</li>'; });
+    html += '</ol>';
 
-    // ---- Section C: Short answer ----
-    if (saCards.length) {
-      html += '<h2 class="ws__sec">Section C &middot; Short Answer <span class="ws__sec-note">(competency-based, 2 marks each)</span></h2><ol class="ws__list">';
-      saCards.forEach(function (c) {
-        qn++; marks += 2; var it = cardQ(c, 'sa');
-        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[2]</span></div>' + ansLines(2) + '</li>';
-        key.push({ label: 'Q' + qn, ans: it.a });
-      });
-      html += '</ol>';
-    }
+    // ---- Section C: Short Answer (3 marks each) ----
+    html += '<h2 class="ws__sec">Section C &middot; Short Answer <span class="ws__sec-note">(competency-based, 3 marks each)</span></h2><ol class="ws__list">';
+    saItems.forEach(function (it) { count(3, it.comp); addKey(it.a);
+      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[3]</span></div>' + ansLines(3) + '</li>'; });
+    html += '</ol>';
 
-    // ---- Section D: Long answer ----
-    if (laNotes.length) {
-      html += '<h2 class="ws__sec">Section D &middot; Long Answer <span class="ws__sec-note">(competency-based, 3 marks)</span></h2><ol class="ws__list">';
-      var la = longQ(laNotes, ch); qn++; marks += 3;
-      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(la.q) + '</p><span class="ws__marks">[3]</span></div>' + ansLines(5) + '</li>';
-      key.push({ label: 'Q' + qn, ans: la.a });
-      html += '</ol>';
-    }
+    // ---- Section D: Medium Answer (4 marks each) ----
+    html += '<h2 class="ws__sec">Section D &middot; Medium Answer <span class="ws__sec-note">(competency-based, 4 marks each)</span></h2><ol class="ws__list">';
+    [medQ, med2].forEach(function (it) { count(4, it.comp); addKey(it.a);
+      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[4]</span></div>' + ansLines(5) + '</li>'; });
+    html += '</ol>';
 
-    // ---- Section E: Case / source-based (competency) ----
-    if (cs.subs.length) {
-      html += '<h2 class="ws__sec">Section E &middot; Case-Based Study <span class="ws__sec-note">(competency-based)</span></h2>';
-      html += '<div class="ws__case"><p class="ws__case-lead">Read the passage and answer the questions that follow.</p>' +
-        '<p class="ws__case-body">' + esc(cs.passage) + '</p></div><ol class="ws__list ws__list--case">';
-      cs.subs.forEach(function (sub) {
-        qn++;
-        if (sub.type === 'mcq') {
-          marks += 1;
-          html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(sub.q) + '</p><span class="ws__marks">[1]</span></div><div class="ws__opts">';
-          sub.o.forEach(function (o, i) { html += '<span class="ws__opt">(' + LET[i].toLowerCase() + ') ' + esc(o) + '</span>'; });
-          html += '</div></li>';
-          key.push({ label: 'Q' + qn, ans: '(' + LET[sub.a].toLowerCase() + ') ' + sub.o[sub.a] });
-        } else {
-          marks += 2;
-          html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(sub.q) + '</p><span class="ws__marks">[2]</span></div>' + ansLines(2) + '</li>';
-          key.push({ label: 'Q' + qn, ans: sub.a });
-        }
-      });
-      html += '</ol>';
-    }
+    // ---- Section E: Long Answer (absorbs any shortfall so the total is always exactly 50) ----
+    var longMarks = 50 - (secA.length + vsaCards.length * 2 + saItems.length * 3 + 8 + (caseMcq.length + 3));
+    html += '<h2 class="ws__sec">Section E &middot; Long Answer <span class="ws__sec-note">(competency / HOTS, ' + longMarks + ' marks)</span></h2><ol class="ws__list">';
+    count(longMarks, true); addKey(longQn.a);
+    html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(longQn.q) + '</p><span class="ws__marks">[' + longMarks + ']</span></div>' + ansLines(longMarks >= 6 ? 8 : 5) + '</li></ol>';
 
-    // Section-wise marks (for the marking scheme).
-    var mA = secA.length, mB = vsaCards.length, mC = saCards.length * 2, mD = (laNotes.length ? 3 : 0), mE = 0;
-    cs.subs.forEach(function (sub) { mE += sub.type === 'mcq' ? 1 : 2; });
-    var scheme = [['A', 'Objective (MCQ)', mA], ['B', 'Very Short Answer', mB], ['C', 'Short Answer', mC], ['D', 'Long Answer', mD], ['E', 'Case-Based', mE]]
-      .filter(function (r) { return r[2] > 0; })
+    // ---- Section F: Case-Based / Source-Based (5 marks) ----
+    html += '<h2 class="ws__sec">Section F &middot; Case-Based Study <span class="ws__sec-note">(source-based competency, 5 marks)</span></h2>';
+    html += '<div class="ws__case"><p class="ws__case-lead">Read the passage and answer the questions that follow.</p>' +
+      '<p class="ws__case-body">' + esc(caseNotes.join(' ')) + '</p></div><ol class="ws__list ws__list--case">';
+    caseMcq.forEach(function (o) { count(1, true); addKey('(' + LET[o.a].toLowerCase() + ') ' + o.o[o.a]);
+      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(o.q) + '</p><span class="ws__marks">[1]</span></div><div class="ws__opts">';
+      o.o.forEach(function (opt, i) { html += '<span class="ws__opt">(' + LET[i].toLowerCase() + ') ' + esc(opt) + '</span>'; });
+      html += '</div></li>'; });
+    count(3, true); addKey(caseShort.a);
+    html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(caseShort.q) + '</p><span class="ws__marks">[3]</span></div>' + ansLines(3) + '</li></ol>';
+
+    // ---- Header, marking scheme, answer key ----
+    var compPct = Math.round(compMarks / totalMarks * 100);
+    var scheme = [['A', 'Objective', secA.length], ['B', 'Very Short', vsaCards.length * 2], ['C', 'Short', saItems.length * 3], ['D', 'Medium', 8], ['E', 'Long', longMarks], ['F', 'Case-Based', caseMcq.length + 3]]
       .map(function (r) { return '<span class="ws__scheme-cell"><b>' + r[0] + '</b> ' + esc(r[1]) + ' &middot; ' + r[2] + 'm</span>'; }).join('');
 
     var head = '<div class="ws__head">' +
         '<img class="ws__logo" src="assets/cert/logo.png" alt="Inspire Talent Hub" width="120" height="120">' +
         '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub &middot; Study Hub</div>' +
           '<h1 class="ws__title">' + esc(ch) + '</h1>' +
-          '<p class="ws__meta">Class ' + g + ' &middot; ' + esc(s ? s.name : '') + ' &middot; Question Paper &mdash; Set ' + setNo + '</p></div>' +
-        '<div class="ws__stamp"><span>Time: 45 min</span><span>Max Marks: ' + marks + '</span></div>' +
+          '<p class="ws__meta">Class ' + g + ' &middot; ' + esc(s ? s.name : '') + ' &middot; Sample Question Paper &mdash; Set ' + setNo + '</p></div>' +
+        '<div class="ws__stamp"><span>Time: 2 hours</span><span>Max Marks: ' + totalMarks + '</span></div>' +
       '</div>' +
-      '<p class="ws__namebar">Name: ____________________________   Class/Sec: __________   Roll No.: ______   Date: ____________</p>' +
-      '<div class="ws__instr"><strong>General Instructions:</strong> (i) All questions are compulsory. (ii) The paper has five sections A&ndash;E. ' +
-        '(iii) Marks are shown against each question. (iv) About 80% of the paper is competency-based (application, analysis and case study). ' +
-        '(v) Write neatly in the space provided.</div>' +
-      '<div class="ws__scheme"><span class="ws__scheme-title">Marking scheme:</span>' + scheme + '</div><hr class="ws__rule">';
+      '<p class="ws__namebar">Name: __________________________   Class/Sec: _________   Roll No.: ______   Date: __________</p>' +
+      '<div class="ws__instr"><strong>General Instructions:</strong> (i) All questions are compulsory. (ii) The paper has six sections A&ndash;F. ' +
+        '(iii) Section A carries objective questions of 1 mark each (including assertion-reason). (iv) Sections B&ndash;F carry very short, short, medium, long and case-based questions respectively. ' +
+        '(v) Marks are shown against each question. (vi) Approximately ' + compPct + '% of the paper is competency-based. (vii) Write neatly in the space provided; internal choice is not given.</div>' +
+      '<div class="ws__scheme"><span class="ws__scheme-title">Marking scheme:</span>' + scheme + '<span class="ws__scheme-cell ws__scheme-cell--tot"><b>Total</b> ' + totalMarks + 'm</span></div><hr class="ws__rule">';
 
     var keyHtml = '<div class="ws__keypage"><div class="ws__head ws__head--key">' +
         '<img class="ws__logo" src="assets/cert/logo.png" alt="" width="70" height="70">' +
-        '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub &middot; Answer Key</div>' +
+        '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub &middot; Marking Scheme / Answer Key</div>' +
         '<h2 class="ws__title ws__title--sm">' + esc(ch) + ' &mdash; Set ' + setNo + '</h2></div></div>' +
         '<ol class="ws__keylist">' +
         key.map(function (k) { return '<li><span class="ws__keyq">' + esc(k.label) + '.</span> ' + esc(k.ans) + '</li>'; }).join('') +
-        '</ol><p class="ws__keynote">For short, long and case-based questions the answer key gives the key points expected; accept any correct equivalent explanation.</p></div>';
+        '</ol><p class="ws__keynote">For subjective and case-based questions the key gives the expected points; award full marks for any correct equivalent explanation with valid examples.</p></div>';
 
     return '<section class="ws-paper"><img class="ws__wm" src="assets/cert/seal.png" alt="" aria-hidden="true"><div class="ws__inner">' +
       head + html + '</div></section>' +
@@ -386,6 +452,15 @@
     for (var i = 1; i <= count; i++) papers += buildPaper(i);
     root.querySelector('#wsSheet').innerHTML = papers;
   }
+
+  // Test hook: generate a paper for an arbitrary chapter (used by the offline audit).
+  window.__ithPaper = function (board, grade, sid, chapter, setNo) {
+    var pb = BOARD, pg = state.grade, ps = state.subjectId, pc = state.chapter;
+    BOARD = board; state.grade = grade; state.subjectId = sid; state.chapter = chapter;
+    var out;
+    try { out = buildPaper(setNo || 1); } finally { BOARD = pb; state.grade = pg; state.subjectId = ps; state.chapter = pc; }
+    return out;
+  };
 
   function printWorksheet() {
     var qs = chapterQs(state.grade, state.subjectId, state.chapter);
