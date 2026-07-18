@@ -189,10 +189,69 @@
   function metaLabel() { var s = subject(state.grade, state.subjectId); return 'Class ' + state.grade + ' · ' + (s ? s.name : '') + ' · ' + state.chapter; }
   function toolRoot() { el('shToolBack').onclick = renderHub; goTo('shTool'); return el('shToolRoot'); }
 
+  // ---- Interactive test: setup screen + device-local history ----
+  function lsGet(k, def) { try { return JSON.parse(localStorage.getItem(k)) || def; } catch (e) { return def; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function attemptKey() { return BOARD + '|' + state.grade + '|' + state.subjectId + '|' + slug(state.chapter); }
+
+  // Rich, varied MCQ pool for the interactive test (authored + generated, with difficulty).
+  function testPool() {
+    return objectivePool(state.grade, state.subjectId, state.chapter).map(function (o) {
+      return o.ar
+        ? { q: 'Assertion (A): ' + o.A + '  Reason (R): ' + o.R, o: AR_OPTS.slice(), a: o.a, e: 'Evaluate the truth of A and R separately, then choose.', meta: state.chapter, diff: 3 }
+        : { q: o.q, o: o.o.slice(), a: o.a, e: o.e, meta: state.chapter, diff: o.diff || 2 };
+    });
+  }
+
   function launchTest() {
-    var pool = chapterQs(state.grade, state.subjectId, state.chapter).map(function (q) { return { q: q.q, o: q.o, a: q.a, e: q.e, meta: state.chapter }; });
+    var pool = testPool();
     if (!pool.length) return;
-    window.ITHQuiz.start(shuffle(pool), { root: toolRoot(), metaLabel: metaLabel(), onExit: renderHub, onRetry: function () { return shuffle(pool); } });
+    var root = toolRoot();
+    var attempts = (lsGet('ith_attempts', {})[attemptKey()] || []);
+    var wrong = (lsGet('ith_wrong', {})[attemptKey()] || []);
+    function seg(v, label, on) { return '<button type="button" class="ts__opt' + (on ? ' is-on' : '') + '" data-v="' + v + '">' + esc(label) + '</button>'; }
+    var counts = ['5', '10', '20', 'All'];
+    root.innerHTML = '<div class="ts">' +
+      '<div class="ts__head"><span class="notes__tag">Practice Test</span><h2 class="ts__title">' + esc(state.chapter) + '</h2><p class="ts__meta">' + esc(metaLabel()) + ' · ' + pool.length + ' questions available</p></div>' +
+      '<div class="ts__grp"><span class="ts__lbl">Difficulty</span><div class="ts__seg" data-ts-diff>' + seg('mixed', 'Mixed', true) + seg('1', 'Easy') + seg('2', 'Medium') + seg('3', 'Hard') + '</div></div>' +
+      '<div class="ts__grp"><span class="ts__lbl">Questions</span><div class="ts__seg" data-ts-count>' + counts.map(function (c, i) { return seg(c, c, i === 1); }).join('') + '</div></div>' +
+      '<div class="ts__grp"><span class="ts__lbl">Mode</span><div class="ts__seg" data-ts-mode>' + seg('practice', 'Practice · instant feedback', true) + seg('exam', 'Exam · results at end') + '</div></div>' +
+      '<div class="ts__actions"><button type="button" class="btn btn-gold hover-target" data-ts-start><span>Start Test</span></button>' +
+      (wrong.length ? '<button type="button" class="btn btn-outline text-gold hover-target" data-ts-retry><span>Retry my ' + wrong.length + ' incorrect</span></button>' : '') + '</div>' +
+      (attempts.length ? '<div class="ts__hist"><h3 class="notes__h3">Your recent attempts <span class="ts__note">— saved on this device only</span></h3><ul class="ts__list">' +
+        attempts.slice(-5).reverse().map(function (a) { return '<li><span>' + esc(a.date) + '</span><b>' + a.correct + '/' + a.total + ' · ' + a.pct + '%</b></li>'; }).join('') + '</ul>' +
+        (attempts[attempts.length - 1].pct < 60 ? '<p class="ts__weak">' + icon('shield', 18) + ' Focus area — revise the Notes and Definitions, then try again.</p>' : '') + '</div>' : '') +
+      '</div>';
+    root.querySelectorAll('.ts__seg').forEach(function (sg) {
+      sg.addEventListener('click', function (e) { var b = e.target.closest('.ts__opt'); if (!b) return; sg.querySelectorAll('.ts__opt').forEach(function (x) { x.classList.remove('is-on'); }); b.classList.add('is-on'); });
+    });
+    function val(name) { var on = root.querySelector('[data-ts-' + name + '] .ts__opt.is-on'); return on ? on.getAttribute('data-v') : null; }
+    root.querySelector('[data-ts-start]').addEventListener('click', function () { startFiltered(pool, val('diff'), val('count'), val('mode')); });
+    var rt = root.querySelector('[data-ts-retry]'); if (rt) rt.addEventListener('click', function () { startQuiz(shuffle(wrong.slice()), val('mode') || 'practice'); });
+  }
+
+  function startFiltered(pool, diff, count, mode) {
+    var list = pool.slice();
+    if (diff && diff !== 'mixed') { var f = list.filter(function (q) { return String(q.diff) === diff; }); if (f.length >= 3) list = f; }
+    list = shuffle(list);
+    var n = count === 'All' ? list.length : Math.min(parseInt(count, 10) || 10, list.length);
+    startQuiz(list.slice(0, n), mode);
+  }
+
+  function startQuiz(list, mode) {
+    if (!list.length) return;
+    window.ITHQuiz.start(list, {
+      root: toolRoot(), metaLabel: metaLabel(), instant: mode !== 'exam',
+      onExit: launchTest, onRetry: function () { return null; },
+      onFinish: function (res) { saveAttempt(res); }
+    });
+  }
+
+  function saveAttempt(res) {
+    var all = lsGet('ith_attempts', {}), k = attemptKey(), arr = all[k] || [];
+    arr.push({ date: new Date().toLocaleDateString(), correct: res.correct, total: res.total, pct: res.pct });
+    all[k] = arr.slice(-10); lsSet('ith_attempts', all);
+    var w = lsGet('ith_wrong', {}); w[k] = (res.wrong || []).slice(0, 20); lsSet('ith_wrong', w);
   }
   function launchFlash() {
     var cards = (content(state.grade, state.subjectId, state.chapter).cards || []).map(function (c) { return { f: c.f, b: c.b }; });
@@ -344,7 +403,7 @@
   function normKey(s) { return String(s).toLowerCase().replace(/\s+/g, ' ').trim(); }
   function shuffleOpts(item) {
     var correct = item.o[item.a], o = shuffle(item.o.slice());
-    return { q: item.q, o: o, a: o.indexOf(correct), e: item.e, comp: item.comp };
+    return { q: item.q, o: o, a: o.indexOf(correct), e: item.e, comp: item.comp, diff: item.diff };
   }
 
   // Drop flashcards whose term repeats, so no question is generated twice.
@@ -365,9 +424,9 @@
     var pool = [], seen = {};
     function add(it, k) { k = normKey(k); if (seen[k]) return; seen[k] = 1; pool.push(it); }
 
-    // 1) Authored MCQs (options randomised).
+    // 1) Authored MCQs (options randomised; keep their authored difficulty).
     chapterQs(g, sid, ch).forEach(function (q) {
-      add(shuffleOpts({ q: q.q, o: q.o.slice(), a: q.a, e: q.e, comp: false, diff: 1 }), q.q);
+      add(shuffleOpts({ q: q.q, o: q.o.slice(), a: q.a, e: q.e, comp: false, diff: q.d || 2 }), q.q);
     });
     // 2) Card-forward MCQs: describe the term (recall).
     cards.forEach(function (c, i) {

@@ -126,6 +126,13 @@
       clearPer();
       it.chosen = idx;
       var btns = els.opts.querySelectorAll('.pa-opt');
+      // Exam mode: record the answer neutrally, reveal nothing until the results screen.
+      if (opts.instant === false) {
+        Array.prototype.forEach.call(btns, function (b, k) { b.disabled = true; if (k === idx) b.classList.add('is-chosen'); });
+        els.next.hidden = false; els.next.focus();
+        els.bar.style.width = ((index + 1) / items.length * 100) + '%';
+        return;
+      }
       Array.prototype.forEach.call(btns, function (b, k) {
         b.disabled = true;
         if (k === it.correct) b.classList.add('is-correct');
@@ -193,6 +200,15 @@
 
       if (opts.celebrate !== false && pct >= 70 && window.ITHFx && window.ITHFx.confetti && !reduceMotion()) {
         try { window.ITHFx.confetti(els.rCard, { count: 90 }); } catch (e) {}
+      }
+      if (typeof opts.onFinish === 'function') {
+        try {
+          opts.onFinish({
+            correct: correct, total: total, pct: pct, elapsed: elapsed,
+            wrong: items.filter(function (it) { return it.chosen !== it.correct; })
+              .map(function (it) { return { q: it.q, o: it.opts.slice(), a: it.correct, e: it.e, meta: it.meta }; })
+          });
+        } catch (e) {}
       }
       scrollTo(els.rCard);
     }

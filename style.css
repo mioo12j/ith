@@ -3792,6 +3792,8 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .pa-opt.is-correct { border-color: #10b981; background: rgba(16,185,129,0.12); }
 .pa-opt.is-correct .pa-opt__key { background: #10b981; color: #04120c; border-color: #10b981; }
 .pa-opt.is-correct .pa-opt__mark { opacity: 1; background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2334d399' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+.pa-opt.is-chosen { border-color: var(--color-brand-primary); background: rgba(232,198,106,0.12); }
+.pa-opt.is-chosen .pa-opt__key { background: var(--color-brand-primary); color: #1a1200; border-color: var(--color-brand-primary); }
 .pa-opt.is-wrong { border-color: #ef4444; background: rgba(239,68,68,0.1); }
 .pa-opt.is-wrong .pa-opt__key { background: #ef4444; color: #1a0505; border-color: #ef4444; }
 .pa-opt.is-wrong .pa-opt__mark { opacity: 1; background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f87171' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E"); }
@@ -4044,6 +4046,27 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .notes__fname { color: var(--color-text-secondary); font-size: var(--font-size-sm); }
 .notes__fexpr { font-family: 'Courier New', monospace; color: var(--color-brand-primary); font-weight: 700; }
 .notes__cta { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: var(--spacing-8); }
+
+/* ---- Test setup screen ---- */
+.ts { max-width: 640px; margin: 0 auto; }
+.ts__head { margin-bottom: var(--spacing-7); }
+.ts__title { font-family: var(--font-family-display); font-size: clamp(1.5rem, 4vw, 2rem); color: var(--color-brand-primary); margin: 0.4rem 0 0.2rem; }
+.ts__meta { color: var(--color-text-secondary); font-size: var(--font-size-sm); margin: 0; }
+.ts__grp { margin-bottom: var(--spacing-5); }
+.ts__lbl { display: block; font-size: var(--font-size-sm); font-weight: 600; color: var(--color-text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.ts__seg { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ts__opt { appearance: none; cursor: pointer; padding: 0.55rem 1rem; border-radius: 999px; font-family: var(--font-family-body); font-weight: 600; font-size: var(--font-size-sm);
+  color: var(--color-text-secondary); background: var(--color-bg-surface-1); border: 1px solid var(--color-brand-alpha-20); transition: color var(--duration-fast), background var(--duration-fast), box-shadow var(--duration-fast); }
+.ts__opt:hover { color: var(--color-text-primary); }
+.ts__opt.is-on { color: #1a1200; background: linear-gradient(135deg, var(--color-brand-primary), #f0d488); box-shadow: 0 6px 16px rgba(232,198,106,0.28); border-color: transparent; }
+.ts__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: var(--spacing-6); }
+.ts__hist { margin-top: var(--spacing-8); padding-top: var(--spacing-5); border-top: 1px solid var(--color-brand-alpha-20); }
+.ts__note { font-size: var(--font-size-sm); font-weight: 400; color: var(--color-text-muted); }
+.ts__list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+.ts__list li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0.9rem; border-radius: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--color-brand-alpha-20); font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+.ts__list li b { color: var(--color-brand-primary); }
+.ts__weak { display: flex; align-items: center; gap: 0.5rem; margin: var(--spacing-4) 0 0; padding: 0.7rem 0.9rem; border-radius: 10px; background: rgba(232,198,106,0.08); border: 1px solid var(--color-brand-alpha-20); font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+.ts__weak svg { color: var(--color-brand-primary); flex-shrink: 0; }
 
 /* ---- Definitions list & exam-tips chips ---- */
 .defs { display: grid; gap: 0.7rem; margin: 0; padding: 0; }
