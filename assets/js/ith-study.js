@@ -169,10 +169,15 @@
     var cards = ct.cards || [], notes = ct.notes || [], formulas = ct.formulas || [];
 
     if (notes.length || formulas.length) tools.appendChild(tile('book', 'Revision Notes', notes.length + (formulas.length ? ' points · ' + formulas.length + ' formulas' : ' key points'), showNotes));
+    if (cards.length) tools.appendChild(tile('feather', 'Important Definitions', cards.length + ' key terms explained', showDefinitions));
+    if (formulas.length) tools.appendChild(tile('chart', 'Formula Sheet', formulas.length + ' formulas to remember', showFormulas));
     if (cards.length) tools.appendChild(tile('star', 'Flashcards', cards.length + ' cards to flip & learn', launchFlash));
     if (ct.authoredCards && cards.length >= 3) tools.appendChild(tile('grad', 'Match-up Game', 'Match terms to meanings, beat the clock', launchMatch));
     if (qn) tools.appendChild(tile('chart', 'Practice Test', qn + ' questions with instant feedback', launchTest));
-    if (qn) tools.appendChild(tile('pen', 'Printable Worksheet', 'Download / print with answer key', printWorksheet));
+    if (notes.length) tools.appendChild(tile('check', 'True or False', 'Quick concept check with instant feedback', launchTrueFalse));
+    if (cards.length >= 4) tools.appendChild(tile('pen', 'Fill in the Blanks', 'Recall key terms and definitions', launchFillBlank));
+    if (qn) tools.appendChild(tile('medal', 'Exam Paper (50 marks)', 'Full CBSE-pattern paper · print / PDF', printWorksheet));
+    if (notes.length || cards.length) tools.appendChild(tile('shield', 'Exam Tips & Common Mistakes', 'Score better — what to focus on', showExamTips));
 
     goTo('shHub');
   }
@@ -223,6 +228,101 @@
     var root = toolRoot(); root.innerHTML = html;
     var f = root.querySelector('[data-n-flash]'); if (f) f.addEventListener('click', launchFlash);
     var t = root.querySelector('[data-n-test]'); if (t) t.addEventListener('click', launchTest);
+  }
+
+  // ---- Important Definitions ----
+  function showDefinitions() {
+    var cards = dedupeCards(content(state.grade, state.subjectId, state.chapter).cards);
+    var rows = cards.map(function (c) {
+      return '<div class="defs__row"><dt class="defs__term">' + esc(cleanTerm(c.f)) + '</dt><dd class="defs__def">' + esc(c.b) + '</dd></div>';
+    }).join('');
+    var root = toolRoot();
+    root.innerHTML = '<article class="notes"><div class="notes__head"><span class="notes__tag">Important Definitions</span>' +
+      '<h2 class="notes__title">' + esc(state.chapter) + '</h2><p class="notes__meta">' + esc(metaLabel()) + '</p></div>' +
+      '<dl class="defs">' + rows + '</dl>' +
+      '<p class="result-note" style="margin-top:var(--spacing-6)">Learn these key terms first — they are the backbone of your answers and MCQs.</p></article>';
+  }
+
+  // ---- Formula Sheet ----
+  function showFormulas() {
+    var formulas = content(state.grade, state.subjectId, state.chapter).formulas || [];
+    var rows = formulas.map(function (f) {
+      return '<div class="notes__formula"><span class="notes__fname">' + esc(f.n) + '</span><span class="notes__fexpr">' + esc(f.x) + '</span></div>';
+    }).join('');
+    var root = toolRoot();
+    root.innerHTML = '<article class="notes"><div class="notes__head"><span class="notes__tag">Formula Sheet</span>' +
+      '<h2 class="notes__title">' + esc(state.chapter) + '</h2><p class="notes__meta">' + esc(metaLabel()) + '</p></div>' +
+      '<div class="notes__formulas">' + rows + '</div>' +
+      '<p class="result-note" style="margin-top:var(--spacing-6)">Revise every formula before the exam and practise substituting values.</p></article>';
+  }
+
+  // ---- True / False (interactive) ----
+  function launchTrueFalse() {
+    var ct = content(state.grade, state.subjectId, state.chapter);
+    var notes = ct.notes || [], cards = dedupeCards(ct.cards), items = [];
+    shuffle(notes.slice()).slice(0, 6).forEach(function (n) {
+      items.push({ q: n, o: ['True', 'False'], a: 0, e: 'Correct — this is a true statement.' });
+    });
+    if (cards.length >= 2) {
+      var cs = shuffle(cards.slice());
+      for (var i = 0; i < Math.min(6, cs.length); i++) {
+        var c1 = cs[i], c2 = cs[(i + 1) % cs.length]; if (c1 === c2) continue;
+        items.push({ q: cap(cleanTerm(c1.f)) + ' is ' + lc(stripDot(c2.b)) + '.', o: ['True', 'False'], a: 1,
+          e: 'False — ' + cap(cleanTerm(c1.f)) + ' is ' + lc(stripDot(c1.b)) + '.' });
+      }
+    }
+    items = shuffle(items).slice(0, 10);
+    if (!items.length) return;
+    window.ITHQuiz.start(items, { root: toolRoot(), metaLabel: metaLabel() + ' · True or False', onExit: renderHub, onRetry: function () { return shuffle(items); } });
+  }
+
+  // ---- Fill in the Blanks (interactive) ----
+  function launchFillBlank() {
+    var cards = dedupeCards(content(state.grade, state.subjectId, state.chapter).cards);
+    var terms = cards.map(function (c) { return cleanTerm(c.f); }), items = [];
+    cards.forEach(function (c, i) {
+      if (/\?$/.test(c.f)) return;
+      var term = cleanTerm(c.f), ot = terms.filter(function (t, j) { return j !== i && t !== term; });
+      if (ot.length < 3) return;
+      var opts = shuffle([term].concat(shuffle(ot).slice(0, 3)));
+      items.push({ q: 'Fill in the blank: “______” is ' + lc(stripDot(c.b)) + '.', o: opts, a: opts.indexOf(term), e: 'Answer: ' + term });
+    });
+    items = shuffle(items);
+    if (!items.length) return;
+    window.ITHQuiz.start(items, { root: toolRoot(), metaLabel: metaLabel() + ' · Fill in the Blanks', onExit: renderHub, onRetry: function () { return shuffle(items); } });
+  }
+
+  // ---- Exam Tips & Common Mistakes ----
+  function showExamTips() {
+    var ct = content(state.grade, state.subjectId, state.chapter);
+    var cards = dedupeCards(ct.cards), s = subject(state.grade, state.subjectId);
+    var keyTerms = cards.slice(0, 8).map(function (c) { return cleanTerm(c.f); });
+    // "Don't confuse" pairs from adjacent terms.
+    var confusions = [];
+    for (var i = 0; i + 1 < Math.min(6, cards.length); i += 2) {
+      confusions.push('Don’t confuse <strong>' + esc(cleanTerm(cards[i].f)) + '</strong> with <strong>' + esc(cleanTerm(cards[i + 1].f)) + '</strong> — re-read both definitions.');
+    }
+    var tips = [
+      'Read every question twice and underline command words (define, explain, analyse, justify).',
+      'For 1-mark MCQs, eliminate the clearly wrong options first, then choose.',
+      'In assertion-reason questions, check the truth of A and R separately before deciding the relation.',
+      'Write answers to the point — for a 3-mark question give about three clear points.',
+      'For case-based questions, always refer back to the passage in your answer.',
+      'Show every step in numerical answers; you earn marks for method, not just the final value.',
+      'Keep the last 10 minutes to revise and check that no question is left blank.'
+    ];
+    var mistakes = [
+      'Leaving competency / application questions for the end and then running out of time.',
+      'Writing everything you know instead of answering exactly what is asked.',
+      'Mixing up similar key terms — learn the exact definitions.',
+      'Forgetting units and labels in Science and Maths answers.'
+    ].concat(confusions);
+    var root = toolRoot();
+    root.innerHTML = '<article class="notes"><div class="notes__head"><span class="notes__tag">Exam Tips &amp; Common Mistakes</span>' +
+      '<h2 class="notes__title">' + esc(state.chapter) + '</h2><p class="notes__meta">' + esc(metaLabel()) + '</p></div>' +
+      (keyTerms.length ? '<h3 class="notes__h3">Focus on these key terms</h3><p class="tips__terms">' + keyTerms.map(function (t) { return '<span class="tips__chip">' + esc(t) + '</span>'; }).join('') + '</p>' : '') +
+      '<h3 class="notes__h3">Exam tips</h3><ul class="notes__list">' + tips.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
+      '<h3 class="notes__h3">Common mistakes to avoid</h3><ul class="notes__list tips__mistakes">' + mistakes.map(function (m) { return '<li>' + m + '</li>'; }).join('') + '</ul></article>';
   }
 
   // ===== CBSE 50-mark question-paper engine =====

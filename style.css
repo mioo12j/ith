@@ -4045,6 +4045,18 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .notes__fexpr { font-family: 'Courier New', monospace; color: var(--color-brand-primary); font-weight: 700; }
 .notes__cta { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: var(--spacing-8); }
 
+/* ---- Definitions list & exam-tips chips ---- */
+.defs { display: grid; gap: 0.7rem; margin: 0; padding: 0; }
+.defs__row { display: grid; grid-template-columns: minmax(140px, 0.4fr) 1fr; gap: 0.4rem 1.2rem;
+  padding: 0.85rem 1.1rem; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--color-brand-alpha-20); }
+.defs__term { font-weight: 700; color: var(--color-brand-primary); }
+.defs__def { margin: 0; color: var(--color-text-secondary); line-height: 1.55; }
+.tips__terms { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; }
+.tips__chip { padding: 0.35rem 0.8rem; border-radius: 999px; font-size: var(--font-size-sm); font-weight: 600;
+  color: var(--color-brand-primary); background: rgba(232,198,106,0.1); border: 1px solid var(--color-brand-alpha-20); }
+.tips__mistakes li strong { color: var(--color-brand-primary); }
+@media (max-width: 520px) { .defs__row { grid-template-columns: 1fr; gap: 0.2rem; } }
+
 /* ---- Worksheet ---- */
 .ws-preview__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
   padding: 1rem 1.3rem; border-radius: 14px; background: rgba(232,198,106,0.06); border: 1px solid var(--color-brand-alpha-20); margin-bottom: var(--spacing-6); }
