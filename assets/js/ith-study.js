@@ -122,7 +122,34 @@
       b.addEventListener('click', function () { state.grade = grade; state.subjectId = null; state.chapter = null; renderSubjects(); });
       g.appendChild(b);
     });
+    setupHome();
     goTo('shGrade');
+  }
+
+  // Dashboard / Browse tabs on the Study Hub landing.
+  function setupHome() {
+    var tabs = el('shHomeTabs'), dash = el('shDash'), browse = el('shBrowse');
+    var D = window.ITHDash;
+    var hasActivity = D && D.hasActivity && D.hasActivity();
+    if (!tabs || !dash || !browse) return;
+    if (!hasActivity) { tabs.hidden = true; dash.hidden = true; browse.hidden = false; return; }
+    tabs.hidden = false;
+    if (!tabs.__wired) {
+      tabs.__wired = true;
+      tabs.addEventListener('click', function (e) {
+        var b = e.target.closest('.sh-hometab'); if (!b) return;
+        show(b.getAttribute('data-home'));
+      });
+    }
+    function show(which) {
+      tabs.querySelectorAll('.sh-hometab').forEach(function (t) {
+        var on = t.getAttribute('data-home') === which;
+        t.classList.toggle('is-on', on); t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      if (which === 'dash') { dash.hidden = false; browse.hidden = true; if (D.renderDashboard) D.renderDashboard(dash); }
+      else { dash.hidden = true; browse.hidden = false; }
+    }
+    show('dash');
   }
 
   // ---- Subject ----
@@ -150,17 +177,44 @@
     var ready = readyCount(state.grade, state.subjectId);
     el('shChapterSub').textContent = ready > 0 ? 'Open a chapter to study with notes, flashcards, a match game and tests.'
       : 'Learning content for this subject is being added. Explore the chapters below.';
-    var list = el('shChapterList'); list.innerHTML = '';
-    s.chapters.forEach(function (chapter, i) {
-      var open = isOpen(state.grade, state.subjectId, chapter);
-      var card = ce('button', 'sh-chap' + (open ? '' : ' is-soon'),
-        '<span class="sh-chap__no">' + (i + 1) + '</span><span class="sh-chap__name">' + esc(chapter) + '</span>' +
-        (open ? '<span class="sh-chap__badge">Study</span><span class="sh-chap__go">' + icon('chevron', 18) + '</span>' : '<span class="sh-chap__soon">Coming soon</span>'));
-      card.type = 'button';
-      if (open) card.addEventListener('click', function () { state.chapter = chapter; renderHub(); });
-      else card.disabled = true;
-      list.appendChild(card);
-    });
+    // Live filter box (helps when a subject has many chapters).
+    var head = el('shChapterList').parentNode;
+    var filter = el('shChapterFilter');
+    if (!filter) {
+      filter = ce('div', 'sh-filter'); filter.id = 'shChapterFilter';
+      filter.innerHTML = '<span class="sh-filter__ic">' + icon('book', 16) + '</span>' +
+        '<input type="search" class="sh-filter__in" id="shChapterSearch" placeholder="Search chapters…" aria-label="Search chapters">';
+      head.insertBefore(filter, el('shChapterList'));
+    }
+    var list = el('shChapterList');
+    var D = window.ITHDash;
+    function draw(q) {
+      q = (q || '').trim().toLowerCase();
+      list.innerHTML = ''; var shown = 0;
+      s.chapters.forEach(function (chapter, i) {
+        if (q && chapter.toLowerCase().indexOf(q) === -1) return;
+        shown++;
+        var open = isOpen(state.grade, state.subjectId, chapter);
+        var k = BOARD + '|' + state.grade + '|' + state.subjectId + '|' + slug(chapter);
+        var prog = open && D && D.chapterProgress ? D.chapterProgress(k) : null;
+        var status = '';
+        if (open && prog && prog.attempts) status = prog.mastered
+          ? '<span class="sh-chap__badge sh-chap__badge--gold">' + icon('medal', 15) + ' Mastered</span>'
+          : '<span class="sh-chap__badge sh-chap__badge--done">' + icon('check', 15) + ' ' + prog.best + '%</span>';
+        else if (open) status = '<span class="sh-chap__badge">Study</span>';
+        var card = ce('button', 'sh-chap' + (open ? '' : ' is-soon'),
+          '<span class="sh-chap__no">' + (i + 1) + '</span><span class="sh-chap__name">' + esc(chapter) + '</span>' +
+          (open ? status + '<span class="sh-chap__go">' + icon('chevron', 18) + '</span>' : '<span class="sh-chap__soon">Coming soon</span>'));
+        card.type = 'button';
+        if (open) card.addEventListener('click', function () { state.chapter = chapter; renderHub(); });
+        else card.disabled = true;
+        list.appendChild(card);
+      });
+      if (!shown) list.innerHTML = '<p class="sh-empty">No chapters match &ldquo;' + esc(q) + '&rdquo;.</p>';
+    }
+    draw('');
+    var search = el('shChapterSearch');
+    if (search) { search.value = ''; search.oninput = function () { draw(search.value); }; }
     goTo('shChapter');
   }
 
@@ -169,6 +223,11 @@
     var g = state.grade, sid = state.subjectId, ch = state.chapter, s = subject(g, sid);
     el('shHubTitle').textContent = ch;
     el('shHubSub').textContent = 'Class ' + g + ' · ' + (s ? s.name : '') + ' — choose how to study.';
+    // Remember this chapter for "Continue where you left off".
+    if (window.ITHDash && window.ITHDash.setLast) {
+      window.ITHDash.setLast({ board: BOARD, grade: g, subjectId: sid, subjectName: s ? s.name : sid, chapter: ch });
+    }
+    renderHubActions(g, sid, ch, s);
     var tools = el('shHubTools'); tools.innerHTML = '';
     var qn = chapterQs(g, sid, ch).length, ct = content(g, sid, ch);
     var cards = ct.cards || [], notes = ct.notes || [], formulas = ct.formulas || [];
@@ -191,6 +250,33 @@
     b.type = 'button'; b.addEventListener('click', fn); return b;
   }
 
+  // Actions bar in the chapter hub: bookmark toggle + a compact progress chip.
+  function renderHubActions(g, sid, ch, s) {
+    var host = el('shHubActions');
+    if (!host) { host = ce('div', 'sh-hubbar'); host.id = 'shHubActions'; var tools = el('shHubTools'); tools.parentNode.insertBefore(host, tools); }
+    var k = BOARD + '|' + g + '|' + sid + '|' + slug(ch);
+    var D = window.ITHDash;
+    var marked = D && D.isBookmarked && D.isBookmarked(k);
+    var prog = D && D.chapterProgress ? D.chapterProgress(k) : null;
+    var chip = '';
+    if (prog && prog.attempts) {
+      var lbl = prog.mastered ? 'Mastered' : (prog.best >= 60 ? 'Practised' : 'Keep practising');
+      chip = '<span class="sh-hubbar__chip sh-hubbar__chip--' + (prog.mastered ? 'gold' : (prog.best >= 60 ? 'ok' : 'weak')) + '">' +
+        icon(prog.mastered ? 'medal' : 'chart', 15) + ' ' + lbl + ' · best ' + prog.best + '%</span>';
+    } else {
+      chip = '<span class="sh-hubbar__chip sh-hubbar__chip--new">' + icon('star', 15) + ' Not started yet</span>';
+    }
+    host.innerHTML = chip +
+      '<button type="button" class="sh-bookmark hover-target' + (marked ? ' is-on' : '') + '" data-bm aria-pressed="' + (marked ? 'true' : 'false') + '">' +
+      icon('star', 16) + '<span>' + (marked ? 'Bookmarked' : 'Bookmark') + '</span></button>';
+    var btn = host.querySelector('[data-bm]');
+    if (btn && D && D.toggleBookmark) btn.addEventListener('click', function () {
+      var on = D.toggleBookmark({ key: k, board: BOARD, grade: g, subjectId: sid, subjectName: s ? s.name : sid, chapter: ch });
+      btn.classList.toggle('is-on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.querySelector('span').textContent = on ? 'Bookmarked' : 'Bookmark';
+    });
+  }
+
   function metaLabel() { var s = subject(state.grade, state.subjectId); return 'Class ' + state.grade + ' · ' + (s ? s.name : '') + ' · ' + state.chapter; }
   function toolRoot() { el('shToolBack').onclick = renderHub; goTo('shTool'); return el('shToolRoot'); }
 
@@ -203,8 +289,8 @@
   function testPool() {
     return objectivePool(state.grade, state.subjectId, state.chapter).map(function (o) {
       return o.ar
-        ? { q: 'Assertion (A): ' + o.A + '  Reason (R): ' + o.R, o: AR_OPTS.slice(), a: o.a, e: 'Evaluate the truth of A and R separately, then choose.', meta: state.chapter, diff: 3 }
-        : { q: o.q, o: o.o.slice(), a: o.a, e: o.e, meta: state.chapter, diff: o.diff || 2 };
+        ? { q: 'Assertion (A): ' + o.A + '  Reason (R): ' + o.R, o: AR_OPTS.slice(), a: o.a, e: 'Evaluate the truth of A and R separately, then choose.', meta: state.chapter, diff: 3, comp: true }
+        : { q: o.q, o: o.o.slice(), a: o.a, e: o.e, meta: state.chapter, diff: o.diff || 2, comp: !!o.comp };
     });
   }
 
@@ -245,18 +331,33 @@
 
   function startQuiz(list, mode) {
     if (!list.length) return;
+    var asked = list.slice();
     window.ITHQuiz.start(list, {
       root: toolRoot(), metaLabel: metaLabel(), instant: mode !== 'exam',
       onExit: launchTest, onRetry: function () { return null; },
-      onFinish: function (res) { saveAttempt(res); }
+      onFinish: function (res) { saveAttempt(res, asked, mode); }
     });
   }
 
-  function saveAttempt(res) {
+  function saveAttempt(res, asked, mode) {
     var all = lsGet('ith_attempts', {}), k = attemptKey(), arr = all[k] || [];
     arr.push({ date: new Date().toLocaleDateString(), correct: res.correct, total: res.total, pct: res.pct });
     all[k] = arr.slice(-10); lsSet('ith_attempts', all);
     var w = lsGet('ith_wrong', {}); w[k] = (res.wrong || []).slice(0, 20); lsSet('ith_wrong', w);
+    // Rich record for the student dashboard / analytics (device-local).
+    if (window.ITHDash && window.ITHDash.record) {
+      var wrongSet = {}; (res.wrong || []).forEach(function (x) { wrongSet[x.q] = 1; });
+      var compAsked = (asked || []).filter(function (q) { return q.comp; });
+      var compWrong = compAsked.filter(function (q) { return wrongSet[q.q]; }).length;
+      var s = subject(state.grade, state.subjectId);
+      window.ITHDash.record({
+        ts: Date.now(), key: k, board: BOARD, grade: state.grade,
+        subjectId: state.subjectId, subjectName: s ? s.name : state.subjectId, chapter: state.chapter,
+        correct: res.correct, total: res.total, pct: res.pct,
+        elapsed: res.elapsed || 0, mode: mode || 'practice',
+        compTotal: compAsked.length, compCorrect: compAsked.length - compWrong
+      });
+    }
   }
   function launchFlash() {
     var cards = (content(state.grade, state.subjectId, state.chapter).cards || []).map(function (c) { return { f: c.f, b: c.b }; });
@@ -738,6 +839,33 @@
     // Clean up the print flag if the user navigates away.
     el('shToolBack').onclick = function () { document.body.classList.remove('ws-printing'); renderHub(); };
   }
+
+  // ---- Navigation API for the dashboard (device-local, no backend) ----
+  function chapterExists(board, grade, sid, chapter) {
+    if (!SYL.tree[board] || !SYL.tree[board][grade]) return false;
+    var s = (SYL.tree[board][grade] || []).filter(function (x) { return x.id === sid; })[0];
+    return !!(s && s.chapters.indexOf(chapter) !== -1);
+  }
+  function goChapter(e) {
+    if (!e || !chapterExists(e.board, e.grade, e.subjectId, e.chapter)) return false;
+    BOARD = e.board; state.grade = e.grade; state.subjectId = e.subjectId; state.chapter = e.chapter;
+    renderBoards(); renderHub(); return true;
+  }
+  window.ITHStudy = {
+    openChapter: function (e) { goChapter(e); },
+    openTest: function (e) { if (goChapter(e)) launchTest(); },
+    retryWrong: function (e) {
+      if (!goChapter(e)) return;
+      var wrong = (lsGet('ith_wrong', {})[attemptKey()] || []);
+      if (wrong.length) startQuiz(shuffle(wrong.slice()), 'practice'); else launchTest();
+    },
+    openSubject: function (board, grade, sid) {
+      if (!SYL.tree[board] || !SYL.tree[board][grade]) return;
+      BOARD = board; state.grade = grade; state.subjectId = sid; state.chapter = null;
+      renderBoards(); renderChapters();
+    },
+    browse: function () { var t = el('shHomeTabs'); if (t) { var bb = t.querySelector('[data-home="browse"]'); if (bb) bb.click(); } }
+  };
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!el('shGrade')) return;
