@@ -4211,6 +4211,8 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .ws__keylist { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.5rem; }
 .ws__keylist li { line-height: 1.5; color: #33415c; font-size: 0.92rem; padding-bottom: 0.4rem; border-bottom: 1px dotted #d9cfa8; }
 .ws__keyq { font-weight: 700; color: #12305c; }
+.ws__keyhint { display: inline-block; margin-top: 0.15rem; font-size: 0.82rem; color: #55607a; }
+.ws__keyhint b { color: #12305c; }
 .ws__keynote { margin: 1rem 0 0; font-size: 0.8rem; font-style: italic; color: #6b7488; }
 
 @media (max-width: 520px) {

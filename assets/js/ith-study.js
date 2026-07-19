@@ -5,6 +5,7 @@
 (function () {
   'use strict';
   var SYL = window.ITH_SYLLABUS, QB = window.ITH_STUDY_Q || {}, CT = window.ITH_STUDY_CONTENT || {};
+  var QBK = window.ITH_QBANK || {};   // premium authored question bank (educator-grade)
   if (!SYL) return;
 
   function el(id) { return document.getElementById(id); }
@@ -26,6 +27,10 @@
   function subject(grade, sid) { return subjects(grade).filter(function (s) { return s.id === sid; })[0]; }
   function key(grade, sid, chapter) { return BOARD + '|' + grade + '|' + sid + '|' + slug(chapter); }
   function chapterQs(grade, sid, chapter) { return QB[key(grade, sid, chapter)] || []; }
+  // Premium authored bank for this chapter (or null). When present, the exam
+  // engine draws its subjective sections from real, educator-written questions
+  // and model answers instead of generic chapter-name prompts.
+  function bank(grade, sid, chapter) { return QBK[key(grade, sid, chapter)] || null; }
   // Authored content (CT) is always preferred. When a chapter has questions but no
   // hand-written flashcards / notes, we derive them from the question bank so every
   // open chapter offers Revision Notes and Flashcards, not just a test.
@@ -443,6 +448,16 @@
     var pool = [], seen = {};
     function add(it, k) { k = normKey(k); if (seen[k]) return; seen[k] = 1; pool.push(it); }
 
+    // 0) Premium authored bank MCQs + assertion-reason (highest quality first).
+    var bk = bank(g, sid, ch);
+    if (bk) {
+      (bk.mcq || []).forEach(function (q) {
+        add(shuffleOpts({ q: q.q, o: q.o.slice(), a: q.a, e: q.e || '', comp: !!q.comp, diff: q.d || 2 }), q.q);
+      });
+      (bk.ar || []).forEach(function (r, i) {
+        add({ ar: true, A: r.A, R: r.R, a: r.a, comp: true, diff: 3 }, 'bank-ar-' + i);
+      });
+    }
     // 1) Authored MCQs (options randomised; keep their authored difficulty).
     chapterQs(g, sid, ch).forEach(function (q) {
       add(shuffleOpts({ q: q.q, o: q.o.slice(), a: q.a, e: q.e, comp: false, diff: q.d || 2 }), q.q);
@@ -498,26 +513,49 @@
     objAll.sort(function (a, b) { return (a.diff || 1) - (b.diff || 1); });
     var secA = objAll.slice(0, 20);   // Section A: up to 20 objective, 1 mark each
 
-    // Distinct concept pools for the subjective sections.
-    var vsaCards = cards.slice(0, 3);                    // B: define 3 distinct terms
-    var saCards = cards.slice(3, 6);                     // C: explain (remaining cards + notes)
-    var saItems = saCards.map(function (c) {
-      return { q: pick(['Explain, with a suitable example, ', 'Give reasons to support the statement about ', 'Briefly describe ']) + cleanTerm(c.f) + '.', a: c.b, comp: false };
-    });
-    while (saItems.length < 4) { var nn = nextNotes(1)[0]; saItems.push({ q: 'Give reasons: ' + lc(stripDot(nn)) + ' Explain why.', a: nn, comp: false }); }
-    saItems = saItems.slice(0, 4);
+    var bk = bank(g, sid, ch);
 
-    // D: three medium (4m) application/analysis prompts — distinct command words.
-    var medPool = shuffle([
-      { q: 'Apply the concepts of “' + ch + '” to a real-life situation and explain your reasoning.', hots: true },
-      { q: 'Analyse how the key ideas of “' + ch + '” are connected, using suitable examples.', hots: true },
-      { q: 'A student observes something related to “' + ch + '”. Explain what happens and why.', hots: true },
-      { q: 'Justify, with examples, why the concepts of “' + ch + '” are important in everyday life.', hots: true },
-      { q: 'Compare and contrast two important ideas from “' + ch + '”, giving reasons.', hots: true }
-    ]);
-    var medItems = medPool.slice(0, 3).map(function (m) { return { q: m.q, a: nextNotes(2).join(' '), comp: true }; });
+    // ---- Section B: Very Short Answer (2m). Prefer authored VSA. ----
+    var vsaItems;
+    if (bk && bk.vsa && bk.vsa.length >= 3) {
+      vsaItems = shuffle(bk.vsa.slice()).slice(0, 3).map(function (v) { return { q: v.q, a: v.a, k: v.k, cm: v.cm }; });
+    } else {
+      vsaItems = cards.slice(0, 3).map(function (c) {
+        var isQ = /\?$/.test(c.f);
+        var qv = isQ ? ('Answer in brief: ' + c.f) : (pick(['Define the term ', 'State the meaning of ', 'What is meant by ']) + cleanTerm(c.f) + '?');
+        return { q: qv, a: c.b };
+      });
+    }
 
-    // E: long (5m) HOTS/synthesis prompts (flex count) — distinct.
+    // ---- Section C: Short Answer (3m). Prefer authored SA. ----
+    var saItems;
+    if (bk && bk.sa && bk.sa.length >= 4) {
+      saItems = shuffle(bk.sa.slice()).slice(0, 4).map(function (v) { return { q: v.q, a: v.a, k: v.k, cm: v.cm }; });
+    } else {
+      saItems = cards.slice(3, 6).map(function (c) {
+        return { q: pick(['Explain, with a suitable example, ', 'Give reasons to support the statement about ', 'Briefly describe ']) + cleanTerm(c.f) + '.', a: c.b };
+      });
+      while (saItems.length < 4) { var nn = nextNotes(1)[0]; saItems.push({ q: 'Give reasons: ' + lc(stripDot(nn)) + ' Explain why.', a: nn }); }
+      saItems = saItems.slice(0, 4);
+    }
+
+    // ---- Section D: Medium Answer (4m, competency). Prefer authored MA. ----
+    var medItems;
+    if (bk && bk.ma && bk.ma.length >= 3) {
+      medItems = shuffle(bk.ma.slice()).slice(0, 3).map(function (v) { return { q: v.q, a: v.a, k: v.k, cm: v.cm, comp: true }; });
+    } else {
+      var medPool = shuffle([
+        { q: 'Apply the concepts of “' + ch + '” to a real-life situation and explain your reasoning.' },
+        { q: 'Analyse how the key ideas of “' + ch + '” are connected, using suitable examples.' },
+        { q: 'A student observes something related to “' + ch + '”. Explain what happens and why.' },
+        { q: 'Justify, with examples, why the concepts of “' + ch + '” are important in everyday life.' },
+        { q: 'Compare and contrast two important ideas from “' + ch + '”, giving reasons.' }
+      ]);
+      medItems = medPool.slice(0, 3).map(function (m) { return { q: m.q, a: nextNotes(2).join(' '), comp: true }; });
+    }
+
+    // ---- Section E: Long Answer (5m HOTS, flex count). Prefer authored LA. ----
+    var laItems = (bk && bk.la && bk.la.length) ? shuffle(bk.la.slice()) : null;
     var longPool = shuffle([
       'Explain in detail, with suitable examples, the important principles of “' + ch + '”.',
       'Discuss comprehensively the main concepts of “' + ch + '” and their significance.',
@@ -528,25 +566,30 @@
       'Explain the cause-and-effect relationships involved in “' + ch + '”, using examples.'
     ]);
 
-    // F: three case/source-based studies (5m each) from distinct passages.
-    var caseQ2Pool = shuffle([
-      'explain one real-life application of the idea described.',
-      'analyse why this idea is important, giving an example.',
-      'explain how this concept can be applied to solve a problem.',
-      'justify the main conclusion using evidence from the passage.'
-    ]);
-    var caseStudies = [];
-    for (var ci = 0; ci < 3; ci++) {
-      var passage = nextNotes(2).join(' ');
-      caseStudies.push({
-        passage: passage,
-        q1: { q: 'With reference to Passage ' + (ci + 1) + ', state the main idea it presents.', a: passage, m: 2 },
-        q2: { q: 'From Passage ' + (ci + 1) + ', ' + caseQ2Pool[ci % caseQ2Pool.length], a: passage, m: 3 }
-      });
+    // ---- Section F: Case/Source-based (5m each). Prefer authored case studies. ----
+    // Normalised shape: { p: passage, q: [ {q, a, m}, ... ] } summing to 5 marks each.
+    var caseStudies;
+    if (bk && bk.cs && bk.cs.length >= 3) {
+      caseStudies = shuffle(bk.cs.slice()).slice(0, 3).map(function (c) { return { p: c.p, q: c.q.slice() }; });
+    } else {
+      var caseQ2Pool = shuffle([
+        'explain one real-life application of the idea described.',
+        'analyse why this idea is important, giving an example.',
+        'explain how this concept can be applied to solve a problem.',
+        'justify the main conclusion using evidence from the passage.'
+      ]);
+      caseStudies = [];
+      for (var ci = 0; ci < 3; ci++) {
+        var passage = nextNotes(2).join(' ');
+        caseStudies.push({ p: passage, q: [
+          { q: 'With reference to Passage ' + (ci + 1) + ', state the main idea it presents.', a: passage, m: 2 },
+          { q: 'From Passage ' + (ci + 1) + ', ' + caseQ2Pool[ci % caseQ2Pool.length], a: passage, m: 3 }
+        ] });
+      }
     }
 
     var key = [], qn = 0, html = '', compMarks = 0;
-    function addKey(ans) { qn++; key.push({ label: 'Q' + qn, ans: ans }); return qn; }
+    function addKey(ans, extra) { qn++; key.push({ label: 'Q' + qn, ans: ans, k: extra && extra.k, cm: extra && extra.cm }); return qn; }
     function count(m, comp) { if (comp) compMarks += m; }
 
     // ---- Section A: objective (1 mark each) ----
@@ -570,33 +613,36 @@
 
     // ---- Section B: Very Short Answer (2 marks each) ----
     html += '<h2 class="ws__sec">Section B &middot; Very Short Answer <span class="ws__sec-note">(2 marks each)</span></h2><ol class="ws__list">';
-    vsaCards.forEach(function (c) {
-      var isQ = /\?$/.test(c.f);
-      var qv = isQ ? ('Answer in brief: ' + c.f) : (pick(['Define the term ', 'State the meaning of ', 'What is meant by ']) + cleanTerm(c.f) + '?');
-      addKey(c.b);
-      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(qv) + '</p><span class="ws__marks">[2]</span></div>' + ansLines(2) + '</li>';
+    vsaItems.forEach(function (it) {
+      addKey(it.a, it);
+      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[2]</span></div>' + ansLines(2) + '</li>';
     });
     html += '</ol>';
 
     // ---- Section C: Short Answer (3 marks each) ----
     html += '<h2 class="ws__sec">Section C &middot; Short Answer <span class="ws__sec-note">(3 marks each)</span></h2><ol class="ws__list">';
-    saItems.forEach(function (it) { addKey(it.a);
+    saItems.forEach(function (it) { addKey(it.a, it);
       html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[3]</span></div>' + ansLines(3) + '</li>'; });
     html += '</ol>';
 
     // ---- Section D: Medium Answer (4 marks each, competency) ----
     html += '<h2 class="ws__sec">Section D &middot; Medium Answer <span class="ws__sec-note">(competency-based, 4 marks each)</span></h2><ol class="ws__list">';
-    medItems.forEach(function (it) { count(4, true); addKey(it.a);
+    medItems.forEach(function (it) { count(4, true); addKey(it.a, it);
       html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(it.q) + '</p><span class="ws__marks">[4]</span></div>' + ansLines(5) + '</li>'; });
     html += '</ol>';
 
+    // ---- Section F marks (computed from actual sub-question marks) ----
+    var caseMarks = caseStudies.reduce(function (t, cs) { return t + cs.q.reduce(function (u, x) { return u + (x.m || 0); }, 0); }, 0);
+
     // ---- Section E: Long Answer (flex so the paper always totals exactly 80) ----
-    var caseMarks = caseStudies.length * 5;
-    var eTotal = 80 - (secA.length + vsaCards.length * 2 + saItems.length * 3 + medItems.length * 4 + caseMarks);
+    var eTotal = 80 - (secA.length + vsaItems.length * 2 + saItems.length * 3 + medItems.length * 4 + caseMarks);
     var eChunks = splitMarks(eTotal);
     html += '<h2 class="ws__sec">Section E &middot; Long Answer <span class="ws__sec-note">(HOTS / analysis, ' + eTotal + ' marks)</span></h2><ol class="ws__list">';
     eChunks.forEach(function (m, i) {
-      var qtext = longPool[i % longPool.length]; addKey(nextNotes(3).join(' '));
+      var qtext, ans, extra;
+      if (laItems && i < laItems.length) { qtext = laItems[i].q; ans = laItems[i].a; extra = laItems[i]; count(m, true); }
+      else { qtext = longPool[i % longPool.length]; ans = nextNotes(3).join(' '); extra = null; }
+      addKey(ans, extra);
       html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(qtext) + '</p><span class="ws__marks">[' + m + ']</span></div>' + ansLines(m >= 5 ? 8 : 6) + '</li>';
     });
     html += '</ol>';
@@ -605,18 +651,20 @@
     html += '<h2 class="ws__sec">Section F &middot; Case-Based Study <span class="ws__sec-note">(source-based competency, 5 marks each)</span></h2>';
     html += '<p class="ws__secinstr">Read each passage carefully and answer the questions that follow.</p>';
     caseStudies.forEach(function (cs, i) {
-      count(5, true);
-      html += '<div class="ws__case"><p class="ws__case-lead">Passage ' + (i + 1) + '</p><p class="ws__case-body">' + esc(cs.passage) + '</p></div><ol class="ws__list ws__list--case">';
-      addKey(cs.q1.a);
-      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(cs.q1.q) + '</p><span class="ws__marks">[' + cs.q1.m + ']</span></div>' + ansLines(2) + '</li>';
-      addKey(cs.q2.a);
-      html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(cs.q2.q) + '</p><span class="ws__marks">[' + cs.q2.m + ']</span></div>' + ansLines(3) + '</li></ol>';
+      var csMarks = cs.q.reduce(function (u, x) { return u + (x.m || 0); }, 0);
+      count(csMarks, true);
+      html += '<div class="ws__case"><p class="ws__case-lead">Passage ' + (i + 1) + '</p><p class="ws__case-body">' + esc(cs.p) + '</p></div><ol class="ws__list ws__list--case">';
+      cs.q.forEach(function (sq) {
+        addKey(sq.a, sq);
+        html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(sq.q) + '</p><span class="ws__marks">[' + sq.m + ']</span></div>' + ansLines(sq.m >= 3 ? 3 : 2) + '</li>';
+      });
+      html += '</ol>';
     });
 
     // ---- Header, marking scheme, answer key ----
-    var totalMarks = secA.length + vsaCards.length * 2 + saItems.length * 3 + medItems.length * 4 + eTotal + caseMarks;
+    var totalMarks = secA.length + vsaItems.length * 2 + saItems.length * 3 + medItems.length * 4 + eTotal + caseMarks;
     var compPct = Math.round(compMarks / totalMarks * 100);
-    var scheme = [['A', 'Objective', secA.length], ['B', 'Very Short', vsaCards.length * 2], ['C', 'Short', saItems.length * 3], ['D', 'Medium', medItems.length * 4], ['E', 'Long', eTotal], ['F', 'Case-Based', caseMarks]]
+    var scheme = [['A', 'Objective', secA.length], ['B', 'Very Short', vsaItems.length * 2], ['C', 'Short', saItems.length * 3], ['D', 'Medium', medItems.length * 4], ['E', 'Long', eTotal], ['F', 'Case-Based', caseMarks]]
       .map(function (r) { return '<span class="ws__scheme-cell"><b>' + r[0] + '</b> ' + esc(r[1]) + ' &middot; ' + r[2] + 'm</span>'; }).join('');
 
     var head = '<div class="ws__head">' +
@@ -637,8 +685,13 @@
         '<div class="ws__headtext"><div class="ws__brand">Inspire Talent Hub &middot; Marking Scheme / Answer Key</div>' +
         '<h2 class="ws__title ws__title--sm">' + esc(ch) + ' &mdash; Set ' + setNo + '</h2></div></div>' +
         '<ol class="ws__keylist">' +
-        key.map(function (k) { return '<li><span class="ws__keyq">' + esc(k.label) + '.</span> ' + esc(k.ans) + '</li>'; }).join('') +
-        '</ol><p class="ws__keynote">For subjective and case-based questions the key gives the expected points; award full marks for any correct equivalent explanation with valid examples.</p></div>';
+        key.map(function (k) {
+          var s = '<li><span class="ws__keyq">' + esc(k.label) + '.</span> ' + esc(k.ans);
+          if (k.k && k.k.length) s += '<br><span class="ws__keyhint"><b>Expected key terms:</b> ' + esc(k.k.join(', ')) + '</span>';
+          if (k.cm) s += '<br><span class="ws__keyhint"><b>Common error to avoid:</b> ' + esc(k.cm) + '</span>';
+          return s + '</li>';
+        }).join('') +
+        '</ol><p class="ws__keynote">For subjective and case-based questions the key gives the expected points; award full marks for any correct equivalent explanation with valid examples. Deduct for missing key terms or the common errors noted above.</p></div>';
 
     return '<section class="ws-paper"><img class="ws__wm" src="assets/cert/seal.png" alt="" aria-hidden="true"><div class="ws__inner">' +
       head + html + '</div></section>' +
