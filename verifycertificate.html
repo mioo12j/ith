@@ -217,6 +217,8 @@
           var v = el('scanVideo');
           v.srcObject = stream; v.setAttribute('playsinline', '');
           el('qrScanner').hidden = false;
+          el('qrScanner').classList.add('qr-scanner--modal');
+          document.body.classList.add('qr-open');
           el('scanStatus').textContent = 'Point your camera at the QR code on the certificate.';
           return v.play();
         })
@@ -249,6 +251,8 @@
       if (scanStream) { scanStream.getTracks().forEach(function (t) { t.stop(); }); scanStream = null; }
       var v = el('scanVideo'); if (v) v.srcObject = null;
       el('qrScanner').hidden = true;
+      el('qrScanner').classList.remove('qr-scanner--modal');
+      document.body.classList.remove('qr-open');
     }
 
     function cell(label, value, i) {

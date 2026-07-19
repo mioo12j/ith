@@ -4253,6 +4253,21 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 .qr-scanner__status { font-size: var(--font-size-sm); color: var(--color-text-secondary); margin: 0; }
 .qr-fallback { max-width: 680px; margin: var(--spacing-6) auto 0; }
 
+/* Modal overlay: scanner pops up in front (centred), not in-flow below the form */
+.qr-scanner--modal { position: fixed; inset: 0; z-index: 2000; margin: 0; max-width: none;
+  width: 100%; height: 100%; border: 0; border-radius: 0; background: rgba(3, 6, 13, 0.92);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--spacing-4); padding: max(env(safe-area-inset-top), 1rem) 1rem max(env(safe-area-inset-bottom), 1rem);
+  opacity: 1; transform: none; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  animation: qrModalIn 0.28s ease both; }
+@keyframes qrModalIn { from { opacity: 0; } to { opacity: 1; } }
+.qr-scanner--modal .qr-scanner__view { width: min(92vw, 460px); border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--color-brand-alpha-20); box-shadow: 0 24px 70px rgba(0,0,0,0.55); }
+.qr-scanner--modal video { max-height: 70vh; }
+.qr-scanner--modal .qr-scanner__bar { width: min(92vw, 460px); border-radius: 14px;
+  background: var(--color-bg-surface-1); border: 1px solid var(--color-brand-alpha-20); }
+body.qr-open { overflow: hidden; }
+
 /* ==========================================================================
    32. CERTIFICATE SYSTEM — PREMIUM MOTION & MICRO-INTERACTIONS
    GPU-friendly (transform/opacity only). All entrance/looping motion is
