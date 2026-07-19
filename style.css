@@ -4545,7 +4545,22 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
   body.ws-printing .ws-paper:last-child { break-after: auto; page-break-after: auto; min-height: 0; }
   /* Keep every inner block inside the printable column. */
   body.ws-printing .ws-paper * { max-width: 100%; }
-  body.ws-printing .ws__wm { opacity: 0.07 !important; }
+  /* The single in-flow watermark is replaced by a per-page fixed watermark below. */
+  body.ws-printing .ws__wm { display: none !important; }
+  /* Per-page watermark: fixed-position elements are painted on EVERY printed
+     page, so the brand seal + diagonal text appear on every A4 sheet. */
+  body.ws-printing::before {
+    content: ""; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url(assets/cert/seal.png);
+    background-repeat: no-repeat; background-position: center center; background-size: 58% auto;
+    opacity: 0.05; z-index: 2147483000; pointer-events: none;
+    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body.ws-printing::after {
+    content: "INSPIRE TALENT HUB"; position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg); white-space: nowrap;
+    font-family: 'Playfair Display', Georgia, serif; font-weight: 700; letter-spacing: 0.14em;
+    font-size: 52px; color: #12305c; opacity: 0.05; z-index: 2147483000; pointer-events: none;
+    -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   body.ws-printing .ws__sec, body.ws-printing .ws__case { break-after: avoid; page-break-after: avoid; }
   body.ws-printing .ws__list li { break-inside: avoid; page-break-inside: avoid; }
   body.ws-printing .ws__head { break-after: avoid; page-break-after: avoid; }
