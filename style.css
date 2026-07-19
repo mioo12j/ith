@@ -4734,3 +4734,33 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
   .sh-dash > *, .dash-card, .dash-stat, .dash-continue, .dash-subs__btn { animation: none !important; transition: none !important; transform: none !important; }
   .dash-ring__fg, .dash-bar__fill { transition: none !important; }
 }
+
+/* ===== Premium editorial content — insight cards (replaces walls of prose) ===== */
+.ith-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 1.3rem; max-width: 1120px; margin: 0 auto; }
+.ith-cards--2 { max-width: 900px; }
+.ith-card { position: relative; display: flex; flex-direction: column; gap: 0.9rem;
+  padding: 1.75rem 1.6rem 1.65rem 1.9rem; border-radius: 18px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+  border: 1px solid rgba(232,198,106,0.18); box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+.ith-card:hover { transform: translateY(-4px); border-color: rgba(232,198,106,0.42);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.3); }
+.ith-card::before { content: ""; position: absolute; left: 0; top: 1.75rem; bottom: 1.65rem; width: 3px;
+  border-radius: 0 3px 3px 0; background: linear-gradient(#e8c66a, rgba(232,198,106,0)); }
+.ith-card__num { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 2.4rem; height: 2.4rem; border-radius: 12px; font-family: var(--font-family-display);
+  font-weight: 700; font-size: 1.05rem; color: #1a1200;
+  background: linear-gradient(135deg, #e8c66a, #f0d488); box-shadow: 0 6px 16px rgba(232,198,106,0.3); }
+.ith-card p { margin: 0; color: var(--color-text-secondary); font-size: 0.96rem; line-height: 1.72; max-width: none !important; }
+.ith-card p a, .ith-card a { color: #e8c66a; text-decoration: none; border-bottom: 1px solid rgba(232,198,106,0.4); }
+.ith-card p a:hover { color: #f5dc93; }
+/* subtle staggered entrance when the group reveals */
+.reveal.is-visible .ith-card, .reveal.visible .ith-card, .reveal.in-view .ith-card,
+.ith-cards.reveal.is-visible .ith-card { animation: ithCardUp 0.5s cubic-bezier(.2,.7,.3,1) both; }
+.ith-cards .ith-card:nth-child(2) { animation-delay: 0.07s; }
+.ith-cards .ith-card:nth-child(3) { animation-delay: 0.14s; }
+.ith-cards .ith-card:nth-child(4) { animation-delay: 0.21s; }
+@keyframes ithCardUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (max-width: 600px) { .ith-card { padding: 1.4rem 1.3rem 1.3rem 1.55rem; } }
+@media (prefers-reduced-motion: reduce) { .ith-card { animation: none !important; transition: none !important; transform: none !important; } }
