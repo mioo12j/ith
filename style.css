@@ -1953,26 +1953,91 @@ p {
 .index-nav__link:hover { color: #c9a84c; }
 .index-nav__link:hover::after { width: 100%; }
 
-/* Study Hub — highlighted call-to-action in the main nav */
+/* Competitions — PRIMARY call-to-action in the main nav (most prominent) */
+.index-nav__link--comp {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 0.42rem; white-space: nowrap;
+  padding: 0.55rem 1.15rem; border-radius: 999px; letter-spacing: 0.08em; font-weight: 700;
+  color: #1a1200 !important;
+  background: linear-gradient(135deg, #e8c66a, #f5dc93);
+  box-shadow: 0 8px 22px rgba(232,198,106,0.42);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+.index-nav__link--comp::after { display: none; }
+.index-nav__link--comp::before {
+  content: ""; position: absolute; inset: -2px; border-radius: 999px;
+  background: linear-gradient(135deg, rgba(245,220,147,0.55), rgba(232,198,106,0));
+  filter: blur(6px); z-index: -1; opacity: 0.8;
+}
+.index-nav__link--comp:hover {
+  color: #1a1200 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(232,198,106,0.55);
+  filter: brightness(1.05);
+}
+.index-nav__link--comp[aria-current="page"] {
+  box-shadow: 0 0 0 2px rgba(232,198,106,0.6), 0 8px 22px rgba(232,198,106,0.42);
+}
+
+/* Study Hub — SECONDARY highlight: gold-outline pill (subordinate to Competitions) */
 .index-nav__link--study {
   display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap;
-  padding: 0.5rem 0.95rem; border-radius: 999px; letter-spacing: 0.1em;
-  color: #1a1200 !important;
-  background: linear-gradient(135deg, #e8c66a, #f0d488);
-  box-shadow: 0 6px 18px rgba(232,198,106,0.32);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  padding: 0.48rem 0.9rem; border-radius: 999px; letter-spacing: 0.06em; font-weight: 600;
+  color: #e8c66a !important;
+  background: rgba(232,198,106,0.08);
+  border: 1.5px solid rgba(232,198,106,0.55);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 .index-nav__link--study::after { display: none; }
 .index-nav__link--study:hover {
   color: #1a1200 !important;
+  background: linear-gradient(135deg, #e8c66a, #f0d488);
   transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(232,198,106,0.45);
-  filter: brightness(1.04);
+  box-shadow: 0 8px 20px rgba(232,198,106,0.32);
 }
 .index-nav__link--study[aria-current="page"] {
-  box-shadow: 0 0 0 2px rgba(232,198,106,0.5), 0 6px 18px rgba(232,198,106,0.32);
+  background: rgba(232,198,106,0.16);
+  box-shadow: 0 0 0 1px rgba(232,198,106,0.4);
 }
 .index-nav__link-ic { flex-shrink: 0; }
+
+/* ---- Homepage: Study Hub promo section ---- */
+.sh-promo { position: relative; display: grid; grid-template-columns: 1.35fr 0.9fr; gap: 2.4rem; align-items: center;
+  padding: 2.6rem; border-radius: 24px; overflow: hidden;
+  background: linear-gradient(135deg, rgba(20,32,58,0.9), rgba(12,18,34,0.94));
+  border: 1px solid rgba(232,198,106,0.28); box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+.sh-promo__glow { position: absolute; top: -40%; right: -10%; width: 60%; height: 160%;
+  background: radial-gradient(circle, rgba(232,198,106,0.18), rgba(232,198,106,0) 65%); pointer-events: none; }
+.sh-promo__body { position: relative; z-index: 1; }
+.sh-promo__title { font-family: var(--font-family-display); font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0.5rem 0 0.8rem; color: #fff; }
+.sh-promo__lead { color: var(--color-text-secondary); line-height: 1.65; margin: 0 0 1.3rem; max-width: 46ch; }
+.sh-promo__lead strong { color: #f0d488; }
+.sh-promo__feats { list-style: none; padding: 0; margin: 0 0 1.6rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem 1.2rem; }
+.sh-promo__feats li { display: flex; align-items: center; gap: 0.6rem; color: var(--color-text-primary); font-size: var(--font-size-sm); }
+.sh-promo__ic { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 1.9rem; height: 1.9rem; border-radius: 999px; color: #e8c66a;
+  background: rgba(232,198,106,0.12); border: 1px solid rgba(232,198,106,0.35); }
+.sh-promo__actions { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+.sh-promo__link { color: #e8c66a; font-weight: 600; font-size: var(--font-size-sm); text-decoration: none; transition: color 0.2s ease; }
+.sh-promo__link:hover { color: #f5dc93; }
+.sh-promo__cards { position: relative; z-index: 1; display: grid; gap: 0.9rem; }
+.sh-promo__card { display: flex; flex-direction: column; gap: 0.15rem; padding: 1.1rem 1.3rem; border-radius: 16px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(232,198,106,0.22);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.25); }
+.sh-promo__card b { font-family: var(--font-family-display); font-size: 1.5rem; color: #f0d488; line-height: 1; }
+.sh-promo__card span { font-size: 0.78rem; color: var(--color-text-secondary); letter-spacing: 0.04em; text-transform: uppercase; }
+.sh-promo__card--2 { transform: translateX(1.6rem); }
+.sh-promo__card--3 { transform: translateX(0.7rem); }
+@media (max-width: 860px) {
+  .sh-promo { grid-template-columns: 1fr; gap: 1.8rem; padding: 2rem 1.6rem; }
+  .sh-promo__cards { grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+  .sh-promo__card { padding: 0.9rem; }
+  .sh-promo__card--2, .sh-promo__card--3 { transform: none; }
+}
+@media (max-width: 520px) {
+  .sh-promo__feats { grid-template-columns: 1fr; }
+  .sh-promo__cards { grid-template-columns: 1fr; }
+}
 
 /* Mobile Hamburger Base */
 .index-nav__hamburger {
@@ -4454,19 +4519,33 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
 }
 @media (prefers-reduced-motion: reduce) { .cred-pick { animation: none !important; opacity: 1 !important; transform: none !important; } }
 
-/* ---- Print: worksheet (Study Hub) — only when body.ws-printing is set ---- */
+/* ---- Print: worksheet (Study Hub) — only when body.ws-printing is set ----
+   Forces a true A4 layout on EVERY device. On phones the layout viewport is
+   ~380px, so a width:100% sheet made the browser lay the paper out at phone
+   width and then scale it — producing clipped, misaligned PDFs. Pinning the
+   container and every paper to 210mm makes the print engine compose at real
+   A4 width regardless of screen size. */
 @media print {
+  @page { size: A4 portrait; margin: 0; }
+  body.ws-printing { width: auto !important; margin: 0 !important; padding: 0 !important; background: #fff !important; }
   body.ws-printing * { visibility: hidden !important; }
   body.ws-printing #wsSheet, body.ws-printing #wsSheet * { visibility: visible !important; }
-  body.ws-printing #wsSheet { position: absolute; left: 0; top: 0; width: 100%; max-width: none;
+  body.ws-printing #wsSheet {
+    position: absolute; left: 0; top: 0; right: auto;
+    width: 210mm; max-width: 210mm; min-width: 210mm; margin: 0;
     box-shadow: none; border-radius: 0; padding: 0; background: #fff;
     -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   /* Each question paper and each answer key prints on its own A4 page. */
-  body.ws-printing .ws-paper { break-inside: auto; break-after: page; page-break-after: always;
-    padding: 12mm 14mm; margin: 0; border-top: 0 !important; overflow: visible; }
-  body.ws-printing .ws-paper:last-child { break-after: auto; page-break-after: auto; }
+  body.ws-printing .ws-paper {
+    width: 210mm; max-width: 210mm; min-height: 297mm; box-sizing: border-box;
+    break-inside: auto; break-after: page; page-break-after: always;
+    padding: 14mm 15mm; margin: 0; border-top: 0 !important; border-radius: 0; overflow: visible; }
+  body.ws-printing .ws-paper:last-child { break-after: auto; page-break-after: auto; min-height: 0; }
+  /* Keep every inner block inside the printable column. */
+  body.ws-printing .ws-paper * { max-width: 100%; }
   body.ws-printing .ws__wm { opacity: 0.07 !important; }
   body.ws-printing .ws__sec, body.ws-printing .ws__case { break-after: avoid; page-break-after: avoid; }
   body.ws-printing .ws__list li { break-inside: avoid; page-break-inside: avoid; }
+  body.ws-printing .ws__head { break-after: avoid; page-break-after: avoid; }
   body.ws-printing .ws__lines { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 }
