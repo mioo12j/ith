@@ -1,0 +1,54 @@
+
+==================================================================
+ INTERNAL COVERAGE REPORT — Chemical Reactions and Equations
+ key: cbse|10|science|chemical-reactions-and-equations
+==================================================================
+
+1) QUESTIONS BY TYPE  (count / target range / status)
+   MCQ            102   [100–150]   ✓ in range
+   Assertion-Reason   25   [25–40]   ✓ in range
+   Very Short (2m)    37   [30–50]   ✓ in range
+   Short (3m)         41   [40–60]   ✓ in range
+   Medium (4m)        30   [30–40]   ✓ in range
+   Long/HOTS (5m)     25   [25–35]   ✓ in range
+   Case Study         20   [20–30]   ✓ in range
+   Case sub-questions 40
+   TOTAL question items: 300 (incl. case sub-questions)
+
+2) DIFFICULTY DISTRIBUTION (item-based)
+   Foundational   55  █████···················  20%
+   Intermediate  106  █████████···············  38%
+   Advanced      119  ██████████··············  43%
+
+3) COMPETENCY / HOTS SHARE
+   125 of 280 items are competency-based = 45%
+
+4) SUBTOPIC COVERAGE  (items touching each subtopic; ⚠ = weak < 6)
+   Chemical change & signs of reaction ............ 18
+   Writing & balancing equations .................. 61
+   State symbols & conditions ..................... 27
+   Law of conservation of mass .................... 31
+   Quantitative / mole reasoning .................. 67
+   Combination reactions .......................... 33
+   Decomposition (thermal/electrolytic/photolytic)  86
+   Displacement & reactivity ...................... 56
+   Double displacement & precipitation ............240
+   Oxidation-reduction (redox) & agents ........... 64
+   Corrosion ...................................... 31
+   Rancidity & food preservation .................. 28
+   Exothermic & endothermic ....................... 52
+
+5) PARAPHRASE / NEAR-DUPLICATE CHECK (stem similarity ≥ 0.82)
+   ✓ No near-duplicate stems detected.
+
+6) GOLD-STANDARD CHECKLIST
+   [✓] All question types meet minimum target counts
+   [✓] Difficulty balanced (foundational → advanced present)
+   [✓] Competency share ≥ 35%
+   [✓] Every subtopic has adequate coverage (≥ 6 items)
+   [✓] No near-duplicate/paraphrased stems
+
+   ==> GOLD STANDARD COMPLETE ✅
+
+==================================================================
+
