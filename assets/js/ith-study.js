@@ -832,12 +832,43 @@
       '<div class="ws-sheet" id="wsSheet"></div></div>';
     renderWorksheet(root, 1);
     var sel = root.querySelector('[data-ws-count]');
-    root.querySelector('[data-ws-print]').addEventListener('click', function () { window.print(); });
+    root.querySelector('[data-ws-print]').addEventListener('click', printPapers);
     root.querySelector('[data-ws-regen]').addEventListener('click', function () { renderWorksheet(root, parseInt(sel.value, 10) || 1); });
     sel.addEventListener('change', function () { renderWorksheet(root, parseInt(sel.value, 10) || 1); });
-    document.body.classList.add('ws-printing');
-    // Clean up the print flag if the user navigates away.
-    el('shToolBack').onclick = function () { document.body.classList.remove('ws-printing'); renderHub(); };
+    el('shToolBack').onclick = renderHub;
+  }
+
+  // Reliable cross-browser printing: render the paper into an isolated iframe
+  // that carries its own self-contained A4 stylesheet. This avoids the mobile
+  // failure mode where printing the whole page let the phone's narrow layout
+  // viewport (and the site's global certificate print rule) break the A4 layout.
+  function printPapers() {
+    var sheet = el('wsSheet');
+    if (!sheet || !sheet.innerHTML.trim()) return;
+    var base = location.href.replace(/[^\/]*$/, '');
+    var docHtml = '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
+      '<base href="' + base + '">' +
+      '<meta name="viewport" content="width=794">' +   // 210mm ≈ 794px: force A4 layout, even on phones
+      '<title>Inspire Talent Hub — Examination Paper</title>' +
+      '<link rel="stylesheet" href="assets/print-paper.css">' +
+      '</head><body><div id="wsSheet">' + sheet.innerHTML + '</div></body></html>';
+
+    var old = el('wsPrintFrame'); if (old && old.parentNode) old.parentNode.removeChild(old);
+    var ifr = document.createElement('iframe');
+    ifr.id = 'wsPrintFrame'; ifr.setAttribute('aria-hidden', 'true'); ifr.title = 'Print preview';
+    ifr.style.cssText = 'position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none;';
+    document.body.appendChild(ifr);
+
+    var win = ifr.contentWindow, fired = false;
+    function go() {
+      if (fired) return; fired = true;
+      try { win.focus(); win.print(); } catch (e) { window.print(); }
+    }
+    // Print once the document (and its images/stylesheet) have loaded; a timeout
+    // fallback covers browsers that don't fire onload for a written document.
+    ifr.onload = function () { setTimeout(go, 400); };
+    var d = win.document; d.open(); d.write(docHtml); d.close();
+    setTimeout(go, 1400);
   }
 
   // ---- Navigation API for the dashboard (device-local, no backend) ----
