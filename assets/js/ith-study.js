@@ -640,8 +640,11 @@
     html += '<h2 class="ws__sec">Section E &middot; Long Answer <span class="ws__sec-note">(HOTS / analysis, ' + eTotal + ' marks)</span></h2><ol class="ws__list">';
     eChunks.forEach(function (m, i) {
       var qtext, ans, extra;
-      if (laItems && i < laItems.length) { qtext = laItems[i].q; ans = laItems[i].a; extra = laItems[i]; count(m, true); }
+      if (laItems && i < laItems.length) { qtext = laItems[i].q; ans = laItems[i].a; extra = laItems[i]; }
       else { qtext = longPool[i % longPool.length]; ans = nextNotes(3).join(' '); extra = null; }
+      // Section E is Higher-Order-Thinking/analysis — it always counts as competency,
+      // which (with Sections D and F) guarantees every paper is >= 50% competency.
+      count(m, true);
       addKey(ans, extra);
       html += '<li><div class="ws__qrow"><p class="ws__q">' + esc(qtext) + '</p><span class="ws__marks">[' + m + ']</span></div>' + ansLines(m >= 5 ? 8 : 6) + '</li>';
     });
