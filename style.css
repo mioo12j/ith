@@ -4692,3 +4692,45 @@ textarea.form-input { min-height: 150px; font-family: 'Courier New', monospace; 
   .dash-stats { grid-template-columns: 1fr 1fr; }
   .dash-grid2 { grid-template-columns: 1fr; }
 }
+
+/* ===== Study Hub — Priority 2 UI/UX polish (refinement only) ===== */
+/* Cleaner focus rings that hug pill/chip controls (vs the global 4px offset) */
+.sh-hometab:focus-visible, .dash-chip:focus-visible, .sh-bookmark:focus-visible,
+.dash-mini:focus-visible, .sh-filter__in:focus-visible {
+  outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.sh-grade:focus-visible, .sh-sub:focus-visible, .sh-chap:focus-visible,
+.sh-tool:focus-visible, .dash-subs__btn:focus-visible {
+  outline: 2px solid var(--color-brand-primary); outline-offset: 3px; }
+
+/* Keyboard-accessible subject rows (now real buttons) */
+.dash-subs__btn { width: 100%; text-align: left; background: transparent; border: 0; cursor: pointer;
+  padding: 0.55rem 0.7rem; border-radius: 12px; color: inherit; font-family: inherit;
+  transition: background 0.2s ease; }
+.dash-subs__btn:hover { background: rgba(255,255,255,0.05); }
+
+/* Consistent hover elevation & feedback on dashboard cards/stats */
+.dash-card, .dash-stat { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.dash-stat:hover { transform: translateY(-2px); border-color: rgba(232,198,106,0.32); }
+.dash-continue { transition: box-shadow 0.25s ease; }
+.dash-continue:hover { box-shadow: 0 10px 30px rgba(232,198,106,0.14); }
+
+/* Subtle staggered entrance for dashboard blocks */
+.sh-dash > * { animation: dashUp 0.5s cubic-bezier(.2,.7,.3,1) both; }
+.sh-dash > *:nth-child(2) { animation-delay: .04s; } .sh-dash > *:nth-child(3) { animation-delay: .08s; }
+.sh-dash > *:nth-child(4) { animation-delay: .12s; } .sh-dash > *:nth-child(5) { animation-delay: .16s; }
+.sh-dash > *:nth-child(6) { animation-delay: .20s; } .sh-dash > *:nth-child(n+7) { animation-delay: .24s; }
+@keyframes dashUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* Comfortable touch targets on small screens */
+@media (max-width: 760px) {
+  .sh-hometab, .dash-chip, .sh-bookmark, .dash-mini { min-height: 42px; }
+  .dash-continue__act { width: 100%; }
+  .dash-continue__act .btn { flex: 1 1 auto; justify-content: center; }
+  .dash-hi { font-size: 1.5rem; }
+}
+
+/* Respect reduced motion for every new dashboard/hub animation */
+@media (prefers-reduced-motion: reduce) {
+  .sh-dash > *, .dash-card, .dash-stat, .dash-continue, .dash-subs__btn { animation: none !important; transition: none !important; transform: none !important; }
+  .dash-ring__fg, .dash-bar__fill { transition: none !important; }
+}

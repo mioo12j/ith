@@ -169,9 +169,9 @@
     if (subs.length) {
       h += '<div class="dash-card"><div class="dash-card__head"><h3>Subject progress</h3></div><ul class="dash-subs">';
       subs.forEach(function (su) {
-        var p = pct(su.correct, su.total);
-        h += '<li data-subj=\'' + esc(JSON.stringify({ board: su.board, grade: su.grade, subjectId: su.subjectId })) + '\' class="hover-target">' +
-          '<div class="dash-subs__row"><b>' + esc(su.name) + '</b><span>Class ' + su.grade + ' · ' + Object.keys(su.chapters).length + ' chapter' + (Object.keys(su.chapters).length === 1 ? '' : 's') + ' · ' + p + '%</span></div>' + bar(p, tone(p)) + '</li>';
+        var p = pct(su.correct, su.total), nc = Object.keys(su.chapters).length;
+        h += '<li><button type="button" class="dash-subs__btn hover-target" data-subj=\'' + esc(JSON.stringify({ board: su.board, grade: su.grade, subjectId: su.subjectId })) + '\' aria-label="Open ' + esc(su.name) + ', Class ' + su.grade + ', ' + p + '% accuracy">' +
+          '<div class="dash-subs__row"><b>' + esc(su.name) + '</b><span>Class ' + su.grade + ' · ' + nc + ' chapter' + (nc === 1 ? '' : 's') + ' · ' + p + '%</span></div>' + bar(p, tone(p)) + '</button></li>';
       });
       h += '</ul></div>';
     }
