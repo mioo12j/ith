@@ -5113,3 +5113,11 @@ body.qr-open { overflow: hidden; }
 .pa-chip { min-height: 44px; }
 .pa-chip:not(.is-on):active { transform: scale(0.97); }
 .pa-chip:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+
+/* Gallery with a single real photo — centre it at a readable size */
+.gallery-masonry--single { column-count: 1; max-width: 760px; margin-left: auto; margin-right: auto; }
+.gallery-more-note { text-align: center; color: var(--color-text-tertiary); font-size: var(--font-size-sm);
+  margin: var(--spacing-8) auto 0; max-width: 60ch; }
+
+/* Success-story cards without a photo — single, readable column */
+.case-study--nomedia { grid-template-columns: 1fr; max-width: 760px; margin-left: auto; margin-right: auto; }
