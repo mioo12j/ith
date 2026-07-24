@@ -4817,3 +4817,171 @@ body.qr-open { overflow: hidden; }
 @keyframes ithCardUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @media (max-width: 600px) { .ith-card { padding: 1.4rem 1.3rem 1.3rem 1.55rem; } }
 @media (prefers-reduced-motion: reduce) { .ith-card { animation: none !important; transition: none !important; transform: none !important; } }
+
+/* ==========================================================================
+   STUDY HUB — UI/UX REVAMP (mobile-first, native only)
+   Layered after the base .sh-* rules so it wins by source order.
+   Spacing uses the 8-point token scale exclusively:
+   --spacing-2 = 8px · --spacing-4 = 16px · --spacing-6 = 24px · --spacing-8 = 32px
+   All interactive elements are >= 44x44px touch targets.
+   ========================================================================== */
+
+/* Shell rhythm ----------------------------------------------------------- */
+.sh-shell { max-width: 960px; margin: 0 auto; }
+.sh-path { margin-bottom: var(--spacing-6); gap: var(--spacing-1); }
+
+/* Step headers: clear visual hierarchy ---------------------------------- */
+.sh-step__head { gap: var(--spacing-4); margin-bottom: var(--spacing-6); }
+.sh-step__title { letter-spacing: -0.01em; }
+.sh-step__sub { color: var(--color-text-tertiary); margin-top: var(--spacing-1); }
+
+/* Back button — >=44px touch target with tactile press ------------------ */
+.sh-back {
+  min-height: 44px;
+  padding: var(--spacing-2) var(--spacing-4);
+  gap: var(--spacing-2);
+  border-radius: 12px;
+  transition: transform 0.18s ease, border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease;
+}
+.sh-back:hover { transform: translateX(-2px); }
+.sh-back:active { transform: scale(0.97); }
+.sh-back:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+
+/* Board toggle pills — >=44px, animated active state -------------------- */
+.sh-boards { gap: var(--spacing-2); margin-bottom: var(--spacing-6); }
+.sh-board {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-2) var(--spacing-6);
+  transition: transform 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+.sh-board:active { transform: scale(0.97); }
+.sh-board:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 3px; }
+
+/* ----------------------------------------------------------------------- */
+/* GRADE / CLASS CARDS — mobile-first grid, premium hover                  */
+/* ----------------------------------------------------------------------- */
+.sh-grades {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-4);
+}
+.sh-grade {
+  min-height: 44px;
+  padding: var(--spacing-6) var(--spacing-4);
+  border-radius: 16px;
+  will-change: transform;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+}
+.sh-grade:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--color-brand-alpha-20) inset;
+}
+.sh-grade:active { transform: translateY(-1px) scale(0.99); }
+.sh-grade:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 3px; }
+.sh-grade__n { transition: color 0.22s ease; }
+.sh-grade:hover .sh-grade__n { color: var(--color-brand-primary); }
+
+/* ----------------------------------------------------------------------- */
+/* SUBJECT CARDS                                                           */
+/* ----------------------------------------------------------------------- */
+.sh-cards { gap: var(--spacing-4); }
+.sh-sub {
+  min-height: 44px;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-radius: 16px;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+}
+.sh-sub:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: var(--color-brand-alpha-40);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+}
+.sh-sub:active { transform: scale(0.99); }
+.sh-sub:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 3px; }
+.sh-sub__arrow { transition: transform 0.22s ease, color 0.22s ease; }
+.sh-sub:hover .sh-sub__arrow { transform: translateX(4px); }
+
+/* ----------------------------------------------------------------------- */
+/* CHAPTER ROWS                                                            */
+/* ----------------------------------------------------------------------- */
+.sh-chapters { gap: var(--spacing-2); }
+.sh-chap {
+  min-height: 44px;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+  border-radius: 14px;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.sh-chap:hover:not(.is-soon) {
+  transform: translateX(4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+.sh-chap:not(.is-soon):active { transform: translateX(2px) scale(0.995); }
+.sh-chap:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.sh-chap__go { transition: transform 0.2s ease, color 0.2s ease; }
+.sh-chap:hover:not(.is-soon) .sh-chap__go { transform: translateX(3px); }
+
+/* ----------------------------------------------------------------------- */
+/* STUDY-MODULE (TOOL) CARDS — mobile-first grid                           */
+/* ----------------------------------------------------------------------- */
+.sh-tools {
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+}
+.sh-tool {
+  min-height: 44px;
+  padding: var(--spacing-6);
+  border-radius: 16px;
+  gap: var(--spacing-2);
+  will-change: transform;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+}
+.sh-tool:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.sh-tool:active { transform: translateY(-1px) scale(0.99); }
+.sh-tool:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 3px; }
+.sh-tool__ic { transition: transform 0.22s ease, background-color 0.22s ease; }
+.sh-tool:hover .sh-tool__ic { transform: scale(1.08) rotate(-3deg); }
+
+.sh-note { margin-top: var(--spacing-8); padding: var(--spacing-4) var(--spacing-6); gap: var(--spacing-3); }
+
+/* ----------------------------------------------------------------------- */
+/* SCROLL-TRIGGERED CASCADE (IntersectionObserver adds .is-in)             */
+/* Progressive enhancement: JS adds .sh-anim; without JS content shows.    */
+/* ----------------------------------------------------------------------- */
+.sh-anim {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--sh-delay, 0ms);
+}
+.sh-anim.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ----------------------------------------------------------------------- */
+/* MOBILE-FIRST SCALE-UPS                                                  */
+/* ----------------------------------------------------------------------- */
+@media (min-width: 600px) {
+  .sh-grades { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sh-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+  .sh-grades { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .sh-tools { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sh-grade, .sh-sub, .sh-chap, .sh-tool, .sh-board, .sh-back,
+  .sh-sub__arrow, .sh-chap__go, .sh-tool__ic {
+    transition: none !important;
+  }
+  .sh-anim { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
