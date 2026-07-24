@@ -4985,3 +4985,131 @@ body.qr-open { overflow: hidden; }
   }
   .sh-anim { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+/* ==========================================================================
+   STUDY HUB MODULES — PREMIUM UPGRADE (matches the study-preview blueprint)
+   Extends the exact hover/press/focus micro-interactions, the 8-point
+   spacing tokens (8/16/24/32px) and >=44px touch targets to every rendered
+   module: quiz runner, interactive test (T/F + fill-in-the-blanks),
+   flashcards, match game, notes & formula sheets, worksheet preview, and the
+   dashboard. Layered after the base rules so it wins by source order.
+   Brand colours come from CSS variables only (gold var(--color-brand-primary)).
+   ========================================================================== */
+
+/* ---- Quiz runner (.pa-*) — hub Interactive Test + Practice Arena -------- */
+.pa-opts { gap: var(--spacing-3); }
+.pa-opt {
+  min-height: 44px;
+  padding: var(--spacing-3) var(--spacing-4);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.pa-opt:not(:disabled):hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-brand-alpha-10);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+.pa-opt:not(:disabled):active { transform: translateY(0) scale(0.99); }
+.pa-opt:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+
+.pa-review { gap: var(--spacing-2); }
+.pa-rev summary {
+  min-height: 44px;
+  padding: var(--spacing-3) var(--spacing-4);
+  gap: var(--spacing-3);
+  transition: background-color 0.2s ease;
+}
+.pa-rev summary:hover { background: var(--color-brand-alpha-10); }
+.pa-rev summary:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: -2px; }
+
+/* ---- Interactive Test — True/False & Fill-in-the-blanks (.ts-*) --------- */
+.ts__seg { gap: var(--spacing-2); }
+.ts__opt {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2) var(--spacing-4);
+  transition: transform 0.18s ease, color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+/* "Exit game" affordance in flashcards & match — real 44px touch target,
+   still centred as a block (width:max-content keeps margin:auto working). */
+.fc__exit {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: 12px;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+.fc__exit:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+.ts__opt:not(.is-on):hover { border-color: var(--color-brand-alpha-40); transform: translateY(-1px); }
+.ts__opt:active { transform: scale(0.97); }
+.ts__opt:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+
+/* ---- Flashcards (.fc-*) ------------------------------------------------- */
+.fc__card:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 4px; border-radius: 18px; }
+
+/* ---- Match game (.mt-*) ------------------------------------------------- */
+.mt__col { gap: var(--spacing-3); }
+.mt-tile {
+  padding: var(--spacing-3) var(--spacing-4);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.mt-tile:hover:not(.is-done):not(.is-sel) {
+  border-color: var(--color-brand-primary);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
+}
+.mt-tile:not(.is-done):active { transform: scale(0.98); }
+.mt-tile:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 3px; }
+
+/* ---- Notes / Formula sheet / Exam tips (.notes-*) ----------------------- */
+.notes__formulas { gap: var(--spacing-3); }
+.notes__list { gap: var(--spacing-3); }
+.notes__cta { gap: var(--spacing-4); margin-top: var(--spacing-8); }
+
+/* ---- Worksheet / exam-paper preview controls (.ws-preview-*) ------------ */
+.ws-preview__opts { gap: var(--spacing-3); }
+.ws-preview__sel {
+  min-height: 44px;
+  padding: var(--spacing-2) var(--spacing-3);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.ws-preview__sel:hover { border-color: var(--color-brand-alpha-40); }
+.ws-preview__sel:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }
+
+/* ---- Dashboard (.dash-*) — upgrade to blueprint hover ------------------- */
+.dash-stats { gap: var(--spacing-3); }
+.dash-stat { padding: var(--spacing-4); }
+.dash-stat:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.dash-card { padding: var(--spacing-4) var(--spacing-6); }
+.dash-subs__btn {
+  min-height: 44px;
+  padding: var(--spacing-3) var(--spacing-4);
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+.dash-subs__btn:active { transform: scale(0.99); }
+
+/* ---- Guarantee 44px targets on every module action button -------------- */
+.notes__cta .btn, .ts__actions .btn, .pa-quiz__actions .btn,
+.pa-result__actions .btn, .dash-continue__act .btn, .dash-weak__act .btn {
+  min-height: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pa-opt, .ts__opt, .mt-tile, .dash-stat, .dash-subs__btn { transition: none !important; transform: none !important; }
+}
+
+/* Practice/quiz category chips — enforce 44px touch target + focus ring */
+.pa-chips { gap: var(--spacing-3); }
+.pa-chip { min-height: 44px; }
+.pa-chip:not(.is-on):active { transform: scale(0.97); }
+.pa-chip:focus-visible { outline: 2px solid var(--color-brand-primary); outline-offset: 2px; }

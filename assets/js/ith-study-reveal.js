@@ -10,13 +10,17 @@
 (function () {
   'use strict';
 
-  var shell = document.querySelector('.sh-shell');
+  var shell = document.querySelector('.sh-shell, .pa-shell');
   if (!shell) return;
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !('IntersectionObserver' in window) || !('MutationObserver' in window)) return;
 
-  var CARD_SEL = '.sh-grade, .sh-sub, .sh-chap, .sh-tool';
+  // Navigation cards + rendered module content that reads well as a cascade.
+  // Deliberately excludes live quiz options (.pa-opt) and game tiles (.mt-tile),
+  // which must be usable the instant they appear.
+  var CARD_SEL = '.sh-grade, .sh-sub, .sh-chap, .sh-tool, ' +
+    '.notes__formula, .notes__list li, .dash-stat, .dash-card, .pa-rev';
   var STAGGER_MS = 55;   // delay between siblings
   var MAX_DELAY = 440;   // cap so long lists don't lag
   var SAFETY_MS = 1200;  // force-reveal fallback if IO never fires
