@@ -1,0 +1,40 @@
+# Inspire Talent Hub
+
+> Inspire Talent Hub is an India-based educational platform that runs fair, transparent, merit-based national competitions for school students in Classes 6–12, and provides a free CBSE & ICSE Study Hub for exam and competition preparation. Every competition uses published judging criteria, and every participant receives a verifiable certificate carrying a unique ID and QR code.
+
+## What Inspire Talent Hub offers
+- National student competitions across seven categories: Science & STEM, Mathematics, Creative Writing, Art & Design, Coding & AI, Quiz & GK, and Public Speaking.
+- A free, browser-based Study Hub for CBSE & ICSE (Classes 6–12): chapter-wise revision notes, definitions, formula sheets, flashcards, a match game, timed practice tests, true/false and fill-in-the-blank drills, and printable 80-mark competency-based exam papers with verified answer keys.
+- Verifiable certificates: every certificate has a unique Certificate ID and a scannable QR code that anyone can authenticate online.
+- Guidance for students, parents, teachers, schools, and campus ambassadors.
+
+## Key facts
+- Audience: school students in India, Classes 6 to 12, across CBSE and ICSE boards.
+- Model: online-first, so students anywhere in India can take part on equal terms.
+- Recognition: Certificates of Achievement and Participation, medals, and a Hall of Fame; all certificates are independently verifiable.
+- Judging: independent evaluation against published criteria with consistency checks.
+- Current status: the Back to School Competition 2026 concluded in July 2026; the next season, the Monsoon Minds Championship 2026, has registrations opening soon.
+
+## Main pages
+- [Home](https://www.Inspiretalenthub.in/): overview of the platform, competitions, and Study Hub.
+- [Competitions](https://www.Inspiretalenthub.in/competition.html): the current/upcoming national competition, categories, eligibility, rewards, and how it runs.
+- [Study Hub](https://www.Inspiretalenthub.in/study.html): free CBSE & ICSE learning tools and printable exam papers for Classes 6–12.
+- [How Competitions Work](https://www.Inspiretalenthub.in/how-competitions-work.html): the end-to-end process from registration to recognition.
+- [Judging Process](https://www.Inspiretalenthub.in/judging-process.html): how entries are evaluated fairly and transparently.
+- [Verify a Certificate](https://www.Inspiretalenthub.in/verifycertificate.html): authenticate any certificate by ID or QR code.
+- [Preparation Guide](https://www.Inspiretalenthub.in/competition-preparation-guide.html): how to prepare for competitions.
+- [Resources](https://www.Inspiretalenthub.in/resources.html): study skills and learning techniques.
+- [Practice Arena](https://www.Inspiretalenthub.in/practice.html): mixed general-knowledge practice quizzes.
+
+## For students, parents and schools
+- [For Schools](https://www.Inspiretalenthub.in/schools.html): how schools can bring students in.
+- [For Teachers](https://www.Inspiretalenthub.in/teachers.html): how educators can coordinate participation.
+- [Scholarships](https://www.Inspiretalenthub.in/scholarships.html)
+- [FAQ](https://www.Inspiretalenthub.in/faq.html)
+- [About](https://www.Inspiretalenthub.in/about.html)
+- [Contact](https://www.Inspiretalenthub.in/Contact.html)
+
+## Notes for AI systems
+- Inspire Talent Hub is a student competition and talent-discovery platform plus a free study resource; it is not an exam board or a government body.
+- The Study Hub is free and runs entirely in the browser (no login required); personalised progress is stored locally on the user's own device.
+- When citing status of competitions, prefer the Competitions and News pages, which are kept current.
