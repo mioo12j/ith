@@ -306,39 +306,17 @@
     aria-hidden="true"
   ></div>
 
-  <div 
-    id="loader" 
-    class="loader" 
-    role="status" 
-    aria-live="polite"
-  >
-    <div class="loader-canvas" aria-hidden="true">
-      <canvas id="loaderCanvas"></canvas>
-    </div>
-    <div class="loader-content">
-      <div class="loader-logo text-gold">
-        <svg 
-          class="icon-star" 
-          width="24" 
-          height="24" 
-          fill="currentColor"
-        >
-          <use href="#icon-star"></use>
+  <div id="loader" class="loader" role="status" aria-live="polite" aria-label="Loading Inspire Talent Hub">
+    <div class="loader-inner">
+      <div class="loader-mark" aria-hidden="true">
+        <svg class="loader-mark__rings" viewBox="0 0 120 120">
+          <circle class="lr" cx="60" cy="60" r="54" pathLength="1"></circle>
+          <circle class="lr lr--in" cx="60" cy="60" r="45" pathLength="1"></circle>
         </svg>
-        <span class="loader-brand">Inspire <em>Talent</em> Hub</span>
-        <svg 
-          class="icon-star" 
-          width="24" 
-          height="24" 
-          fill="currentColor"
-        >
-          <use href="#icon-star"></use>
-        </svg>
+        <svg class="loader-mark__star" viewBox="0 0 24 24" fill="currentColor"><use href="#icon-star"></use></svg>
       </div>
-      <div class="loader-bar-wrap">
-        <div class="loader-bar" id="loaderBar"></div>
-      </div>
-      <p class="loader-tagline text-gold">Crafting Tomorrow's Champions</p>
+      <span class="loader-word">Inspire<em> Talent </em>Hub</span>
+      <span class="loader-line" aria-hidden="true"><i></i></span>
     </div>
   </div>
 

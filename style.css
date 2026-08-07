@@ -505,16 +505,16 @@ template { display: none; }
 /* ==========================================================================
    06. CINEMATIC LOADER
    ========================================================================== */
+/* ---- Page loader (homepage): a golden seal that draws itself ---- */
 .loader {
   position: fixed;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background-color: var(--color-bg-base);
+  inset: 0;
+  background: radial-gradient(130% 130% at 50% 38%, #070b16 0%, var(--color-bg-base) 68%);
   z-index: var(--z-index-loader);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 1.5s var(--ease-lux), visibility 1.5s var(--ease-lux);
+  transition: opacity 0.7s var(--ease-lux), visibility 0.7s var(--ease-lux);
 }
 
 .loader.fade-out {
@@ -523,85 +523,111 @@ template { display: none; }
   pointer-events: none;
 }
 
-.loader-canvas {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  z-index: 1;
-  opacity: 0.3;
-}
-
-.loader-content {
-  position: relative;
-  z-index: 2;
+.loader-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: var(--spacing-6);
 }
 
-.loader-logo {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-4);
-  font-family: var(--font-family-display);
-  font-size: var(--font-size-2xl);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: var(--spacing-8);
-  animation: loaderPulse 3s infinite var(--ease-lux);
-}
-
-.loader-brand em {
-  font-family: var(--font-family-heading);
-  font-style: italic;
-  color: var(--color-text-primary);
-  text-transform: lowercase;
-}
-
-.icon-star {
-  animation: starRotate 10s linear infinite;
-}
-
-.loader-bar-wrap {
-  width: 280px;
-  height: 2px;
-  background-color: rgba(255, 255, 255, 0.05);
+.loader-mark {
   position: relative;
-  overflow: hidden;
-  margin-bottom: var(--spacing-6);
-  border-radius: 2px;
+  width: 96px;
+  height: 96px;
 }
 
-.loader-bar {
-  position: absolute;
-  top: 0; left: 0; height: 100%; width: 0%;
-  background-color: var(--color-brand-primary);
-  box-shadow: 0 0 15px var(--color-brand-primary);
-  animation: loaderFill 2s var(--ease-lux) forwards;
+.loader-mark__rings {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
 }
 
-.loader-tagline {
-  font-family: var(--font-family-body);
-  font-size: var(--font-size-xs);
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
+.loader-mark__rings .lr {
+  fill: none;
+  stroke: var(--color-brand-primary);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 6px rgba(232, 198, 106, 0.4));
+  animation: ldRingDraw 1.15s var(--ease-lux) forwards;
+}
+
+.loader-mark__rings .lr--in {
+  stroke-width: 1.1;
   opacity: 0.5;
+  animation-duration: 1.4s;
+  animation-direction: reverse;
 }
 
-@keyframes loaderPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.98); }
+.loader-mark__star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  color: var(--color-brand-primary);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  filter: drop-shadow(0 0 10px rgba(232, 198, 106, 0.55));
+  animation: ldStarIn 0.9s var(--ease-lux) 0.45s forwards;
 }
 
-@keyframes starRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.loader-word {
+  font-family: var(--font-family-display);
+  font-size: clamp(1.35rem, 4vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: ldRiseIn 0.8s var(--ease-lux) 0.55s forwards;
 }
 
-@keyframes loaderFill {
-  0% { width: 0%; }
-  40% { width: 40%; }
-  70% { width: 80%; }
-  100% { width: 100%; }
+.loader-word em {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.06em;
+  color: var(--color-text-primary);
+}
+
+.loader-line {
+  position: relative;
+  width: 200px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: ldRiseIn 0.6s var(--ease-lux) 0.7s forwards;
+}
+
+.loader-line i {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(232,198,106,0), var(--color-brand-primary));
+  box-shadow: 0 0 12px var(--color-brand-primary);
+  animation: ldLineFill 1.5s var(--ease-lux) 0.6s forwards;
+}
+
+@keyframes ldRingDraw { to { stroke-dashoffset: 0; } }
+@keyframes ldStarIn {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(-40deg); }
+  60% { opacity: 1; transform: translate(-50%, -50%) scale(1.12) rotate(6deg); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0); }
+}
+@keyframes ldRiseIn { to { opacity: 1; transform: translateY(0); } }
+@keyframes ldLineFill { to { width: 100%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-mark__rings .lr { animation: none !important; stroke-dashoffset: 0 !important; }
+  .loader-mark__star { animation: none !important; opacity: 1 !important; transform: translate(-50%, -50%) scale(1) !important; }
+  .loader-word, .loader-line { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .loader-line i { animation: none !important; width: 100% !important; }
 }
 
 /* ==========================================================================

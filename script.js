@@ -32,21 +32,38 @@ const MathUtils = {
     const loader = DOM.get('#loader');
     if (!loader) return;
 
-    // Lock scroll during load
+    // Lock scroll while the loader is up
     document.body.style.overflow = 'hidden';
 
-    // Artificial delay to ensure WebGL context establishes and fonts render
-    window.addEventListener('load', () => {
+    let done = false;
+    const finish = () => {
+        if (done) return;
+        done = true;
+        loader.classList.add('fade-out');
+        document.body.style.overflow = ''; // Unlock scroll
+
+        // Reveal the hero once the loader starts leaving
         setTimeout(() => {
-            loader.classList.add('fade-out');
-            document.body.style.overflow = ''; // Unlock scroll
-            
-            // Trigger explicit hero reveal sequences
-            setTimeout(() => {
-                DOM.getAll('#hero .reveal').forEach(el => el.classList.add('visible'));
-            }, 300);
-        }, 1800); // 1.8s load time for premium pacing
-    });
+            DOM.getAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+        }, 150);
+
+        // Remove from the DOM after the fade so it never intercepts input
+        setTimeout(() => { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 900);
+    };
+
+    // Keep it up just long enough to read the seal animation, then leave — no
+    // artificial padding. Fades as soon as the page is ready past the minimum.
+    const MIN_MS = 700;
+    const started = Date.now();
+    const whenReady = () => {
+        const elapsed = Date.now() - started;
+        setTimeout(finish, Math.max(0, MIN_MS - elapsed));
+    };
+    if (document.readyState === 'complete') whenReady();
+    else window.addEventListener('load', whenReady);
+
+    // Safety net: never trap the user behind the loader
+    setTimeout(finish, 3000);
 })();
 
 /* ───────────────────────────────────────────────────────────────────────────
