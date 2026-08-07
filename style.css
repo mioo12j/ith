@@ -42,10 +42,15 @@
   --color-status-danger: #ef4444;
   --color-status-info: #3b82f6;
 
-  /* ── 1.5 Typography System: Families ── */
-  --font-family-display: 'Playfair Display', Didot, 'Times New Roman', Times, serif;
-  --font-family-heading: 'Cormorant Garamond', 'Times New Roman', Times, serif;
-  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  /* ── 1.5 Typography System: Families ──
+     Headings & titles: Cormorant Garamond (600). Long-form reading: EB Garamond.
+     UI / everything else: Inter. Numbers: one standard font (Inter, tabular).
+     Hindi (Devanagari) falls back to Noto Serif Devanagari in every stack. */
+  --font-family-display: 'Cormorant Garamond', 'Noto Serif Devanagari', 'Times New Roman', Times, serif;
+  --font-family-heading: 'Cormorant Garamond', 'Noto Serif Devanagari', 'Times New Roman', Times, serif;
+  --font-family-read: 'EB Garamond', 'Noto Serif Devanagari', Georgia, 'Times New Roman', Times, serif;
+  --font-family-body: 'Inter', 'Noto Serif Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-family-num: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
   /* ── 1.6 Typography System: Fluid Scales (Clamp) ── */
   --font-size-xs: clamp(0.70rem, 0.65rem + 0.25vw, 0.85rem);
@@ -3280,7 +3285,7 @@ body.nav-scroll-lock {
         .search_container_verification_fest_2026 { margin-bottom: 24px; position: relative; }
         .search_label_verification_fest_2026 { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
         .helper_link_verification_fest_2026 { color: #4f46e5; text-transform: none; letter-spacing: normal; cursor: pointer; text-decoration: underline; font-size: 12px; }
-        .search_input_verification_fest_2026 { width: 100%; padding: 20px 24px; font-family: 'Plus Jakarta Sans', monospace; font-size: 18px; font-weight: 800; color: #0f172a; background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 16px; text-transform: uppercase; letter-spacing: 2px; outline: none; transition: all 0.3s ease; }
+        .search_input_verification_fest_2026 { width: 100%; padding: 20px 24px; font-family: var(--font-family-num), monospace; font-size: 18px; font-weight: 800; color: #0f172a; background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 16px; text-transform: uppercase; letter-spacing: 2px; outline: none; transition: all 0.3s ease; }
         .search_input_verification_fest_2026:focus { border-color: #4f46e5; background: #ffffff; box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.15); }
 
         /* Helper Box (Hidden by default) */
@@ -3660,7 +3665,7 @@ body.nav-scroll-lock {
 .cert-divider span:last-child { background: linear-gradient(90deg, #c9a84c, transparent); }
 .cert-divider b { color: #c9a84c; font-size: 2.6cqw; line-height: 1; }
 .cert-presented { font-family: var(--font-family-heading); font-style: italic; font-size: 3.5cqw; color: #55607a; margin-bottom: 1.5cqw; }
-.cert-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 8.2cqw; color: #12305c; line-height: 1.05; margin-bottom: 2.6cqw; }
+.cert-name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 8.2cqw; color: #12305c; line-height: 1.05; margin-bottom: 2.6cqw; }
 .cert-citation { font-family: var(--font-family-heading); font-size: 4.15cqw; line-height: 1.7; color: #333c56;
   max-width: 84cqw; margin: 0 auto; text-align: center; }
 .cert-citation strong { color: #12305c; font-weight: 600; }
@@ -4499,7 +4504,7 @@ body.qr-open { overflow: hidden; }
 .cred__present { font-family: var(--font-family-body); font-size: var(--font-size-xs); letter-spacing: 0.26em;
   text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: var(--spacing-2);
   opacity: 0; animation: cs-cell-in 0.5s ease 0.5s forwards; }
-.cred__name { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 600; font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+.cred__name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: clamp(1.5rem, 5.5vw, 2.4rem);
   color: #12305c; color: var(--color-text-primary); margin: 0 auto var(--spacing-3); min-height: 1.3em; letter-spacing: 0.01em; }
 .cred__name .tw-cursor { color: var(--color-brand-primary); font-style: normal; margin-left: 1px; animation: tw-blink 1s steps(1) infinite; }
 @keyframes tw-blink { 50% { opacity: 0; } }
@@ -4614,7 +4619,7 @@ body.qr-open { overflow: hidden; }
   body.ws-printing::after {
     content: "INSPIRE TALENT HUB"; position: fixed; top: 50%; left: 50%;
     transform: translate(-50%, -50%) rotate(-30deg); white-space: nowrap;
-    font-family: 'Playfair Display', Georgia, serif; font-weight: 700; letter-spacing: 0.14em;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; letter-spacing: 0.14em;
     font-size: 52px; color: #12305c; opacity: 0.05; z-index: 2147483000; pointer-events: none;
     -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   body.ws-printing .ws__sec, body.ws-printing .ws__case { break-after: avoid; page-break-after: avoid; }
@@ -5124,3 +5129,48 @@ body.qr-open { overflow: hidden; }
 
 /* Success-story cards without a photo — single, readable column */
 .case-study--nomedia { grid-template-columns: 1fr; max-width: 760px; margin-left: auto; margin-right: auto; }
+
+/* ==========================================================================
+   TYPOGRAPHY SYSTEM — font-family mapping (Cormorant / EB Garamond / Inter)
+   Headings use Cormorant Garamond (--font-family-display/heading).
+   The rules below route the two exceptions:
+     1. Every NUMBER to one standard font (Inter, tabular figures).
+     2. Long-form READING text to EB Garamond.
+   Layered last so it wins by source order over per-component font rules.
+   ========================================================================== */
+
+/* ---- Numbers: one standard font with aligned (tabular) figures ---------- */
+.countdown-num,
+.stat-number, .stat-static,
+.recap-stat b,
+.mini-stat b,
+.ith-table .ith-table__num,
+.ith-card__num,
+.pa-ring__num,
+.pa-combo b,
+.sh-grade__n,
+.fc-summary__ring span,
+.dash-continue__txt b,
+.dash-stat__val,
+.dash-ring__t,
+.admin-stat b,
+.sh-promo__card b,
+.process-step::before {
+  font-family: var(--font-family-num);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+/* ---- Long-form reading text: EB Garamond, with breathing room ----------- */
+.ith-lead,
+.ith-card p,
+.ith-pullquote,
+.notes__list li,
+.case-study .section-desc {
+  font-family: var(--font-family-read);
+}
+.ith-card p,
+.notes__list li {
+  line-height: 1.8;
+}
+.ith-lead { line-height: 1.75; }
