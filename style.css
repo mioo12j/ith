@@ -530,66 +530,14 @@ template { display: none; }
   gap: var(--spacing-6);
 }
 
-.loader-mark {
-  position: relative;
-  width: 96px;
-  height: 96px;
-}
-
-.loader-mark__rings {
-  width: 100%;
-  height: 100%;
-  transform: rotate(-90deg);
-}
-
-.loader-mark__rings .lr {
-  fill: none;
-  stroke: var(--color-brand-primary);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  filter: drop-shadow(0 0 6px rgba(232, 198, 106, 0.4));
-  animation: ldRingDraw 1.15s var(--ease-lux) forwards;
-}
-
-.loader-mark__rings .lr--in {
-  stroke-width: 1.1;
-  opacity: 0.5;
-  animation-duration: 1.4s;
-  animation-direction: reverse;
-}
-
-.loader-mark__star {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 30px;
-  height: 30px;
-  color: var(--color-brand-primary);
+.loader-logo-img {
+  width: clamp(180px, 46vw, 258px);
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(232, 198, 106, 0.28);
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.4);
-  filter: drop-shadow(0 0 10px rgba(232, 198, 106, 0.55));
-  animation: ldStarIn 0.9s var(--ease-lux) 0.45s forwards;
-}
-
-.loader-word {
-  font-family: var(--font-family-display);
-  font-size: clamp(1.35rem, 4vw, 1.7rem);
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--color-brand-primary);
-  opacity: 0;
-  transform: translateY(10px);
-  animation: ldRiseIn 0.8s var(--ease-lux) 0.55s forwards;
-}
-
-.loader-word em {
-  font-style: italic;
-  text-transform: none;
-  letter-spacing: 0.06em;
-  color: var(--color-text-primary);
+  transform: scale(0.94);
+  animation: ldLogoIn 0.9s var(--ease-lux) forwards;
 }
 
 .loader-line {
@@ -614,19 +562,13 @@ template { display: none; }
   animation: ldLineFill 1.5s var(--ease-lux) 0.6s forwards;
 }
 
-@keyframes ldRingDraw { to { stroke-dashoffset: 0; } }
-@keyframes ldStarIn {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(-40deg); }
-  60% { opacity: 1; transform: translate(-50%, -50%) scale(1.12) rotate(6deg); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0); }
-}
+@keyframes ldLogoIn { to { opacity: 1; transform: scale(1); } }
 @keyframes ldRiseIn { to { opacity: 1; transform: translateY(0); } }
 @keyframes ldLineFill { to { width: 100%; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .loader-mark__rings .lr { animation: none !important; stroke-dashoffset: 0 !important; }
-  .loader-mark__star { animation: none !important; opacity: 1 !important; transform: translate(-50%, -50%) scale(1) !important; }
-  .loader-word, .loader-line { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .loader-logo-img { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .loader-line { animation: none !important; opacity: 1 !important; transform: none !important; }
   .loader-line i { animation: none !important; width: 100% !important; }
 }
 
@@ -1942,9 +1884,27 @@ p {
 .index-nav__logo-link {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   text-decoration: none;
   color: #c9a84c; /* Gold color */
+}
+
+/* Brand logo emblem in the nav — a cropped badge of the real logo mark */
+.index-nav__logo-mark {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background-color: #fbf9f3;
+  background-image: url('logo.jpeg');
+  background-repeat: no-repeat;
+  background-size: 250%;
+  background-position: 50% 26%;
+  box-shadow: 0 0 0 1px rgba(232, 198, 106, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform var(--duration-fast) var(--ease-lux);
+}
+.index-nav__logo-link:hover .index-nav__logo-mark {
+  transform: scale(1.06);
 }
 
 .index-nav__logo-title {
