@@ -5169,3 +5169,32 @@ body.qr-open { overflow: hidden; }
 @media (min-width: 1024px) and (max-width: 1300px) {
   .index-nav__links { gap: 1.5rem; }
 }
+
+/* Contact detail cards: promoted from h3 to h2 for correct heading order;
+   keep the original card-heading appearance. */
+.contact-card__h { font-family: var(--font-family-heading); font-size: var(--font-size-lg);
+  color: var(--color-text-primary); margin: 0 0 var(--spacing-2); }
+
+/* ==========================================================================
+   NO-JAVASCRIPT FALLBACK (indexability + resilience)
+   .reveal starts hidden and is un-hidden by script.js. If JavaScript never
+   runs — a crawler that does not execute it, a failed script, a restrictive
+   network — that content must still be readable rather than invisible.
+   The inline bootstrap swaps html.no-js -> html.js, so this only applies
+   when scripting genuinely did not run.
+   ========================================================================== */
+html.no-js .reveal,
+html.no-js .reveal-left,
+html.no-js .reveal-right,
+html.no-js .hm-reveal {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+@media (scripting: none) {
+  .reveal, .reveal-left, .reveal-right, .hm-reveal {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+}
