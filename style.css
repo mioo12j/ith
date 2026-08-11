@@ -5160,3 +5160,12 @@ body.qr-open { overflow: hidden; }
   line-height: 1.8;
 }
 .ith-lead { line-height: 1.75; }
+
+/* Nav breathing room: at 1024–1300px the wordmark and the first nav item sat
+   flush against each other. Guarantee a gap and let the link row tighten
+   slightly instead of colliding with the brand. */
+.index-nav { column-gap: var(--spacing-8); }
+.index-nav__logo { flex: 0 0 auto; }
+@media (min-width: 1024px) and (max-width: 1300px) {
+  .index-nav__links { gap: 1.5rem; }
+}

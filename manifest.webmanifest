@@ -1,0 +1,17 @@
+{
+  "name": "Inspire Talent Hub",
+  "short_name": "ITH",
+  "description": "National student competitions for Classes 6-12 and a free CBSE & ICSE Study Hub.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#02040a",
+  "theme_color": "#03060d",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["education"],
+  "icons": [
+    { "src": "/logo.jpeg", "sizes": "1254x1254", "type": "image/jpeg", "purpose": "any" },
+    { "src": "/logo.jpeg", "sizes": "1254x1254", "type": "image/jpeg", "purpose": "maskable" }
+  ]
+}

@@ -25,6 +25,8 @@
 - [Preparation Guide](https://www.Inspiretalenthub.in/competition-preparation-guide.html): how to prepare for competitions.
 - [Resources](https://www.Inspiretalenthub.in/resources.html): study skills and learning techniques.
 - [Practice Arena](https://www.Inspiretalenthub.in/practice.html): mixed general-knowledge practice quizzes.
+- [Technology](https://www.Inspiretalenthub.in/technology.html): how the platform is built -- static architecture, on-device Study Hub storage, certificate verification model, and the only two third-party services used.
+- [Security](https://www.Inspiretalenthub.in/security.html): responsible-disclosure policy, scope and safe-harbour commitment (machine-readable contact at /.well-known/security.txt).
 
 ## For students, parents and schools
 - [For Schools](https://www.Inspiretalenthub.in/schools.html): how schools can bring students in.

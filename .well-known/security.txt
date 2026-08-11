@@ -1,0 +1,13 @@
+# Inspire Talent Hub — security contact (RFC 9116)
+# Full policy: https://www.Inspiretalenthub.in/security.html
+
+Contact: mailto:info@inspiretalenthub.in
+Expires: 2027-08-11T13:18:03.000Z
+Preferred-Languages: en, hi
+Canonical: https://www.Inspiretalenthub.in/.well-known/security.txt
+Policy: https://www.Inspiretalenthub.in/security.html
+
+# We serve school students. Issues that could expose participant
+# information, allow certificates to be forged, or compromise a
+# visitor's device are triaged first. Please report privately and
+# allow reasonable time for a fix before publishing.
