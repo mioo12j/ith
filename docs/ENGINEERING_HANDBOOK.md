@@ -34,6 +34,12 @@
 14. [Testing and verification](#14-testing-and-verification)
 15. [Deployment](#15-deployment)
 16. [Known open issues](#16-known-open-issues)
+17. [Feature catalogue — what every feature does](#17-feature-catalogue--what-every-feature-does)
+18. [End-to-end user journeys](#18-end-to-end-user-journeys)
+19. [Forms, lead capture and communications](#19-forms-lead-capture-and-communications)
+20. [Operational runbooks](#20-operational-runbooks)
+21. [Decision log — why the software is like this](#21-decision-log--why-the-software-is-like-this)
+22. [Glossary](#22-glossary)
 
 ---
 
@@ -279,9 +285,10 @@ Step 4  #shHub       choose a tool for that chapter
 Step 5  #shTool      the active tool renders into #shToolRoot
 ```
 
-The nine chapter tools: **Revision Notes, Important Definitions, Flashcards,
-Match-up Game, Practice Test, True or False, Fill in the Blanks, Exam Paper
-(80 marks), Exam Tips & Common Mistakes.**
+The ten chapter tools: **Revision Notes, Important Definitions, Formula Sheet,
+Flashcards, Match-up Game, Practice Test, True or False, Fill in the Blanks,
+Exam Paper (80 marks), Exam Tips & Common Mistakes.** Each is rendered only if
+the chapter's data can support it — see the unlock conditions in §17.3.
 
 It exposes `window.ITHStudy` (navigation API) and orchestrates the other modules.
 It also owns **`printPapers()`** — the A4 print pipeline (see §8.3).
@@ -719,7 +726,375 @@ await ctx.route('**/*', r => r.request().url().startsWith('file://') ? r.continu
 | **Eight thin pages** (199–280 words) | `campus-ambassador`, `careers`, `cookies`, `disclaimer`, `events`, `news`, `reviews`, `workshops`. |
 | **CSS/JS not minified** | See the warning in §12. Needs a real build step, not a hand-rolled minifier. |
 | **Success stories are representative** | `success-stories.html` uses named students/schools as representative examples, not verified case studies. Replace with consented real stories when available. |
+| **`success.html` is orphaned** | Nothing links to it and no plain form sets FormSubmit's `_next`, so those users land on FormSubmit's generic thank-you page. Fixing it requires per-form `_next` values *and* copy that fits every form type (§19). `Contact.html` already has its own inline success panel. |
 | **Study Hub content depth** | Only Class 10 Science approaches the Gold-Standard target. Expanding the remaining chapters/subjects/boards is the largest outstanding content programme. |
+
+---
+
+## 17. Feature catalogue — what every feature does
+
+This section is the **functional specification**. §5 lists the pages; this lists the
+*capabilities*, what each one is for, where it is implemented, and what makes it
+appear or not appear.
+
+### 17.1 Competition-side features
+
+| Feature | What it does for the user | Implemented in | Notes / conditions |
+|---|---|---|---|
+| **Season landing page** | Explains the current competition: what it is, who can enter, arenas, dates, fees, rules | `competition.html` | The single page that must be rewritten every season |
+| **Live countdown** | Counts down to the moment registration opens | `competition.html` (`launchDate`), `index.html` (`#hmCountdown data-target`) + `assets/js/ith-home.js` | Two separate countdowns exist. **They must carry the same timestamp.** Currently `2026-08-26T09:00:00+05:30` |
+| **Pre-registration capture** | Lets a student register interest before the season opens | `competition.html` form → FormSubmit (§19) | Not a payment or a confirmed entry — it is an interest signal |
+| **Arena explanations** | Describes the eight competition categories | `index.html` (`.hm-arenas`), `competition.html`, `how-competitions-work.html` | Eight arenas; see §1 |
+| **Process transparency** | Shows how entries are judged, by whom, against what published criteria | `judging-process.html`, `how-competitions-work.html` | This is a *trust* feature, not decoration — it is the answer to "is this legitimate?" |
+| **Parent reassurance** | Answers safety, cost, data and legitimacy questions for guardians | `parent-guide.html`, `safety.html`, `privacy.html` | Parents are a decision-maker audience, not a secondary one |
+| **School / bulk participation** | Explains how a teacher or school enters many students at once | `schools.html`, `teachers.html` | Both carry their own lead forms |
+| **Preparation material** | Helps a student get ready to compete | `competition-preparation-guide.html`, `resources.html`, plus the whole Study Hub | The bridge between Product A and Product B |
+| **Past-season record** | Shows what actually happened last season | `index.html` recap, `events.html`, `news.html`, `gallery.html`, `hall-of-fame.html`, `impact.html` | Must be **past tense** once a season concludes |
+| **Social proof** | Student and school testimonials | `reviews.html`, `index.html` (`#testimonials`), `success-stories.html` | Names and schools are real Indian students/schools. See §16 on the "representative" caveat |
+
+### 17.2 Trust and verification features
+
+These exist so that a certificate issued by Inspire Talent Hub is worth something
+to a third party (a school, a college, a scholarship board) who has no relationship
+with us. Treat them as the most safety-critical part of the codebase.
+
+| Feature | What it does | Implemented in |
+|---|---|---|
+| **Result lookup** | A student searches for their own result by name or certificate ID | `StudentPortal.html` |
+| **Certificate rendering** | Draws the actual certificate, with the participant's details and an embedded QR | `certificate.html` + `assets/js/ith-cert-core.js` (`ITHCert`) |
+| **QR generation** | Produces the QR image with no external service and no network call | `assets/js/ith-qr.js` (`ITHQR.toSVG()`) |
+| **Public verification (typed)** | Anyone types a certificate ID and gets a verdict | `verifycertificate.html` |
+| **Public verification (scanned)** | Anyone scans the QR with a phone camera and lands on the verdict page | QR encodes `verifycertificate.html?id=…` |
+| **In-page QR scanner** | Scans a certificate using the site's own camera modal | `verifycertificate.html` (`BarcodeDetector` + `getUserMedia`), §8.2 |
+| **A4 certificate printing** | Produces a correctly-scaled printable/PDF certificate from any device | `printCertificate()` in `certificate.html`, §8.3 |
+| **Certificate registry** | The dataset every verification is checked against | `data/certificates.js` (`ITH_CERT_DB`) |
+| **Registry build tool** | Imports participant rows, validates them, exports the registry file | `admin.html` (3 steps: Import → Review & Validate → Publish settings & Export) |
+
+> **The verification promise in one line:** if an ID is not in `ITH_CERT_DB`, the
+> certificate is not real. Everything above exists to make that check trivially
+> easy for a stranger, and impossible to fake without repository access.
+
+### 17.3 Study Hub features
+
+Entry point `study.html`, engine `assets/js/ith-study.js`. Navigation is a
+**four-level drill-down**: Board → Class → Subject → Chapter → chapter hub.
+
+At the chapter hub the user is offered up to **ten tools**. The tools are rendered
+conditionally — a tool only appears if the chapter's data can support it. This is
+deliberate: it is better to show fewer tools than to show a tool that opens empty.
+
+| Tool | What it does | Appears only when |
+|---|---|---|
+| **Revision Notes** | Key points for the chapter, plus formulas if present | `notes.length` or `formulas.length` |
+| **Important Definitions** | Key terms with explanations | `cards.length` |
+| **Formula Sheet** | Just the formulas, for last-minute revision | `formulas.length` |
+| **Flashcards** | Flip-card drill over the chapter's terms | `cards.length` |
+| **Match-up Game** | Timed term↔meaning matching game | `authoredCards` **and** `cards.length >= 3` |
+| **Practice Test** | Chapter questions with instant feedback and scoring | `questions.length` |
+| **True or False** | Fast concept check generated from the notes | `notes.length` |
+| **Fill in the Blanks** | Recall drill over key terms | `cards.length >= 4` |
+| **Exam Paper (80 marks)** | Generates and prints a full CBSE-style annual paper | `questions.length` |
+| **Exam Tips & Common Mistakes** | What to focus on and what students get wrong | `notes.length` or `cards.length` |
+
+Additional Study Hub capabilities:
+
+| Feature | What it does | Implemented in |
+|---|---|---|
+| **Chapter search** | Filters the chapter list as you type | `#shChapterSearch` in `ith-study.js` |
+| **Bookmarking** | Star a chapter to find it again | `ITHDash.toggleBookmark` → `ith_bookmarks` |
+| **Per-chapter progress** | Shows "Not started" / "Keep practising" / "Practised" / **"Mastered"** with best score | `ITHDash.chapterProgress` → `ith_stats` |
+| **Continue where you left off** | Returns the student to their last chapter | `ITHDash.setLast/getLast` → `ith_last` |
+| **Study goal** | A target the student sets for themselves | `ith_goal` |
+| **Dashboard** | Aggregated stats, streaks, weak areas, bookmarks | `ITHDash.renderDashboard` |
+| **Practice Arena** | Cross-chapter mixed practice with category selection | `practice.html` + `assets/js/ith-practice.js` (`ITH_PRACTICE`) |
+
+`ITHDash` public API — the only supported way to touch Study Hub state:
+
+```js
+window.ITHDash = {
+  record, setLast, getLast,
+  isBookmarked, toggleBookmark, listBookmarks,
+  chapterProgress, hasActivity, renderDashboard
+};
+```
+
+**Never read or write the four localStorage keys directly from another module.**
+Go through `ITHDash`, or the shapes will drift and the dashboard will silently
+mis-report a student's progress.
+
+### 17.4 Institutional / credibility features
+
+These pages are not filler. They are what a journalist, a school principal or an
+AI assistant reads to decide whether this organisation is real.
+
+| Page | Purpose |
+|---|---|
+| `about.html` | Who we are, what we stand for |
+| `technology.html` | How the platform is actually built, what it stores, which third parties are involved |
+| `security.html` + `.well-known/security.txt` | Responsible disclosure policy (RFC 9116) |
+| `accessibility.html` | Conformance target, checks actually run, known limitations |
+| `privacy.html`, `cookies.html`, `terms.html`, `refund.html`, `disclaimer.html` | Legal and policy surface, including DPDP Act 2023 and children's data |
+| `code-of-conduct.html` | Behaviour rules including the AI-tools policy for entries |
+| `safety.html` | Child-safety posture |
+| `impact.html`, `hall-of-fame.html` | Outcomes and recognition |
+| `media.html`, `downloads.html` | Press and brand assets |
+| `faq.html`, `sitemap.html`, `404.html` | Navigation and support surface |
+
+---
+
+## 18. End-to-end user journeys
+
+Read these to understand how the pieces connect in practice. Each step names the
+file that serves it, so a journey doubles as a regression checklist.
+
+### Journey A — A student enters a competition
+
+1. Arrives on `index.html` (usually from search or a school WhatsApp forward).
+2. Reads the hero status pill — it tells them whether a season is **open**,
+   **upcoming**, or **concluded**, and links to `competition.html`.
+3. On `competition.html` they see the countdown, arenas, eligibility, fees, rules.
+4. If they still have doubts they follow links to `how-competitions-work.html`,
+   `judging-process.html`, `safety.html` or `parent-guide.html`.
+5. They submit the pre-registration form → the enquiry arrives by email (§19).
+6. They prepare using `competition-preparation-guide.html`, `resources.html`
+   and the Study Hub.
+
+**Failure mode to watch:** if the homepage status pill and `competition.html`
+disagree about the season, this journey breaks trust at step 2 — before the user
+has read a single real sentence.
+
+### Journey B — A student checks a result and gets a certificate
+
+1. Goes to `StudentPortal.html` and searches by name or certificate ID.
+2. Sees their result; if the registry says results are published and downloads are
+   enabled, they proceed.
+3. Opens `certificate.html`, which renders the certificate with their details and a
+   generated QR code.
+4. Prints or saves it as PDF through the **isolated-iframe A4 pipeline** (§8.3), so
+   it comes out correct even from a ₹8,000 phone.
+
+**Failure mode to watch:** `meta.resultsPublished` / `meta.downloadsEnabled` in
+`data/certificates.js` gate steps 2–3. If results are announced publicly but these
+flags are false, students hit a dead end.
+
+### Journey C — A stranger verifies someone else's certificate
+
+*(A school admissions officer, a scholarship board, a recruiter.)*
+
+1. Scans the QR on the printed certificate with a normal phone camera — or types
+   the ID into `verifycertificate.html`.
+2. The page looks the ID up in `ITH_CERT_DB`.
+3. **Match:** participant name, competition, category and issue date are shown.
+   **No match:** it says so plainly.
+4. No account, no app, no permission required — by design.
+
+### Journey D — A student uses the Study Hub
+
+1. Lands on `study.html` (often directly from search).
+2. Board → Class → Subject → Chapter.
+3. Picks one of the ten tools (§17.3).
+4. Takes a practice test; the score is recorded via `ITHDash.record`.
+5. Progress badges update; the chapter can reach **Mastered**.
+6. Optionally generates and prints an 80-mark exam paper.
+7. Returns later — `ith_last` offers "continue where you left off".
+
+**No login exists at any step.** Everything is on-device (§8.5).
+
+### Journey E — A teacher or school gets involved
+
+1. `schools.html` or `teachers.html` — bulk participation, recognition, logistics.
+2. Submits the school-partnership or educator form (§19).
+3. May also use `resources.html`, `workshops.html`, `downloads.html`.
+
+### Journey F — A search engine or AI assistant reads the site
+
+1. Fetches `robots.txt` → `sitemap.xml` (44 URLs, all with `<lastmod>`).
+2. Optionally reads `llms.txt` for a plain-language description of the site and its
+   current status.
+3. Crawls pages, many of which **run no JavaScript**. Content is still readable
+   because of the `html.no-js` / `@media (scripting: none)` reveal fallback
+   (§10, §11) — without it these pages expose almost no text.
+4. Parses the JSON-LD: `WebPage`×45, `BreadcrumbList`×45, `FAQPage`×13, plus
+   `EducationalOrganization`, `WebSite`+`SearchAction`, `Course`+`CourseInstance`,
+   `Event` and `Article` — **111 valid blocks**.
+
+---
+
+## 19. Forms, lead capture and communications
+
+**There is no backend, so there is no database of leads.** Every form on the site
+posts directly to a third-party form relay, and the submission arrives as an
+**email**. The inbox *is* the CRM.
+
+- **Relay:** FormSubmit — `https://formsubmit.co/info@inspiretalenthub.in`
+- **Destination:** `info@inspiretalenthub.in`
+- **Method:** ordinary HTML `POST`, no JavaScript required to submit
+- **Common hidden fields:** `_subject` (routing label), `_template=table`
+  (readable email layout), `_captcha=false`
+
+### The thirteen public forms
+
+Each carries a distinct `_subject`, which is the **only** way to tell submissions
+apart in the inbox. Keep them unique.
+
+Twelve are plain `POST` forms. **`Contact.html` is the exception:** it also posts
+to FormSubmit as a fallback, but when JavaScript is available its submit handler
+calls `preventDefault()` and posts to the **AJAX endpoint**
+(`formsubmit.co/ajax/…`) with `fetch`, so the visitor never leaves the page and
+sees an inline success panel instead.
+
+| Page | `_subject` | What the lead means |
+|---|---|---|
+| `Contact.html` | New Contact Form Submission | General enquiry |
+| `competition.html` | New Pre-Registration Alert | **Highest-value lead** — wants to compete |
+| `index.html` | New Newsletter Subscription | Newsletter |
+| `schools.html` | School Partnership Enquiry | Institutional participation |
+| `teachers.html` | Educator Interest | Teacher / coordinator |
+| `partners.html` | Partnership Enquiry | Sponsor / partner |
+| `campus-ambassador.html` | Campus Ambassador Application | Student ambassador |
+| `careers.html` | Careers Interest | Job applicant |
+| `workshops.html` | Workshop Interest | Workshop demand |
+| `scholarships.html` | Scholarship Updates Interest | Scholarship demand |
+| `events.html` | Event Updates Subscription | Event notifications |
+| `news.html` | News Subscription | News notifications |
+| `resources.html` | Resource Updates Subscription | Resource notifications |
+
+*(`verifycertificate.html`, `StudentPortal.html` and `admin.html` also contain
+`<form>` elements, but those are **local** — intercepted with `preventDefault()`
+and handled entirely in-browser. They send nothing anywhere. Do not "wire them
+up"; that is the design.)*
+
+### Operational consequences you must understand
+
+- **The email address is a hard dependency.** If `info@inspiretalenthub.in` stops
+  being monitored, every lead on the site is silently lost. Nothing on the site
+  will show an error.
+- **FormSubmit requires activation.** The first submission to a new address
+  triggers a confirmation email that must be clicked, or nothing is delivered.
+- **Changing the address means editing 13 files.** There is no shared constant,
+  and `Contact.html` contains the address **twice** (the `action` fallback and the
+  `fetch` AJAX URL) — both must be changed together.
+- **Submissions are not stored by us.** There is no export, no dashboard, no
+  retry. This is consistent with the privacy promise on `privacy.html`, but it
+  means the inbox must be backed up like a system of record — because it is one.
+- **Known gap:** `success.html` ("Registration Confirmed") exists but **nothing
+  links to it**, and no form sets FormSubmit's `_next` field. After submitting,
+  users land on FormSubmit's generic thank-you page instead of a branded one.
+  Fixing it means adding `_next` per form *and* rewriting `success.html` so its
+  wording fits every form type — a copy decision, not just a code change.
+  (`Contact.html` is unaffected: it shows its own inline success panel.)
+
+---
+
+## 20. Operational runbooks
+
+These are the recurring **business** processes the software has to support. §13
+gives the mechanical steps; this gives the surrounding operation.
+
+### Runbook 1 — Running a competition season
+
+| Phase | What happens in the business | What must change in the software |
+|---|---|---|
+| **Announce** | New season named and dated | `competition.html` (title, meta, `Event` schema, hero, copy, FAQ, `launchDate`); homepage status pill + `#hmCountdown data-target`; `llms.txt` |
+| **Open** | Registration opens | Status pill → open; countdown reaches zero and must degrade gracefully, not display negative time |
+| **Compete** | Entries submitted | Usually no site change |
+| **Judge** | Independent judging against published criteria | `judging-process.html` must already describe exactly what is being done |
+| **Publish results** | Winners announced | Regenerate `data/certificates.js` via `admin.html`; set `meta.resultsPublished` |
+| **Certify** | Certificates issued | Set `meta.downloadsEnabled`; spot-check IDs in `StudentPortal.html` **and** `verifycertificate.html` |
+| **Archive** | Season concludes | Move the season to **past tense** on `index.html` recap, `events.html`, `news.html`; add real photos only if they exist; update `impact.html` / `hall-of-fame.html` |
+
+> **The single most common defect in this codebase's history is season drift** —
+> one page saying "live now" while another says "coming soon". After any season
+> change, grep the whole repo for the old season name and the old date before
+> committing.
+
+### Runbook 2 — Issuing certificates
+
+1. Collect the final participant list (name, school, competition, category, result).
+2. Open `admin.html` → **Import Participant Data**.
+3. **Review & Validate** — resolve every flagged row. Do not publish with warnings
+   outstanding; a bad row becomes a certificate that fails verification in public.
+4. **Publish Settings & Export** → produces `data/certificates.js`.
+5. Commit and deploy that file. *This is the moment the certificates become real.*
+6. Verify by sampling: pick several IDs (including one that should **not** exist)
+   and run them through `verifycertificate.html`. The non-existent one must fail.
+7. Print one certificate end-to-end from a **phone** and confirm A4 output (§8.3).
+
+**Never hand-edit `data/certificates.js`.** The ID hash and record shape are
+produced by the tool; a hand-edit that looks fine can break lookups.
+
+### Runbook 3 — Adding or extending Study Hub content
+
+1. Decide the exact content key: `board|grade|subjectId|slug(chapter)` (§7).
+   Getting this wrong makes content silently invisible — there is no error.
+2. Ensure the chapter exists in `ITH_SYLLABUS` for that board/grade/subject.
+3. Add notes/definitions/formulas to `ITH_STUDY_CONTENT`, questions to the
+   relevant bank, using the **push** pattern for extension files.
+4. Register the new file in `study.html` **after** its base file.
+5. Run `data/coverage/_coverage_report.js` — near-duplicate detection and the
+   **≥50% competency** gate must pass.
+6. Open the chapter in a browser and confirm the right tools unlocked (§17.3).
+
+**Editorial rule that overrides convenience:** questions are educator-grade and
+original. Producing "new" questions by swapping names or numbers in an existing
+question is explicitly forbidden — it inflates counts while degrading the product.
+
+### Runbook 4 — Handling a security report
+
+1. Reports arrive at `info@inspiretalenthub.in` (per `.well-known/security.txt`).
+2. `security.html` defines scope, out-of-scope, safe harbour, and what we ask of
+   researchers. It honestly states there is **no paid bounty**.
+3. Keep `Expires:` in `security.txt` in the future — an expired file signals a
+   dead policy.
+
+### Runbook 5 — Publishing any new page
+
+Follow the §13 recipe, then confirm all of: unique title (≤62) and description
+(≤160), self-referential canonical, OG/Twitter tags, `BreadcrumbList` + `WebPage`
+JSON-LD, an entry in `sitemap.xml` **with `<lastmod>`**, a footer link, an
+`llms.txt` entry if it matters to AI systems, and the §14 checks passing.
+
+---
+
+## 21. Decision log — why the software is like this
+
+Understanding *why* prevents an eager future contributor from "fixing" something
+that is correct. Each entry is a decision that was made deliberately.
+
+| Decision | Why | What breaks if reversed |
+|---|---|---|
+| **No backend, no database** | An education site whose critical output is a verifiable document does not need one, and a static site cannot leak a database it does not have | Hosting cost, attack surface, and the privacy promise all change |
+| **No build step, no npm, no framework** | The site must be editable by opening a file. A build step is a permanent dependency and a permanent way for the site to become un-deployable | Anyone can no longer clone and edit; the deploy story stops being "push" |
+| **Login-free Study Hub, state in localStorage** | Removes the biggest drop-off in student tools, and means no child accounts to protect | Consent, storage and child-data obligations appear immediately |
+| **Certificate registry committed to the repo** | Verification works for anyone, forever, with no API, no uptime dependency and no rate limit | Verification becomes a service that can go down |
+| **QR encodes a verification *URL*, not the result** | A QR containing the result could be forged by generating a new QR. A URL forces a lookup against our registry | Certificates become trivially forgeable |
+| **Isolated-iframe print pipeline** | Browsers print the layout viewport; on a phone that produced unusable certificates and papers | Every certificate and paper printed from a phone comes out mis-scaled |
+| **`.reveal` animations must fall back when JS is off** | Non-JS crawlers saw almost nothing — `competition.html` exposed **5 indexable words**; with the fallback, **2,938** | Thousands of words disappear from search engines, silently |
+| **Homepage CSS is a separate, `hm-`-prefixed file** | Lets the homepage be redesigned from scratch without any risk of collateral damage to 47 other pages | Homepage changes start breaking unrelated pages |
+| **Exactly one real photograph** | The site previously shipped placeholder imagery implying events that never happened. That is a credibility risk far larger than a sparse gallery | The site starts asserting things that are not true |
+| **Three font families, one numeric font** | Cormorant Garamond (headings), EB Garamond (reading), Inter (everything else + tabular numbers). A ceiling of three keeps it typographically coherent and fast | Visual coherence and font-loading cost both degrade |
+| **CSS/JS shipped unminified** | No trustworthy minifier exists in this environment; a hand-rolled one silently destroyed 472 of 723 selectors. `style.css` gzips 237 KB → 43.8 KB anyway (measured) | Shipping a silently-corrupt stylesheet is far worse than shipping a larger correct one |
+| **Every claim on the site must be true** | The 500+ schools figure and similar claims are real, from the concluded season. The site's entire value proposition is verifiability | If one claim is found false, the certificates are worth nothing either |
+
+---
+
+## 22. Glossary
+
+| Term | Meaning |
+|---|---|
+| **Arena** | One of the eight competition categories (Science & STEM, Mathematics, Creative Writing, Art & Design, Coding & AI, Quiz & GK, Innovation & Projects, Public Speaking) |
+| **Season** | One full competition cycle: announce → open → compete → judge → results → certificates → archive |
+| **Content key** | `board\|grade\|subjectId\|slug(chapter)` — the universal Study Hub lookup key |
+| **Competency item** | A question testing application/analysis rather than recall. **≥50%** of every generated exam paper must be competency items |
+| **Gold Standard** | The internal editorial bar for question-bank content, enforced by `data/coverage/_coverage_report.js` |
+| **Mastered** | A chapter progress state, awarded from practice-test performance stored in `ith_stats` |
+| **Certificate ID** | `ITH-<YEAR>-<COMPCODE>-<HASH6>`, e.g. `ITH-2026-CAQZ-87W1H7` |
+| **Registry** | `data/certificates.js` / `ITH_CERT_DB` — the committed dataset every verification checks against |
+| **Reveal** | The scroll-in animation classes (`.reveal`, `.hm-reveal`, …) that **must** fall back to visible without JavaScript |
+| **The pipeline** | The isolated-iframe A4 print mechanism (§8.3) |
+| **`hm-`** | Prefix reserved for homepage-only CSS in `assets/home.css` |
+| **`sh-` / `pa-`** | Prefixes for Study Hub and Practice Arena CSS |
+| **FormSubmit** | The third-party relay that turns every public form on the site into an email |
 
 ---
 
@@ -728,10 +1103,19 @@ await ctx.route('**/*', r => r.request().url().startsWith('file://') ? r.continu
 If you have just been dropped into this repository with no context, do this:
 
 1. Read §1–§3 to understand the product and that there is **no backend/build**.
-2. Run the checks in §14 to establish a clean baseline **before** changing anything.
-3. Read §11 (invariants) and §12 (traps) before writing a single line.
-4. Find the relevant system in §6, and the relevant file in §4.
-5. Make the change, re-run §14, then commit and push.
+2. Read §17 (what every feature does) and §18 (how the journeys connect) to
+   understand the product as a user experiences it, not just as files.
+3. Run the checks in §14 to establish a clean baseline **before** changing anything.
+4. Read §11 (invariants), §12 (traps) and §21 (why things are the way they are)
+   before writing a single line — §21 in particular exists to stop you "fixing"
+   something that is already correct.
+5. Find the relevant system in §6, the relevant file in §4, and the relevant
+   process in §20.
+6. Make the change, re-run §14, then commit and push.
+
+**If you are about to change the season, the certificates, or anything printed,**
+read the matching runbook in §20 first. Those three are the ones where a mistake
+is visible to the public and hard to walk back.
 
 **The three mistakes that cause the most damage here:**
 publishing something untrue, breaking the no-JS reveal fallback (which silently

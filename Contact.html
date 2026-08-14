@@ -97,7 +97,13 @@
 
         <div class="reveal reveal-right">
           <div id="formContainer">
-            <form id="contactForm" class="ith-form" style="max-width:none;" aria-label="Contact form">
+            <!-- action/method are the no-JS fallback: without JavaScript the form
+                 posts straight to FormSubmit. With JavaScript, the submit handler
+                 below calls preventDefault() and uses the AJAX endpoint instead,
+                 so the visitor stays on the page. -->
+            <form id="contactForm" class="ith-form" style="max-width:none;"
+                  action="https://formsubmit.co/info@inspiretalenthub.in" method="POST"
+                  aria-label="Contact form">
               <input type="hidden" name="_subject" value="New Contact Form Submission - Inspire Talent Hub" />
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
