@@ -101,7 +101,7 @@ serves all of them:
   felicitated, all participants certified. Its photographs and certificates are
   real. The site presents it in the **past tense**.
 - **Monsoon Minds Championship 2026** — **UPCOMING**. Registrations open at
-  `2026-08-26T09:00:00+05:30`. `competition.html` is dedicated to this season and
+  `2026-08-31T09:00:00+05:30` (Monday). `competition.html` is dedicated to this season and
   runs a live countdown to that timestamp.
 - **Academic Kickoff Fest 2026** — the event whose results populate
   `data/certificates.js` (the certificate database currently in production).
@@ -742,7 +742,7 @@ appear or not appear.
 | Feature | What it does for the user | Implemented in | Notes / conditions |
 |---|---|---|---|
 | **Season landing page** | Explains the current competition: what it is, who can enter, arenas, dates, fees, rules | `competition.html` | The single page that must be rewritten every season |
-| **Live countdown** | Counts down to the moment registration opens | `competition.html` (`launchDate`), `index.html` (`#hmCountdown data-target`) + `assets/js/ith-home.js` | Two separate countdowns exist. **They must carry the same timestamp.** Currently `2026-08-26T09:00:00+05:30` |
+| **Live countdown** | Counts down to the moment registration opens | `competition.html` (`#cmCountdown data-target`) + `assets/js/ith-competition.js`; `index.html` (`#hmCountdown data-target`) + `assets/js/ith-home.js` | Two separate countdowns exist. **They must carry the same timestamp**, and the `Event` schema `startDate` must match both. Currently `2026-08-31T09:00:00+05:30` |
 | **Pre-registration capture** | Lets a student register interest before the season opens | `competition.html` form → FormSubmit (§19) | Not a payment or a confirmed entry — it is an interest signal |
 | **Arena explanations** | Describes the eight competition categories | `index.html` (`.hm-arenas`), `competition.html`, `how-competitions-work.html` | Eight arenas; see §1 |
 | **Process transparency** | Shows how entries are judged, by whom, against what published criteria | `judging-process.html`, `how-competitions-work.html` | This is a *trust* feature, not decoration — it is the answer to "is this legitimate?" |
