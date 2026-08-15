@@ -1,0 +1,779 @@
+/* ==========================================================================
+   competition.css — Monsoon Minds Championship 2026 season page.
+
+   Scope: competition.html ONLY. Every class is prefixed `cm-` so this file can
+   never collide with style.css (global) or home.css (homepage `hm-`).
+
+   Rules this file follows, per the engineering handbook:
+     - brand tokens only, no invented hex values
+     - 8-point spacing scale expressed in rem
+     - mobile-first, `@media (min-width: …)` only
+     - every interactive element ≥ 44 × 44 px
+     - all motion is opt-out via prefers-reduced-motion
+     - reveal animations MUST fall back to visible without JavaScript
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Local tokens (derived from the global brand palette, never new colours)
+   -------------------------------------------------------------------------- */
+.cm-page {
+  --cm-gold: var(--color-brand-primary);
+  --cm-gold-2: var(--color-brand-secondary);
+  --cm-gold-3: var(--color-brand-tertiary);
+  --cm-ink: var(--color-bg-base);
+  --cm-txt: var(--color-text-secondary);
+  --cm-dim: var(--color-text-tertiary);
+  --cm-faint: var(--color-text-quaternary);
+
+  --cm-line: rgba(232, 198, 106, 0.16);
+  --cm-line-soft: rgba(255, 255, 255, 0.08);
+  --cm-panel: rgba(255, 255, 255, 0.028);
+  --cm-panel-2: rgba(255, 255, 255, 0.05);
+  --cm-glow: rgba(232, 198, 106, 0.09);
+
+  --cm-r-sm: 0.75rem;
+  --cm-r: 1.125rem;
+  --cm-r-lg: 1.5rem;
+
+  --cm-ease: var(--ease-lux, cubic-bezier(0.19, 1, 0.22, 1));
+}
+
+/* --------------------------------------------------------------------------
+   2. Layout primitives
+   -------------------------------------------------------------------------- */
+.cm-wrap {
+  width: min(100% - 2rem, 76rem);
+  margin-inline: auto;
+}
+@media (min-width: 48rem) {
+  .cm-wrap { width: min(100% - 4rem, 76rem); }
+}
+
+.cm-section { padding-block: 4rem; position: relative; }
+@media (min-width: 48rem) { .cm-section { padding-block: 6rem; } }
+
+.cm-section--tight { padding-block: 3rem; }
+
+/* Section heading block ---------------------------------------------------- */
+.cm-head { max-width: 42rem; margin-bottom: 2.5rem; }
+.cm-head--mid { margin-inline: auto; text-align: center; }
+
+.cm-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-family-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cm-gold);
+  margin-bottom: 1rem;
+}
+.cm-tag::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cm-gold));
+}
+.cm-head--mid .cm-tag::before { display: none; }
+
+.cm-h2 {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: clamp(1.875rem, 5vw, 3rem);
+  line-height: 1.12;
+  color: var(--color-text-primary);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.cm-h2 em {
+  font-style: italic;
+  color: var(--cm-gold);
+}
+
+/* Short by design: the old page used 400–600 character paragraphs here. */
+.cm-sub {
+  font-family: var(--font-family-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--cm-dim);
+  margin: 0;
+  max-width: 34rem;
+}
+.cm-head--mid .cm-sub { margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   3. Reveal-on-scroll
+   The base state is VISIBLE. Only `html.js` opts in to the hidden start state,
+   so a crawler or a JS-less browser always sees the content.
+   -------------------------------------------------------------------------- */
+.cm-reveal { opacity: 1; }
+html.js .cm-reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 0.7s var(--cm-ease), transform 0.7s var(--cm-ease);
+  transition-delay: var(--cm-delay, 0ms);
+}
+html.js .cm-reveal.is-in { opacity: 1; transform: none; }
+
+/* --------------------------------------------------------------------------
+   4. Hero
+   -------------------------------------------------------------------------- */
+.cm-hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(7rem, 14vw, 10rem);
+  padding-bottom: 3.5rem;
+  isolation: isolate;
+}
+@media (min-width: 62rem) { .cm-hero { padding-bottom: 5rem; } }
+
+.cm-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(60rem 32rem at 78% 8%, var(--cm-glow), transparent 62%),
+    radial-gradient(44rem 28rem at 6% 88%, rgba(201, 168, 76, 0.07), transparent 66%);
+  pointer-events: none;
+}
+.cm-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(var(--cm-line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cm-line-soft) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  mask-image: radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(70% 55% at 50% 0%, #000 0%, transparent 78%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.cm-hero__inner { display: grid; gap: 3rem; }
+@media (min-width: 62rem) {
+  .cm-hero__inner {
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 4rem;
+    align-items: center;
+  }
+}
+
+.cm-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 2.25rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--cm-line);
+  border-radius: 999px;
+  background: rgba(232, 198, 106, 0.06);
+  font-family: var(--font-family-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cm-gold);
+  margin-bottom: 1.5rem;
+}
+.cm-status__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--cm-gold);
+  box-shadow: 0 0 0 0 rgba(232, 198, 106, 0.55);
+  animation: cm-pulse 2.4s ease-out infinite;
+}
+@keyframes cm-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(232, 198, 106, 0.5); }
+  70%  { box-shadow: 0 0 0 0.6rem rgba(232, 198, 106, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(232, 198, 106, 0); }
+}
+
+.cm-hero__title {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin: 0 0 1.25rem;
+}
+.cm-hero__title em { font-style: italic; color: var(--cm-gold); display: block; }
+
+.cm-hero__lede {
+  font-family: var(--font-family-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--cm-dim);
+  margin: 0 0 2rem;
+  max-width: 30rem;
+}
+
+/* Buttons ------------------------------------------------------------------ */
+.cm-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+.cm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;               /* ≥44px touch target */
+  padding: 0.875rem 1.75rem;
+  border-radius: 999px;
+  font-family: var(--font-family-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.3s var(--cm-ease), box-shadow 0.3s var(--cm-ease),
+              background-color 0.3s var(--cm-ease), border-color 0.3s var(--cm-ease);
+}
+.cm-btn--gold {
+  background: linear-gradient(135deg, var(--cm-gold), var(--cm-gold-2));
+  color: #14100a;
+  box-shadow: 0 0.5rem 1.75rem rgba(232, 198, 106, 0.22);
+}
+.cm-btn--gold:hover { transform: translateY(-2px); box-shadow: 0 0.75rem 2.25rem rgba(232, 198, 106, 0.32); }
+.cm-btn--ghost {
+  background: transparent;
+  border-color: var(--cm-line);
+  color: var(--color-text-primary);
+}
+.cm-btn--ghost:hover { transform: translateY(-2px); border-color: var(--cm-gold); background: rgba(232, 198, 106, 0.06); }
+.cm-btn:focus-visible { outline: 2px solid var(--cm-gold); outline-offset: 3px; }
+
+/* --------------------------------------------------------------------------
+   5. Countdown card
+   -------------------------------------------------------------------------- */
+.cm-card {
+  border: 1px solid var(--cm-line);
+  border-radius: var(--cm-r-lg);
+  background: linear-gradient(160deg, var(--cm-panel-2), var(--cm-panel));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 1.75rem;
+}
+@media (min-width: 48rem) { .cm-card { padding: 2rem; } }
+
+.cm-cd__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.cm-cd__label {
+  font-family: var(--font-family-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cm-faint);
+  margin: 0 0 0.25rem;
+}
+.cm-cd__title {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: 1.375rem;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.cm-cd__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+@media (min-width: 30rem) { .cm-cd__grid { gap: 0.75rem; } }
+
+.cm-cd__cell {
+  text-align: center;
+  padding: 0.875rem 0.25rem;
+  border: 1px solid var(--cm-line-soft);
+  border-radius: var(--cm-r-sm);
+  background: rgba(0, 0, 0, 0.28);
+}
+.cm-cd__num {
+  font-family: var(--font-family-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 6vw, 2.125rem);
+  line-height: 1;
+  color: var(--cm-gold);
+  display: block;
+}
+.cm-cd__unit {
+  font-family: var(--font-family-body);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cm-faint);
+  margin-top: 0.375rem;
+  display: block;
+}
+
+/* Static date shown when the countdown cannot run (no JS). */
+.cm-cd__static {
+  font-family: var(--font-family-body);
+  font-size: 0.875rem;
+  color: var(--cm-dim);
+  margin: 1rem 0 0;
+  text-align: center;
+}
+html.js .cm-cd__static { display: none; }
+
+.cm-form { display: grid; gap: 0.625rem; margin-top: 1.5rem; }
+@media (min-width: 30rem) { .cm-form { grid-template-columns: 1fr auto; } }
+
+.cm-input {
+  min-height: 3rem;
+  padding: 0.875rem 1.125rem;
+  width: 100%;
+  border: 1px solid var(--cm-line-soft);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.32);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  font-size: 0.9375rem;
+  transition: border-color 0.3s var(--cm-ease);
+}
+.cm-input::placeholder { color: var(--cm-faint); }
+.cm-input:focus { outline: none; border-color: var(--cm-gold); }
+.cm-honey { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+
+.cm-note {
+  font-family: var(--font-family-body);
+  font-size: 0.8125rem;
+  color: var(--cm-faint);
+  margin: 0.875rem 0 0;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   6. Trust strip
+   -------------------------------------------------------------------------- */
+.cm-strip {
+  border-block: 1px solid var(--cm-line-soft);
+  background: rgba(255, 255, 255, 0.015);
+}
+.cm-strip__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 2rem;
+  padding-block: 1.25rem;
+}
+.cm-strip__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-family-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--cm-dim);
+}
+.cm-strip__item svg { color: var(--cm-gold); flex-shrink: 0; }
+
+/* --------------------------------------------------------------------------
+   7. Stat tiles (animated count-up)
+   -------------------------------------------------------------------------- */
+.cm-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+@media (min-width: 48rem) {
+  .cm-stats { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+}
+
+.cm-stat {
+  text-align: center;
+  padding: 1.75rem 1rem;
+  border: 1px solid var(--cm-line-soft);
+  border-radius: var(--cm-r);
+  background: var(--cm-panel);
+  transition: transform 0.4s var(--cm-ease), border-color 0.4s var(--cm-ease);
+}
+.cm-stat:hover { transform: translateY(-3px); border-color: var(--cm-line); }
+.cm-stat__n {
+  font-family: var(--font-family-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1;
+  color: var(--cm-gold);
+  display: block;
+}
+.cm-stat__l {
+  font-family: var(--font-family-body);
+  font-size: 0.8125rem;
+  color: var(--cm-dim);
+  margin-top: 0.625rem;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   8. Arena cards
+   -------------------------------------------------------------------------- */
+.cm-arenas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+@media (min-width: 34rem) { .cm-arenas { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 62rem) { .cm-arenas { grid-template-columns: repeat(4, 1fr); gap: 1rem; } }
+
+.cm-arena {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  min-height: 9.5rem;
+  padding: 1.5rem 1.25rem;
+  border: 1px solid var(--cm-line-soft);
+  border-radius: var(--cm-r);
+  background: var(--cm-panel);
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.4s var(--cm-ease), border-color 0.4s var(--cm-ease),
+              background-color 0.4s var(--cm-ease);
+}
+.cm-arena::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(18rem 10rem at 50% 0%, var(--cm-glow), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s var(--cm-ease);
+  pointer-events: none;
+}
+.cm-arena:hover,
+.cm-arena:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--cm-line);
+  background: var(--cm-panel-2);
+}
+.cm-arena:hover::after, .cm-arena:focus-visible::after { opacity: 1; }
+.cm-arena:focus-visible { outline: 2px solid var(--cm-gold); outline-offset: 3px; }
+
+.cm-arena__ic {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.625rem;
+  background: rgba(232, 198, 106, 0.1);
+  color: var(--cm-gold);
+  flex-shrink: 0;
+}
+.cm-arena__n {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+/* Deliberately terse: one short line, never a paragraph. */
+.cm-arena__d {
+  font-family: var(--font-family-body);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--cm-dim);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. Steps timeline
+   -------------------------------------------------------------------------- */
+.cm-steps {
+  display: grid;
+  gap: 1rem;
+  counter-reset: cm-step;
+  position: relative;
+}
+@media (min-width: 62rem) { .cm-steps { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+
+.cm-step {
+  position: relative;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--cm-line-soft);
+  border-radius: var(--cm-r);
+  background: var(--cm-panel);
+  transition: transform 0.4s var(--cm-ease), border-color 0.4s var(--cm-ease);
+}
+.cm-step:hover { transform: translateY(-3px); border-color: var(--cm-line); }
+.cm-step__n {
+  font-family: var(--font-family-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--cm-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--cm-line);
+  background: rgba(232, 198, 106, 0.08);
+  margin-bottom: 1rem;
+}
+.cm-step__t {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--color-text-primary);
+  margin: 0 0 0.5rem;
+}
+.cm-step__d {
+  font-family: var(--font-family-body);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--cm-dim);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   10. Reward / pillar cards
+   -------------------------------------------------------------------------- */
+.cm-cards {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 48rem) { .cm-cards { grid-template-columns: repeat(3, 1fr); } }
+
+.cm-tile {
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--cm-line-soft);
+  border-radius: var(--cm-r);
+  background: var(--cm-panel);
+  transition: transform 0.4s var(--cm-ease), border-color 0.4s var(--cm-ease);
+}
+.cm-tile:hover { transform: translateY(-3px); border-color: var(--cm-line); }
+.cm-tile--gold { border-color: var(--cm-line); background: linear-gradient(160deg, rgba(232,198,106,0.07), var(--cm-panel)); }
+
+.cm-tile__ic {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.75rem;
+  background: rgba(232, 198, 106, 0.1);
+  color: var(--cm-gold);
+  margin-bottom: 1.125rem;
+}
+.cm-tile__t {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: 1.375rem;
+  color: var(--color-text-primary);
+  margin: 0 0 0.5rem;
+}
+.cm-tile__d {
+  font-family: var(--font-family-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--cm-dim);
+  margin: 0;
+}
+.cm-tile__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2.75rem;
+  margin-top: 0.75rem;
+  font-family: var(--font-family-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cm-gold);
+  text-decoration: none;
+}
+.cm-tile__link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.cm-tile__link:focus-visible { outline: 2px solid var(--cm-gold); outline-offset: 3px; }
+
+/* --------------------------------------------------------------------------
+   11. Schools band
+   -------------------------------------------------------------------------- */
+.cm-band {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2rem;
+  border: 1px solid var(--cm-line);
+  border-radius: var(--cm-r-lg);
+  background:
+    radial-gradient(40rem 20rem at 100% 0%, var(--cm-glow), transparent 65%),
+    linear-gradient(160deg, var(--cm-panel-2), var(--cm-panel));
+}
+@media (min-width: 48rem) {
+  .cm-band { grid-template-columns: 1.4fr 1fr; align-items: center; padding: 2.5rem; }
+}
+.cm-band__t {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  font-size: clamp(1.625rem, 4vw, 2.25rem);
+  line-height: 1.15;
+  color: var(--color-text-primary);
+  margin: 0 0 0.625rem;
+}
+.cm-band__t em { font-style: italic; color: var(--cm-gold); }
+.cm-band__d {
+  font-family: var(--font-family-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--cm-dim);
+  margin: 0;
+}
+.cm-band__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+@media (min-width: 48rem) { .cm-band__actions { justify-content: flex-end; } }
+
+/* --------------------------------------------------------------------------
+   12. FAQ — native <details>, so it works with JavaScript disabled
+   -------------------------------------------------------------------------- */
+.cm-faq { display: grid; gap: 0.625rem; max-width: 48rem; margin-inline: auto; }
+
+.cm-q {
+  border: 1px solid var(--cm-line-soft);
+  border-radius: var(--cm-r);
+  background: var(--cm-panel);
+  overflow: hidden;
+  transition: border-color 0.3s var(--cm-ease);
+}
+.cm-q[open] { border-color: var(--cm-line); }
+
+.cm-q__s {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;              /* ≥44px touch target */
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-family-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+.cm-q__s::-webkit-details-marker { display: none; }
+.cm-q__s:hover { color: var(--cm-gold); }
+.cm-q__s:focus-visible { outline: 2px solid var(--cm-gold); outline-offset: -2px; }
+
+.cm-q__i {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  position: relative;
+}
+.cm-q__i::before, .cm-q__i::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1.5px;
+  background: var(--cm-gold);
+  transition: transform 0.3s var(--cm-ease);
+}
+.cm-q__i::after { transform: rotate(90deg); }
+.cm-q[open] .cm-q__i::after { transform: rotate(0deg); }
+
+.cm-q__a {
+  padding: 0 1.25rem 1.25rem;
+  font-family: var(--font-family-body);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--cm-dim);
+  margin: 0;
+}
+.cm-q__a a { color: var(--cm-gold); }
+
+/* --------------------------------------------------------------------------
+   13. Closing CTA
+   -------------------------------------------------------------------------- */
+.cm-cta {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border: 1px solid var(--cm-line);
+  border-radius: var(--cm-r-lg);
+  background:
+    radial-gradient(36rem 18rem at 50% 0%, var(--cm-glow), transparent 70%),
+    linear-gradient(160deg, var(--cm-panel-2), var(--cm-panel));
+}
+@media (min-width: 48rem) { .cm-cta { padding: 4rem 3rem; } }
+.cm-cta .cm-form { max-width: 30rem; margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   14. Motion opt-out
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html.js .cm-reveal { opacity: 1; transform: none; transition: none; }
+  .cm-status__dot { animation: none; }
+  .cm-arena, .cm-stat, .cm-step, .cm-tile, .cm-btn { transition: none; }
+  .cm-arena:hover, .cm-stat:hover, .cm-step:hover,
+  .cm-tile:hover, .cm-btn--gold:hover, .cm-btn--ghost:hover { transform: none; }
+}
+
+/* Belt-and-braces for crawlers that report no scripting support at all. */
+@media (scripting: none) {
+  .cm-reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* --------------------------------------------------------------------------
+   15. "In brief" — substance without a wall of prose.
+   Short paragraphs on one side, a scannable fact list on the other.
+   -------------------------------------------------------------------------- */
+.cm-brief { display: grid; gap: 2rem; }
+@media (min-width: 62rem) {
+  .cm-brief { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+}
+
+/* Capped deliberately — a line longer than this is the problem we removed. */
+.cm-brief__p {
+  font-family: var(--font-family-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--cm-dim);
+  margin: 0 0 0.875rem;
+  max-width: 34rem;
+}
+.cm-brief__p:last-child { margin-bottom: 0; }
+
+.cm-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--cm-line-soft);
+  border-radius: var(--cm-r);
+  background: var(--cm-panel);
+  overflow: hidden;
+}
+.cm-fact {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--cm-line-soft);
+}
+@media (min-width: 34rem) {
+  .cm-fact { grid-template-columns: 5.5rem 1fr; gap: 1rem; align-items: baseline; }
+}
+.cm-fact:last-child { border-bottom: 0; }
+
+.cm-fact__k {
+  font-family: var(--font-family-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cm-gold);
+}
+.cm-fact__v {
+  font-family: var(--font-family-body);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cm-txt);
+}

@@ -16,7 +16,7 @@
 (function (global) {
   'use strict';
 
-  var SITE = 'https://www.Inspiretalenthub.in/';
+  var SITE = 'https://www.inspiretalenthub.in/';
   var VERIFY_PAGE = 'verifycertificate.html';
 
   // ---- Certificate-ID configuration ----------------------------------------
