@@ -315,6 +315,7 @@ It also owns **`printPapers()`** — the A4 print pipeline (see §8.3).
 | `ith-home.js` | Homepage only: `.hm-reveal` scroll cascade + the live season countdown (`#hmCountdown`, driven by its `data-target` attribute). |
 | `ith-study-reveal.js` | Scroll-reveal cascade for Study Hub / Practice Arena cards. Uses a `MutationObserver` because the engine injects DOM continuously. Deliberately **excludes** live quiz options and game tiles so they are usable the instant they appear. |
 | `gallery.js` | Legacy gallery filtering + lightbox. Mostly inert now that the gallery holds one photo. |
+| `ith-snake.js` | Shared decorative layer: a low-opacity trail of arena/instrument icons that drifts left↔right behind section text on scroll. Self-contained inline SVG icons; injects `.ith-snake` layers into `.hm-section`/`.cm-section`/`.cm-hero`; skipped for reduced-motion. Loaded on `index.html` and `competition.html`. Styles live in `style.css`. |
 
 ---
 

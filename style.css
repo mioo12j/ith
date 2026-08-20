@@ -5198,3 +5198,36 @@ html.no-js .hm-reveal {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   ICON SNAKE — a low-opacity trail of arena/instrument icons that drifts
+   left↔right behind section text as you scroll. Injected by ith-snake.js into
+   position:relative sections; clipped to the section so it never adds overflow.
+   Purely decorative: pointer-events none, hidden for reduced-motion.
+   ========================================================================== */
+.ith-snake {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ith-snake__row {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: clamp(2.5rem, 8vw, 6.5rem);
+  padding-inline: 4vw;
+  will-change: transform;
+}
+.ith-snake__i {
+  flex: 0 0 auto;
+  width: clamp(26px, 3vw, 40px);
+  height: clamp(26px, 3vw, 40px);
+  color: var(--color-brand-primary, #e8c66a);
+  opacity: 0.30;
+  transform: translateY(var(--wy, 0px));
+}
+@media (prefers-reduced-motion: reduce) { .ith-snake { display: none; } }

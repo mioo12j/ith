@@ -1280,3 +1280,81 @@ html.js .hm-reveal.is-in { opacity: 1; transform: none; }
   box-shadow: 10px 14px 34px -14px color-mix(in srgb, var(--hm-accent) 55%, transparent),
               0 10px 24px rgba(0, 0, 0, 0.35);
 }
+
+/* ==========================================================================
+   CODEPEN v3 — light "sticker" cards + softer rainbow (owner feedback)
+   Homepage only. Cards become near-white with a pastel gradient wash, dark
+   text, an accent top-rule and a coloured offset shadow — the CodePen card.
+   The heading rainbow highlighter is dialled back so text reads clearly.
+   ========================================================================== */
+
+/* Softer, lower highlighter so the white text sits clearly above it */
+.hm .hm-hero__title em::before,
+.hm .hm-h2 em::before {
+  top: 54%;
+  bottom: 6%;
+  opacity: 0.55;
+  filter: saturate(1.05);
+  border-radius: 4px;
+}
+
+/* --- Light pastel cards --------------------------------------------------- */
+.hm .hm-path,
+.hm .hm-step,
+.hm .hm-pillar,
+.hm .hm-voice {
+  background:
+    radial-gradient(130% 120% at 0% 0%,
+      color-mix(in srgb, var(--hm-accent) 14%, #ffffff) 0%,
+      #f4f6fc 46%,
+      color-mix(in srgb, var(--hm-accent) 12%, #eef0f9) 100%);
+  border: 1px solid rgba(20, 26, 46, 0.08);
+  color: #454d63;
+  box-shadow:
+    9px 11px 0 -3px color-mix(in srgb, var(--hm-accent) 30%, transparent),
+    0 18px 44px rgba(0, 0, 0, 0.4);
+}
+/* headings + strong text → dark */
+.hm .hm-path__title,
+.hm .hm-step h3,
+.hm .hm-pillar h3,
+.hm .hm-voice blockquote {
+  color: #1b2338;
+}
+/* body text → dark muted */
+.hm .hm-path__text,
+.hm .hm-pillar p,
+.hm .hm-step p,
+.hm .hm-path__list li,
+.hm .hm-voice__name {
+  color: #454d63;
+}
+.hm .hm-voice__role { color: #6b7488; }
+.hm .hm-path__list li svg { color: var(--hm-accent); }
+
+/* accent top-rule stays; icon chip tuned for light bg */
+.hm .hm-path__ic,
+.hm .hm-pillar__ic {
+  color: #fff;
+  background: linear-gradient(135deg, var(--hm-accent), color-mix(in srgb, var(--hm-accent) 60%, #000));
+  border: none;
+}
+.hm .hm-path__kicker { color: color-mix(in srgb, var(--hm-accent) 75%, #000); }
+.hm .hm-voice__stars { color: #f0a92e; }
+/* CTA link inside a light card */
+.hm .hm-path__go { color: color-mix(in srgb, var(--hm-accent) 70%, #000); }
+
+/* step number on the light card */
+.hm .hm-step::before { color: color-mix(in srgb, var(--hm-accent) 55%, #ffffff); }
+
+/* hover: lift + deepen the coloured offset shadow */
+.hm .hm-path:hover,
+.hm .hm-step:hover,
+.hm .hm-pillar:hover,
+.hm .hm-voice:hover {
+  transform: translateY(-6px);
+  border-color: rgba(20, 26, 46, 0.12);
+  box-shadow:
+    12px 15px 0 -3px color-mix(in srgb, var(--hm-accent) 42%, transparent),
+    0 24px 60px rgba(0, 0, 0, 0.5);
+}

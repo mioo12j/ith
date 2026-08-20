@@ -777,3 +777,122 @@ html.js .cm-cd__static { display: none; }
   line-height: 1.55;
   color: var(--cm-txt);
 }
+
+/* keep section content above the injected icon-snake layer */
+.cm-wrap { position: relative; z-index: 1; }
+.cm-hero__inner { position: relative; z-index: 1; }
+
+/* ==========================================================================
+   CODEPEN TREATMENT — competition page, colourful & kid-friendly (owner ask)
+   Rainbow highlighter headings + light "sticker" cards with per-card accents.
+   Scoped to .cm-page. Matches the homepage system.
+   ========================================================================== */
+.cm-page {
+  --cm-blue: #4d8dff;
+  --cm-cyan: #34d1c1;
+  --cm-violet: #9a7cff;
+  --cm-coral: #ff7c6a;
+  --cm-accent: var(--cm-blue);
+  --cm-rainbow: linear-gradient(95deg,
+      #ff6b9d 0%, #ff9e4d 20%, #ffe14d 38%, #4de3a6 56%, #4d9fff 76%, #9a7cff 100%);
+}
+
+/* --- Rainbow highlighter on emphasised heading words --------------------- */
+.cm-page .cm-h2 em,
+.cm-page .cm-hero__title em {
+  position: relative;
+  display: inline;
+  color: #fff;
+  z-index: 0;
+}
+.cm-page .cm-h2 em::before,
+.cm-page .cm-hero__title em::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.06em;
+  right: -0.06em;
+  top: 54%;
+  bottom: 6%;
+  background: var(--cm-rainbow);
+  border-radius: 4px;
+  transform: translate(3px, 3px) rotate(-1.2deg);
+  opacity: 0.55;
+}
+
+/* --- Light "sticker" cards: reward/fairness/prep tiles, arenas, steps ----- */
+.cm-page .cm-tile,
+.cm-page .cm-arena,
+.cm-page .cm-step {
+  background:
+    radial-gradient(130% 120% at 0% 0%,
+      color-mix(in srgb, var(--cm-accent) 14%, #ffffff) 0%,
+      #f4f6fc 46%,
+      color-mix(in srgb, var(--cm-accent) 12%, #eef0f9) 100%);
+  border: 1px solid rgba(20, 26, 46, 0.08);
+  color: #454d63;
+  box-shadow:
+    9px 11px 0 -3px color-mix(in srgb, var(--cm-accent) 30%, transparent),
+    0 18px 44px rgba(0, 0, 0, 0.4);
+}
+.cm-page .cm-tile__t,
+.cm-page .cm-arena__n,
+.cm-page .cm-step__t { color: #1b2338; }
+.cm-page .cm-tile__d,
+.cm-page .cm-arena__d,
+.cm-page .cm-step__d { color: #454d63; }
+
+/* icon chips + accents on the light cards */
+.cm-page .cm-tile__ic,
+.cm-page .cm-arena__ic {
+  color: #fff;
+  background: linear-gradient(135deg, var(--cm-accent), color-mix(in srgb, var(--cm-accent) 60%, #000));
+  border: none;
+}
+.cm-page .cm-tile__link { color: color-mix(in srgb, var(--cm-accent) 72%, #000); }
+.cm-page .cm-step__n {
+  color: color-mix(in srgb, var(--cm-accent) 72%, #000);
+  border-color: color-mix(in srgb, var(--cm-accent) 30%, transparent);
+  background: color-mix(in srgb, var(--cm-accent) 12%, #fff);
+}
+
+/* per-card accent spread (playful colour) */
+.cm-page .cm-tile:nth-child(3n+1)  { --cm-accent: var(--cm-blue); }
+.cm-page .cm-tile:nth-child(3n+2)  { --cm-accent: var(--cm-violet); }
+.cm-page .cm-tile:nth-child(3n+3)  { --cm-accent: var(--cm-coral); }
+.cm-page .cm-step:nth-child(4n+1)  { --cm-accent: var(--cm-blue); }
+.cm-page .cm-step:nth-child(4n+2)  { --cm-accent: var(--cm-cyan); }
+.cm-page .cm-step:nth-child(4n+3)  { --cm-accent: var(--cm-violet); }
+.cm-page .cm-step:nth-child(4n+4)  { --cm-accent: var(--cm-coral); }
+.cm-page .cm-arena:nth-child(8n+1) { --cm-accent: var(--cm-gold); }
+.cm-page .cm-arena:nth-child(8n+2) { --cm-accent: var(--cm-blue); }
+.cm-page .cm-arena:nth-child(8n+3) { --cm-accent: var(--cm-coral); }
+.cm-page .cm-arena:nth-child(8n+4) { --cm-accent: var(--cm-violet); }
+.cm-page .cm-arena:nth-child(8n+5) { --cm-accent: var(--cm-cyan); }
+.cm-page .cm-arena:nth-child(8n+6) { --cm-accent: var(--cm-blue); }
+.cm-page .cm-arena:nth-child(8n+7) { --cm-accent: var(--cm-gold); }
+.cm-page .cm-arena:nth-child(8n+8) { --cm-accent: var(--cm-coral); }
+
+/* hover: lift + deepen the coloured offset shadow */
+.cm-page .cm-tile:hover,
+.cm-page .cm-arena:hover,
+.cm-page .cm-step:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    12px 15px 0 -3px color-mix(in srgb, var(--cm-accent) 42%, transparent),
+    0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* gradient-border pill + ghost button, like the homepage */
+.cm-page .cm-status {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(120deg, #0b1120, #0b1120) padding-box,
+    var(--cm-rainbow) border-box;
+}
+.cm-page .cm-btn--ghost {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(#0a0f1c, #0a0f1c) padding-box,
+    var(--cm-rainbow) border-box;
+}
