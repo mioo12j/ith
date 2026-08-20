@@ -1358,3 +1358,17 @@ html.js .hm-reveal.is-in { opacity: 1; transform: none; }
     12px 15px 0 -3px color-mix(in srgb, var(--hm-accent) 42%, transparent),
     0 24px 60px rgba(0, 0, 0, 0.5);
 }
+
+/* --- Casual, chunky CodePen-style heading font (homepage) ----------------- */
+.hm .hm-hero__title,
+.hm .hm-h2,
+.hm .hm-cta__title {
+  font-family: 'Baloo 2', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.hm .hm-hero__title { font-weight: 800; }
+.hm .hm-hero__title em,
+.hm .hm-h2 em,
+.hm .hm-cta__title em { font-style: normal; font-weight: 800; }

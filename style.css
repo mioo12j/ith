@@ -5231,3 +5231,13 @@ html.no-js .hm-reveal {
   transform: translateY(var(--wy, 0px));
 }
 @media (prefers-reduced-motion: reduce) { .ith-snake { display: none; } }
+
+/* Snake horizontal loop: left → right → left, forever. Alternate sections
+   drift the opposite way. (Motion already disabled above for reduced-motion.) */
+.ith-snake__row { animation: ith-snake-loop 24s ease-in-out infinite; }
+.ith-snake--rev .ith-snake__row { animation-direction: reverse; }
+@keyframes ith-snake-loop {
+  0%   { transform: translate(-170px, -50%); }
+  50%  { transform: translate(170px, -50%); }
+  100% { transform: translate(-170px, -50%); }
+}

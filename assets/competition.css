@@ -896,3 +896,15 @@ html.js .cm-cd__static { display: none; }
     linear-gradient(#0a0f1c, #0a0f1c) padding-box,
     var(--cm-rainbow) border-box;
 }
+
+/* --- Casual, chunky CodePen-style heading font (competition) -------------- */
+.cm-page .cm-hero__title,
+.cm-page .cm-h2 {
+  font-family: 'Baloo 2', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.cm-page .cm-hero__title { font-weight: 800; }
+.cm-page .cm-h2 em,
+.cm-page .cm-hero__title em { font-style: normal; font-weight: 800; }
