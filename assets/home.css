@@ -866,3 +866,314 @@ html.js .hm-reveal.is-in { opacity: 1; transform: none; }
   .hm-path:hover, .hm-arena:hover, .hm-pillar:hover, .hm-voice:hover { transform: none; }
   html.js .hm-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+/* ==========================================================================
+   CODEPEN-STYLE UI REFRESH — homepage only, visual layer (Aug 2026)
+   --------------------------------------------------------------------------
+   Pure restyle: no HTML, copy, structure or SEO changes. Every rule is
+   `.hm`-scoped so it (a) beats the base rules above by specificity and
+   (b) can never leak to another page. A small, curated accent palette is
+   layered ON TOP of the gold brand colour to get the playful, colourful-on-
+   dark energy of codepen.io — blue / cyan / violet / coral used as glows and
+   per-card accents, gold kept as the primary brand colour. This is a
+   deliberate, scoped exception to the "brand tokens only" rule, per explicit
+   design direction for the homepage.
+   ========================================================================== */
+.hm {
+  --hm-blue:   #4d8dff;
+  --hm-cyan:   #34d1c1;
+  --hm-violet: #9a7cff;
+  --hm-coral:  #ff7c6a;
+  --hm-gold:   var(--color-brand-primary);
+  --hm-accent: var(--hm-blue);
+  --hm-accent-2: var(--hm-violet);
+  background-color: var(--color-bg-base);
+}
+
+/* --- Deeper, cooler base + soft colour depth on the dark sections -------- */
+.hm-section--alt { background-color: #05070f; overflow: hidden; }
+.hm-section { overflow: clip; }
+.hm-section--alt::before,
+.hm-section::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+.hm-section--alt::before {
+  inset: -20% -10% auto auto;
+  width: 40rem; height: 26rem;
+  background: radial-gradient(closest-side, rgba(77, 141, 255, 0.16), transparent 70%);
+}
+.hm-section::after {
+  inset: auto auto -25% -12%;
+  width: 38rem; height: 24rem;
+  background: radial-gradient(closest-side, rgba(154, 124, 255, 0.13), transparent 70%);
+}
+.hm-wrap { position: relative; z-index: 1; }
+
+/* ==========================================================================
+   HERO — flowing light-beams + animated gradient headline word
+   ========================================================================== */
+.hm .hm-hero { padding-block: clamp(7.5rem, 16vw, 12rem) clamp(4rem, 9vw, 7rem); }
+
+/* Layered aurora beams that slowly drift, CodePen-style. */
+.hm .hm-hero__bg {
+  inset: -15% -15% -5%;
+  background:
+    radial-gradient(38% 50% at 15% 20%, rgba(232, 198, 106, 0.22), transparent 60%),
+    radial-gradient(42% 48% at 85% 6%, rgba(77, 141, 255, 0.24), transparent 60%),
+    radial-gradient(40% 50% at 70% 90%, rgba(154, 124, 255, 0.18), transparent 62%),
+    radial-gradient(36% 44% at 30% 88%, rgba(52, 209, 193, 0.14), transparent 62%);
+  animation: hmAurora 26s ease-in-out infinite alternate;
+}
+/* A pair of diagonal light streaks sweeping across the grid — the "lines". */
+.hm .hm-hero__grid::before,
+.hm .hm-hero__grid::after {
+  content: "";
+  position: absolute;
+  inset: -40% -20%;
+  z-index: 0;
+  background: linear-gradient(115deg, transparent 42%, rgba(77, 141, 255, 0.22) 50%, transparent 58%);
+  transform: translateX(-30%);
+  animation: hmStreak 11s linear infinite;
+}
+.hm .hm-hero__grid::after {
+  background: linear-gradient(115deg, transparent 44%, rgba(232, 198, 106, 0.16) 50%, transparent 56%);
+  animation-duration: 15s;
+  animation-delay: -6s;
+}
+/* Cursor-reactive spotlight (set by JS via --hm-mx / --hm-my). */
+.hm .hm-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(26rem 26rem at var(--hm-mx, 50%) var(--hm-my, 30%), rgba(77, 141, 255, 0.10), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.hm .hm-hero:hover::after { opacity: 1; }
+
+@keyframes hmAurora {
+  0%   { transform: translate3d(0, 0, 0) scale(1);      }
+  50%  { transform: translate3d(2%, -1.5%, 0) scale(1.06); }
+  100% { transform: translate3d(-2%, 1.5%, 0) scale(1.03); }
+}
+@keyframes hmStreak {
+  0%   { transform: translateX(-35%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateX(35%);  opacity: 0; }
+}
+
+/* Status pill — glassy with a cool glow */
+.hm .hm-status {
+  border-color: rgba(77, 141, 255, 0.35);
+  background: linear-gradient(120deg, rgba(77, 141, 255, 0.10), rgba(154, 124, 255, 0.08));
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 8px 30px rgba(77, 141, 255, 0.12);
+}
+.hm .hm-status__dot { background: var(--hm-blue); box-shadow: 0 0 12px var(--hm-blue); }
+
+/* Headline — keep it crisp white, make the emphasised phrase an animated
+   gold→blue→violet gradient (the one bright, playful pop). */
+.hm .hm-hero__title { color: #fff; text-shadow: 0 2px 40px rgba(77, 141, 255, 0.12); }
+.hm .hm-hero__title em {
+  background: linear-gradient(100deg, var(--hm-gold) 0%, var(--hm-blue) 45%, var(--hm-violet) 75%, var(--hm-gold) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: hmSheen 8s ease-in-out infinite;
+}
+@keyframes hmSheen {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Trust bar — numbers pop in accent colours */
+.hm .hm-trustbar__item b { color: #fff; }
+.hm .hm-trustbar__item:nth-child(1) b { color: var(--hm-gold); }
+.hm .hm-trustbar__item:nth-child(2) b { color: var(--hm-blue); }
+.hm .hm-trustbar__item:nth-child(3) b { color: var(--hm-cyan); }
+.hm .hm-trustbar__item:nth-child(4) b { color: var(--hm-violet); }
+
+/* Countdown card — animated conic gradient border ring */
+.hm .hm-season {
+  border-color: transparent;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)) padding-box,
+    linear-gradient(#0a0f1c, #0a0f1c) padding-box,
+    conic-gradient(from var(--hm-ang, 0deg), var(--hm-gold), var(--hm-blue), var(--hm-violet), var(--hm-cyan), var(--hm-gold)) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), 0 0 60px rgba(77, 141, 255, 0.08);
+  animation: hmSpin 12s linear infinite;
+}
+@property --hm-ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes hmSpin { to { --hm-ang: 360deg; } }
+.hm .hm-count__n { color: #fff; }
+
+/* ==========================================================================
+   CARDS — rounded, accent top-line, lift + coloured glow on hover
+   ========================================================================== */
+.hm .hm-path,
+.hm .hm-step,
+.hm .hm-pillar,
+.hm .hm-voice {
+  position: relative;
+  border-radius: 18px;
+  border: 1px solid var(--hm-line);
+  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.015));
+  transition: transform 0.3s var(--ease-lux), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* the accent bar that lights up along the top edge */
+.hm .hm-path::before,
+.hm .hm-pillar::before,
+.hm .hm-voice::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--hm-accent);
+  border-radius: 18px 18px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-lux);
+  opacity: 0.9;
+}
+.hm .hm-path:hover,
+.hm .hm-step:hover,
+.hm .hm-pillar:hover,
+.hm .hm-voice:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--hm-accent) 45%, transparent);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45),
+              0 0 0 1px color-mix(in srgb, var(--hm-accent) 25%, transparent),
+              0 18px 50px color-mix(in srgb, var(--hm-accent) 22%, transparent);
+}
+.hm .hm-path:hover::before,
+.hm .hm-pillar:hover::before,
+.hm .hm-voice:hover::before { transform: scaleX(1); }
+
+/* per-card accent assignment (the playful, colourful spread) */
+.hm .hm-path:nth-child(1)   { --hm-accent: var(--hm-gold); }
+.hm .hm-path:nth-child(2)   { --hm-accent: var(--hm-blue); }
+.hm .hm-step:nth-child(1)   { --hm-accent: var(--hm-blue); }
+.hm .hm-step:nth-child(2)   { --hm-accent: var(--hm-cyan); }
+.hm .hm-step:nth-child(3)   { --hm-accent: var(--hm-violet); }
+.hm .hm-step:nth-child(4)   { --hm-accent: var(--hm-coral); }
+.hm .hm-pillar:nth-child(1) { --hm-accent: var(--hm-gold); }
+.hm .hm-pillar:nth-child(2) { --hm-accent: var(--hm-blue); }
+.hm .hm-pillar:nth-child(3) { --hm-accent: var(--hm-violet); }
+.hm .hm-voice:nth-child(1)  { --hm-accent: var(--hm-coral); }
+.hm .hm-voice:nth-child(2)  { --hm-accent: var(--hm-cyan); }
+.hm .hm-voice:nth-child(3)  { --hm-accent: var(--hm-blue); }
+
+/* icon chips inside cards pick up the accent */
+.hm .hm-path__ic,
+.hm .hm-pillar__ic {
+  color: var(--hm-accent);
+  background: color-mix(in srgb, var(--hm-accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--hm-accent) 30%, transparent);
+}
+.hm .hm-path__kicker { color: var(--hm-accent); }
+.hm .hm-step h3 { color: #fff; }
+.hm .hm-voice__stars { color: var(--hm-gold); }
+
+/* Step number: keep the base counter (no extra increment), just make the
+   existing ::before numeral big and accent-tinted, top-right of the card. */
+.hm .hm-step { padding: 1.5rem 1.4rem 1.6rem; }
+.hm .hm-step::before {
+  position: absolute;
+  top: 0.7rem;
+  right: 1.1rem;
+  margin: 0;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--hm-accent) 60%, transparent);
+}
+.hm .hm-step h3 { margin-top: 0.4rem; }
+
+/* ==========================================================================
+   ARENAS — 8 colourful chips, each its own accent, lift + glow
+   ========================================================================== */
+.hm .hm-arena {
+  position: relative;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+  color: var(--color-text-primary);
+  font-weight: 600;
+  overflow: hidden;
+}
+.hm .hm-arena svg {
+  flex: 0 0 auto;
+  width: 34px; height: 34px;
+  padding: 7px;
+  border-radius: 10px;
+  color: var(--hm-accent);
+  background: color-mix(in srgb, var(--hm-accent) 15%, transparent);
+  transition: transform 0.25s var(--ease-lux);
+}
+.hm .hm-arena:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--hm-accent) 50%, transparent);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4),
+              0 10px 34px color-mix(in srgb, var(--hm-accent) 26%, transparent);
+}
+.hm .hm-arena:hover svg { transform: scale(1.12) rotate(-4deg); }
+.hm .hm-arena:nth-child(1) { --hm-accent: var(--hm-gold); }
+.hm .hm-arena:nth-child(2) { --hm-accent: var(--hm-blue); }
+.hm .hm-arena:nth-child(3) { --hm-accent: var(--hm-coral); }
+.hm .hm-arena:nth-child(4) { --hm-accent: var(--hm-violet); }
+.hm .hm-arena:nth-child(5) { --hm-accent: var(--hm-cyan); }
+.hm .hm-arena:nth-child(6) { --hm-accent: var(--hm-blue); }
+.hm .hm-arena:nth-child(7) { --hm-accent: var(--hm-gold); }
+.hm .hm-arena:nth-child(8) { --hm-accent: var(--hm-coral); }
+
+/* ==========================================================================
+   SEASON RECAP media + VERIFY strip + CTA
+   ========================================================================== */
+.hm .hm-recap__media {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+}
+.hm .hm-recap__media img { transition: transform 0.6s var(--ease-lux); }
+.hm .hm-recap__media:hover img { transform: scale(1.04); }
+.hm .hm-recap__stat b { color: var(--hm-gold); }
+
+.hm .hm-verify {
+  border-radius: 18px;
+  border: 1px solid rgba(77, 141, 255, 0.25);
+  background:
+    linear-gradient(120deg, rgba(77,141,255,0.10), rgba(154,124,255,0.06)),
+    var(--hm-surface);
+}
+.hm .hm-cta {
+  border-radius: 22px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)) padding-box,
+    conic-gradient(from 0deg, rgba(232,198,106,0.5), rgba(77,141,255,0.5), rgba(154,124,255,0.5), rgba(232,198,106,0.5)) border-box;
+}
+
+/* ==========================================================================
+   MOTION OPT-OUT — hold the CodePen look still for reduced-motion users
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hm .hm-hero__bg,
+  .hm .hm-hero__grid::before,
+  .hm .hm-hero__grid::after,
+  .hm .hm-hero__title em,
+  .hm .hm-season { animation: none; }
+  .hm .hm-hero__grid::before,
+  .hm .hm-hero__grid::after { opacity: 0; }
+  .hm .hm-hero__title em { background-position: 0% 50%; }
+  .hm .hm-path, .hm .hm-step, .hm .hm-pillar, .hm .hm-voice, .hm .hm-arena {
+    transition: none;
+  }
+}

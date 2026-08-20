@@ -65,4 +65,24 @@
     tick();
     setInterval(tick, 1000);
   })();
+
+  /* ---- 3. Cursor-reactive hero spotlight (fine pointers only) --------- */
+  (function heroGlow() {
+    var hero = document.querySelector('.hm-hero');
+    if (!hero) return;
+    var mq = window.matchMedia;
+    if (mq && (mq('(pointer: coarse)').matches || mq('(prefers-reduced-motion: reduce)').matches)) return;
+
+    var raf = 0;
+    hero.addEventListener('pointermove', function (e) {
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        var r = hero.getBoundingClientRect();
+        hero.style.setProperty('--hm-mx', ((e.clientX - r.left) / r.width * 100) + '%');
+        hero.style.setProperty('--hm-my', ((e.clientY - r.top) / r.height * 100) + '%');
+      });
+    });
+  })();
+
 })();
