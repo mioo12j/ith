@@ -1177,3 +1177,106 @@ html.js .hm-reveal.is-in { opacity: 1; transform: none; }
     transition: none;
   }
 }
+
+/* ==========================================================================
+   CODEPEN v2 — signature devices from the reference (headings, blocks, pills)
+   Still homepage-only, still purely visual. Overrides the v1 rules above.
+   ========================================================================== */
+.hm {
+  /* CodePen-style tasteful rainbow used for highlighter headings + borders */
+  --hm-rainbow: linear-gradient(95deg,
+      #ff6b9d 0%, #ff9e4d 20%, #ffe14d 38%, #4de3a6 56%, #4d9fff 76%, #9a7cff 100%);
+}
+
+/* --- (1) Rainbow "highlighter" on the emphasised heading word ------------- */
+/* Replaces the v1 animated gradient-text: white text, rainbow marker swipe
+   offset behind the lower half of the word — the CodePen sticker look. */
+.hm .hm-hero__title em,
+.hm .hm-h2 em {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  animation: none;
+  z-index: 0;
+  padding-inline: 0.04em;
+}
+.hm .hm-hero__title em { display: inline; }
+.hm .hm-hero__title em::before,
+.hm .hm-h2 em::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -0.06em;
+  right: -0.06em;
+  top: 42%;
+  bottom: 4%;
+  background: var(--hm-rainbow);
+  border-radius: 5px;
+  transform: translate(4px, 4px) rotate(-1.2deg);
+  opacity: 0.9;
+  filter: saturate(1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hm .hm-hero__title em::before,
+  .hm .hm-h2 em::before { transform: translate(3px, 3px); }
+}
+
+/* --- (2) Floating blocks drifting in the hero (injected by JS) ------------ */
+.hm-blocks {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hm-cube {
+  position: absolute;
+  width: var(--s, 30px);
+  height: var(--s, 30px);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.02)),
+    color-mix(in srgb, var(--hm-tint, #8ea2c8) 12%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 12px 30px rgba(0, 0, 0, 0.4);
+  transform: rotate(var(--r, 0deg));
+  animation: hmFloat var(--d, 14s) ease-in-out var(--delay, 0s) infinite alternate;
+  opacity: 0.5;
+}
+@keyframes hmFloat {
+  from { transform: translateY(0) rotate(var(--r, 0deg)); }
+  to   { transform: translateY(var(--fly, -26px)) rotate(calc(var(--r, 0deg) + 16deg)); }
+}
+@media (prefers-reduced-motion: reduce) { .hm-blocks { display: none; } }
+
+/* --- (3) Gradient-border pills & buttons --------------------------------- */
+.hm .hm-status {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(120deg, #0b1120, #0b1120) padding-box,
+    var(--hm-rainbow) border-box;
+  box-shadow: 0 8px 30px rgba(77, 141, 255, 0.16);
+}
+.hm .hm-status__dot { background: var(--hm-blue); box-shadow: 0 0 12px var(--hm-blue); }
+
+.hm .btn-outline {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(#0a0f1c, #0a0f1c) padding-box,
+    var(--hm-rainbow) border-box;
+}
+.hm .btn-outline:hover { box-shadow: 0 12px 34px rgba(154, 124, 255, 0.22); }
+
+/* --- (4) Cards get a soft coloured "sticker" offset shadow at rest -------- */
+.hm .hm-path,
+.hm .hm-step,
+.hm .hm-pillar,
+.hm .hm-voice,
+.hm .hm-arena {
+  box-shadow: 10px 14px 34px -14px color-mix(in srgb, var(--hm-accent) 55%, transparent),
+              0 10px 24px rgba(0, 0, 0, 0.35);
+}
