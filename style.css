@@ -5241,3 +5241,31 @@ html.no-js .hm-reveal {
   50%  { transform: translate(170px, -50%); }
   100% { transform: translate(-170px, -50%); }
 }
+
+/* ==========================================================================
+   NAV "Register" CTA button — prominent, animated (added Aug 2026)
+   ========================================================================== */
+.index-nav__cta {
+  position: relative;
+  overflow: hidden;
+  color: #14100a !important;
+  background: linear-gradient(135deg, var(--color-brand-primary, #e8c66a), var(--color-brand-secondary, #c9a84c));
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 18px rgba(232, 198, 106, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.index-nav__cta::after { display: none !important; }   /* no underline */
+.index-nav__cta::before {                               /* shine sweep */
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 45%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: skewX(-20deg);
+  animation: nav-cta-shine 4s ease-in-out infinite;
+}
+@keyframes nav-cta-shine { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+.index-nav__cta:hover { color: #14100a !important; transform: translateY(-1px); box-shadow: 0 8px 26px rgba(232, 198, 106, 0.5); }
+@media (prefers-reduced-motion: reduce) { .index-nav__cta::before { animation: none; display: none; } }
