@@ -77,6 +77,10 @@
           <span>Transaction ID</span>
           <span id="display-id" class="confirm-id">Loading…</span>
         </div>
+        <div class="confirm-row">
+          <span>Reference No.</span>
+          <span id="display-ref" class="confirm-id">Loading…</span>
+        </div>
       </div>
 
       <div class="confirm-note">
@@ -120,16 +124,21 @@
     document.addEventListener("DOMContentLoaded", function () {
       var txnId = localStorage.getItem("txn_id");
       var txnAmount = localStorage.getItem("txn_amount");
+      var txnRef = localStorage.getItem("txn_ref");
       var idEl = document.getElementById("display-id");
       var amtEl = document.getElementById("display-amount");
+      var refEl = document.getElementById("display-ref");
       if (txnId && txnAmount) {
         idEl.textContent = txnId;
         amtEl.textContent = txnAmount;
+        if (refEl) refEl.textContent = txnRef || "—";
         localStorage.removeItem("txn_id");
         localStorage.removeItem("txn_amount");
+        localStorage.removeItem("txn_ref");
       } else {
         idEl.textContent = "Not Available";
         amtEl.textContent = "Verification Pending";
+        if (refEl) refEl.textContent = "—";
       }
     });
   </script>
