@@ -119,6 +119,19 @@
 
   <main id="main-content">
 
+    <!-- mode popup (shown by JS on the unlocked page until a choice is made) -->
+    <div id="mmModePopup" class="mm-modal" hidden role="dialog" aria-modal="true" aria-labelledby="mmModeTitle">
+      <div class="mm-modal__card">
+        <span class="mm-modal__emoji" aria-hidden="true">☔</span>
+        <h2 id="mmModeTitle" class="mm-modal__title">How are you registering?</h2>
+        <p class="mm-modal__sub">Pick one to personalise your entry. Schools unlock a <strong>50% bulk discount</strong> at 10+ entries.</p>
+        <div class="mm-modal__opts">
+          <button type="button" class="mm-modepop__opt is-on" data-mode="individual"><span class="mm-modepop__ic" aria-hidden="true">🙋</span><span class="mm-modepop__t">Individual / small team</span><span class="mm-modepop__d">Myself or a few friends.</span></button>
+          <button type="button" class="mm-modepop__opt" data-mode="school"><span class="mm-modepop__ic" aria-hidden="true">🏫</span><span class="mm-modepop__t">School</span><span class="mm-modepop__d">Many entries at once.</span><span class="mm-modepop__badge">50% off at 10+</span></button>
+        </div>
+      </div>
+    </div>
+
     <!-- ============================= PRE-LAUNCH GATE ============================= -->
     <!-- Shown ONLY while locked (JS adds body.mm-locked). No-JS/crawlers see the
          full page below instead, so all content stays indexable. -->
@@ -162,17 +175,17 @@
         <div class="mm-wrap">
           <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="competition.html">Competition</a></li><li aria-current="page">Register</li></ol></nav>
           <span class="mm-pill mm-reveal">☔ Monsoon Minds Championship 2026 · Now open</span>
-          <h1 class="mm-hero__title mm-reveal">Pick your arenas.<br><em>Make it rain talent.</em></h1>
-          <p class="mm-hero__lede mm-reveal">A national online championship for Classes 6–12. Choose the competitions you love, register solo or with your school, and grab a certificate that actually means something.</p>
+          <h1 class="mm-hero__title mm-reveal">Compete for <em>₹10,00,000+</em><br>in prizes &amp; glory.</h1>
+          <p class="mm-hero__lede mm-reveal">India’s most colourful national championship for Classes 6–12 — <strong>500+ schools</strong>, ten high-energy arenas, transparent judging, and a verifiable certificate for every single participant. Register solo or bring your whole school.</p>
           <div class="mm-hero__cta mm-reveal">
             <a href="#mmPick" class="mm-btn mm-btn--primary">Start registering</a>
             <a href="#" id="mmBrochure" class="mm-btn mm-btn--ghost"><svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-download"></use></svg> Brochure (PDF)</a>
           </div>
           <div class="mm-hero__stats mm-reveal">
+            <div class="mm-hstat mm-hstat--hot"><b>₹10L+</b><span>In prizes &amp; rewards</span></div>
+            <div class="mm-hstat"><b>500+</b><span>Schools competing</span></div>
             <div class="mm-hstat"><b>10</b><span>Competitions</span></div>
-            <div class="mm-hstat"><b>6–12</b><span>Classes</span></div>
-            <div class="mm-hstat"><b>100%</b><span>Certified</span></div>
-            <div class="mm-hstat"><b>All-India</b><span>Online</span></div>
+            <div class="mm-hstat"><b>100%</b><span>Get certified</span></div>
           </div>
         </div>
       </header>
@@ -190,7 +203,7 @@
             <div class="mm-step-card mm-reveal" style="--mm-i:2"><span class="mm-step-card__n">3</span><h3>Promo &amp; terms</h3><p>Apply a promo code if you have one, then tick to accept the terms and refund policy.</p></div>
             <div class="mm-step-card mm-reveal" style="--mm-i:3"><span class="mm-step-card__n">4</span><h3>Pay securely</h3><p>Pay with Razorpay (cards, UPI, net-banking). You’ll get an on-screen confirmation with your transaction details.</p></div>
           </div>
-          <p class="mm-note mm-reveal"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-check"></use></svg> <strong>Participant names:</strong> you don’t type them here. After payment we’ll ask for every participant’s full name, exactly as it should appear on their certificate.</p>
+          <p class="mm-note mm-reveal"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-check"></use></svg> <strong>Adding more than one participant?</strong> You don’t type names here. After payment we’ll <strong>email you</strong> to collect the full name of every participant — exactly as it should appear on their certificate.</p>
         </div>
       </section>
 
@@ -203,14 +216,10 @@
             <p class="mm-sub">Flagship arenas are ₹500 per entry; creative &amp; quiz arenas are ₹300. Enter as many as you like.</p>
           </div>
 
-          <!-- mode -->
-          <div class="mm-mode mm-reveal" role="radiogroup" aria-label="Registration type">
-            <button type="button" class="mm-mode__opt is-on" data-mode="individual" role="radio" aria-checked="true">
-              <span class="mm-mode__ic" aria-hidden="true">🙋</span><span class="mm-mode__t">Individual / small team</span><span class="mm-mode__d">Myself or a few friends.</span>
-            </button>
-            <button type="button" class="mm-mode__opt" data-mode="school" role="radio" aria-checked="false">
-              <span class="mm-mode__ic" aria-hidden="true">🏫</span><span class="mm-mode__t">School</span><span class="mm-mode__d">Many entries — 50% off at 10+.</span>
-            </button>
+          <!-- mode is chosen via a popup; this bar shows the choice -->
+          <div class="mm-modebar mm-reveal">
+            <span class="mm-modebar__txt">You’re registering as <strong id="mmModeLabel">an Individual</strong>.</span>
+            <button type="button" id="mmModeChange" class="mm-modebar__change">Change</button>
           </div>
 
           <div class="mm-layout">

@@ -112,6 +112,7 @@
         if (left <= 0) {
           try { sessionStorage.setItem('mm_ok', '1'); } catch (e) {}
           applyGate();
+          maybePopup();
           if (cells.d) { cells.d.textContent = cells.h.textContent = cells.m.textContent = cells.s.textContent = '00'; }
           clearInterval(timer);
           return;
@@ -135,6 +136,7 @@
         if (val === CONFIG.previewPassword) {
           try { sessionStorage.setItem('mm_ok', '1'); } catch (e2) {}
           applyGate();
+          maybePopup();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           form.classList.remove('mm-gate__form--bad');
@@ -288,18 +290,26 @@
    * Mode
    * ==================================================================== */
   function setMode(next) {
-    if (next === mode) return;
     mode = next;
-    [].forEach.call(document.querySelectorAll('.mm-mode__opt'), function (b) {
-      var on = b.getAttribute('data-mode') === mode;
-      b.classList.toggle('is-on', on);
-      b.setAttribute('aria-checked', on ? 'true' : 'false');
+    [].forEach.call(document.querySelectorAll('.mm-modepop__opt'), function (b) {
+      b.classList.toggle('is-on', b.getAttribute('data-mode') === mode);
     });
+    var label = el('mmModeLabel');
+    if (label) label.textContent = mode === 'school' ? 'a School' : 'an Individual';
     var coord = el('mmCoord');
     var req = ['mm-tname', 'mm-tphone', 'mm-temail'];
     if (mode === 'school') { coord.hidden = false; req.forEach(function (id) { el(id).required = true; }); }
     else { coord.hidden = true; req.forEach(function (id) { el(id).required = false; }); }
     renderComps(); renderCart();
+  }
+
+  /* mode popup */
+  function showModePopup() { var m = el('mmModePopup'); if (m) { m.hidden = false; document.body.classList.add('mm-modal-open'); } }
+  function hideModePopup() { var m = el('mmModePopup'); if (m) { m.hidden = true; document.body.classList.remove('mm-modal-open'); } }
+  function maybePopup() {
+    if (locked()) return;
+    var asked; try { asked = sessionStorage.getItem('mm_mode_asked') === '1'; } catch (e) { asked = false; }
+    if (!asked) showModePopup();
   }
 
   /* ======================================================================
@@ -363,9 +373,18 @@
               localStorage.setItem('txn_id', res.razorpay_payment_id || '');
               localStorage.setItem('txn_ref', res.razorpay_order_id || order.id || '');
               localStorage.setItem('txn_amount', amountText);
-              localStorage.setItem('user_email', d.email);
-              localStorage.setItem('school_name', d.schoolName);
-              localStorage.setItem('cart_data', JSON.stringify(t.items));
+              // full order snapshot for the success page summary
+              localStorage.setItem('mm_order', JSON.stringify({
+                txnId: res.razorpay_payment_id || '',
+                txnRef: res.razorpay_order_id || order.id || '',
+                amountText: amountText,
+                mode: mode,
+                name: d.name, email: d.email, phone: d.phone, grade: d.grade,
+                school: d.schoolName, city: d.schoolAddress,
+                items: t.items, subtotal: t.subtotal, schoolCut: t.school,
+                couponCut: t.couponCut, coupon: coupon ? coupon.code : '',
+                total: t.total, entries: t.entries
+              }));
             } catch (e) {}
             window.location.href = CONFIG.successUrl;
           },
@@ -415,9 +434,17 @@
       qty[b.getAttribute('data-rm')] = 0; renderComps(); renderCart();
     });
 
-    [].forEach.call(document.querySelectorAll('.mm-mode__opt'), function (b) {
-      b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+    // mode popup + "change" control
+    [].forEach.call(document.querySelectorAll('.mm-modepop__opt'), function (b) {
+      b.addEventListener('click', function () {
+        setMode(b.getAttribute('data-mode'));
+        try { sessionStorage.setItem('mm_mode_asked', '1'); } catch (e) {}
+        hideModePopup();
+      });
     });
+    var change = el('mmModeChange');
+    if (change) change.addEventListener('click', showModePopup);
+    maybePopup();
 
     el('mmCouponBtn').addEventListener('click', applyCoupon);
     el('mmCouponClear').addEventListener('click', clearCoupon);
