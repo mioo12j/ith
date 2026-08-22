@@ -908,3 +908,12 @@ html.js .cm-cd__static { display: none; }
 .cm-page .cm-hero__title { font-weight: 800; }
 .cm-page .cm-h2 em,
 .cm-page .cm-hero__title em { font-style: normal; font-weight: 800; }
+
+/* Season timeline (competition page) */
+.cm-timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: 1fr; }
+@media (min-width: 40rem) { .cm-timeline { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 68rem) { .cm-timeline { grid-template-columns: repeat(5, 1fr); } }
+.cm-tlx { border: 1px solid var(--cm-line-soft); border-radius: var(--cm-r); background: var(--cm-panel); padding: 1.25rem 1.1rem; }
+.cm-tlx__d { display: block; font-family: var(--font-family-body); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cm-gold); margin-bottom: 0.4rem; }
+.cm-tlx__t { font-family: var(--font-family-display); font-weight: 600; font-size: 1.15rem; color: var(--color-text-primary); margin: 0 0 0.3rem; }
+.cm-tlx__p { font-family: var(--font-family-body); font-size: 0.85rem; line-height: 1.5; color: var(--cm-dim); margin: 0; }
