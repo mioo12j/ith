@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260822" />
+  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260823" />
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
@@ -87,6 +87,9 @@
       <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></symbol>
       <symbol id="icon-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></symbol>
       <symbol id="icon-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></symbol>
+      <symbol id="icon-back" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></symbol>
+      <symbol id="icon-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></symbol>
     </defs>
   </svg>
 
@@ -165,6 +168,9 @@
     <!-- ============================= FULL PAGE ============================= -->
     <div class="mm-full">
 
+      <!-- ===================== VIEW 0 · BROWSE ===================== -->
+      <div class="mm-view is-active" id="mmViewBrowse">
+
       <!-- HERO -->
       <header class="mm-hero">
         <span class="mm-blob mm-blob--1" aria-hidden="true"></span>
@@ -227,14 +233,22 @@
         </div>
       </section>
 
-      <!-- PICK COMPETITIONS + CHECKOUT -->
+      <!-- PICK COMPETITIONS (browse / step 0) -->
       <section id="mmPick" class="mm-section" aria-labelledby="mm-pick-h">
         <div class="mm-wrap">
           <div class="mm-head mm-reveal">
             <span class="mm-kicker">Choose your competitions</span>
             <h2 id="mm-pick-h" class="mm-h2">47 events, <em>one splashy season</em></h2>
-            <p class="mm-sub"><strong>Science &amp; Technology</strong> events are ₹600 per participant; <strong>Multidisciplinary</strong> events are ₹400 per participant. Enter as many as you like.</p>
+            <p class="mm-sub"><strong>Science &amp; Technology</strong> events are ₹600 per participant; <strong>Multidisciplinary</strong> events are ₹400 per participant. Enter as many as you like — your cart follows you at the bottom of the screen.</p>
           </div>
+
+          <!-- search -->
+          <div class="mm-search mm-reveal">
+            <svg class="mm-search__ic" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-search"></use></svg>
+            <input id="mmSearch" type="search" class="mm-search__input" placeholder="Search competitions — e.g. coding, quiz, dance…" autocomplete="off" aria-label="Search competitions" />
+            <button type="button" id="mmSearchClear" class="mm-search__clear" aria-label="Clear search" hidden>✕</button>
+          </div>
+
           <div class="mm-filter mm-reveal" role="group" aria-label="Filter competitions">
             <button type="button" class="mm-filter__btn is-on" data-filter="all">All</button>
             <button type="button" class="mm-filter__btn" data-filter="sci">Science &amp; Tech (23)</button>
@@ -248,74 +262,8 @@
             <button type="button" id="mmModeChange" class="mm-modebar__change">Change</button>
           </div>
 
-          <div class="mm-layout">
-            <div class="mm-col-main">
-              <div id="mmComps" class="mm-comps" aria-live="polite"></div>
-
-              <!-- your details -->
-              <div class="mm-card mm-form-card mm-reveal">
-                <h3 class="mm-h3">Your details</h3>
-                <p class="mm-hint">Used exactly as typed — please check spelling.</p>
-                <form id="mmForm" class="mm-form" novalidate>
-                  <div class="mm-field"><label for="mm-name">Full name <span class="mm-req">*</span></label><input id="mm-name" name="name" type="text" required autocomplete="name" placeholder="e.g. Aarav Sharma" /></div>
-                  <div class="mm-field"><label for="mm-email">Email <span class="mm-req">*</span></label><input id="mm-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" /></div>
-                  <div class="mm-field"><label for="mm-phone">Phone (WhatsApp) <span class="mm-req">*</span></label><input id="mm-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="+91 98765 43210" /></div>
-                  <div class="mm-field"><label for="mm-grade">Grade / Class <span class="mm-req">*</span></label><input id="mm-grade" name="grade" type="text" required placeholder="e.g. Class 9" /></div>
-                  <div class="mm-field mm-field--wide"><label for="mm-school">School / institution <span class="mm-req">*</span></label><input id="mm-school" name="school" type="text" required placeholder="Full school name" /></div>
-                  <div class="mm-field mm-field--wide"><label for="mm-city">City &amp; state <span class="mm-req">*</span></label><input id="mm-city" name="city" type="text" required placeholder="e.g. Raipur, Chhattisgarh" /></div>
-                  <fieldset id="mmCoord" class="mm-coord" hidden>
-                    <legend>Coordinator (teacher) details</legend>
-                    <div class="mm-field mm-field--wide"><label for="mm-tname">Coordinator name <span class="mm-req">*</span></label><input id="mm-tname" name="teacherName" type="text" placeholder="Mr. / Ms. full name" /></div>
-                    <div class="mm-field"><label for="mm-tphone">Coordinator phone <span class="mm-req">*</span></label><input id="mm-tphone" name="teacherPhone" type="tel" inputmode="tel" placeholder="+91 98765 43210" /></div>
-                    <div class="mm-field"><label for="mm-temail">Coordinator email <span class="mm-req">*</span></label><input id="mm-temail" name="teacherEmail" type="email" placeholder="teacher@school.com" /></div>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
-
-            <!-- cart -->
-            <aside class="mm-col-cart" aria-label="Your registration summary">
-              <div class="mm-cart">
-                <div class="mm-cart__head">
-                  <h3 class="mm-cart__title"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-cart"></use></svg> Your entry</h3>
-                  <span class="mm-cart__count" id="mmCount">0 items</span>
-                </div>
-
-                <div class="mm-track" id="mmTrack" hidden>
-                  <div class="mm-track__row"><span>School bulk goal</span><span class="mm-track__frac" id="mmTrackFrac">0 / 10</span></div>
-                  <div class="mm-track__bar"><span class="mm-track__fill" id="mmTrackFill"></span></div>
-                  <p class="mm-track__note" id="mmTrackNote">Add 10 entries to unlock 50% off.</p>
-                </div>
-
-                <div class="mm-cart__items" id="mmItems" aria-live="polite">
-                  <p class="mm-cart__empty">Pick a competition to start building your entry.</p>
-                </div>
-
-                <div class="mm-coupon">
-                  <label for="mmCoupon" class="sr-only">Promo code</label>
-                  <input id="mmCoupon" type="text" class="mm-coupon__input" placeholder="Promo code" autocomplete="off" />
-                  <button type="button" id="mmCouponBtn" class="mm-coupon__btn">Apply</button>
-                  <button type="button" id="mmCouponClear" class="mm-coupon__clear" aria-label="Clear promo code">✕</button>
-                </div>
-                <p id="mmCouponMsg" class="mm-coupon__msg" aria-live="polite"></p>
-
-                <div class="mm-cart__totals">
-                  <div class="mm-cart__line"><span>Subtotal</span><span id="mmSubtotal">₹0</span></div>
-                  <div class="mm-cart__line mm-cart__line--cut" id="mmSchoolRow" hidden><span>School discount</span><span id="mmSchoolCut">−₹0</span></div>
-                  <div class="mm-cart__line mm-cart__line--cut" id="mmCouponRow" hidden><span>Promo <em id="mmCouponTag"></em></span><span id="mmCouponCut">−₹0</span></div>
-                  <div class="mm-cart__line mm-cart__line--total"><span>Total</span><span id="mmTotal">₹0</span></div>
-                </div>
-
-                <label class="mm-terms">
-                  <input type="checkbox" id="mmTerms" />
-                  <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="refund.html" target="_blank" rel="noopener">Refund Policy</a> of the competition.</span>
-                </label>
-
-                <button type="button" id="mmPay" class="mm-pay" disabled>Add a competition to continue</button>
-                <p class="mm-cart__secure"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"></use></svg> Secured by Razorpay — cards, UPI, net-banking</p>
-              </div>
-            </aside>
-          </div>
+          <div id="mmComps" class="mm-comps" aria-live="polite"></div>
+          <p id="mmNoResults" class="mm-cart__empty" hidden>No competitions match your search. <button type="button" id="mmClearAll" class="mm-linkbtn">Clear filters</button></p>
         </div>
       </section>
 
@@ -339,7 +287,164 @@
         </div>
       </section>
 
+      </div><!-- /#mmViewBrowse -->
+
+      <!-- ===================== VIEW 1 · CART ===================== -->
+      <section class="mm-view mm-section mm-checkout-sec" id="mmViewCart" aria-labelledby="mm-cart-h" tabindex="-1">
+        <div class="mm-wrap mm-wrap--narrow">
+          <ol class="mm-stepbar" aria-label="Checkout progress">
+            <li class="mm-stepbar__s is-active" data-goto="cart"><span class="mm-stepbar__n">1</span><span class="mm-stepbar__l">Cart</span></li>
+            <li class="mm-stepbar__s" data-goto="details"><span class="mm-stepbar__n">2</span><span class="mm-stepbar__l">Details</span></li>
+            <li class="mm-stepbar__s"><span class="mm-stepbar__n">3</span><span class="mm-stepbar__l">Confirm &amp; pay</span></li>
+          </ol>
+
+          <div class="mm-head">
+            <span class="mm-kicker">Step 1 of 3</span>
+            <h2 id="mm-cart-h" class="mm-h2">Your <em>cart</em></h2>
+            <p class="mm-sub">Adjust participants per event or remove entries. Prices are per participant.</p>
+          </div>
+
+          <div class="mm-checkout">
+            <div class="mm-checkout__main">
+              <div class="mm-cart__items mm-cart__items--lg" id="mmItems" aria-live="polite">
+                <p class="mm-cart__empty">Your cart is empty. <button type="button" class="mm-linkbtn" data-goto="browse">Browse competitions</button></p>
+              </div>
+              <button type="button" class="mm-backlink" data-goto="browse"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-back"></use></svg> Add more competitions</button>
+            </div>
+
+            <aside class="mm-checkout__side" aria-label="Order summary">
+              <div class="mm-cart">
+                <div class="mm-cart__head">
+                  <h3 class="mm-cart__title"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-cart"></use></svg> Summary</h3>
+                  <span class="mm-cart__count" id="mmCount">0 items</span>
+                </div>
+
+                <div class="mm-track" id="mmTrack" hidden>
+                  <div class="mm-track__row"><span>School bulk goal</span><span class="mm-track__frac" id="mmTrackFrac">0 / 15</span></div>
+                  <div class="mm-track__bar"><span class="mm-track__fill" id="mmTrackFill"></span></div>
+                  <p class="mm-track__note" id="mmTrackNote">Add 15 events to unlock 40% off.</p>
+                </div>
+
+                <div class="mm-coupon">
+                  <label for="mmCoupon" class="sr-only">Promo code</label>
+                  <input id="mmCoupon" type="text" class="mm-coupon__input" placeholder="Promo code" autocomplete="off" />
+                  <button type="button" id="mmCouponBtn" class="mm-coupon__btn">Apply</button>
+                  <button type="button" id="mmCouponClear" class="mm-coupon__clear" aria-label="Clear promo code">✕</button>
+                </div>
+                <p id="mmCouponMsg" class="mm-coupon__msg" aria-live="polite"></p>
+
+                <div class="mm-cart__totals">
+                  <div class="mm-cart__line"><span>Subtotal</span><span id="mmSubtotal">₹0</span></div>
+                  <div class="mm-cart__line mm-cart__line--cut" id="mmSchoolRow" hidden><span>School discount (40%)</span><span id="mmSchoolCut">−₹0</span></div>
+                  <div class="mm-cart__line mm-cart__line--cut" id="mmCouponRow" hidden><span>Promo <em id="mmCouponTag"></em></span><span id="mmCouponCut">−₹0</span></div>
+                  <div class="mm-cart__line mm-cart__line--total"><span>Total</span><span id="mmTotal">₹0</span></div>
+                </div>
+
+                <button type="button" id="mmToDetails" class="mm-pay" disabled>Continue to details</button>
+                <p class="mm-cart__secure"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"></use></svg> Secured by Razorpay — cards, UPI, net-banking</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== VIEW 2 · DETAILS ===================== -->
+      <section class="mm-view mm-section mm-checkout-sec" id="mmViewDetails" aria-labelledby="mm-det-h" tabindex="-1">
+        <div class="mm-wrap mm-wrap--narrow">
+          <ol class="mm-stepbar" aria-label="Checkout progress">
+            <li class="mm-stepbar__s is-done" data-goto="cart"><span class="mm-stepbar__n">1</span><span class="mm-stepbar__l">Cart</span></li>
+            <li class="mm-stepbar__s is-active" data-goto="details"><span class="mm-stepbar__n">2</span><span class="mm-stepbar__l">Details</span></li>
+            <li class="mm-stepbar__s"><span class="mm-stepbar__n">3</span><span class="mm-stepbar__l">Confirm &amp; pay</span></li>
+          </ol>
+
+          <div class="mm-head">
+            <span class="mm-kicker">Step 2 of 3</span>
+            <h2 id="mm-det-h" class="mm-h2">Your <em>details</em></h2>
+            <p class="mm-sub">Used exactly as typed — please check spelling. Registering as <strong id="mmModeLabel2">an Individual</strong>. <button type="button" id="mmModeChange2" class="mm-linkbtn">Change</button></p>
+          </div>
+
+          <div class="mm-card mm-form-card">
+            <form id="mmForm" class="mm-form" novalidate>
+              <div class="mm-field"><label for="mm-name">Full name <span class="mm-req">*</span></label><input id="mm-name" name="name" type="text" required autocomplete="name" placeholder="e.g. Aarav Sharma" /></div>
+              <div class="mm-field"><label for="mm-email">Email <span class="mm-req">*</span></label><input id="mm-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" /></div>
+              <div class="mm-field"><label for="mm-phone">Phone (WhatsApp) <span class="mm-req">*</span></label><input id="mm-phone" name="phone" type="tel" required inputmode="tel" autocomplete="tel" placeholder="+91 98765 43210" /></div>
+              <div class="mm-field"><label for="mm-grade">Grade / Class <span class="mm-req">*</span></label><input id="mm-grade" name="grade" type="text" required placeholder="e.g. Class 9" /></div>
+              <div class="mm-field mm-field--wide"><label for="mm-school">School / institution <span class="mm-req">*</span></label><input id="mm-school" name="school" type="text" required placeholder="Full school name" /></div>
+              <div class="mm-field mm-field--wide"><label for="mm-city">City &amp; state <span class="mm-req">*</span></label><input id="mm-city" name="city" type="text" required placeholder="e.g. Raipur, Chhattisgarh" /></div>
+              <fieldset id="mmCoord" class="mm-coord" hidden>
+                <legend>Coordinator (teacher) details</legend>
+                <div class="mm-field mm-field--wide"><label for="mm-tname">Coordinator name <span class="mm-req">*</span></label><input id="mm-tname" name="teacherName" type="text" placeholder="Mr. / Ms. full name" /></div>
+                <div class="mm-field"><label for="mm-tphone">Coordinator phone <span class="mm-req">*</span></label><input id="mm-tphone" name="teacherPhone" type="tel" inputmode="tel" placeholder="+91 98765 43210" /></div>
+                <div class="mm-field"><label for="mm-temail">Coordinator email <span class="mm-req">*</span></label><input id="mm-temail" name="teacherEmail" type="email" placeholder="teacher@school.com" /></div>
+              </fieldset>
+            </form>
+            <p class="mm-note" style="margin-top:1.25rem;"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-check"></use></svg> <span><strong>More than one participant?</strong> You don’t type every name here. After payment we’ll <strong>email you</strong> to collect each participant’s full name, exactly as it should appear on their certificate.</span></p>
+          </div>
+
+          <div class="mm-navrow">
+            <button type="button" class="mm-backlink" data-goto="cart"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-back"></use></svg> Back to cart</button>
+            <button type="button" id="mmToReview" class="mm-btn mm-btn--primary">Continue to review <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow"></use></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== VIEW 3 · CONFIRM & PAY ===================== -->
+      <section class="mm-view mm-section mm-checkout-sec" id="mmViewReview" aria-labelledby="mm-rev-h" tabindex="-1">
+        <div class="mm-wrap mm-wrap--narrow">
+          <ol class="mm-stepbar" aria-label="Checkout progress">
+            <li class="mm-stepbar__s is-done" data-goto="cart"><span class="mm-stepbar__n">1</span><span class="mm-stepbar__l">Cart</span></li>
+            <li class="mm-stepbar__s is-done" data-goto="details"><span class="mm-stepbar__n">2</span><span class="mm-stepbar__l">Details</span></li>
+            <li class="mm-stepbar__s is-active"><span class="mm-stepbar__n">3</span><span class="mm-stepbar__l">Confirm &amp; pay</span></li>
+          </ol>
+
+          <div class="mm-head">
+            <span class="mm-kicker">Step 3 of 3</span>
+            <h2 id="mm-rev-h" class="mm-h2">Confirm &amp; <em>pay</em></h2>
+            <p class="mm-sub">One last look before you pay securely.</p>
+          </div>
+
+          <div class="mm-review">
+            <div class="mm-review__card">
+              <div class="mm-review__head"><h3 class="mm-h3"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-user"></use></svg> Registrant</h3><button type="button" class="mm-linkbtn" data-goto="details">Edit</button></div>
+              <dl class="mm-review__grid" id="mmRevWho"></dl>
+            </div>
+
+            <div class="mm-review__card">
+              <div class="mm-review__head"><h3 class="mm-h3"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-cart"></use></svg> Competitions</h3><button type="button" class="mm-linkbtn" data-goto="cart">Edit</button></div>
+              <div class="mm-review__items" id="mmRevItems"></div>
+              <div class="mm-cart__totals">
+                <div class="mm-cart__line"><span>Subtotal</span><span id="mmRevSubtotal">₹0</span></div>
+                <div class="mm-cart__line mm-cart__line--cut" id="mmRevSchoolRow" hidden><span>School discount (40%)</span><span id="mmRevSchoolCut">−₹0</span></div>
+                <div class="mm-cart__line mm-cart__line--cut" id="mmRevCouponRow" hidden><span>Promo <em id="mmRevCouponTag"></em></span><span id="mmRevCouponCut">−₹0</span></div>
+                <div class="mm-cart__line mm-cart__line--total"><span>Total</span><span id="mmRevTotal">₹0</span></div>
+              </div>
+            </div>
+          </div>
+
+          <label class="mm-terms">
+            <input type="checkbox" id="mmTerms" />
+            <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="refund.html" target="_blank" rel="noopener">Refund Policy</a> of the competition.</span>
+          </label>
+
+          <button type="button" id="mmPay" class="mm-pay" disabled>Accept the terms to pay</button>
+          <p class="mm-cart__secure"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"></use></svg> Secured by Razorpay — cards, UPI, net-banking</p>
+
+          <div class="mm-navrow mm-navrow--single">
+            <button type="button" class="mm-backlink" data-goto="details"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-back"></use></svg> Back to details</button>
+          </div>
+        </div>
+      </section>
+
     </div><!-- /.mm-full -->
+
+    <!-- Floating cart bar (browse view) -->
+    <div id="mmCartBar" class="mm-cartbar" hidden>
+      <button type="button" class="mm-cartbar__btn" id="mmCartBarBtn" data-goto="cart" aria-label="View cart and check out">
+        <span class="mm-cartbar__ic"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-cart"></use></svg><span class="mm-cartbar__badge" id="mmCartBadge">0</span></span>
+        <span class="mm-cartbar__meta"><b id="mmBarCount">0 events</b><span id="mmBarTotal">₹0</span></span>
+        <span class="mm-cartbar__cta">View cart <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow"></use></svg></span>
+      </button>
+    </div>
   </main>
 
   <footer class="index-footer" role="contentinfo" id="index-footer">
@@ -362,6 +467,6 @@
 </footer>
 
   <script src="script.js" defer></script>
-  <script src="assets/js/ith-monsoon.js?v=20260822" defer></script>
+  <script src="assets/js/ith-monsoon.js?v=20260823" defer></script>
 </body>
 </html>
