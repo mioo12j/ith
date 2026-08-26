@@ -619,10 +619,67 @@
       b.addEventListener('click', function (e) { e.preventDefault(); window.open(BROCHURE[b.getAttribute('data-brochure')], '_blank', 'noopener'); });
     });
 
+    initNotify();
+
     window.addEventListener('hashchange', applyRoute);
     applyRoute();     // honour a deep link on load (falls back to browse when cart is empty)
     updateCartBar();
     maybePopup();
+  }
+
+  /* ======================================================================
+   * Notify-me: email capture on the pre-launch gate (FormSubmit.co)
+   * ==================================================================== */
+  var NOTIFY_ENDPOINT = 'https://formsubmit.co/ajax/info@inspiretalenthub.in';
+
+  function notifyDone(msg, ok) {
+    var m = el('mmNotifyMsg'); if (!m) return;
+    m.textContent = msg;
+    m.className = 'mm-notify__msg ' + (ok ? 'is-ok' : 'is-bad');
+  }
+
+  function initNotify() {
+    var form = el('mmNotifyForm'); if (!form) return;
+
+    // Native FormSubmit fallback returns to ?notified=1 — greet those visitors.
+    try { if (/[?&]notified=1/.test(location.search)) { form.classList.add('is-done'); notifyDone('You’re on the list! We’ll email you the moment registration opens. ☔', true); } } catch (e) {}
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = el('mmNotifyEmail');
+      var honey = form.querySelector('.mm-notify__honey');
+      if (honey && honey.value) return;                 // bot trap
+      if (!input.value || (form.checkValidity && !form.checkValidity())) { if (form.reportValidity) form.reportValidity(); return; }
+
+      var btn = form.querySelector('.mm-notify__btn');
+      var restore = btn.textContent; btn.disabled = true; btn.textContent = 'Sending…';
+      notifyDone('', true);
+
+      fetch(NOTIFY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: input.value.trim(),
+          _subject: 'Monsoon Minds 2026 — Notify me when registration opens',
+          _template: 'table',
+          _captcha: 'false'
+        })
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (res) {
+          if (res && (res.success === 'true' || res.success === true)) {
+            form.classList.add('is-done');
+            notifyDone('You’re on the list! We’ll email you the moment registration opens. ☔', true);
+          } else {
+            throw new Error('unexpected');
+          }
+        })
+        .catch(function () {
+          // Network/CORS failed — fall back to a normal FormSubmit POST (redirects).
+          btn.textContent = restore; btn.disabled = false;
+          form.submit();
+        });
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

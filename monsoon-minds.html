@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260823" />
+  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260824" />
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
@@ -159,6 +159,22 @@
         </div>
 
         <p class="mm-gate__note">Opens 31 August 2026, 9:00 AM IST.</p>
+
+        <!-- notify-me: get an email the moment registration opens -->
+        <form id="mmNotifyForm" class="mm-notify" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST">
+          <input type="hidden" name="_subject" value="Monsoon Minds 2026 — Notify me when registration opens" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://www.inspiretalenthub.in/monsoon-minds.html?notified=1" />
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="mm-notify__honey" />
+          <label for="mmNotifyEmail" class="mm-notify__label">Be first in line — get an email the moment registration opens.</label>
+          <div class="mm-notify__row">
+            <input id="mmNotifyEmail" name="email" type="email" required autocomplete="email" placeholder="you@example.com" class="mm-notify__input" />
+            <button type="submit" class="mm-notify__btn">Notify me ☔</button>
+          </div>
+          <p id="mmNotifyMsg" class="mm-notify__msg" aria-live="polite"></p>
+          <p class="mm-notify__fine">No spam — just one email when we go live. See our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+        </form>
 
         <!-- discreet unlock (no visible hint) -->
         <form id="mmGateForm" class="mm-gate__form" autocomplete="off" aria-label="Access">
@@ -470,6 +486,6 @@
 </footer>
 
   <script src="script.js" defer></script>
-  <script src="assets/js/ith-monsoon.js?v=20260823" defer></script>
+  <script src="assets/js/ith-monsoon.js?v=20260824" defer></script>
 </body>
 </html>
