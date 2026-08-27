@@ -6,7 +6,7 @@
  *   Science & Technology  → ₹600 per participant, per event
  *   Multidisciplinary     → ₹400 per participant, per event
  * An event's price = per-head rate × number of participants (bounded by the
- * event's min–max team size). Schools entering 15+ events get 40% off the
+ * event's min–max team size). Schools entering 14+ events get 40% off the
  * order AND Rolling-Trophy eligibility.
  *
  * Flow (ecommerce-style, one page, four views routed by #/ hash):
@@ -26,8 +26,8 @@
     currencySymbol: '₹',
     unlockAt: '2026-08-31T09:00:00+05:30',        // registration opens; page unlocks then
     previewPassword: 'sid@1001',                   // soft gate for production checks
-    schoolThreshold: 15,                           // events needed for discount + Rolling Trophy
-    schoolDiscountRate: 0.40,                      // 40% off for schools at 15+ events
+    schoolThreshold: 14,                           // events needed for discount + Rolling Trophy
+    schoolDiscountRate: 0.40,                      // 40% off for schools at 14+ events
     rateSci: 600,                                  // ₹ per participant — Science & Technology
     rateMulti: 400                                 // ₹ per participant — Multidisciplinary
   };
