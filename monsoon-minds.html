@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260830" />
+  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260831" />
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
@@ -216,7 +216,7 @@
           </div>
           <div class="mm-secure-wrap mm-reveal">
             <div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay">
-              <img src="assets/pay/razorpay-powered.png" alt="Payments powered by Razorpay" class="mm-secure__logo" width="150" height="60" loading="lazy" /><span class="mm-secure__cap">Cards · Wallets · UPI · Net-Banking · <b>International cards accepted</b></span>
+              <span class="mm-secure__by">Secured payments by</span><img src="assets/pay/razorpay.svg" alt="Razorpay" class="mm-secure__logo" width="132" height="30" /><span class="mm-secure__cap">Cards · UPI · Net-Banking · <b>International cards accepted</b></span>
             </div>
           </div>
         </div>
@@ -365,7 +365,7 @@
                 </div>
 
                 <button type="button" id="mmToDetails" class="mm-pay" disabled>Continue to details</button>
-                <div class="mm-secure-wrap"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><img src="assets/pay/razorpay-powered.png" alt="Payments powered by Razorpay" class="mm-secure__logo" width="150" height="60" loading="lazy" /><span class="mm-secure__cap">Cards · Wallets · UPI · Net-Banking · <b>International cards accepted</b></span></div></div>
+                <div class="mm-secure-wrap"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><span class="mm-secure__by">Secured payments by</span><img src="assets/pay/razorpay.svg" alt="Razorpay" class="mm-secure__logo" width="132" height="30" /><span class="mm-secure__cap">Cards · UPI · Net-Banking · <b>International cards accepted</b></span></div></div>
               </div>
             </aside>
           </div>
@@ -405,7 +405,7 @@
             <p class="mm-note" style="margin-top:1.25rem;"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-check"></use></svg> <span><strong>More than one participant?</strong> You don’t type every name here. After payment we’ll <strong>email you</strong> to collect each participant’s full name, exactly as it should appear on their certificate.</span></p>
           </div>
 
-          <div class="mm-secure-wrap" style="margin-top:1.5rem;"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><img src="assets/pay/razorpay-powered.png" alt="Payments powered by Razorpay" class="mm-secure__logo" width="150" height="60" loading="lazy" /><span class="mm-secure__cap">Cards · Wallets · UPI · Net-Banking · <b>International cards accepted</b></span></div></div>
+          <div class="mm-secure-wrap" style="margin-top:1.5rem;"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><span class="mm-secure__by">Secured payments by</span><img src="assets/pay/razorpay.svg" alt="Razorpay" class="mm-secure__logo" width="132" height="30" /><span class="mm-secure__cap">Cards · UPI · Net-Banking · <b>International cards accepted</b></span></div></div>
 
           <div class="mm-navrow">
             <button type="button" class="mm-backlink" data-goto="cart"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-back"></use></svg> Back to cart</button>
@@ -447,17 +447,14 @@
             </div>
           </div>
 
-          <figure class="mm-paymethods">
-            <img src="assets/pay/razorpay-accepted-cards.png" alt="Payments processed by Razorpay. Accepted methods: Visa, Mastercard, American Express, Diners Club, RuPay, Maestro, UPI, wallets and net-banking. International cards accepted." width="600" height="600" loading="lazy" />
-          </figure>
-
-          <label class="mm-terms">
-            <input type="checkbox" id="mmTerms" />
-            <span>I agree to the <a href="terms" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="refund" target="_blank" rel="noopener">Refund Policy</a> of the competition.</span>
-          </label>
-
-          <button type="button" id="mmPay" class="mm-pay" disabled>Accept the terms to pay</button>
-          <div class="mm-secure-wrap"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><img src="assets/pay/razorpay-powered.png" alt="Payments powered by Razorpay" class="mm-secure__logo" width="150" height="60" loading="lazy" /><span class="mm-secure__cap">Cards · Wallets · UPI · Net-Banking · <b>International cards accepted</b></span></div></div>
+          <div class="mm-paypanel">
+            <label class="mm-terms">
+              <input type="checkbox" id="mmTerms" />
+              <span>I agree to the <a href="terms" target="_blank" rel="noopener">Terms &amp; Conditions</a> and <a href="refund" target="_blank" rel="noopener">Refund Policy</a> of the competition.</span>
+            </label>
+            <button type="button" id="mmPay" class="mm-pay" disabled>Accept the terms to pay</button>
+            <div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><span class="mm-secure__by">Secured payments by</span><img src="assets/pay/razorpay.svg" alt="Razorpay" class="mm-secure__logo" width="132" height="30" /><span class="mm-secure__cap">Cards · UPI · Net-Banking · <b>International cards accepted</b></span></div>
+          </div>
 
           <div class="mm-navrow mm-navrow--single">
             <button type="button" class="mm-backlink" data-goto="details"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-back"></use></svg> Back to details</button>
@@ -491,13 +488,13 @@
     <div class="index-footer__bottom">
       <div class="index-footer__divider" aria-hidden="true"></div>
       <nav class="index-footer__legal" aria-label="Legal"><a href="privacy">Privacy Policy</a><a href="cookies">Cookie Policy</a><a href="terms">Terms of Service</a><a href="refund">Refund Policy</a><a href="accessibility">Accessibility</a><a href="security">Security</a><a href="disclaimer">Disclaimer</a><a href="sitemap">Sitemap</a></nav>
-      <div class="index-footer__secure"><img src="assets/pay/razorpay-powered.png" alt="Payments powered by Razorpay" width="118" height="47" loading="lazy" /> <span>Cards · UPI · Net-Banking · <strong>International cards accepted</strong></span></div>
+      <div class="index-footer__secure"><span class="index-footer__secure-by">Secured payments by</span><img src="assets/pay/razorpay-white.svg" alt="Razorpay" width="112" height="26" loading="lazy" /><span class="index-footer__secure-methods">Cards · UPI · Net-Banking · <strong>International cards accepted</strong></span></div>
       <p class="index-footer__copy">&copy; 2026 Inspire Talent Hub. All Intellectual Rights Strictly Reserved. <span class="index-footer__tagline">Command the Future.</span></p>
     </div>
   </div>
 </footer>
 
   <script src="script.js" defer></script>
-  <script src="assets/js/ith-monsoon.js?v=20260830" defer></script>
+  <script src="assets/js/ith-monsoon.js?v=20260831" defer></script>
 </body>
 </html>

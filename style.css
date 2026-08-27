@@ -2203,18 +2203,19 @@ p {
 
 .index-footer__secure {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.4rem 0.7rem;
-  margin: 1.15rem 0 0;
+  gap: 0.3rem;
+  margin: 1.4rem 0 0;
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: #94a3b8;
   text-align: center;
 }
-.index-footer__secure img { height: 2rem; width: auto; display: block; border-radius: 0.5rem; }
-.index-footer__secure strong { color: #e2e8f0; font-weight: 700; }
+.index-footer__secure-by { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7b8494; }
+.index-footer__secure img { height: 1.5rem; width: auto; display: block; }
+.index-footer__secure-methods { font-size: 0.75rem; }
+.index-footer__secure strong { color: #cbd5e1; font-weight: 700; }
 
 .index-footer__nav ul {
   display: flex;

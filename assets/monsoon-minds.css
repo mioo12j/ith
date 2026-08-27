@@ -31,7 +31,18 @@
 }
 /* also paint the root for this page so overscroll / fixed-nav area stays light */
 html:has(.mm-page) { background-color: #f3f0fb; }
-.mm-page .index-nav { /* keep the dark nav readable over the light page */ }
+/* Nav readability over the light page — frosted white bar + dark links */
+.mm-page .index-nav { background: rgba(255,255,255,0.72); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(38,35,64,0.08); box-shadow: 0 6px 24px rgba(120,110,180,0.08); }
+.mm-page .index-nav.scrolled { background: rgba(255,255,255,0.9); border-bottom-color: rgba(38,35,64,0.12); }
+.mm-page .index-nav__logo-title { color: #262340; }
+.mm-page .index-nav__link { color: #3a3856; }
+.mm-page .index-nav__link:hover { color: var(--mm-violet); }
+.mm-page .index-nav__link::after { background: var(--mm-violet); }
+.mm-page .index-nav__hamburger span { background: #262340; }
+@media (max-width: 60rem) {
+  .mm-page .index-nav__links { background: rgba(255,255,255,0.97); }
+  .mm-page .index-nav__links .index-nav__link { color: #262340; }
+}
 
 .mm-wrap { width: min(100% - 2rem, 74rem); margin-inline: auto; position: relative; z-index: 1; }
 @media (min-width: 48rem) { .mm-wrap { width: min(100% - 3rem, 74rem); } }
@@ -521,8 +532,7 @@ body.mm-modal-open { overflow: hidden; }
 .mm-review__item { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--font-family-body); font-size: 0.88rem; color: var(--mm-ink); }
 .mm-review__item em { font-style: normal; color: var(--mm-dim); font-size: 0.8rem; }
 .mm-review__item span:last-child { font-family: 'Baloo 2', sans-serif; font-weight: 700; white-space: nowrap; }
-#mmViewReview .mm-terms, #mmViewReview .mm-pay, #mmViewReview .mm-cart__secure { max-width: 34rem; margin-inline: auto; }
-#mmViewReview .mm-terms { justify-content: center; }
+#mmViewReview .mm-cart__secure { max-width: 34rem; margin-inline: auto; }
 
 @media (prefers-reduced-motion: reduce) {
   .mm-cartbar { animation: none; }
@@ -557,10 +567,16 @@ body.mm-modal-open { overflow: hidden; }
    RAZORPAY SECURE-PAYMENT BADGE
    ========================================================================== */
 .mm-secure-wrap { display: flex; justify-content: center; margin-top: 1rem; }
-.mm-secure { display: inline-flex; flex-direction: column; align-items: center; gap: 0.55rem; padding: 0.85rem 1.2rem; border-radius: 1rem; background: #fff; border: 1px solid var(--mm-line); box-shadow: 5px 6px 0 -2px rgba(47,211,198,0.22); max-width: 100%; }
-.mm-secure__logo { height: 2.3rem; width: auto; display: block; }
-.mm-secure__cap { font-family: var(--font-family-body); font-size: 0.74rem; line-height: 1.4; color: var(--mm-dim); text-align: center; }
+.mm-secure { display: inline-flex; flex-direction: column; align-items: center; gap: 0.3rem; padding: 0.8rem 1.3rem; border-radius: 1rem; background: #fbfaff; border: 1px solid var(--mm-line); max-width: 100%; }
+.mm-secure__by { font-family: var(--font-family-body); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: var(--mm-faint); }
+.mm-secure__logo { height: 1.55rem; width: auto; display: block; }
+.mm-secure__cap { font-family: var(--font-family-body); font-size: 0.73rem; line-height: 1.4; color: var(--mm-dim); text-align: center; margin-top: 0.1rem; }
 .mm-secure__cap b { color: #17a673; font-weight: 800; }
+
+/* Confirm & Pay — bounded, centred pay panel so terms/button/badge align */
+.mm-paypanel { max-width: 32rem; margin: 1.75rem auto 0; padding: 1.4rem 1.5rem; background: #fff; border: 1px solid var(--mm-line); border-radius: 1.4rem; box-shadow: 12px 16px 0 -4px rgba(154,124,255,0.2), 0 20px 50px rgba(80,80,140,0.1); display: grid; gap: 1.1rem; }
+.mm-paypanel .mm-terms { margin: 0; }
+.mm-paypanel .mm-secure { justify-self: center; }
 
 /* accepted-cards poster (Confirm & Pay) */
 .mm-paymethods { display: flex; justify-content: center; margin: 1.25rem auto 0; }

@@ -95,7 +95,6 @@
   ];
 
   var COUPONS = {
-    'MONSOON1': { kind: 'test1',   label: 'Test mode — total set to ₹1' },
     'RAIN15':   { kind: 'percent', value: 15, label: '15% off — early bird' }
   };
 
