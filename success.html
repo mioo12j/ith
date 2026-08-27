@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260828" />
+  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260829" />
 </head>
 <body class="mm-page">
 
@@ -62,27 +62,39 @@
     <span class="mm-blob mm-blob--3" aria-hidden="true"></span>
 
     <div class="sc-wrap">
-      <div class="sc-hero">
+      <div class="sc-hero sc-reveal">
         <div class="sc-badge" aria-hidden="true"><svg width="42" height="42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-check"></use></svg></div>
         <h1 class="sc-title">You’re <em>in!</em> 🎉</h1>
         <p class="sc-sub">Payment successful — your spot at the <strong>Monsoon Minds Championship 2026</strong> is confirmed.</p>
       </div>
 
-      <div class="sc-amount">
+      <div class="sc-amount sc-reveal" style="animation-delay:.06s">
         <span class="sc-amount__label">Amount paid</span>
         <span class="sc-amount__val" id="scAmount">—</span>
       </div>
 
-      <div class="sc-cards">
-        <!-- transaction -->
-        <div class="sc-card">
-          <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-receipt"></use></svg> Transaction</h2>
-          <div class="sc-row sc-row--mono"><span>Transaction ID</span><b id="scTxn">—</b></div>
-          <div class="sc-row sc-row--mono"><span>Reference No.</span><b id="scRef">—</b></div>
-        </div>
+      <!-- WHAT HAPPENS NEXT — moved to the top so it's the first thing understood -->
+      <div class="sc-note sc-reveal" style="animation-delay:.12s">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-mail"></use></svg>
+        <p style="margin:0;"><strong>What happens next?</strong> We’ll <strong>email you shortly</strong> to collect the full name of every participant (exactly as it should appear on their certificate), along with your schedule and joining details. Keep an eye on your <strong>inbox and WhatsApp</strong>.</p>
+      </div>
 
+      <!-- SAVE YOUR RECEIPT — screenshot reminder + prominent, copyable Transaction ID -->
+      <div class="sc-receipt sc-reveal" style="animation-delay:.18s">
+        <div class="sc-receipt__top">
+          <span class="sc-receipt__emoji" aria-hidden="true">📸</span>
+          <div><strong>Save your receipt</strong><span>Take a screenshot of this page — your Transaction ID is your proof of payment, so keep it safe.</span></div>
+        </div>
+        <div class="sc-txn">
+          <div class="sc-txn__main"><span class="sc-txn__label">Transaction ID</span><span class="sc-txn__val" id="scTxn">—</span></div>
+          <button type="button" class="sc-copy" id="scCopy" aria-label="Copy Transaction ID">Copy</button>
+        </div>
+        <div class="sc-txn__ref"><span>Reference No.</span><b id="scRef">—</b></div>
+      </div>
+
+      <div class="sc-cards">
         <!-- order summary -->
-        <div class="sc-card" id="scOrderCard">
+        <div class="sc-card sc-reveal" id="scOrderCard" style="animation-delay:.24s">
           <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-cart"></use></svg> Your registration</h2>
           <div id="scItems"></div>
           <div class="sc-tot" id="scSubRow"><span>Subtotal</span><span id="scSubtotal">—</span></div>
@@ -91,8 +103,8 @@
           <div class="sc-tot sc-tot--grand"><span>Total paid</span><span id="scGrand">—</span></div>
         </div>
 
-        <!-- details -->
-        <div class="sc-card">
+        <!-- registrant details -->
+        <div class="sc-card sc-reveal" id="scWhoCard" style="animation-delay:.3s">
           <h2><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-user"></use></svg> Registrant details</h2>
           <div class="sc-row"><span>Registering as</span><b id="scMode">—</b></div>
           <div class="sc-row"><span>Name</span><b id="scName">—</b></div>
@@ -101,19 +113,11 @@
           <div class="sc-row"><span>School</span><b id="scSchool">—</b></div>
           <div class="sc-row"><span>City &amp; state</span><b id="scCity">—</b></div>
         </div>
-
-        <!-- participant-names note -->
-        <div class="sc-note">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-mail"></use></svg>
-          <p style="margin:0;"><strong>What happens next:</strong> we’ll <strong>email you shortly</strong> to collect the full name of every participant (exactly as it should appear on their certificate), along with your schedule and joining details. Do keep an eye on your inbox and WhatsApp.</p>
-        </div>
       </div>
 
       <div class="sc-cta">
         <a href="monsoon-minds" class="mm-btn mm-btn--primary">Register another</a>
-        <a href="verifycertificate" class="mm-btn mm-btn--ghost">Verify a certificate</a>
       </div>
-      <p class="sc-screenshot">Please take a screenshot of this page and keep your Transaction ID safe.</p>
     </div>
   </main>
 
@@ -137,14 +141,29 @@
       function el(id){ return document.getElementById(id); }
       function set(id, v){ var n=el(id); if(n) n.textContent = (v==null||v==='') ? '—' : v; }
 
+      // Copy Transaction ID to clipboard (works in both full and fallback paths)
+      (function wireCopy(){
+        var btn = el('scCopy'); if (!btn) return;
+        function fallbackCopy(text){ try { var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); } catch(e){} }
+        btn.addEventListener('click', function(){
+          var txn = ((el('scTxn') && el('scTxn').textContent) || '').trim();
+          if (!txn || txn === '—' || txn === 'Not available') return;
+          function done(){ btn.classList.add('is-done'); btn.textContent='Copied ✓'; setTimeout(function(){ btn.textContent='Copy'; btn.classList.remove('is-done'); }, 1600); }
+          if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txn).then(done, function(){ fallbackCopy(txn); done(); }); }
+          else { fallbackCopy(txn); done(); }
+        });
+      })();
+
       var order = null;
       try { order = JSON.parse(localStorage.getItem('mm_order') || 'null'); } catch (e) {}
 
       // fallback to the minimal legacy keys if the full snapshot is missing
       if (!order) {
         var id = localStorage.getItem('txn_id'), amt = localStorage.getItem('txn_amount'), ref = localStorage.getItem('txn_ref');
-        if (id) { set('scAmount', amt); set('scTxn', id); set('scRef', ref || '—'); el('scOrderCard').style.display='none'; }
-        else { set('scAmount','—'); set('scTxn','Not available'); set('scRef','—'); el('scOrderCard').style.display='none'; }
+        if (id) { set('scAmount', amt); set('scTxn', id); set('scRef', ref || '—'); }
+        else { set('scAmount','—'); set('scTxn','Not available'); set('scRef','—'); }
+        if (el('scOrderCard')) el('scOrderCard').style.display='none';
+        if (el('scWhoCard')) el('scWhoCard').style.display='none';
         try { localStorage.removeItem('txn_id'); localStorage.removeItem('txn_amount'); localStorage.removeItem('txn_ref'); } catch(e){}
         return;
       }

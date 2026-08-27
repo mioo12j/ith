@@ -563,3 +563,27 @@ body.mm-modal-open { overflow: hidden; }
 .mm-secure__txt strong { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--mm-ink); }
 .mm-secure__txt > span { font-family: var(--font-family-body); font-size: 0.74rem; color: var(--mm-dim); }
 .mm-secure__txt b { color: #0b6bcb; font-weight: 800; }
+
+/* ==========================================================================
+   SUCCESS PAGE — receipt / screenshot callout, copy button, entrance
+   ========================================================================== */
+.sc-reveal { animation: sc-up 0.6s var(--mm-ease) both; }
+@keyframes sc-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+.sc-receipt { margin-top: 1rem; padding: 1.2rem 1.35rem; border-radius: 1.25rem; background: #fff; border: 2px dashed rgba(154,124,255,0.5); box-shadow: 8px 11px 0 -3px rgba(242,178,58,0.22); }
+.sc-receipt__top { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.9rem; }
+.sc-receipt__emoji { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+.sc-receipt__top strong { display: block; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 1rem; color: var(--mm-ink); }
+.sc-receipt__top span { font-family: var(--font-family-body); font-size: 0.84rem; line-height: 1.45; color: var(--mm-dim); }
+.sc-txn { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0.9rem; border-radius: 0.9rem; background: #faf9ff; border: 1px solid var(--mm-line); }
+.sc-txn__main { min-width: 0; flex: 1; display: flex; flex-direction: column; }
+.sc-txn__label { font-family: var(--font-family-body); font-size: 0.66rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mm-faint); }
+.sc-txn__val { font-family: var(--font-family-num, ui-monospace, monospace); font-size: 0.98rem; font-weight: 700; color: var(--mm-ink); word-break: break-all; }
+.sc-copy { flex-shrink: 0; min-height: 2.4rem; padding: 0.4rem 1.1rem; border: none; border-radius: 0.7rem; cursor: pointer; font-family: var(--font-family-body); font-weight: 700; font-size: 0.82rem; color: #fff; background: linear-gradient(135deg, var(--mm-violet), var(--mm-blue)); transition: transform 0.2s var(--mm-ease), background 0.2s ease; }
+.sc-copy:hover { transform: translateY(-2px); }
+.sc-copy.is-done { background: linear-gradient(135deg, var(--mm-cyan), #17a673); }
+.sc-txn__ref { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.7rem; padding: 0 0.2rem; font-family: var(--font-family-body); font-size: 0.82rem; color: var(--mm-dim); }
+.sc-txn__ref b { font-family: var(--font-family-num, ui-monospace, monospace); color: var(--mm-ink); word-break: break-all; text-align: right; }
+.sc-cards { margin-top: 1rem; }
+
+@media (prefers-reduced-motion: reduce) { .sc-reveal { animation: none; } .sc-copy { transition: none; } .sc-copy:hover { transform: none; } }
