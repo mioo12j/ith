@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260827" />
+  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260828" />
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
@@ -214,6 +214,12 @@
             <div class="mm-hstat"><b>47</b><span>Events</span></div>
             <div class="mm-hstat"><b>100%</b><span>Get certified</span></div>
           </div>
+          <div class="mm-secure-wrap mm-reveal">
+            <div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay">
+              <span class="mm-secure__ic" aria-hidden="true"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-shield"></use></svg></span>
+              <span class="mm-secure__txt"><strong>100% Secure Payments</strong><span>Powered by <b>Razorpay</b> · Cards · UPI · Net-Banking</span></span>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -360,7 +366,7 @@
                 </div>
 
                 <button type="button" id="mmToDetails" class="mm-pay" disabled>Continue to details</button>
-                <p class="mm-cart__secure"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"></use></svg> Secured by Razorpay — cards, UPI, net-banking</p>
+                <div class="mm-secure-wrap"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><span class="mm-secure__ic" aria-hidden="true"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-shield"></use></svg></span><span class="mm-secure__txt"><strong>100% Secure Payments</strong><span>Powered by <b>Razorpay</b> · Cards · UPI · Net-Banking</span></span></div></div>
               </div>
             </aside>
           </div>
@@ -399,6 +405,8 @@
             </form>
             <p class="mm-note" style="margin-top:1.25rem;"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-check"></use></svg> <span><strong>More than one participant?</strong> You don’t type every name here. After payment we’ll <strong>email you</strong> to collect each participant’s full name, exactly as it should appear on their certificate.</span></p>
           </div>
+
+          <div class="mm-secure-wrap" style="margin-top:1.5rem;"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><span class="mm-secure__ic" aria-hidden="true"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-shield"></use></svg></span><span class="mm-secure__txt"><strong>100% Secure Payments</strong><span>Powered by <b>Razorpay</b> · Cards · UPI · Net-Banking</span></span></div></div>
 
           <div class="mm-navrow">
             <button type="button" class="mm-backlink" data-goto="cart"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-back"></use></svg> Back to cart</button>
@@ -446,7 +454,7 @@
           </label>
 
           <button type="button" id="mmPay" class="mm-pay" disabled>Accept the terms to pay</button>
-          <p class="mm-cart__secure"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-lock"></use></svg> Secured by Razorpay — cards, UPI, net-banking</p>
+          <div class="mm-secure-wrap"><div class="mm-secure" role="note" aria-label="Secure payments powered by Razorpay"><span class="mm-secure__ic" aria-hidden="true"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-shield"></use></svg></span><span class="mm-secure__txt"><strong>100% Secure Payments</strong><span>Powered by <b>Razorpay</b> · Cards · UPI · Net-Banking</span></span></div></div>
 
           <div class="mm-navrow mm-navrow--single">
             <button type="button" class="mm-backlink" data-goto="details"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-back"></use></svg> Back to details</button>
@@ -480,12 +488,13 @@
     <div class="index-footer__bottom">
       <div class="index-footer__divider" aria-hidden="true"></div>
       <nav class="index-footer__legal" aria-label="Legal"><a href="privacy">Privacy Policy</a><a href="cookies">Cookie Policy</a><a href="terms">Terms of Service</a><a href="refund">Refund Policy</a><a href="accessibility">Accessibility</a><a href="security">Security</a><a href="disclaimer">Disclaimer</a><a href="sitemap">Sitemap</a></nav>
+      <div class="index-footer__secure"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Secure payments powered by <strong>Razorpay</strong> · Cards · UPI · Net-Banking</div>
       <p class="index-footer__copy">&copy; 2026 Inspire Talent Hub. All Intellectual Rights Strictly Reserved. <span class="index-footer__tagline">Command the Future.</span></p>
     </div>
   </div>
 </footer>
 
   <script src="script.js" defer></script>
-  <script src="assets/js/ith-monsoon.js?v=20260827" defer></script>
+  <script src="assets/js/ith-monsoon.js?v=20260828" defer></script>
 </body>
 </html>

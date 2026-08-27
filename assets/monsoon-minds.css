@@ -552,3 +552,14 @@ body.mm-modal-open { overflow: hidden; }
 .mm-notify.is-done .mm-notify__row, .mm-notify.is-done .mm-notify__label, .mm-notify.is-done .mm-notify__fine { display: none; }
 .mm-notify.is-done .mm-notify__msg { font-size: 1rem; }
 @media (prefers-reduced-motion: reduce) { .mm-notify__btn { transition: none; } .mm-notify__btn:hover:not(:disabled) { transform: none; } }
+
+/* ==========================================================================
+   RAZORPAY SECURE-PAYMENT BADGE
+   ========================================================================== */
+.mm-secure-wrap { display: flex; justify-content: center; margin-top: 1rem; }
+.mm-secure { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.65rem 1.1rem; border-radius: 999px; background: #fff; border: 1px solid var(--mm-line); box-shadow: 5px 6px 0 -2px rgba(47,211,198,0.22); max-width: 100%; }
+.mm-secure__ic { display: grid; place-items: center; width: 2.1rem; height: 2.1rem; flex-shrink: 0; border-radius: 50%; color: #fff; background: linear-gradient(135deg, var(--mm-cyan), #17a673); }
+.mm-secure__txt { display: flex; flex-direction: column; line-height: 1.2; text-align: left; min-width: 0; }
+.mm-secure__txt strong { font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--mm-ink); }
+.mm-secure__txt > span { font-family: var(--font-family-body); font-size: 0.74rem; color: var(--mm-dim); }
+.mm-secure__txt b { color: #0b6bcb; font-weight: 800; }

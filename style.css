@@ -2201,6 +2201,20 @@ p {
   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 }
 
+.index-footer__secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.15rem 0 0;
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-align: center;
+}
+.index-footer__secure svg { color: #34d399; flex-shrink: 0; }
+.index-footer__secure strong { color: #e2e8f0; font-weight: 700; }
+
 .index-footer__nav ul {
   display: flex;
   flex-wrap: wrap;

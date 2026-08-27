@@ -469,6 +469,9 @@
   }
 
   function pay() {
+    // Hard gate: no payment without explicit consent to Terms & Refund Policy.
+    var terms = el('mmTerms');
+    if (terms && !terms.checked) { navigate('review'); updatePay(); if (terms.focus) terms.focus(); return; }
     var f = el('mmForm');
     if (f && !f.checkValidity()) { navigate('details'); setTimeout(function () { f.reportValidity(); }, 60); return; }
     if (!window.Razorpay) { alert('Payment library failed to load. Please refresh and try again.'); return; }
