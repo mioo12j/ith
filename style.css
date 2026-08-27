@@ -2203,16 +2203,17 @@ p {
 
 .index-footer__secure {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.4rem 0.7rem;
   margin: 1.15rem 0 0;
   font-family: inherit;
   font-size: 0.8rem;
   color: #94a3b8;
   text-align: center;
 }
-.index-footer__secure svg { color: #34d399; flex-shrink: 0; }
+.index-footer__secure img { height: 2rem; width: auto; display: block; border-radius: 0.5rem; }
 .index-footer__secure strong { color: #e2e8f0; font-weight: 700; }
 
 .index-footer__nav ul {
