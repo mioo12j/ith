@@ -605,3 +605,10 @@ body.mm-modal-open { overflow: hidden; }
 .sc-cards { margin-top: 1rem; }
 
 @media (prefers-reduced-motion: reduce) { .sc-reveal { animation: none; } .sc-copy { transition: none; } .sc-copy:hover { transform: none; } }
+
+/* Success page — follow-us on Instagram callout */
+.sc-follow { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; margin-top: 1.5rem; text-align: center; }
+.sc-follow__txt { font-family: var(--font-family-body); font-size: 0.9rem; color: var(--mm-dim); margin: 0; max-width: 26rem; }
+.sc-follow__btn { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.7rem 1.3rem; border-radius: 999px; text-decoration: none; color: #fff; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 0.95rem; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); box-shadow: 0 12px 28px rgba(220,39,67,0.32); transition: transform 0.2s var(--mm-ease), box-shadow 0.2s var(--mm-ease); }
+.sc-follow__btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(220,39,67,0.42); }
+@media (prefers-reduced-motion: reduce) { .sc-follow__btn { transition: none; } .sc-follow__btn:hover { transform: none; } }
