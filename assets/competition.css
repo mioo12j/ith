@@ -178,6 +178,8 @@ html.js .cm-reveal.is-in { opacity: 1; transform: none; }
   color: var(--cm-gold);
   margin-bottom: 1.5rem;
 }
+.cm-status--live { border-color: rgba(52,211,153,0.5); background: rgba(52,211,153,0.1); color: #34d399; }
+.cm-status--live .cm-status__dot { background: #34d399; }
 .cm-status__dot {
   width: 0.5rem;
   height: 0.5rem;

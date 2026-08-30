@@ -202,9 +202,9 @@
       <div class="hm-wrap">
         <div class="hm-hero__inner">
           <div class="hm-hero__main">
-            <a class="hm-status hover-target" href="monsoon-minds">
+            <a class="hm-status hm-status--live hover-target" href="monsoon-minds">
               <span class="hm-status__dot" aria-hidden="true"></span>
-              Monsoon Minds Championship 2026 &middot; Registrations opening soon
+              Monsoon Minds Championship 2026 &middot; Registrations LIVE NOW
             </a>
 
             <h1 id="hm-hero-title" class="hm-hero__title">
@@ -219,7 +219,7 @@
             </p>
 
             <div class="hm-hero__cta">
-              <a href="monsoon-minds" class="btn btn-gold hover-target"><span>Explore Competitions</span><div class="btn-ripple" aria-hidden="true"></div></a>
+              <a href="monsoon-minds" class="btn btn-gold hover-target"><span>Register now — it&rsquo;s live</span><div class="btn-ripple" aria-hidden="true"></div></a>
               <a href="study" class="btn btn-outline text-gold hover-target"><span>Open the Study Hub</span></a>
             </div>
 
@@ -233,16 +233,10 @@
 
           <aside class="hm-hero__aside" aria-label="Next competition season">
             <div class="hm-season">
-              <p class="hm-season__label">Next season opens in</p>
+              <p class="hm-season__label"><span class="hm-livedot" aria-hidden="true"></span> Registrations are live</p>
               <p class="hm-season__name">Monsoon Minds Championship 2026</p>
-
-              <div class="hm-count" id="hmCountdown" data-target="2026-08-31T09:00:00+05:30" role="timer" aria-label="Time until registrations open">
-                <div class="hm-count__cell"><span class="hm-count__n" data-cd="days">30</span><span class="hm-count__l">Days</span></div>
-                <div class="hm-count__cell"><span class="hm-count__n" data-cd="hours">00</span><span class="hm-count__l">Hours</span></div>
-                <div class="hm-count__cell"><span class="hm-count__n" data-cd="minutes">00</span><span class="hm-count__l">Min</span></div>
-                <div class="hm-count__cell"><span class="hm-count__n" data-cd="seconds">00</span><span class="hm-count__l">Sec</span></div>
-              </div>
-
+              <p class="hm-season__live">47 events · ₹10,00,000+ in prizes · Classes 6&ndash;12. Register solo or as a school and pay securely — registration closes <strong>15 September 2026</strong>.</p>
+              <a href="monsoon-minds" class="btn btn-gold hover-target" style="width:100%;justify-content:center;"><span>Register &amp; pay now</span><div class="btn-ripple" aria-hidden="true"></div></a>
               <p class="hm-season__note">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-check"></use></svg>
                 <span>Our Back to School Competition 2026 concluded in July &mdash; winners felicitated and every participant certified. <a href="gallery">See the moment</a>.</span>
@@ -521,6 +515,18 @@
 
   </main>
 
+  <!-- Live-registration announcement popup -->
+  <div id="hmLivePop" class="hm-livepop" hidden role="dialog" aria-modal="true" aria-labelledby="hmLivePopTitle">
+    <div class="hm-livepop__card">
+      <button type="button" class="hm-livepop__close" id="hmLivePopClose" aria-label="Close">&times;</button>
+      <span class="hm-livepop__badge"><span class="hm-livedot" aria-hidden="true"></span> Live now</span>
+      <h2 id="hmLivePopTitle" class="hm-livepop__title">Registrations are <em>open!</em> ☔</h2>
+      <p class="hm-livepop__txt">The <strong>Monsoon Minds Championship 2026</strong> is live — 47 events, ₹10,00,000+ in prizes, for Classes 6&ndash;12. Register solo or as a school and pay securely. Registration closes 15 September 2026.</p>
+      <a href="monsoon-minds" class="btn btn-gold hover-target hm-livepop__cta"><span>Register &amp; pay now</span></a>
+      <button type="button" class="hm-livepop__later" id="hmLivePopLater">Maybe later</button>
+    </div>
+  </div>
+
   <footer class="index-footer" role="contentinfo" id="index-footer">
     <canvas class="index-footer__canvas webgl-sky" aria-hidden="true"></canvas>
     <div class="index-footer__container">
@@ -544,5 +550,31 @@
   <script src="script.js" defer></script>
   <script src="assets/js/ith-home.js" defer></script>
   <script src="assets/js/ith-snake.js" defer></script>
+  <script>
+    (function () {
+      var pop = document.getElementById('hmLivePop');
+      if (!pop) return;
+      var KEY = 'mm_livepop_seen';
+      function close() {
+        pop.hidden = true;
+        document.documentElement.style.overflow = '';
+        try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      }
+      var seen = false;
+      try { seen = sessionStorage.getItem(KEY) === '1'; } catch (e) {}
+      if (!seen) {
+        setTimeout(function () {
+          pop.hidden = false;
+          document.documentElement.style.overflow = 'hidden';
+        }, 1200);
+      }
+      var c1 = document.getElementById('hmLivePopClose');
+      var c2 = document.getElementById('hmLivePopLater');
+      if (c1) c1.addEventListener('click', close);
+      if (c2) c2.addEventListener('click', close);
+      pop.addEventListener('click', function (e) { if (e.target === pop) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) close(); });
+    })();
+  </script>
 </body>
 </html>

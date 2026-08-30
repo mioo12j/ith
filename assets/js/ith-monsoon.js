@@ -120,7 +120,7 @@
    * ==================================================================== */
   var unlockTime = Date.parse(CONFIG.unlockAt);
   function isPreviewed() { try { return sessionStorage.getItem('mm_ok') === '1'; } catch (e) { return false; } }
-  function locked() { if (isPreviewed()) return false; if (isNaN(unlockTime)) return false; return Date.now() < unlockTime; }
+  function locked() { return false; }   // registration is LIVE — no date lock / countdown gate
   function applyGate() { document.body.classList.toggle('mm-locked', locked()); updateCartBar(); }
 
   function initGate() {

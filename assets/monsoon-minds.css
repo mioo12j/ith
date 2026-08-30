@@ -612,3 +612,9 @@ body.mm-modal-open { overflow: hidden; }
 .sc-follow__btn { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.7rem 1.3rem; border-radius: 999px; text-decoration: none; color: #fff; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 0.95rem; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); box-shadow: 0 12px 28px rgba(220,39,67,0.32); transition: transform 0.2s var(--mm-ease), box-shadow 0.2s var(--mm-ease); }
 .sc-follow__btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(220,39,67,0.42); }
 @media (prefers-reduced-motion: reduce) { .sc-follow__btn { transition: none; } .sc-follow__btn:hover { transform: none; } }
+
+/* LIVE badge (registration is open) */
+.mm-pill--live { display: inline-flex; align-items: center; gap: 0.5rem; border-color: rgba(23,166,115,0.4); color: #0f7a54; background: linear-gradient(135deg,#fff,#effcf5); }
+.mm-livedot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #17a673; box-shadow: 0 0 0 0 rgba(23,166,115,0.55); animation: mm-livepulse 1.6s ease-out infinite; flex-shrink: 0; }
+@keyframes mm-livepulse { 0% { box-shadow: 0 0 0 0 rgba(23,166,115,0.55); } 70% { box-shadow: 0 0 0 0.6rem rgba(23,166,115,0); } 100% { box-shadow: 0 0 0 0 rgba(23,166,115,0); } }
+@media (prefers-reduced-motion: reduce) { .mm-livedot { animation: none; } }
