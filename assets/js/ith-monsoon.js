@@ -309,13 +309,13 @@
       '<span class="mm-item__meta">' + catName(l.cat) + ' · ' + money(l.price) + ' / participant</span></div>' +
       (canStep
         ? '<div class="mm-step" role="group" aria-label="Participants for ' + esc(l.name) + '">' +
-            '<button type="button" class="mm-step__btn" data-act="dec" data-id="' + l.id + '" aria-label="Fewer participants">–</button>' +
+            '<button type="button" class="mm-step__btn' + (l.n <= c.min ? ' is-min' : '') + '" data-act="dec" data-id="' + l.id + '" aria-label="Fewer participants" title="' + (l.n <= c.min ? 'Minimum ' + c.min + ' participants' : 'Fewer participants') + '">–</button>' +
             '<span class="mm-step__n">' + l.n + '</span>' +
-            '<button type="button" class="mm-step__btn" data-act="inc" data-id="' + l.id + '" aria-label="More participants">+</button>' +
+            '<button type="button" class="mm-step__btn" data-act="inc" data-id="' + l.id + '" aria-label="More participants" title="More participants">+</button>' +
           '</div>'
         : '<span class="mm-item__solo">' + l.n + ' participant</span>') +
       '<span class="mm-item__sum">' + money(l.sum) + '</span>' +
-      '<button type="button" class="mm-item__rm" data-rm="' + l.id + '" aria-label="Remove ' + esc(l.name) + '">' +
+      '<button type="button" class="mm-item__rm" data-rm="' + l.id + '" aria-label="Remove ' + esc(l.name) + ' from cart" title="Remove from cart">' +
         '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-trash"></use></svg></button>' +
     '</div>';
   }
@@ -532,6 +532,27 @@
   }
   window.ITHReveal = armReveal;
 
+  /* transient toast message */
+  function toast(text) {
+    var host = el('mmToast');
+    if (!host) { return; }
+    var t = document.createElement('div');
+    t.className = 'mm-toast__item';
+    t.textContent = text;
+    host.appendChild(t);
+    setTimeout(function () { t.classList.add('is-out'); setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 320); }, 3400);
+  }
+
+  /* cart stepper — at the minimum, warn instead of removing (trash removes) */
+  function stepCart(id, dir) {
+    var c = comp(id); if (!c) return;
+    if (dir < 0 && parts[id] <= c.min) {
+      toast('“' + c.name + '” needs at least ' + c.min + ' participants. Use the delete (🗑) button to remove it from your cart.');
+      return;
+    }
+    step(id, dir);
+  }
+
   /* search */
   function onSearch() {
     search = (el('mmSearch').value || '').trim();
@@ -564,9 +585,9 @@
     var itemsBox = el('mmItems');
     if (itemsBox) itemsBox.addEventListener('click', function (e) {
       var s = e.target.closest ? e.target.closest('.mm-step__btn') : null;
-      if (s && s.getAttribute('data-id')) { step(s.getAttribute('data-id'), s.getAttribute('data-act') === 'inc' ? 1 : -1); return; }
+      if (s && s.getAttribute('data-id')) { stepCart(s.getAttribute('data-id'), s.getAttribute('data-act') === 'inc' ? 1 : -1); return; }
       var b = e.target.closest ? e.target.closest('.mm-item__rm') : null;
-      if (b) { parts[b.getAttribute('data-rm')] = 0; renderComps(); renderCart(); updateCartBar(); }
+      if (b) { parts[b.getAttribute('data-rm')] = 0; renderComps(); renderCart(); updateCartBar(); if (view === 'review') renderReview(); }
     });
 
     // search
