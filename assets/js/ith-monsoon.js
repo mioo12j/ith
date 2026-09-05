@@ -2,7 +2,7 @@
  * ith-monsoon.js — Monsoon Minds Championship 2026 registration + checkout.
  *
  * Data mirrors the two official brochures (Science & Technology, 23 events;
- * Multidisciplinary, 24 events). Pricing per the organiser:
+ * Multidisciplinary, 23 events). Pricing per the organiser:
  *   Science & Technology  → ₹600 per participant, per event
  *   Multidisciplinary     → ₹400 per participant, per event
  * An event's price = per-head rate × number of participants (bounded by the
@@ -38,7 +38,7 @@
   };
 
   /* ======================================================================
-   * The 47 events, from the brochures. cat: 'sci' (₹600) | 'multi' (₹400).
+   * The 46 events, from the brochures. cat: 'sci' (₹600) | 'multi' (₹400).
    * min/max = participants per team; g = eligible grades (display only).
    * ==================================================================== */
   var COMPS = [
@@ -86,7 +86,6 @@
     { id: 'digiart',     cat: 'multi', name: 'Digital Art & Illustration',    g: '6–12', min: 1, max: 1, icon: 'icon-palette', desc: 'Illustrate your imagination.' },
     { id: 'debate',      cat: 'multi', name: 'Rain Check Debate',             g: '8–12', min: 2, max: 5, icon: 'icon-mic',     desc: 'Argue both sides, think fast.' },
     { id: 'elocution',   cat: 'multi', name: 'Voice of the Monsoon Elocution',g: '6–12', min: 1, max: 1, icon: 'icon-mic',     desc: 'Speak with power and clarity.' },
-    { id: 'spellbee',    cat: 'multi', name: 'Spell Bee',                     g: '6–10', min: 1, max: 1, icon: 'icon-pen',     desc: 'Spell your way to the top.' },
     { id: 'singing',     cat: 'multi', name: 'Monsoon Melodies Solo Singing', g: '6–12', min: 1, max: 1, icon: 'icon-mic',     desc: 'One voice, one song.' },
     { id: 'dance',       cat: 'multi', name: 'Rhythm of the Rain Dance',       g: '6–12', min: 1, max: 5, icon: 'icon-star',    desc: 'Move to the monsoon beat.' },
     { id: 'instrumental',cat: 'multi', name: 'Strings & Showers Instrumental', g: '6–12', min: 1, max: 1, icon: 'icon-mic',     desc: 'Play your instrument live.' },
@@ -102,6 +101,7 @@
 
   /* state */
   var mode = 'individual';
+  var debateAck = false;               // acknowledged the Rain Check Debate format
   var filter = 'all';
   var search = '';
   var view = 'browse';
@@ -445,6 +445,8 @@
   }
   function showModePopup() { var m = el('mmModePopup'); if (m) { m.hidden = false; document.body.classList.add('mm-modal-open'); updateCartBar(); } }
   function hideModePopup() { var m = el('mmModePopup'); if (m) { m.hidden = true; document.body.classList.remove('mm-modal-open'); updateCartBar(); } }
+  function showDebateModal() { var m = el('mmDebateModal'); if (m) { m.hidden = false; document.body.classList.add('mm-modal-open'); } }
+  function hideDebateModal() { var m = el('mmDebateModal'); if (m) { m.hidden = true; document.body.classList.remove('mm-modal-open'); } }
   function maybePopup() { if (locked()) return; var a; try { a = sessionStorage.getItem('mm_mode_asked') === '1'; } catch (e) { a = false; } if (!a) showModePopup(); }
 
   /* pay */
@@ -473,6 +475,8 @@
     if (terms && !terms.checked) { navigate('review'); updatePay(); if (terms.focus) terms.focus(); return; }
     var f = el('mmForm');
     if (f && !f.checkValidity()) { navigate('details'); setTimeout(function () { f.reportValidity(); }, 60); return; }
+    // Rain Check Debate — require the participant to read the format first.
+    if (parts['debate'] > 0 && !debateAck) { showDebateModal(); return; }
     if (!window.Razorpay) { alert('Payment library failed to load. Please refresh and try again.'); return; }
     var t = totals(); if (!t.items.length || t.total < 1) return;
     var d = formData();
@@ -620,6 +624,14 @@
     // terms + pay
     if (el('mmTerms')) el('mmTerms').addEventListener('change', updatePay);
     if (el('mmPay')) el('mmPay').addEventListener('click', pay);
+    if (el('mmDebateOk')) el('mmDebateOk').addEventListener('click', function () { debateAck = true; hideDebateModal(); pay(); });
+    if (el('mmDebateRemove')) el('mmDebateRemove').addEventListener('click', function () {
+      parts['debate'] = 0; debateAck = false; hideDebateModal();
+      renderComps(); renderCart(); updateCartBar(); if (view === 'review') renderReview();
+      toast('Rain Check Debate removed from your cart.');
+    });
+    var dbm = el('mmDebateModal');
+    if (dbm) dbm.addEventListener('click', function (e) { if (e.target === dbm) hideDebateModal(); });
 
     // step navigation buttons
     if (el('mmToDetails')) el('mmToDetails').addEventListener('click', function () { if (eventCount() > 0) navigate('details'); });

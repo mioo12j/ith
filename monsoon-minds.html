@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260904" />
+  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260905" />
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
@@ -139,6 +139,26 @@
       </div>
     </div>
 
+    <!-- Rain Check Debate — format acknowledgement shown before payment -->
+    <div id="mmDebateModal" class="mm-modal" hidden role="dialog" aria-modal="true" aria-labelledby="mmDebateTitle">
+      <div class="mm-modal__card mm-modal__card--wide">
+        <span class="mm-modal__emoji" aria-hidden="true">🗣️</span>
+        <h2 id="mmDebateTitle" class="mm-modal__title">Before you pay — how <em>Rain Check Debate</em> runs</h2>
+        <p class="mm-modal__sub">Your cart includes <strong>Rain Check Debate</strong>. Please read the format carefully before continuing.</p>
+        <div class="mm-debate">
+          <p class="mm-debate__intro">Three days, entirely by email, against a real opposing team.</p>
+          <div class="mm-debate__day"><b>Day 1 — The Case.</b> The motion goes out and each team is told which side it argues. Teams have the day to write Draft One, their opening paper, 600–800 words. Submitted by end of day.</div>
+          <div class="mm-debate__day"><b>Day 2 — The Exchange.</b> We pair the teams and email each team its opponent’s Draft One. Nothing is due today; teams read what they’re up against.</div>
+          <div class="mm-debate__day"><b>Day 3 — The Reply.</b> Each team writes its Final Draft, 800–1,000 words, defending its own case and rebutting the opposition’s paper point by point. It must quote or reference specific arguments from that paper — that’s what stops it being a rewrite of Draft One.</div>
+          <p class="mm-debate__score"><b>Scoring:</b> both drafts count — Draft One at 40%, Final Draft at 60% — so the weight sits on how well you argue back rather than how well you opened.</p>
+        </div>
+        <div class="mm-debate__actions">
+          <button type="button" id="mmDebateOk" class="mm-btn mm-btn--primary">I have read &amp; understood — continue</button>
+          <button type="button" id="mmDebateRemove" class="mm-btn mm-btn--ghost">Remove Rain Check Debate</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ============================= PRE-LAUNCH GATE ============================= -->
     <!-- Shown ONLY while locked (JS adds body.mm-locked). No-JS/crawlers see the
          full page below instead, so all content stays indexable. -->
@@ -202,7 +222,7 @@
           <nav class="breadcrumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="monsoon-minds">Competition</a></li><li aria-current="page">Register</li></ol></nav>
           <span class="mm-pill mm-pill--live mm-reveal"><span class="mm-livedot" aria-hidden="true"></span>Registrations LIVE NOW · Monsoon Minds Championship 2026</span>
           <h1 class="mm-hero__title mm-reveal">Compete for <em>₹10,00,000+</em><br>in prizes &amp; glory.</h1>
-          <p class="mm-hero__lede mm-reveal">India’s most colourful national championship for Classes 6–12 — <strong>500+ schools</strong>, <strong>47 events</strong> across two categories, transparent judging, and a verifiable certificate for every single participant. Register solo or bring your whole school.</p>
+          <p class="mm-hero__lede mm-reveal">India’s most colourful national championship for Classes 6–12 — <strong>500+ schools</strong>, <strong>46 events</strong> across two categories, transparent judging, and a verifiable certificate for every single participant. Register solo or bring your whole school.</p>
           <div class="mm-hero__cta mm-reveal">
             <a href="#mmPick" class="mm-btn mm-btn--primary">Start registering</a>
             <a href="assets/brochure/monsoon-minds-2026-science-technology.pdf" data-brochure="sci" class="mm-btn mm-btn--ghost"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-download"></use></svg> Science &amp; Tech PDF</a>
@@ -211,7 +231,7 @@
           <div class="mm-hero__stats mm-reveal">
             <div class="mm-hstat mm-hstat--hot"><b>₹10L+</b><span>In prizes &amp; rewards</span></div>
             <div class="mm-hstat"><b>500+</b><span>Schools competing</span></div>
-            <div class="mm-hstat"><b>47</b><span>Events</span></div>
+            <div class="mm-hstat"><b>46</b><span>Events</span></div>
             <div class="mm-hstat"><b>100%</b><span>Get certified</span></div>
           </div>
           <div class="mm-secure-wrap mm-reveal">
@@ -262,7 +282,7 @@
         <div class="mm-wrap">
           <div class="mm-head mm-reveal">
             <span class="mm-kicker">Choose your competitions</span>
-            <h2 id="mm-pick-h" class="mm-h2">47 events, <em>one splashy season</em></h2>
+            <h2 id="mm-pick-h" class="mm-h2">46 events, <em>one splashy season</em></h2>
             <p class="mm-sub"><strong>Science &amp; Technology</strong> events are ₹600 per participant; <strong>Multidisciplinary</strong> events are ₹400 per participant. Enter as many as you like — your cart follows you at the bottom of the screen.</p>
           </div>
 
@@ -276,8 +296,8 @@
           <div class="mm-filter mm-reveal" role="group" aria-label="Filter competitions">
             <button type="button" class="mm-filter__btn is-on" data-filter="all">All</button>
             <button type="button" class="mm-filter__btn" data-filter="sci">Science &amp; Tech (23)</button>
-            <button type="button" class="mm-filter__btn" data-filter="multi">Multidisciplinary (24)</button>
-            <span class="mm-filter__count" id="mmShownCount">47 events</span>
+            <button type="button" class="mm-filter__btn" data-filter="multi">Multidisciplinary (23)</button>
+            <span class="mm-filter__count" id="mmShownCount">46 events</span>
           </div>
 
           <!-- mode is chosen via a popup; this bar shows the choice -->
@@ -495,6 +515,6 @@
 </footer>
 
   <script src="script.js" defer></script>
-  <script src="assets/js/ith-monsoon.js?v=20260904" defer></script>
+  <script src="assets/js/ith-monsoon.js?v=20260905" defer></script>
 </body>
 </html>

@@ -625,3 +625,17 @@ body.mm-modal-open { overflow: hidden; }
 /* Cart delete button — clearer as a distinct remove control */
 .mm-item--lg .mm-item__rm { border: 1px solid var(--mm-line); background: #fff; }
 .mm-item--lg .mm-item__rm:hover { border-color: var(--mm-pink); color: var(--mm-pink); background: rgba(255,107,157,0.08); }
+
+/* Rain Check Debate — pre-payment format modal */
+.mm-modal__card--wide { width: min(100%, 40rem); text-align: left; }
+.mm-modal__card--wide .mm-modal__emoji, .mm-modal__card--wide .mm-modal__title, .mm-modal__card--wide .mm-modal__sub { text-align: center; }
+.mm-modal__title em { font-style: normal; color: var(--mm-violet); }
+.mm-debate { display: grid; gap: 0.7rem; margin: 0.5rem 0 1.4rem; padding: 1.1rem 1.2rem; border-radius: 1rem; background: #faf9ff; border: 1px solid var(--mm-line); text-align: left; }
+.mm-debate__intro { font-family: var(--font-family-body); font-weight: 700; color: var(--mm-ink); margin: 0; }
+.mm-debate__day { font-family: var(--font-family-body); font-size: 0.9rem; line-height: 1.5; color: var(--mm-dim); }
+.mm-debate__day b { color: var(--mm-ink); }
+.mm-debate__score { font-family: var(--font-family-body); font-size: 0.9rem; line-height: 1.5; color: var(--mm-dim); margin: 0.2rem 0 0; padding-top: 0.7rem; border-top: 1px dashed var(--mm-line); }
+.mm-debate__score b { color: var(--mm-ink); }
+.mm-debate__actions { display: grid; gap: 0.6rem; }
+@media (min-width: 34rem) { .mm-debate__actions { grid-template-columns: 1fr auto; } }
+.mm-debate__actions .mm-btn { min-height: 3rem; justify-content: center; }
