@@ -131,14 +131,14 @@
     applyGate();
 
     var cd = el('mmGateCd');
-    if (cd && !isNaN(unlockTime)) {
+    if (locked() && cd && !isNaN(unlockTime)) {
       var cells = { d: el('mmCdD'), h: el('mmCdH'), m: el('mmCdM'), s: el('mmCdS') };
       var pad = function (n) { return (n < 10 ? '0' : '') + n; };
       var tick = function () {
         var left = unlockTime - Date.now();
         if (left <= 0) {
           try { sessionStorage.setItem('mm_ok', '1'); } catch (e) {}
-          applyGate(); maybePopup();
+          applyGate(); maybeExtendPop();
           if (cells.d) cells.d.textContent = cells.h.textContent = cells.m.textContent = cells.s.textContent = '00';
           clearInterval(timer); return;
         }
@@ -156,7 +156,7 @@
       e.preventDefault();
       if ((el('mmPass').value || '') === CONFIG.previewPassword) {
         try { sessionStorage.setItem('mm_ok', '1'); } catch (e2) {}
-        applyGate(); maybePopup(); window.scrollTo({ top: 0, behavior: 'smooth' });
+        applyGate(); maybeExtendPop(); window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         form.classList.remove('mm-gate__form--bad'); void form.offsetWidth;
         form.classList.add('mm-gate__form--bad'); el('mmPass').value = '';
@@ -449,6 +449,16 @@
   function hideDebateModal() { var m = el('mmDebateModal'); if (m) { m.hidden = true; document.body.classList.remove('mm-modal-open'); } }
   function maybePopup() { if (locked()) return; var a; try { a = sessionStorage.getItem('mm_mode_asked') === '1'; } catch (e) { a = false; } if (!a) showModePopup(); }
 
+  // date-extension announcement — shown once per browser, then hands off to the mode popup
+  function showExtendPop() { var m = el('mmExtendPop'); if (m) { m.hidden = false; document.body.classList.add('mm-modal-open'); } }
+  function dismissExtendPop() { var m = el('mmExtendPop'); if (m) m.hidden = true; document.body.classList.remove('mm-modal-open'); try { localStorage.setItem('mm_extend_seen', '1'); } catch (e) {} maybePopup(); }
+  function maybeExtendPop() {
+    if (locked()) { maybePopup(); return; }
+    var seen; try { seen = localStorage.getItem('mm_extend_seen') === '1'; } catch (e) { seen = false; }
+    if (seen || !el('mmExtendPop')) { maybePopup(); return; }
+    showExtendPop();
+  }
+
   /* pay */
   function updatePay() {
     var t = totals(); var btn = el('mmPay'); if (!btn) return;
@@ -616,6 +626,12 @@
     if (el('mmModeChange')) el('mmModeChange').addEventListener('click', showModePopup);
     if (el('mmModeChange2')) el('mmModeChange2').addEventListener('click', showModePopup);
 
+    // date-extension announcement popup
+    if (el('mmExtendClose')) el('mmExtendClose').addEventListener('click', dismissExtendPop);
+    if (el('mmExtendCta')) el('mmExtendCta').addEventListener('click', dismissExtendPop);
+    var exp = el('mmExtendPop');
+    if (exp) exp.addEventListener('click', function (e) { if (e.target === exp) dismissExtendPop(); });
+
     // coupon
     if (el('mmCouponBtn')) el('mmCouponBtn').addEventListener('click', applyCoupon);
     if (el('mmCouponClear')) el('mmCouponClear').addEventListener('click', clearCoupon);
@@ -659,7 +675,7 @@
     window.addEventListener('hashchange', applyRoute);
     applyRoute();     // honour a deep link on load (falls back to browse when cart is empty)
     updateCartBar();
-    maybePopup();
+    maybeExtendPop();
   }
 
   /* ======================================================================

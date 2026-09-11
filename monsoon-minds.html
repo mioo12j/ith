@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260905" />
+  <link rel="stylesheet" href="assets/monsoon-minds.css?v=20260911" />
 
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
@@ -46,13 +46,13 @@
     {"@type":"ListItem","position":3,"name":"Register — Monsoon Minds","item":"https://www.inspiretalenthub.in/monsoon-minds"}]}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Event","name":"Monsoon Minds Championship 2026","description":"A national online student championship across India — coding, robotics, science, quizzing, writing, art, design and public speaking. Register individually or as a school.","startDate":"2026-08-31T09:00:00+05:30","endDate":"2026-09-30T18:00:00+05:30","eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode","eventStatus":"https://schema.org/EventScheduled","location":{"@type":"VirtualLocation","url":"https://www.inspiretalenthub.in/monsoon-minds"},"image":["https://www.inspiretalenthub.in/assets/og-cover.jpg"],"organizer":{"@type":"Organization","name":"Inspire Talent Hub","url":"https://www.inspiretalenthub.in/"},"offers":[
+  {"@context":"https://schema.org","@type":"Event","name":"Monsoon Minds Championship 2026","description":"A national online student championship across India — coding, robotics, science, quizzing, writing, art, design and public speaking. Register individually or as a school.","startDate":"2026-08-31T09:00:00+05:30","endDate":"2026-10-10T18:00:00+05:30","eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode","eventStatus":"https://schema.org/EventScheduled","location":{"@type":"VirtualLocation","url":"https://www.inspiretalenthub.in/monsoon-minds"},"image":["https://www.inspiretalenthub.in/assets/og-cover.jpg"],"organizer":{"@type":"Organization","name":"Inspire Talent Hub","url":"https://www.inspiretalenthub.in/"},"offers":[
     {"@type":"Offer","name":"Science & Technology event (per participant)","price":"600","priceCurrency":"INR","availability":"https://schema.org/InStock","validFrom":"2026-08-31T09:00:00+05:30","url":"https://www.inspiretalenthub.in/monsoon-minds"},
     {"@type":"Offer","name":"Multidisciplinary event (per participant)","price":"400","priceCurrency":"INR","availability":"https://schema.org/InStock","validFrom":"2026-08-31T09:00:00+05:30","url":"https://www.inspiretalenthub.in/monsoon-minds"}]}
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"When does registration open?","acceptedAnswer":{"@type":"Answer","text":"Registration opens on 31 August 2026 at 9:00 AM IST and closes on 15 September 2026. Competitions run 21 to 30 September, and results and felicitation are on 10 October 2026."}},
+    {"@type":"Question","name":"When does registration open?","acceptedAnswer":{"@type":"Answer","text":"Registration opens on 31 August 2026 at 9:00 AM IST and closes on 25 September 2026. Competitions run 1 to 10 October, and results and felicitation are on 20 October 2026."}},
     {"@type":"Question","name":"Who can take part?","acceptedAnswer":{"@type":"Answer","text":"School students across India, typically in Classes 6 to 12. Because it is online-first, students from any city, town or district can take part on equal terms. Individuals and schools are both welcome."}},
     {"@type":"Question","name":"How do I add the names of multiple participants?","acceptedAnswer":{"@type":"Answer","text":"You do not enter participant names during payment. After your payment is confirmed, we ask for the full name of every participant, exactly as it should appear on their certificate."}},
     {"@type":"Question","name":"What competitions can I enter and what do they cost?","acceptedAnswer":{"@type":"Answer","text":"Science & Technology events are 600 rupees per participant; Multidisciplinary events are 400 rupees per participant. An event fee is the rate multiplied by the number of participants in the team. You can enter as many events as you like."}},
@@ -125,6 +125,23 @@
   <div id="mmToast" class="mm-toast" aria-live="polite"></div>
 
   <main id="main-content">
+
+    <!-- date-extension announcement popup (vibrant; shown once per browser) -->
+    <div id="mmExtendPop" class="mm-modal" hidden role="dialog" aria-modal="true" aria-labelledby="mmExtendTitle">
+      <div class="mm-modal__card mm-modal__card--announce">
+        <button type="button" id="mmExtendClose" class="mm-modal__x" aria-label="Close announcement">&times;</button>
+        <span class="mm-announce__ribbon">📣 By popular demand</span>
+        <span class="mm-modal__emoji" aria-hidden="true">🎉</span>
+        <h2 id="mmExtendTitle" class="mm-modal__title">Dates <em>extended</em> to 25 September!</h2>
+        <p class="mm-modal__sub">On <strong>public demand</strong>, registration now stays open until <strong>25 September 2026</strong> — and every round has moved later to match. Don’t wait: <strong>seats are filling up fast.</strong></p>
+        <div class="mm-announce__pills">
+          <span class="mm-announce__pill mm-announce__pill--a">🗓️ Register by 25 Sep</span>
+          <span class="mm-announce__pill mm-announce__pill--b">🔥 Seats filling up</span>
+        </div>
+        <button type="button" id="mmExtendCta" class="mm-btn mm-btn--primary mm-announce__cta">Register now — it’s live</button>
+        <p class="mm-announce__fine">Pick your competitions before they’re gone.</p>
+      </div>
+    </div>
 
     <!-- mode popup (shown by JS on the unlocked page until a choice is made) -->
     <div id="mmModePopup" class="mm-modal" hidden role="dialog" aria-modal="true" aria-labelledby="mmModeTitle">
@@ -268,11 +285,11 @@
             <p class="mm-sub" style="margin-inline:auto;">Five phases, all 100% online — no travel, no venue, no lost school days.</p>
           </div>
           <ol class="mm-timeline">
-            <li class="mm-tl mm-reveal"><span class="mm-tl__num">1</span><span class="mm-tl__date">31 Aug – 15 Sep</span><h3 class="mm-tl__t">Registration</h3><p class="mm-tl__d">Register any number of participants and teams across the events you like.</p></li>
-            <li class="mm-tl mm-reveal"><span class="mm-tl__num">2</span><span class="mm-tl__date">16 – 20 Sep</span><h3 class="mm-tl__t">Onboarding</h3><p class="mm-tl__d">Participants join dedicated WhatsApp groups; schedules and guidelines are shared.</p></li>
-            <li class="mm-tl mm-reveal"><span class="mm-tl__num">3</span><span class="mm-tl__date">21 – 30 Sep</span><h3 class="mm-tl__t">Competition</h3><p class="mm-tl__d">All events run online across ten days — live rounds and submission windows.</p></li>
-            <li class="mm-tl mm-reveal"><span class="mm-tl__num">4</span><span class="mm-tl__date">30 Sep</span><h3 class="mm-tl__t">Conclusion</h3><p class="mm-tl__d">Submission portals close and the expert panel begins evaluation.</p></li>
-            <li class="mm-tl mm-reveal"><span class="mm-tl__num">5</span><span class="mm-tl__date">10 Oct</span><h3 class="mm-tl__t">Results &amp; felicitation</h3><p class="mm-tl__d">Winners announced with certificates, medals and trophies; verifiable certificates go live.</p></li>
+            <li class="mm-tl mm-reveal"><span class="mm-tl__num">1</span><span class="mm-tl__date">31 Aug – 25 Sep</span><h3 class="mm-tl__t">Registration</h3><p class="mm-tl__d">Register any number of participants and teams across the events you like.</p></li>
+            <li class="mm-tl mm-reveal"><span class="mm-tl__num">2</span><span class="mm-tl__date">26 – 30 Sep</span><h3 class="mm-tl__t">Onboarding</h3><p class="mm-tl__d">Participants join dedicated WhatsApp groups; schedules and guidelines are shared.</p></li>
+            <li class="mm-tl mm-reveal"><span class="mm-tl__num">3</span><span class="mm-tl__date">1 – 10 Oct</span><h3 class="mm-tl__t">Competition</h3><p class="mm-tl__d">All events run online across ten days — live rounds and submission windows.</p></li>
+            <li class="mm-tl mm-reveal"><span class="mm-tl__num">4</span><span class="mm-tl__date">10 Oct</span><h3 class="mm-tl__t">Conclusion</h3><p class="mm-tl__d">Submission portals close and the expert panel begins evaluation.</p></li>
+            <li class="mm-tl mm-reveal"><span class="mm-tl__num">5</span><span class="mm-tl__date">20 Oct</span><h3 class="mm-tl__t">Results &amp; felicitation</h3><p class="mm-tl__d">Winners announced with certificates, medals and trophies; verifiable certificates go live.</p></li>
           </ol>
         </div>
       </section>
@@ -515,6 +532,6 @@
 </footer>
 
   <script src="script.js" defer></script>
-  <script src="assets/js/ith-monsoon.js?v=20260905" defer></script>
+  <script src="assets/js/ith-monsoon.js?v=20260911" defer></script>
 </body>
 </html>
