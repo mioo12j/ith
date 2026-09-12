@@ -1372,3 +1372,30 @@ html.js .hm-reveal.is-in { opacity: 1; transform: none; }
 .hm .hm-hero__title em,
 .hm .hm-h2 em,
 .hm .hm-cta__title em { font-style: normal; font-weight: 800; }
+
+/* ==========================================================================
+   LIVE-NOW badge + registration-live popup (homepage)
+   ========================================================================== */
+.hm-status--live { border-color: rgba(52,211,153,0.5); background: rgba(52,211,153,0.1); color: #46e6a4; }
+.hm-status--live .hm-status__dot { background: #34d399; box-shadow: 0 0 12px #34d399; }
+.hm-livedot { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 0 rgba(52,211,153,0.55); animation: hm-livepulse 1.6s ease-out infinite; vertical-align: middle; }
+@keyframes hm-livepulse { 0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); } 70% { box-shadow: 0 0 0 0.55rem rgba(52,211,153,0); } 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); } }
+.hm-season__label { display: inline-flex; align-items: center; gap: 0.45rem; }
+.hm-season__live { font-family: var(--font-family-body); font-size: 0.9rem; line-height: 1.55; color: var(--color-text-tertiary, #cbd5e1); margin: 0 0 1.1rem; }
+.hm-season__live strong { color: var(--color-text-secondary, #e2e8f0); }
+
+.hm-livepop { position: fixed; inset: 0; z-index: 5000; display: grid; place-items: center; padding: 1.25rem; background: rgba(6,9,16,0.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); animation: hm-pop-fade 0.3s ease; }
+@keyframes hm-pop-fade { from { opacity: 0; } to { opacity: 1; } }
+.hm-livepop__card { position: relative; width: min(100%, 34rem); text-align: center; padding: clamp(1.75rem, 5vw, 2.75rem); border-radius: 1.5rem; background: linear-gradient(160deg, #121826, #0b0f1a); border: 1px solid rgba(232,198,106,0.22); box-shadow: 0 40px 90px rgba(0,0,0,0.55); animation: hm-pop-rise 0.4s cubic-bezier(0.19,1,0.22,1); }
+@keyframes hm-pop-rise { from { transform: translateY(18px) scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
+.hm-livepop__close { position: absolute; top: 0.75rem; right: 0.95rem; width: 2.2rem; height: 2.2rem; border: none; background: transparent; color: #94a3b8; font-size: 1.7rem; line-height: 1; cursor: pointer; border-radius: 50%; transition: color 0.2s ease, background 0.2s ease; }
+.hm-livepop__close:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.hm-livepop__badge { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.35rem 0.85rem; border-radius: 999px; font-family: var(--font-family-body); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #46e6a4; background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.4); margin-bottom: 1rem; }
+.hm-livepop__title { font-family: var(--font-family-display, 'Cormorant Garamond', serif); font-size: clamp(1.7rem, 5vw, 2.4rem); color: #fff; margin: 0 0 0.7rem; }
+.hm-livepop__title em { font-style: italic; color: var(--hm-gold, #e8c66a); }
+.hm-livepop__txt { font-family: var(--font-family-body); font-size: 0.95rem; line-height: 1.6; color: #cbd5e1; margin: 0 auto 1.5rem; max-width: 28rem; }
+.hm-livepop__txt strong { color: #fff; }
+.hm-livepop__cta { width: 100%; justify-content: center; }
+.hm-livepop__later { display: block; width: 100%; margin-top: 0.85rem; border: none; background: transparent; color: #8a93a6; font-family: var(--font-family-body); font-size: 0.85rem; cursor: pointer; }
+.hm-livepop__later:hover { color: #cbd5e1; text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) { .hm-livedot { animation: none; } .hm-livepop, .hm-livepop__card { animation: none; } }

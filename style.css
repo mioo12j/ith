@@ -2168,6 +2168,55 @@ p {
   margin-top: 0.5rem;
 }
 
+.index-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+.index-footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.95rem 0.5rem 0.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.index-footer__social-link svg {
+  flex-shrink: 0;
+}
+.index-footer__social-link:hover,
+.index-footer__social-link:focus-visible {
+  transform: translateY(-2px);
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.index-footer__secure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 1.4rem 0 0;
+  font-family: inherit;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-align: center;
+}
+.index-footer__secure-by { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7b8494; }
+.index-footer__secure img { height: 1.5rem; width: auto; display: block; }
+.index-footer__secure-methods { font-size: 0.75rem; }
+.index-footer__secure strong { color: #cbd5e1; font-weight: 700; }
+
 .index-footer__nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -2645,6 +2694,43 @@ p {
   line-height: 0;
 }
 .video-thumb img { width: 100%; height: auto; display: block; }
+/* Branded gradient thumbnail — used when a card has no poster image yet.
+   Keeps a consistent 16:9 frame with a soft gold glow and the clip's label. */
+.video-thumb--ph {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: flex-end;
+  line-height: normal;
+  background:
+    radial-gradient(120% 90% at 78% 8%, var(--color-brand-alpha-20), transparent 60%),
+    radial-gradient(90% 80% at 10% 100%, rgba(120, 130, 220, 0.14), transparent 62%),
+    linear-gradient(155deg, #0a1120, #05080f 70%);
+}
+.video-thumb--ph::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 2.25rem 2.25rem;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 45%, #000, transparent 85%);
+  mask-image: radial-gradient(70% 60% at 50% 45%, #000, transparent 85%);
+  opacity: 0.7;
+}
+.video-thumb__tag {
+  position: relative;
+  margin: 0 auto var(--spacing-6);
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  background-color: rgba(2, 4, 10, 0.5);
+  border: 1px solid var(--color-brand-alpha-20);
+  color: var(--color-brand-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .video-play {
   position: absolute;
   inset: 0;
@@ -2697,7 +2783,8 @@ p {
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
   background-color: var(--color-bg-surface-2);
 }
-.video-modal__slot, .video-modal__slot iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-modal__slot, .video-modal__slot iframe, .video-modal__slot video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-modal__slot video { background-color: #000; object-fit: contain; }
 .video-modal__placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--spacing-8); gap: var(--spacing-3); }
 .video-modal__ph-title { font-family: var(--font-family-display); font-size: var(--font-size-xl); color: var(--color-brand-primary); margin: 0; }
 .video-modal__ph-sub { color: var(--color-text-tertiary); margin: 0; }
@@ -5241,3 +5328,31 @@ html.no-js .hm-reveal {
   50%  { transform: translate(170px, -50%); }
   100% { transform: translate(-170px, -50%); }
 }
+
+/* ==========================================================================
+   NAV "Register" CTA button — prominent, animated (added Aug 2026)
+   ========================================================================== */
+.index-nav__cta {
+  position: relative;
+  overflow: hidden;
+  color: #14100a !important;
+  background: linear-gradient(135deg, var(--color-brand-primary, #e8c66a), var(--color-brand-secondary, #c9a84c));
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 18px rgba(232, 198, 106, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.index-nav__cta::after { display: none !important; }   /* no underline */
+.index-nav__cta::before {                               /* shine sweep */
+  content: "";
+  position: absolute;
+  top: 0; left: -60%;
+  width: 45%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: skewX(-20deg);
+  animation: nav-cta-shine 4s ease-in-out infinite;
+}
+@keyframes nav-cta-shine { 0%, 55% { left: -60%; } 100% { left: 130%; } }
+.index-nav__cta:hover { color: #14100a !important; transform: translateY(-1px); box-shadow: 0 8px 26px rgba(232, 198, 106, 0.5); }
+@media (prefers-reduced-motion: reduce) { .index-nav__cta::before { animation: none; display: none; } }
