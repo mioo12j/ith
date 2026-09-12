@@ -6,17 +6,18 @@
 
   <title>Discover Belgium — International Essay &amp; Creative Competition | Inspire Talent Hub</title>
   <meta name="description" content="Explore · Experience · Express Belgium. An International Essay &amp; Creative Competition by Inspire Talent Hub in partnership with the Embassy of Belgium, New Delhi — celebrating Belgian art, food, comics, heritage, innovation and culture." />
-  <meta name="keywords" content="Belgium competition, essay competition India, Embassy of Belgium New Delhi, Inspire Talent Hub, Belgian culture, creative writing, art competition, Belgium essay contest" />
+  <meta name="keywords" content="Belgium competition, essay competition India, Embassy of Belgium New Delhi, Inspire Talent Hub, Belgian culture, creative writing, art competition" />
   <meta name="author" content="Inspire Talent Hub" />
   <meta name="theme-color" content="#141414" />
-
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Discover Belgium — International Essay &amp; Creative Competition" />
   <meta property="og:description" content="Explore · Experience · Express Belgium. In partnership with the Embassy of Belgium, New Delhi." />
   <meta property="og:site_name" content="Inspire Talent Hub" />
+  <meta property="og:image" content="assets/belgium/hero.jpg" />
 
   <link rel="icon" type="image/jpeg" href="logo.jpeg" />
   <link rel="apple-touch-icon" href="logo.jpeg" />
+  <link rel="preload" as="image" href="assets/belgium/hero.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,16 +54,8 @@
     <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></symbol>
     <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></symbol>
-    <symbol id="i-beer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h11v8a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path d="M17 12h2.5a1.5 1.5 0 0 1 1.5 1.5v2A1.5 1.5 0 0 1 19.5 17H17"/><path d="M6 11c-1-2 .5-3 1.5-3 0-2 2-3 3.5-2 1-1.5 3.5-1 4 1 1.5 0 2 1.5 1 3"/></symbol>
     <symbol id="i-choco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/></symbol>
   </defs></svg>
-
-  <!-- ===== BELGIUM FLAG DRAPE (top-left) ===== -->
-  <div class="be-flag-drape" aria-hidden="true">
-    <span class="be-flag-drape__b"></span>
-    <span class="be-flag-drape__y"></span>
-    <span class="be-flag-drape__r"></span>
-  </div>
 
   <!-- ===== NAV ===== -->
   <header class="be-nav" id="beNav">
@@ -94,121 +87,34 @@
     <span id="be-top"></span>
 
     <!-- ============================================================ -->
-    <!-- HERO                                                          -->
+    <!-- HERO — desktop uses the full illustrated collage image;       -->
+    <!-- mobile shows a photographic backdrop with crisp live text.    -->
     <!-- ============================================================ -->
-    <section class="be-hero" id="be-hero" aria-label="Discover Belgium">
-      <!-- illustrated Belgian panorama backdrop -->
-      <div class="be-hero__scene" aria-hidden="true">
-        <svg class="be-hero__sky" viewBox="0 0 1440 820" preserveAspectRatio="xMidYMax slice">
-          <defs>
-            <linearGradient id="beSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#1b3a63"/>
-              <stop offset="0.45" stop-color="#3f6ea0"/>
-              <stop offset="0.72" stop-color="#e78a54"/>
-              <stop offset="1" stop-color="#f4c07a"/>
-            </linearGradient>
-            <linearGradient id="beWater" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#c98a53"/>
-              <stop offset="1" stop-color="#5d6f86"/>
-            </linearGradient>
-            <linearGradient id="beHouseA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c1502f"/><stop offset="1" stop-color="#9c3c22"/></linearGradient>
-            <linearGradient id="beHouseB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9a441"/><stop offset="1" stop-color="#b9812b"/></linearGradient>
-            <linearGradient id="beHouseC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c8c6b"/><stop offset="1" stop-color="#5c6b4e"/></linearGradient>
-          </defs>
-          <rect width="1440" height="820" fill="url(#beSky)"/>
-          <circle cx="1030" cy="250" r="70" fill="#ffe6b0" opacity="0.85"/>
-          <circle cx="1030" cy="250" r="120" fill="#ffdb99" opacity="0.25"/>
-          <g opacity="0.5" fill="#ffffff">
-            <ellipse cx="300" cy="150" rx="90" ry="26"/><ellipse cx="360" cy="135" rx="60" ry="20"/>
-            <ellipse cx="820" cy="110" rx="80" ry="22"/><ellipse cx="760" cy="125" rx="50" ry="16"/>
-          </g>
-          <!-- belfry tower (Bruges/Ghent) -->
-          <g fill="#7a4a34">
-            <rect x="670" y="150" width="70" height="330"/>
-            <rect x="662" y="130" width="86" height="26" rx="3"/>
-            <polygon points="670,150 705,90 740,150"/>
-            <rect x="690" y="200" width="14" height="30" fill="#3f2b20"/>
-            <rect x="708" y="200" width="14" height="30" fill="#3f2b20"/>
-            <rect x="699" y="260" width="14" height="34" fill="#f4c07a"/>
-          </g>
-          <!-- back skyline of stepped-gable houses -->
-          <g class="be-hero__houses">
-            <g fill="url(#beHouseA)"><rect x="60" y="300" width="90" height="180"/><polygon points="60,300 60,280 78,280 78,266 96,266 96,280 114,280 114,266 132,266 132,280 150,280 150,300"/></g>
-            <g fill="url(#beHouseB)"><rect x="150" y="330" width="80" height="150"/><polygon points="150,330 205,285 230,330"/></g>
-            <g fill="url(#beHouseC)"><rect x="230" y="310" width="86" height="170"/><polygon points="230,310 230,292 248,292 248,278 266,278 266,292 284,292 284,278 302,278 302,292 316,292 316,310"/></g>
-            <g fill="url(#beHouseB)"><rect x="316" y="340" width="78" height="140"/><polygon points="316,340 355,300 394,340"/></g>
-            <g fill="url(#beHouseA)"><rect x="394" y="320" width="90" height="160"/><polygon points="394,320 394,300 412,300 412,286 430,286 430,300 448,300 448,286 466,286 466,300 484,300 484,320"/></g>
-            <g fill="url(#beHouseC)"><rect x="484" y="345" width="80" height="135"/><polygon points="484,345 524,305 564,345"/></g>
-            <g fill="url(#beHouseB)"><rect x="760" y="325" width="88" height="155"/><polygon points="760,325 760,305 778,305 778,291 796,291 796,305 814,305 814,291 832,291 832,305 848,305 848,325"/></g>
-            <g fill="url(#beHouseA)"><rect x="848" y="345" width="78" height="135"/><polygon points="848,345 887,305 926,345"/></g>
-            <g fill="url(#beHouseC)"><rect x="926" y="315" width="90" height="165"/><polygon points="926,315 926,296 944,296 944,282 962,282 962,296 980,296 980,282 998,282 998,296 1016,296 1016,315"/></g>
-            <g fill="url(#beHouseB)"><rect x="1016" y="345" width="80" height="135"/><polygon points="1016,345 1056,305 1096,345"/></g>
-            <g fill="url(#beHouseA)"><rect x="1096" y="325" width="90" height="155"/><polygon points="1096,325 1096,305 1114,305 1114,291 1132,291 1132,305 1150,305 1150,291 1168,291 1168,305 1186,305 1186,325"/></g>
-            <g fill="url(#beHouseC)"><rect x="1186" y="350" width="84" height="130"/><polygon points="1186,350 1228,308 1270,350"/></g>
-            <g fill="url(#beHouseB)"><rect x="1270" y="330" width="90" height="150"/><polygon points="1270,330 1270,310 1288,310 1288,296 1306,296 1306,310 1324,310 1324,296 1342,296 1342,310 1360,310 1360,330"/></g>
-          </g>
-          <!-- canal water -->
-          <rect x="0" y="480" width="1440" height="200" fill="url(#beWater)"/>
-          <g opacity="0.35" fill="#ffffff"><rect x="0" y="520" width="1440" height="4"/><rect x="0" y="560" width="1440" height="3"/><rect x="0" y="600" width="1440" height="4"/></g>
-          <!-- reflection -->
-          <g opacity="0.18" transform="translate(0,960) scale(1,-1)"><rect x="60" y="300" width="90" height="180" fill="#c1502f"/><rect x="926" y="315" width="90" height="165" fill="#7c8c6b"/></g>
-          <!-- little boat -->
-          <g class="be-hero__boat"><path d="M150 566 q40 26 100 0 l-14 26 q-36 12 -72 0 z" fill="#3a2c22"/><rect x="196" y="526" width="4" height="40" fill="#3a2c22"/><polygon points="200,528 240,551 200,562" fill="#f4ede0"/></g>
-        </svg>
+    <section class="be-hero" id="be-hero" aria-label="Discover Belgium — International Essay and Creative Competition">
+      <!-- DESKTOP: exact collage image with a clickable CTA hotspot -->
+      <div class="be-hero__desktop">
+        <img class="be-hero__img" src="assets/belgium/hero.jpg" width="1536" height="544"
+             alt="Discover Belgium — a collage of Belgian culture: the Grand Place, Bruges canals, Manneken Pis, chocolate, waffles, beer, master paintings, Tintin, Magritte, Sinterklaas, windmills and fields, with the Embassy of Belgium New Delhi partnership badge." fetchpriority="high" decoding="async" />
+        <a class="be-hero__hotspot" href="#be-cta" aria-label="Join the Competition"></a>
       </div>
 
-      <div class="be-hero__veil" aria-hidden="true"></div>
-
-      <!-- floating cultural stickers -->
-        <div class="be-float be-float--1" data-depth="26"><svg viewBox="0 0 24 24"><use href="#i-waffle"/></svg></div>
-        <div class="be-float be-float--2" data-depth="42"><svg viewBox="0 0 24 24"><use href="#i-beer"/></svg></div>
-        <div class="be-float be-float--3" data-depth="18"><svg viewBox="0 0 24 24"><use href="#i-choco"/></svg></div>
-        <div class="be-float be-float--4" data-depth="34"><svg viewBox="0 0 24 24"><use href="#i-palette"/></svg></div>
-        <div class="be-float be-float--5" data-depth="22"><svg viewBox="0 0 24 24"><use href="#i-comic"/></svg></div>
-
-        <!-- Atomium spheres -->
-        <svg class="be-atomium" viewBox="0 0 120 120" data-depth="30" aria-hidden="true">
-          <g stroke="#dfe7ef" stroke-width="3"><line x1="60" y1="20" x2="30" y2="45"/><line x1="60" y1="20" x2="90" y2="45"/><line x1="30" y1="45" x2="30" y2="80"/><line x1="90" y1="45" x2="90" y2="80"/><line x1="30" y1="80" x2="60" y2="100"/><line x1="90" y1="80" x2="60" y2="100"/><line x1="60" y1="20" x2="60" y2="60"/><line x1="30" y1="45" x2="90" y2="80"/><line x1="90" y1="45" x2="30" y2="80"/></g>
-          <g fill="#eef3f8" stroke="#b9c6d6" stroke-width="1.5"><circle cx="60" cy="20" r="11"/><circle cx="30" cy="45" r="11"/><circle cx="90" cy="45" r="11"/><circle cx="60" cy="60" r="11"/><circle cx="30" cy="80" r="11"/><circle cx="90" cy="80" r="11"/><circle cx="60" cy="100" r="11"/></g>
-        </svg>
-
-        <!-- wooden signpost -->
-        <div class="be-signpost" aria-hidden="true">
-          <span class="be-signpost__arm">Brussels</span>
-          <span class="be-signpost__arm">Bruges</span>
-          <span class="be-signpost__arm">Antwerp</span>
-          <span class="be-signpost__arm">Ghent</span>
-          <span class="be-signpost__pole"></span>
-        </div>
-
-      <div class="be-hero__inner">
-        <div class="be-badge be-reveal">
-          <span class="be-badge__crest" aria-hidden="true"><svg width="26" height="26"><use href="#i-crown"/></svg></span>
-          <span class="be-badge__txt"><small>In partnership with</small><strong>Embassy of Belgium · New Delhi</strong></span>
-        </div>
-
-        <p class="be-hero__kicker be-reveal">International Essay &amp; Creative Competition</p>
-        <p class="be-hero__eee be-reveal"><span>Explore</span><i>•</i><span>Experience</span><i>•</i><span>Express</span></p>
-
-        <h1 class="be-hero__title be-reveal">
-          <span class="be-hero__discover">Discover</span>
-          <span class="be-hero__word">BELGIUM</span>
-        </h1>
-        <span class="be-hero__rule be-reveal" aria-hidden="true"></span>
-
-        <p class="be-hero__tag be-reveal">A Land of Cultures, Ideas and Endless Inspiration</p>
-        <p class="be-hero__lede be-reveal">From medieval cities to modern innovation, from world-famous art to
-          chocolate, waffles and beer — discover the heart of Belgium and show us what inspires you.</p>
-
-        <div class="be-hero__cta be-reveal">
+      <!-- MOBILE: photographic backdrop + live responsive text -->
+      <div class="be-hero__mobile">
+        <div class="be-hero__mobile-veil" aria-hidden="true"></div>
+        <div class="be-hero__mobile-inner">
+          <div class="be-badge">
+            <span class="be-badge__crest" aria-hidden="true"><svg width="24" height="24"><use href="#i-crown"/></svg></span>
+            <span class="be-badge__txt"><small>In partnership with</small><strong>Embassy of Belgium · New Delhi</strong></span>
+          </div>
+          <p class="be-hero__kicker">International Essay &amp; Creative Competition</p>
+          <p class="be-hero__eee"><span>Explore</span><i>•</i><span>Experience</span><i>•</i><span>Express</span></p>
+          <h1 class="be-hero__title"><span class="be-hero__discover">Discover</span><span class="be-hero__word">BELGIUM</span></h1>
+          <span class="be-hero__rule" aria-hidden="true"></span>
+          <p class="be-hero__tag">A Land of Cultures, Ideas and Endless Inspiration</p>
+          <p class="be-hero__lede">From medieval cities to modern innovation, from world-famous art to chocolate, waffles and beer — discover the heart of Belgium and show us what inspires you.</p>
           <a href="#be-cta" class="be-btn be-btn--gold be-btn--lg">Join the Competition <svg width="18" height="18"><use href="#i-arrow"/></svg></a>
-          <a href="#be-experience" class="be-btn be-btn--ghost be-btn--lg">Explore Belgium</a>
         </div>
       </div>
-
-      <a href="#be-experience" class="be-scroll be-reveal" aria-label="Scroll down">
-        <span>Scroll</span><span class="be-scroll__dot" aria-hidden="true"></span>
-      </a>
 
       <!-- curved wave divider -->
       <div class="be-wave be-wave--hero" aria-hidden="true">
@@ -217,7 +123,7 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- THE BELGIAN EXPERIENCE (carousel)                            -->
+    <!-- THE BELGIAN EXPERIENCE (carousel of real photos)             -->
     <!-- ============================================================ -->
     <section class="be-sec be-experience" id="be-experience" aria-labelledby="be-exp-title">
       <div class="be-wrap">
@@ -231,53 +137,46 @@
           <button class="be-carousel__nav be-carousel__nav--prev" id="beCarPrev" aria-label="Previous"><svg width="22" height="22"><use href="#i-arrow-l"/></svg></button>
           <div class="be-carousel__track" id="beCarTrack" tabindex="0" aria-label="Belgian experience cards, scrollable">
 
-            <article class="be-xcard" style="--c1:#7a3f22;--c2:#b06b3a">
-              <div class="be-xcard__top"><svg viewBox="0 0 24 24"><use href="#i-choco"/></svg></div>
-              <div class="be-xcard__badge"><svg width="22" height="22"><use href="#i-choco"/></svg></div>
-              <h3>Food &amp; Beverages</h3>
-              <p>Chocolate, waffles, fries, beer and more</p>
+            <article class="be-xcard">
+              <div class="be-xcard__photo"><img src="assets/belgium/card-food.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Belgian chocolate, waffles and fries"></div>
+              <div class="be-xcard__badge" style="--c:#7a3f22"><svg width="22" height="22"><use href="#i-choco"/></svg></div>
+              <h3>Food &amp; Beverages</h3><p>Chocolate, waffles, fries, beer and more</p>
             </article>
 
-            <article class="be-xcard" style="--c1:#6d3b5f;--c2:#a05a8c">
-              <div class="be-xcard__top"><svg viewBox="0 0 24 24"><use href="#i-palette"/></svg></div>
-              <div class="be-xcard__badge"><svg width="22" height="22"><use href="#i-palette"/></svg></div>
-              <h3>Arts &amp; Masterpieces</h3>
-              <p>Van Eyck, Rubens, Magritte and beyond</p>
+            <article class="be-xcard">
+              <div class="be-xcard__photo"><img src="assets/belgium/card-arts.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Flemish master paintings"></div>
+              <div class="be-xcard__badge" style="--c:#6d3b5f"><svg width="22" height="22"><use href="#i-palette"/></svg></div>
+              <h3>Arts &amp; Masterpieces</h3><p>Van Eyck, Rubens, Magritte and beyond</p>
             </article>
 
-            <article class="be-xcard" style="--c1:#1f5aa0;--c2:#3f86d0">
-              <div class="be-xcard__top"><svg viewBox="0 0 24 24"><use href="#i-comic"/></svg></div>
-              <div class="be-xcard__badge"><svg width="22" height="22"><use href="#i-comic"/></svg></div>
-              <h3>Comics &amp; Creativity</h3>
-              <p>Tintin, The Smurfs and modern talent</p>
+            <article class="be-xcard">
+              <div class="be-xcard__photo"><img src="assets/belgium/card-comics.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Belgian comic strip art"></div>
+              <div class="be-xcard__badge" style="--c:#1f5aa0"><svg width="22" height="22"><use href="#i-comic"/></svg></div>
+              <h3>Comics &amp; Creativity</h3><p>Tintin, The Smurfs and modern talent</p>
             </article>
 
-            <article class="be-xcard" style="--c1:#7a5a2e;--c2:#b08a44">
-              <div class="be-xcard__top"><svg viewBox="0 0 24 24"><use href="#i-city"/></svg></div>
-              <div class="be-xcard__badge"><svg width="22" height="22"><use href="#i-city"/></svg></div>
-              <h3>Cities &amp; Heritage</h3>
-              <p>Brussels, Bruges, Ghent, Antwerp and more</p>
+            <article class="be-xcard">
+              <div class="be-xcard__photo"><img src="assets/belgium/card-cities.jpg" width="169" height="101" loading="lazy" decoding="async" alt="The Grand Place and historic Belgian cities"></div>
+              <div class="be-xcard__badge" style="--c:#7a5a2e"><svg width="22" height="22"><use href="#i-city"/></svg></div>
+              <h3>Cities &amp; Heritage</h3><p>Brussels, Bruges, Ghent, Antwerp and more</p>
             </article>
 
-            <article class="be-xcard" style="--c1:#3f7a3a;--c2:#66a94f">
-              <div class="be-xcard__top"><svg viewBox="0 0 24 24"><use href="#i-wheat"/></svg></div>
-              <div class="be-xcard__badge"><svg width="22" height="22"><use href="#i-wheat"/></svg></div>
-              <h3>Nature &amp; Agriculture</h3>
-              <p>Fertile lands, a sustainable future</p>
+            <article class="be-xcard">
+              <div class="be-xcard__photo"><img src="assets/belgium/card-nature.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Belgian farmland and agriculture"></div>
+              <div class="be-xcard__badge" style="--c:#3f7a3a"><svg width="22" height="22"><use href="#i-wheat"/></svg></div>
+              <h3>Nature &amp; Agriculture</h3><p>Fertile lands, a sustainable future</p>
             </article>
 
-            <article class="be-xcard" style="--c1:#a03a3a;--c2:#d06060">
-              <div class="be-xcard__top"><svg viewBox="0 0 24 24"><use href="#i-mask"/></svg></div>
-              <div class="be-xcard__badge"><svg width="22" height="22"><use href="#i-mask"/></svg></div>
-              <h3>Traditions &amp; Festivals</h3>
-              <p>Sinterklaas, carnivals &amp; social etiquette</p>
+            <article class="be-xcard">
+              <div class="be-xcard__photo"><img src="assets/belgium/card-traditions.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Sinterklaas and Belgian festivals"></div>
+              <div class="be-xcard__badge" style="--c:#a03a3a"><svg width="22" height="22"><use href="#i-mask"/></svg></div>
+              <h3>Traditions &amp; Festivals</h3><p>Sinterklaas, customs &amp; social etiquette</p>
             </article>
 
-            <article class="be-xcard" style="--c1:#2a6c7a;--c2:#3f97a8">
-              <div class="be-xcard__top"><svg viewBox="0 0 24 24"><use href="#i-ship"/></svg></div>
-              <div class="be-xcard__badge"><svg width="22" height="22"><use href="#i-ship"/></svg></div>
-              <h3>Global Connections</h3>
-              <p>Ships, trade, Latin Europe and beyond</p>
+            <article class="be-xcard">
+              <div class="be-xcard__photo"><img src="assets/belgium/card-global.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Tall ship — Belgian trade and global connections"></div>
+              <div class="be-xcard__badge" style="--c:#2a6c7a"><svg width="22" height="22"><use href="#i-ship"/></svg></div>
+              <h3>Global Connections</h3><p>Ships, trade, Latin Europe and beyond</p>
             </article>
 
           </div>
@@ -307,32 +206,17 @@
             <span class="be-chip"><span class="be-chip__ic"><svg width="20" height="20"><use href="#i-leaf"/></svg></span>Innovation &amp; Sustainability</span>
             <span class="be-chip"><span class="be-chip__ic"><svg width="20" height="20"><use href="#i-heart"/></svg></span>Warm People</span>
           </div>
-
-          <p class="be-why__script">Art. Food. Culture. People — <em>Belgium!</em></p>
         </div>
 
-        <div class="be-why__art be-reveal" aria-hidden="true">
-          <div class="be-collage">
-            <div class="be-collage__tile be-collage__tile--a"><svg viewBox="0 0 24 24"><use href="#i-museum"/></svg><span>Masterpieces</span></div>
-            <div class="be-collage__tile be-collage__tile--b"><svg viewBox="0 0 24 24"><use href="#i-comic"/></svg><span>Comics</span></div>
-            <div class="be-collage__tile be-collage__tile--c"><svg viewBox="0 0 24 24"><use href="#i-waffle"/></svg><span>Waffles</span></div>
-            <div class="be-collage__tile be-collage__tile--d"><svg viewBox="0 0 24 24"><use href="#i-beer"/></svg><span>Beer</span></div>
-            <div class="be-collage__map">
-              <!-- stylized Belgium shape in flag colors -->
-              <svg viewBox="0 0 200 170">
-                <path id="beShape" d="M40 40 L70 25 L100 32 L130 22 L160 45 L172 80 L150 120 L120 145 L85 150 L55 130 L32 95 Z"/>
-                <clipPath id="beClip"><use href="#beShape"/></clipPath>
-                <g clip-path="url(#beClip)"><rect x="0" y="0" width="66" height="170" fill="#141414"/><rect x="66" y="0" width="66" height="170" fill="#FDDA24"/><rect x="132" y="0" width="68" height="170" fill="#EF3340"/></g>
-                <use href="#beShape" fill="none" stroke="#fff" stroke-width="3"/>
-              </svg>
-            </div>
-          </div>
+        <div class="be-why__art be-reveal">
+          <img src="assets/belgium/why.jpg" width="443" height="280" loading="lazy" decoding="async"
+               alt="A collage of Belgian culture: Girl with a Pearl Earring, Magritte's bowler-hatted man, Tintin, a Belgian beer, a waffle and the map of Belgium in flag colours — Art. Food. Culture. People — Belgium!" />
         </div>
       </div>
     </section>
 
     <!-- ============================================================ -->
-    <!-- EXPLORE RICH HERITAGE (deep-dive grid)                        -->
+    <!-- EXPLORE RICH HERITAGE (photo cards)                          -->
     <!-- ============================================================ -->
     <section class="be-sec be-sec--cream be-heritage" id="be-heritage" aria-labelledby="be-her-title">
       <div class="be-wave be-wave--top" aria-hidden="true"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,40 C360,110 1080,-20 1440,40 L1440,0 L0,0 Z"/></svg></div>
@@ -344,61 +228,45 @@
         </div>
 
         <div class="be-hgrid">
-          <article class="be-hcard be-reveal" style="--h1:#6d3b5f;--h2:#9d5688">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-museum"/></svg></span>
-            <h3>Masterpieces &amp; Painters</h3>
-            <p>Jan van Eyck, Peter Paul Rubens and René Magritte — the Flemish Primitives to Surrealism.</p>
+          <article class="be-hcard be-reveal">
+            <div class="be-hcard__photo"><img src="assets/belgium/card-arts.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Flemish master paintings"></div>
+            <div class="be-hcard__body"><h3>Masterpieces &amp; Painters</h3><p>Jan van Eyck, Peter Paul Rubens and René Magritte — the Flemish Primitives to Surrealism.</p></div>
           </article>
-          <article class="be-hcard be-reveal" style="--h1:#7a3f22;--h2:#b06b3a">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-waffle"/></svg></span>
-            <h3>Food &amp; Beverages</h3>
-            <p>Chocolate, waffles, fries and mussels, and over a thousand celebrated Belgian beers.</p>
+          <article class="be-hcard be-reveal">
+            <div class="be-hcard__photo"><img src="assets/belgium/card-food.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Belgian chocolate and waffles"></div>
+            <div class="be-hcard__body"><h3>Food &amp; Beverages</h3><p>Chocolate, waffles, fries and mussels, and over a thousand celebrated Belgian beers.</p></div>
           </article>
-          <article class="be-hcard be-reveal" style="--h1:#7a5a2e;--h2:#b08a44">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-city"/></svg></span>
-            <h3>Architecture &amp; Cities</h3>
-            <p>Medieval Bruges, the Grand Place of Brussels, Ghent and cosmopolitan Antwerp.</p>
+          <article class="be-hcard be-reveal">
+            <div class="be-hcard__photo"><img src="assets/belgium/card-cities.jpg" width="169" height="101" loading="lazy" decoding="async" alt="The Grand Place"></div>
+            <div class="be-hcard__body"><h3>Architecture &amp; Cities</h3><p>Medieval Bruges, the Grand Place of Brussels, Ghent and cosmopolitan Antwerp.</p></div>
           </article>
-          <article class="be-hcard be-reveal" style="--h1:#1f5aa0;--h2:#3f86d0">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-comic"/></svg></span>
-            <h3>Comics &amp; Pop Culture</h3>
-            <p>Tintin, The Smurfs, Lucky Luke — the beloved home of the ninth art.</p>
+          <article class="be-hcard be-reveal">
+            <div class="be-hcard__photo"><img src="assets/belgium/card-comics.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Belgian comics"></div>
+            <div class="be-hcard__body"><h3>Comics &amp; Pop Culture</h3><p>Tintin, The Smurfs, Lucky Luke — the beloved home of the ninth art.</p></div>
           </article>
-          <article class="be-hcard be-reveal" style="--h1:#a03a3a;--h2:#d06060">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-mask"/></svg></span>
-            <h3>Traditions &amp; Festivals</h3>
-            <p>Sinterklaas, the Carnival of Binche, local customs and gracious social etiquette.</p>
+          <article class="be-hcard be-reveal">
+            <div class="be-hcard__photo"><img src="assets/belgium/card-traditions.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Sinterklaas and festivals"></div>
+            <div class="be-hcard__body"><h3>Traditions &amp; Festivals</h3><p>Sinterklaas, the Carnival of Binche, local customs and gracious social etiquette.</p></div>
           </article>
-          <article class="be-hcard be-reveal" style="--h1:#3f7a3a;--h2:#66a94f">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-wheat"/></svg></span>
-            <h3>Nature &amp; Agriculture</h3>
-            <p>Fertile Flemish fields, the Ardennes forests and a sustainable, future-facing land.</p>
-          </article>
-          <article class="be-hcard be-reveal" style="--h1:#2a6c7a;--h2:#3f97a8">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-ship"/></svg></span>
-            <h3>Trade &amp; Global Ties</h3>
-            <p>The port of Antwerp, diamonds, and a historic meeting point at the heart of Europe.</p>
-          </article>
-          <article class="be-hcard be-reveal" style="--h1:#3a4a86;--h2:#5a6cc0">
-            <span class="be-hcard__ic"><svg viewBox="0 0 24 24"><use href="#i-globe"/></svg></span>
-            <h3>Languages &amp; People</h3>
-            <p>Dutch, French and German influence — three cultures, one warm-hearted nation.</p>
+          <article class="be-hcard be-reveal">
+            <div class="be-hcard__photo"><img src="assets/belgium/card-nature.jpg" width="169" height="101" loading="lazy" decoding="async" alt="Belgian countryside"></div>
+            <div class="be-hcard__body"><h3>Nature &amp; Agriculture</h3><p>Fertile Flemish fields, the Ardennes forests and a sustainable, future-facing land.</p></div>
           </article>
         </div>
       </div>
     </section>
 
     <!-- ============================================================ -->
-    <!-- MAGIC OF BELGIUM (dark, with map + highlights)               -->
+    <!-- MAGIC OF BELGIUM (dark, photographic canal backdrop)         -->
     <!-- ============================================================ -->
     <section class="be-sec be-magic" id="be-magic" aria-labelledby="be-magic-title">
+      <div class="be-magic__bg" aria-hidden="true"></div>
       <div class="be-wrap be-magic__grid">
         <div class="be-magic__left be-reveal">
           <h2 class="be-h2 be-h2--light" id="be-magic-title">Experience the <em>Magic</em> of Belgium</h2>
           <p class="be-lede be-lede--light">Walk through historic streets, taste world-class cuisine, meet inspiring people
             and feel the rhythm of a nation that celebrates creativity and diversity.</p>
           <a href="#be-experience" class="be-btn be-btn--gold">Discover More <svg width="16" height="16"><use href="#i-arrow"/></svg></a>
-
           <div class="be-magic__stats">
             <div class="be-stat"><b data-count="11">0</b><span>Million people</span></div>
             <div class="be-stat"><b data-count="3">0</b><span>Official languages</span></div>
@@ -416,7 +284,6 @@
               <g class="be-magic__pins" fill="#fff"><circle cx="112" cy="78" r="4"/><circle cx="70" cy="70" r="4"/><circle cx="128" cy="60" r="4"/><circle cx="150" cy="95" r="4"/></g>
             </svg>
           </div>
-
           <ul class="be-highlights" role="list">
             <li class="be-hl"><span class="be-hl__ic"><svg width="18" height="18"><use href="#i-crown"/></svg></span><b>Brussels</b> — Capital of Europe</li>
             <li class="be-hl"><span class="be-hl__ic"><svg width="18" height="18"><use href="#i-city"/></svg></span><b>Bruges</b> — Medieval charm</li>
@@ -432,44 +299,27 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- THE COMPETITION (brush strokes)                              -->
+    <!-- THE COMPETITION (brush categories)                          -->
     <!-- ============================================================ -->
     <section class="be-sec be-sec--cream be-competition" id="be-competition" aria-labelledby="be-comp-title">
       <div class="be-wave be-wave--top" aria-hidden="true"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,50 C400,-10 1000,120 1440,40 L1440,0 L0,0 Z"/></svg></div>
       <div class="be-wrap">
-        <div class="be-head be-reveal">
+        <div class="be-head be-head--left be-reveal">
           <p class="be-eyebrow"><span class="be-eyebrow__flag" aria-hidden="true"></span>The Competition</p>
           <h2 class="be-h2" id="be-comp-title">Let your imagination <em>take you to Belgium</em></h2>
-          <p class="be-lede be-lede--center">Write an essay, or create a piece of art, poetry, photography or video — anything that
+          <p class="be-lede">Write an essay, or create a piece of art, poetry, photography or video — anything that
             shows your understanding, appreciation or a fresh perspective on Belgium&rsquo;s culture, people, history and future.</p>
         </div>
 
         <div class="be-brushes be-reveal">
-          <div class="be-brush" style="--bk:#141414">
-            <span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-book"/></svg></span>
-            <span class="be-brush__label">Essay Writing</span>
-          </div>
-          <div class="be-brush" style="--bk:#FDDA24;--bt:#141414">
-            <span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-pen"/></svg></span>
-            <span class="be-brush__label">Creative Writing</span>
-          </div>
-          <div class="be-brush" style="--bk:#EF3340">
-            <span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-palette"/></svg></span>
-            <span class="be-brush__label">Art &amp; Design</span>
-          </div>
-          <div class="be-brush" style="--bk:#1f7ac0">
-            <span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-camera"/></svg></span>
-            <span class="be-brush__label">Photography</span>
-          </div>
-          <div class="be-brush" style="--bk:#8a2f6d">
-            <span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-video"/></svg></span>
-            <span class="be-brush__label">Video &amp; Multimedia</span>
-          </div>
+          <div class="be-brush" style="--bk:#141414"><span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-book"/></svg></span><span class="be-brush__label">Essay Writing</span></div>
+          <div class="be-brush" style="--bk:#FDDA24;--bt:#141414"><span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-pen"/></svg></span><span class="be-brush__label">Creative Writing</span></div>
+          <div class="be-brush" style="--bk:#EF3340"><span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-palette"/></svg></span><span class="be-brush__label">Art &amp; Design</span></div>
+          <div class="be-brush" style="--bk:#1f7ac0"><span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-camera"/></svg></span><span class="be-brush__label">Photography</span></div>
+          <div class="be-brush" style="--bk:#8a2f2f"><span class="be-brush__ic"><svg viewBox="0 0 24 24"><use href="#i-video"/></svg></span><span class="be-brush__label">Video &amp; Multimedia</span></div>
         </div>
 
-        <div class="be-comp__cta be-reveal">
-          <a href="#be-cta" class="be-btn be-btn--dark">View Guidelines <svg width="16" height="16"><use href="#i-arrow"/></svg></a>
-        </div>
+        <div class="be-comp__cta be-reveal"><a href="#be-cta" class="be-btn be-btn--dark">View Guidelines <svg width="16" height="16"><use href="#i-arrow"/></svg></a></div>
       </div>
     </section>
 
@@ -477,11 +327,12 @@
     <!-- BE PART OF SOMETHING BIGGER                                  -->
     <!-- ============================================================ -->
     <section class="be-sec be-bigger" id="be-cta" aria-labelledby="be-big-title">
+      <div class="be-bigger__bg" aria-hidden="true"></div>
       <div class="be-wrap be-bigger__grid">
         <div class="be-bigger__text be-reveal">
           <p class="be-eyebrow"><span class="be-eyebrow__flag" aria-hidden="true"></span>India × Belgium</p>
-          <h2 class="be-h2" id="be-big-title">Be Part of Something <em>Bigger</em></h2>
-          <p class="be-lede">Your ideas, creativity and voice can help build stronger cultural connections
+          <h2 class="be-h2 be-h2--light" id="be-big-title">Be Part of Something <em>Bigger</em></h2>
+          <p class="be-lede be-lede--light">Your ideas, creativity and voice can help build stronger cultural connections
             between India and Belgium. Explore a new culture, express your perspective, and represent your generation.</p>
 
           <ul class="be-bigger__list" role="list">
@@ -492,7 +343,7 @@
 
           <div class="be-hero__cta">
             <a href="index.html" class="be-btn be-btn--gold be-btn--lg">Register Now <svg width="18" height="18"><use href="#i-arrow"/></svg></a>
-            <a href="index.html" class="be-btn be-btn--dark be-btn--lg">Learn More</a>
+            <a href="index.html" class="be-btn be-btn--ghost be-btn--lg">Learn More</a>
           </div>
         </div>
 
@@ -523,7 +374,7 @@
           <a href="index.html" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
           <a href="index.html" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="5" width="20" height="14" rx="4"/><polygon points="10,9 16,12 10,15" fill="currentColor" stroke="none"/></svg></a>
           <a href="index.html" aria-label="X"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h3l-7 8 8 12h-6l-5-6-5 6H2l8-9L2 2h6l4 5z"/></svg></a>
-          <a href="index.html" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><line x1="7" y1="7" x2="7" y2="7"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg></a>
+          <a href="index.html" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><path d="M11 17v-4a2 2 0 0 1 4 0v4"/><line x1="11" y1="10" x2="11" y2="17"/></svg></a>
         </div>
       </div>
 
