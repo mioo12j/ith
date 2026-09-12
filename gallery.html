@@ -112,8 +112,44 @@
       </div>
     </header>
 
-    <section class="section section-dark" style="padding-top: 0;" aria-label="Photo gallery">
+    <section class="section section-dark" style="padding-top: var(--spacing-16); padding-bottom: 0;" aria-label="Student project videos">
       <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">Student Showcase</span>
+          <h2 class="section-title text-gold">Projects, In Their <em>Own Words</em></h2>
+          <p class="section-desc">Students share the projects they built and submitted to us — in their own voice. Tap any clip to watch.</p>
+        </div>
+
+        <!-- Student project videos drop in here as .video-card articles once the
+             MP4s are added to assets/videos/. Card template (one per clip):
+
+          <article class="video-card reveal">
+            <button type="button" class="video-thumb video-thumb--ph hover-target" data-video
+              data-video-src="assets/videos/student-project-1.mp4"
+              data-video-title="Project title — Student name">
+              <span class="video-thumb__tag">Student Project</span>
+              <span class="video-play" aria-hidden="true"></span>
+              <span class="sr-only">Play: Project title by Student name</span>
+            </button>
+            <div class="video-meta">
+              <h3 class="video-name">Project title</h3>
+              <p class="video-sub">Student name &middot; Class &middot; School</p>
+              <p class="video-desc">A short line about the project.</p>
+            </div>
+          </article>
+
+             Wrap the cards in <div class="video-grid" id="studentVideos"> … </div>. -->
+
+        <p class="gallery-more-note">Student project videos are on their way &mdash; students are sharing the work they built and submitted to us, and their clips will appear here soon.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark" style="padding-top: var(--spacing-16);" aria-label="Photo gallery">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag text-gold">In Pictures</span>
+          <h2 class="section-title text-gold">Moments From Our <em>Community</em></h2>
+        </div>
         <div class="gallery-masonry gallery-masonry--single" id="fullGallery">
           <figure class="gallery-item" data-category="ceremonies">
             <button type="button" class="gallery-trigger hover-target" data-lightbox data-full="assets/gallery/felicitation-dps-raipur.jpg" aria-label="View larger: student felicitation at Delhi Public School, Raipur">

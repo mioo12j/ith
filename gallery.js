@@ -183,9 +183,19 @@
 
     function openVideo(trigger) {
       vLastFocused = document.activeElement;
+      const src = trigger.getAttribute("data-video-src");
       const embed = trigger.getAttribute("data-video-embed");
-      const title = trigger.getAttribute("data-video-title") || "Student experience video";
-      if (embed) {
+      const poster = trigger.getAttribute("data-video-poster");
+      const title = trigger.getAttribute("data-video-title") || "Student project video";
+      if (src) {
+        // Self-hosted file (MP4/WebM) — play with the native <video> player.
+        slot.innerHTML =
+          `<video class="video-modal__video" src="${src}" title="${title}"` +
+          (poster ? ` poster="${poster}"` : "") +
+          ` controls autoplay playsinline preload="metadata"></video>`;
+        const v = slot.querySelector("video");
+        if (v && v.play) { const p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      } else if (embed) {
         slot.innerHTML =
           `<iframe src="${embed}" title="${title}" frameborder="0" ` +
           `allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ` +

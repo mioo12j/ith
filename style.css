@@ -2694,6 +2694,43 @@ p {
   line-height: 0;
 }
 .video-thumb img { width: 100%; height: auto; display: block; }
+/* Branded gradient thumbnail — used when a card has no poster image yet.
+   Keeps a consistent 16:9 frame with a soft gold glow and the clip's label. */
+.video-thumb--ph {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: flex-end;
+  line-height: normal;
+  background:
+    radial-gradient(120% 90% at 78% 8%, var(--color-brand-alpha-20), transparent 60%),
+    radial-gradient(90% 80% at 10% 100%, rgba(120, 130, 220, 0.14), transparent 62%),
+    linear-gradient(155deg, #0a1120, #05080f 70%);
+}
+.video-thumb--ph::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 2.25rem 2.25rem;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 45%, #000, transparent 85%);
+  mask-image: radial-gradient(70% 60% at 50% 45%, #000, transparent 85%);
+  opacity: 0.7;
+}
+.video-thumb__tag {
+  position: relative;
+  margin: 0 auto var(--spacing-6);
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  background-color: rgba(2, 4, 10, 0.5);
+  border: 1px solid var(--color-brand-alpha-20);
+  color: var(--color-brand-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .video-play {
   position: absolute;
   inset: 0;
@@ -2746,7 +2783,8 @@ p {
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
   background-color: var(--color-bg-surface-2);
 }
-.video-modal__slot, .video-modal__slot iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-modal__slot, .video-modal__slot iframe, .video-modal__slot video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-modal__slot video { background-color: #000; object-fit: contain; }
 .video-modal__placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--spacing-8); gap: var(--spacing-3); }
 .video-modal__ph-title { font-family: var(--font-family-display); font-size: var(--font-size-xl); color: var(--color-brand-primary); margin: 0; }
 .video-modal__ph-sub { color: var(--color-text-tertiary); margin: 0; }
