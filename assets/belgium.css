@@ -112,6 +112,42 @@
 .be-wave--top{top:-1px;height:clamp(56px,7vw,96px)}
 .be-wave--top path{fill:var(--be-cream)}
 
+/* ============================================================ DEADLINE / FINAL EXTENSION */
+.be-deadline{background:var(--be-cream);padding:clamp(28px,4vw,48px) 0 clamp(6px,1.5vw,14px)}
+.be-deadline__card{position:relative;overflow:hidden;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(20px,3vw,40px);
+  background:linear-gradient(135deg,#141414,#22283a);color:#fff;border-radius:var(--be-r-lg);
+  padding:clamp(24px,3.4vw,38px) clamp(24px,4vw,46px);box-shadow:var(--be-shadow-lg)}
+.be-deadline__card::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:linear-gradient(90deg,var(--be-black) 0 33%,var(--be-gold) 33% 66%,var(--be-red) 66% 100%)}
+.be-deadline__card::after{content:"";position:absolute;right:-60px;bottom:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(253,218,36,.22),transparent 70%);pointer-events:none}
+.be-deadline__msg{max-width:560px;display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
+.be-deadline__badge{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--be-red),var(--be-red-deep));color:#fff;font-weight:800;font-size:.72rem;letter-spacing:1.6px;text-transform:uppercase;padding:6px 15px;border-radius:999px;animation:bePulse 2.2s ease-in-out infinite}
+.be-deadline__badge svg{stroke:#fff;fill:none;stroke-width:2}
+@keyframes bePulse{0%,100%{box-shadow:0 0 0 0 rgba(239,51,64,.55)}70%{box-shadow:0 0 0 12px rgba(239,51,64,0)}}
+.be-deadline__title{font-family:var(--be-serif);font-weight:700;font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.15}
+.be-deadline__title strong{color:var(--be-gold)}
+.be-deadline__msg p{font-size:.98rem;line-height:1.6;color:rgba(255,255,255,.85)}
+.be-deadline__side{display:flex;flex-direction:column;gap:16px;align-items:center;position:relative;z-index:1}
+.be-deadline__count{display:flex;gap:10px}
+.be-cd__cell{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 12px;min-width:60px;text-align:center;backdrop-filter:blur(4px)}
+.be-cd__cell b{display:block;font-family:var(--be-serif);font-size:clamp(1.4rem,3vw,1.9rem);color:var(--be-gold);line-height:1;font-variant-numeric:tabular-nums}
+.be-cd__cell span{font-size:.64rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.7)}
+.be-deadline__cta{white-space:nowrap}
+@media (max-width:760px){
+  .be-deadline__card{flex-direction:column;text-align:center;align-items:center}
+  .be-deadline__msg{align-items:center}
+  .be-deadline__badge{align-self:center}
+}
+
+/* deadline chip on mobile hero */
+.be-hero__deadline{margin-top:16px;font-size:.82rem;color:rgba(255,255,255,.92);letter-spacing:.3px}
+.be-hero__deadline span{display:inline-block;background:linear-gradient(135deg,var(--be-red),var(--be-red-deep));color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:.68rem;padding:3px 10px;border-radius:999px;margin-right:6px}
+
+/* deadline line in the Bigger section */
+.be-bigger__deadline{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:11px 18px;border-radius:999px;
+  background:rgba(253,218,36,.14);border:1px solid rgba(253,218,36,.4);color:#fff;font-size:.96rem}
+.be-bigger__deadline svg{flex:none;stroke:var(--be-gold);fill:none;stroke-width:2}
+.be-bigger__deadline strong{color:var(--be-gold)}
+
 /* ============================================================ SECTION SHELL */
 .be-sec{position:relative;padding:clamp(60px,8vw,104px) 0}
 .be-sec--cream{background:var(--be-cream);padding-top:clamp(80px,10vw,140px)}

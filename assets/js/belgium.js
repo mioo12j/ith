@@ -132,6 +132,30 @@
     }
   }
 
+  /* ---------- deadline countdown ---------- */
+  var cd = document.getElementById('beCountdown');
+  if (cd) {
+    var target = new Date(cd.getAttribute('data-deadline')).getTime();
+    var out = {
+      days: cd.querySelector('[data-cd="days"]'),
+      hours: cd.querySelector('[data-cd="hours"]'),
+      mins: cd.querySelector('[data-cd="mins"]'),
+      secs: cd.querySelector('[data-cd="secs"]')
+    };
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var tick = function () {
+      var diff = target - Date.now();
+      if (diff < 0) diff = 0;
+      var s = Math.floor(diff / 1000);
+      if (out.days) out.days.textContent = pad(Math.floor(s / 86400));
+      if (out.hours) out.hours.textContent = pad(Math.floor((s % 86400) / 3600));
+      if (out.mins) out.mins.textContent = pad(Math.floor((s % 3600) / 60));
+      if (out.secs) out.secs.textContent = pad(s % 60);
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+
   /* ---------- active section in nav ---------- */
   var navLinks = $$('#beNavLinks a[href^="#"]');
   var sections = navLinks.map(function (a) {
