@@ -4,7 +4,7 @@
  * Three jobs, all progressive enhancement — the page is fully readable and
  * usable if this file never loads:
  *   1. staggered scroll-reveal for `.cm-reveal`
- *   2. the live countdown to the moment registration opens
+ *   2. the live countdown to the registration deadline
  *   3. count-up animation for the stat tiles
  *
  * Vanilla ES5, no dependencies, no build step.
@@ -75,11 +75,11 @@
       var left = target - Date.now();
 
       if (left <= 0) {
-        // Registration moment reached — show zeros rather than negative time.
+        // Registration deadline reached — show zeros rather than negative time.
         cells.d.textContent = cells.h.textContent = '00';
         cells.m.textContent = cells.s.textContent = '00';
         var title = document.getElementById('cmCountTitle');
-        if (title) title.textContent = 'Registrations are open';
+        if (title) title.textContent = 'Registration has closed';
         clearInterval(timer);
         return;
       }
