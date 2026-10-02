@@ -6,11 +6,11 @@
   <title>Story Writing — Live | Monsoon Minds 2026 · Inspire Talent Hub</title>
   <meta name="description" content="Official live page for the Story Writing competition — Monsoon Minds Championship 2026. Enter your details, reveal your topic and start your timed attempt." />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#070b13" />
+  <meta name="theme-color" content="#0d1026" />
   <link rel="icon" type="image/jpeg" href="logo.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/reveal.css" />
 </head>
 <body class="rvl-body">
@@ -21,27 +21,27 @@
 
   <main class="rvl-wrap">
 
-    <!-- ============ PRE: countdown to the competition day ============ -->
+    <!-- ============ PRE ============ -->
     <section id="stPre" class="rvl-stage" hidden>
       <p class="rvl-kicker">📖 Story Writing</p>
-      <h1 class="rvl-h1">This competition opens<br>Sunday, 4 October 2026</h1>
-      <p class="rvl-sub">You can start any time during the day. Your topic appears only when you click Start, and your personal timer begins at that moment. The link will also be emailed to you on Sunday morning.</p>
+      <h1 class="rvl-h1">This opens<br><span class="em">Sunday, 4 October 2026</span></h1>
+      <p class="rvl-sub">You can begin any time during the day. Your topic appears only when you press Start, and your personal timer begins at that exact moment. This link is also emailed to you on the morning of the competition.</p>
       <div class="rvl-card rvl-card--accent rvl-center">
-        <p class="rvl-topic-label">Opens in</p>
+        <p class="rvl-card__label">Opens in</p>
         <div class="rvl-cd" role="timer" aria-label="Time until the competition opens">
           <div class="rvl-cd__cell"><span class="rvl-cd__n" id="rvlD">00</span><span class="rvl-cd__l">Days</span></div>
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="rvlH">00</span><span class="rvl-cd__l">Hrs</span></div>
+          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="rvlH">00</span><span class="rvl-cd__l">Hours</span></div>
           <div class="rvl-cd__cell"><span class="rvl-cd__n" id="rvlM">00</span><span class="rvl-cd__l">Min</span></div>
           <div class="rvl-cd__cell"><span class="rvl-cd__n" id="rvlS">00</span><span class="rvl-cd__l">Sec</span></div>
         </div>
       </div>
     </section>
 
-    <!-- ============ START: details + rules ============ -->
+    <!-- ============ START ============ -->
     <section id="stStart" class="rvl-stage" hidden>
       <p class="rvl-kicker">📖 Story Writing · Monsoon Minds 2026</p>
-      <h1 class="rvl-h1">Story Writing</h1>
-      <p class="rvl-sub">Read everything below, enter your details, and when you’re ready click <b>Start</b>. Your topic will be revealed and your timer will begin.</p>
+      <h1 class="rvl-h1">Story Writing <span class="em">Live</span></h1>
+      <p class="rvl-sub">Read everything carefully, fill in your details, and press Start when you’re ready. Your topic is revealed and your timer begins the moment you do.</p>
 
       <div class="rvl-meta">
         <span class="rvl-chip"><b>90 min</b> to create</span>
@@ -50,7 +50,16 @@
       </div>
 
       <div class="rvl-card">
-        <p class="rvl-topic-label">The rules</p>
+        <p class="rvl-card__label">How it works</p>
+        <div class="rvl-steps">
+          <div class="rvl-step"><div class="rvl-step__n">1</div><h4>Fill your details</h4><p>Enter your name, class, school and contact details below.</p></div>
+          <div class="rvl-step"><div class="rvl-step__n">2</div><h4>Press Start</h4><p>Your topic is revealed and a 90-minute timer begins right away.</p></div>
+          <div class="rvl-step"><div class="rvl-step__n">3</div><h4>Create &amp; email</h4><p>When time ends you get 10 minutes to email your entry to us.</p></div>
+        </div>
+      </div>
+
+      <div class="rvl-card">
+        <p class="rvl-card__label">Competition rules</p>
         <ul class="rvl-rules">
             <li>Write 500–800 words with a clear beginning, middle and end.</li>
             <li>Original fiction only — no fan fiction.</li>
@@ -64,8 +73,18 @@
         </ul>
       </div>
 
+      <div class="rvl-card">
+        <p class="rvl-card__label">Before you begin</p>
+        <ul class="rvl-rules">
+            <li>Use a stable internet connection and keep this tab open.</li>
+            <li>The timer keeps running even if you refresh or close the tab — it never pauses or resets.</li>
+            <li>Keep your finished file ready to email the moment creating time ends.</li>
+            <li>Put your name &amp; school in the <b>email</b>, never on the work itself.</li>
+        </ul>
+      </div>
+
       <div class="rvl-card rvl-card--accent">
-        <p class="rvl-topic-label">Your details</p>
+        <p class="rvl-card__label">Your details</p>
         <form id="rvlStartForm" class="rvl-form" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="rvlSink" autocomplete="on">
           <input type="hidden" name="_subject" value="Monsoon Minds — Story Writing: participant STARTED" />
           <input type="hidden" name="_captcha" value="false" />
@@ -74,25 +93,28 @@
           <input type="hidden" name="Started at" id="rvlStartedAtField" value="" />
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
           <div class="rvl-grid2">
-            <div class="rvl-field"><label for="rvlName">Full name</label><input id="rvlName" name="Full name" required /></div>
-            <div class="rvl-field"><label for="rvlSchool">School</label><input id="rvlSchool" name="School" required /></div>
+            <div class="rvl-field"><label for="rvlName">Full name <span class="req">*</span></label><input id="rvlName" name="Full name" required placeholder="As it should appear on your certificate" /></div>
+            <div class="rvl-field"><label for="rvlClass">Class &amp; section <span class="req">*</span></label><input id="rvlClass" name="Class & section" required placeholder="e.g. 9-G" /></div>
           </div>
           <div class="rvl-grid2">
-            <div class="rvl-field"><label for="rvlClass">Class &amp; section</label><input id="rvlClass" name="Class & section" required /></div>
-            <div class="rvl-field"><label for="rvlEmail">Email</label><input id="rvlEmail" type="email" name="Email" required /></div>
+            <div class="rvl-field"><label for="rvlEmail">Email address <span class="req">*</span></label><input id="rvlEmail" type="email" name="Email" required placeholder="you@example.com" /></div>
+            <div class="rvl-field"><label for="rvlPhone">Phone / WhatsApp <span class="req">*</span></label><input id="rvlPhone" type="tel" name="Phone / WhatsApp" required inputmode="tel" placeholder="+91 98XXXXXXXX" /></div>
           </div>
-          <label class="rvl-check"><input type="checkbox" name="Integrity agreed" value="Yes, I agree" required /> I confirm the work will be entirely my own (no AI, no plagiarism), my name will not appear on the work, and I understand the timer cannot be paused.</label>
+          <div class="rvl-field"><label for="rvlSchool">School name <span class="req">*</span></label><input id="rvlSchool" name="School name" required placeholder="Full name of your school" /></div>
+          <div class="rvl-field"><label for="rvlAddr">School address <span class="req">*</span></label><textarea id="rvlAddr" name="School address" required placeholder="Building / street, area, landmark"></textarea></div>
+          <div class="rvl-field"><label for="rvlCity">City &amp; state</label><input id="rvlCity" name="City & state" placeholder="e.g. Secunderabad, Telangana" /></div>
+          <label class="rvl-check"><input type="checkbox" name="Integrity agreed" value="Yes, I agree" required /> I confirm the work will be entirely my own (no AI, no plagiarism), my name will not appear on the work, and I understand the timer cannot be paused once it starts.</label>
           <button type="submit" class="rvl-btn rvl-btn--block">Start &amp; reveal my topic →</button>
-          <p class="rvl-sub" style="font-size:.84rem;margin:0">Once you click Start, your 90-minute timer begins immediately. It keeps running even if you refresh or close this tab.</p>
+          <p class="rvl-fine">Pressing Start emails the organisers that you’ve begun and starts your 90-minute timer immediately.</p>
         </form>
       </div>
     </section>
 
-    <!-- ============ LIVE: topic + work timer ============ -->
+    <!-- ============ LIVE ============ -->
     <section id="stLive" class="rvl-stage" hidden>
       <p class="rvl-who" id="rvlWho"></p>
       <div class="rvl-card rvl-card--accent rvl-topicwrap">
-        <p class="rvl-topic-label">Your topic</p>
+        <p class="rvl-card__label">Your topic</p>
         <p class="rvl-topic rvl-blur" id="rvlTopic">Your topic is hidden until you start.</p>
       </div>
       <div class="rvl-card rvl-center">
@@ -101,7 +123,7 @@
         <div class="rvl-bartrack"><div class="rvl-bar-fill" id="rvlWorkBar"></div></div>
       </div>
       <div class="rvl-card">
-        <p class="rvl-topic-label">Remember</p>
+        <p class="rvl-card__label">Remember</p>
         <ul class="rvl-rules">
             <li>Write 500–800 words with a clear beginning, middle and end.</li>
             <li>Original fiction only — no fan fiction.</li>
@@ -117,33 +139,33 @@
       </div>
     </section>
 
-    <!-- ============ SUBMIT: submission window ============ -->
+    <!-- ============ SUBMIT ============ -->
     <section id="stSubmit" class="rvl-stage" hidden>
-      <p class="rvl-big-emoji">⏰</p>
-      <h1 class="rvl-h1 rvl-center">Pencils down — time to submit!</h1>
+      <p class="rvl-emoji">⏰</p>
+      <h1 class="rvl-h1 rvl-center">Pencils down — <span class="em">time to submit!</span></h1>
       <div class="rvl-card rvl-card--accent rvl-center">
         <div class="rvl-timer" id="rvlSubTimer">--:--</div>
         <p class="rvl-timer-label">Time left to submit</p>
       </div>
       <div class="rvl-card">
-        <p class="rvl-topic-label">How to submit</p>
+        <p class="rvl-card__label">How to submit</p>
         <ul class="rvl-rules">
             <li>Email your final work to <span class="rvl-email">info@inspiretalenthub.in</span>.</li>
             <li>Format: 500–800 words · typed · PDF or DOCX.</li>
-            <li>In the email, include your <b>full name, school and class</b>. Do <b>not</b> put your name on the work itself.</li>
+            <li>In the email, include your <b>full name, class, school and phone number</b>. Do <b>not</b> put your name on the work itself.</li>
             <li>Send before the timer above hits zero — late entries are not accepted.</li>
         </ul>
-        <div class="rvl-center" style="margin-top:18px">
+        <div class="rvl-stack" style="margin-top:18px">
           <a class="rvl-btn" href="mailto:info@inspiretalenthub.in?subject=Monsoon%20Minds%20Story%20Writing%20submission">Open email to submit</a>
-          <button id="rvlDoneBtn" class="rvl-btn rvl-btn--ghost" type="button" style="margin-top:10px">I’ve emailed my submission</button>
-          <p class="rvl-done-msg" id="rvlDoneMsg" hidden>Thanks — we’ve recorded your submission time. Good luck! 🎉</p>
+          <button id="rvlDoneBtn" class="rvl-btn rvl-btn--ghost" type="button">I’ve emailed my submission</button>
+          <p class="rvl-done-msg" id="rvlDoneMsg" hidden>Thanks — your submission time has been recorded. Good luck! 🎉</p>
         </div>
       </div>
     </section>
 
     <!-- ============ CLOSED ============ -->
     <section id="stClosed" class="rvl-stage" hidden>
-      <p class="rvl-big-emoji">🔒</p>
+      <p class="rvl-emoji">🔒</p>
       <h1 class="rvl-h1 rvl-center">Window closed</h1>
       <p class="rvl-sub rvl-center" id="rvlClosedMsg" style="margin-inline:auto">This competition window has closed.</p>
       <div class="rvl-center" style="margin-top:22px"><a class="rvl-btn rvl-btn--ghost" href="/">Back to home</a></div>
@@ -152,7 +174,6 @@
     <p class="rvl-foot">Monsoon Minds Championship 2026 · Inspire Talent Hub &nbsp;·&nbsp; Trouble? Email <a href="mailto:info@inspiretalenthub.in">info@inspiretalenthub.in</a></p>
   </main>
 
-  <!-- hidden sink for FormSubmit so the page never navigates away -->
   <iframe name="rvlSink" title="submit sink" style="display:none" aria-hidden="true"></iframe>
   <form id="rvlDoneForm" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="rvlSink" style="display:none" aria-hidden="true">
     <input type="hidden" name="_subject" value="Monsoon Minds — Story Writing: participant SUBMITTED" />
@@ -160,9 +181,12 @@
     <input type="hidden" name="_template" value="table" />
     <input type="hidden" name="Competition" value="Story Writing" />
     <input type="hidden" name="Full name" value="" />
-    <input type="hidden" name="School" value="" />
     <input type="hidden" name="Class & section" value="" />
     <input type="hidden" name="Email" value="" />
+    <input type="hidden" name="Phone / WhatsApp" value="" />
+    <input type="hidden" name="School name" value="" />
+    <input type="hidden" name="School address" value="" />
+    <input type="hidden" name="City & state" value="" />
     <input type="hidden" name="Submitted at" value="" />
   </form>
 

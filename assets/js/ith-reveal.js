@@ -139,9 +139,12 @@
       var st = {
         startedAt: now(),
         name: val(startForm, 'Full name'),
-        school: val(startForm, 'School'),
+        email: val(startForm, 'Email'),
+        phone: val(startForm, 'Phone / WhatsApp'),
         cls: val(startForm, 'Class & section'),
-        email: val(startForm, 'Email')
+        school: val(startForm, 'School name'),
+        addr: val(startForm, 'School address'),
+        city: val(startForm, 'City & state')
       };
       save(st);
       var sa = $('rvlStartedAtField'); if (sa) sa.value = new Date(st.startedAt).toLocaleString('en-IN');
@@ -159,11 +162,11 @@
       var f = $('rvlDoneForm');
       if (f) {
         try {
-          f.elements['Full name'].value = st.name || '';
-          f.elements['School'].value = st.school || '';
-          f.elements['Class & section'].value = st.cls || '';
-          f.elements['Email'].value = st.email || '';
-          f.elements['Submitted at'].value = new Date(now()).toLocaleString('en-IN');
+          var set = function (k, v) { if (f.elements[k]) f.elements[k].value = v || ''; };
+          set('Full name', st.name); set('Email', st.email); set('Phone / WhatsApp', st.phone);
+          set('Class & section', st.cls); set('School name', st.school);
+          set('School address', st.addr); set('City & state', st.city);
+          set('Submitted at', new Date(now()).toLocaleString('en-IN'));
           f.submit();
         } catch (e) {}
       }
