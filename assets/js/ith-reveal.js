@@ -83,13 +83,41 @@
     for (var i = 0; i < 6; i++) { var v = a ? a[i] : Math.floor(Math.random() * 256); out += chars.charAt(v % chars.length); }
     return 'MM-' + (C.refPrefix || 'XX') + '-' + out;
   }
+  function buildBody(st) {
+    var L = [
+      'Reference number: ' + (st.ref || ''),
+      'Competition: ' + C.name,
+      'Full name: ' + (st.name || ''),
+      'Class & section: ' + (st.cls || ''),
+      'School: ' + (st.school || ''),
+      'School address: ' + (st.addr || ''),
+      'City & state: ' + (st.city || ''),
+      'Phone / WhatsApp: ' + (st.phone || ''),
+      'Email: ' + (st.email || ''),
+      ''
+    ];
+    if (C.submitMode === 'gdoc') {
+      L.push('Google Doc link (sharing: Anyone with the link → Viewer or Commenter):', '>> paste your Google Doc link here <<');
+    } else if (C.submitMode === 'code') {
+      L.push('Screen recording OR Colab link (with revision history):', '>> paste your link here, or attach your screen recording to this email <<');
+    } else {
+      L.push('>> attach your entry file to this email <<');
+    }
+    L.push('', '(My name does not appear on the work itself.)');
+    return L.join('\n');
+  }
   function fillRef(st) {
-    var r = (st && st.ref) || '';
+    st = st || {};
+    var r = st.ref || '';
     if ($('rvlRefLive')) $('rvlRefLive').textContent = r;
     if ($('rvlRefSubmit')) $('rvlRefSubmit').textContent = r;
+    var subj = 'Monsoon Minds — ' + C.name + ' submission — ' + r + (st.name ? ' — ' + st.name : '');
+    var body = buildBody(st);
+    var g = $('rvlGmail');
+    if (g) g.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(C.submitEmail) +
+      '&su=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
     var m = $('rvlMailto');
-    if (m) m.href = 'mailto:' + C.submitEmail + '?subject=' +
-      encodeURIComponent('Monsoon Minds — ' + C.name + ' submission — ' + r + (st && st.name ? ' — ' + st.name : ''));
+    if (m) m.href = 'mailto:' + C.submitEmail + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
   }
 
   /* ---------- countdown-to-open ---------- */
