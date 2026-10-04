@@ -56,7 +56,20 @@
   margin-top:22px;backdrop-filter:blur(8px);box-shadow:var(--rv-shadow)}
 .rvl-card--accent{border-color:rgba(255,194,75,.42);
   box-shadow:0 0 0 1px rgba(255,194,75,.1),0 40px 90px -55px rgba(255,194,75,.5)}
+.rvl-card--warn{border-color:rgba(255,93,108,.45);background:rgba(255,93,108,.07)}
 .rvl-card__label{font-family:var(--rv-display);text-transform:uppercase;letter-spacing:2px;font-size:.72rem;font-weight:700;color:var(--rv-gold);margin:0 0 14px}
+.rvl-card__label--warn{color:var(--rv-red)}
+
+/* participant + reference row */
+.rvl-idrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 6px}
+.rvl-who{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;color:var(--rv-dim);
+  background:var(--rv-glass);border:1px solid var(--rv-line-2);padding:7px 14px;border-radius:999px}
+.rvl-who b{color:#fff}
+.rvl-ref{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;letter-spacing:.4px;color:var(--rv-dim);
+  background:rgba(255,194,75,.12);border:1px solid rgba(255,194,75,.4);padding:7px 14px;border-radius:999px}
+.rvl-ref b{font-family:var(--rv-mono);color:var(--rv-gold);letter-spacing:1px}
+.rvl-refbig{margin:0 0 12px;font-size:1rem;color:var(--rv-dim)}
+.rvl-refbig b{font-family:var(--rv-mono);color:var(--rv-gold);font-size:1.15rem;letter-spacing:1.5px}
 
 /* ---------- meta chips ---------- */
 .rvl-meta{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0}
@@ -117,14 +130,17 @@
 .rvl-fine{color:var(--rv-faint);font-size:.84rem;margin:2px 0 0}
 
 /* ---------- live: topic + timer ---------- */
-.rvl-who{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;color:var(--rv-dim);margin:0 0 6px;
-  background:var(--rv-glass);border:1px solid var(--rv-line-2);padding:7px 14px;border-radius:999px}
-.rvl-who b{color:#fff}
 .rvl-topicwrap{text-align:center;background:
    radial-gradient(600px 240px at 50% -10%, rgba(255,194,75,.14), transparent 70%), var(--rv-glass)}
 .rvl-topic{font-family:var(--rv-display);font-weight:800;line-height:1.14;letter-spacing:-.01em;
   font-size:clamp(1.55rem,4.6vw,2.5rem);color:#fff;margin:12px auto 0;max-width:24ch}
 .rvl-blur{filter:blur(16px);user-select:none;opacity:.7}
+.rvl-topic--doc{font-family:var(--rv-body);font-weight:400;font-size:1rem;line-height:1.65;color:var(--rv-ink);text-align:left;max-width:none;margin-top:2px}
+.rvl-topic--doc h3{font-family:var(--rv-display);font-weight:700;color:var(--rv-gold);margin:16px 0 4px;font-size:1.05rem}
+.rvl-topic--doc p{margin:7px 0;color:var(--rv-dim)}
+.rvl-topic--doc b,.rvl-topic--doc strong{color:#fff}
+.rvl-topic--doc code{font-family:var(--rv-mono);background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;color:var(--rv-teal);font-size:.9em}
+.rvl-topic--doc .rvl-eg{color:var(--rv-faint);font-size:.9rem}
 .rvl-timer{font-family:var(--rv-mono);font-weight:700;font-size:clamp(3.2rem,16vw,6.4rem);line-height:1;color:#fff;text-align:center;letter-spacing:2px}
 .rvl-timer.rvl-warn{color:var(--rv-red);animation:rvBlink 1s steps(2,start) infinite}
 @keyframes rvBlink{50%{opacity:.55}}

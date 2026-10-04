@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Code Xplosion — Live | Monsoon Minds 2026 · Inspire Talent Hub</title>
-  <meta name="description" content="Official live page for the Code Xplosion competition — Monsoon Minds Championship 2026. Enter your details, reveal your topic and start your timed attempt." />
+  <meta name="description" content="Official live page for the Code Xplosion competition — Monsoon Minds Championship 2026." />
   <meta name="robots" content="noindex, nofollow" />
   <meta name="theme-color" content="#0d1026" />
   <link rel="icon" type="image/jpeg" href="logo.jpeg" />
@@ -58,10 +58,20 @@
         </div>
       </div>
 
+      <div class="rvl-card rvl-card--warn">
+        <p class="rvl-card__label rvl-card__label--warn">⚠️ Read this before you start</p>
+        <ul class="rvl-rules rvl-rules--warn">
+            <li>This is a <b>single attempt</b>. The moment you press Start, your <b>90-minute</b> timer begins.</li>
+            <li>You <b>cannot</b> pause it, restart it, or do it later — refreshing or closing the tab will <b>not</b> reset it.</li>
+            <li>When the 90 minutes end you get <b>20 extra minutes</b> to submit. After that the window closes for good.</li>
+            <li>You’ll be given a unique <b>reference number</b> on screen — keep it and quote it when you submit.</li>
+        </ul>
+      </div>
+
       <div class="rvl-card">
         <p class="rvl-card__label">Competition rules</p>
         <ul class="rvl-rules">
-            <li>You&#x27;ll receive a Python problem set when you start — check your email (and spam).</li>
+            <li>You&#x27;ll receive a Python problem set when you start.</li>
             <li>Standard library only — no internet and no AI.</li>
             <li>Send EITHER a screen recording (720p, 10 fps) OR a Colab notebook with its revision history.</li>
         </ul>
@@ -73,16 +83,6 @@
         </ul>
       </div>
 
-      <div class="rvl-card">
-        <p class="rvl-card__label">Before you begin</p>
-        <ul class="rvl-rules">
-            <li>Use a stable internet connection and keep this tab open.</li>
-            <li>The timer keeps running even if you refresh or close the tab — it never pauses or resets.</li>
-            <li>Keep your finished file ready to email the moment creating time ends.</li>
-            <li>Put your name &amp; school in the <b>email</b>, never on the work itself.</li>
-        </ul>
-      </div>
-
       <div class="rvl-card rvl-card--accent">
         <p class="rvl-card__label">Your details</p>
         <form id="rvlStartForm" class="rvl-form" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="rvlSink" autocomplete="on">
@@ -90,6 +90,7 @@
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="Competition" value="Code Xplosion" />
+          <input type="hidden" name="Reference number" id="rvlRefField" value="" />
           <input type="hidden" name="Started at" id="rvlStartedAtField" value="" />
           <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
           <div class="rvl-grid2">
@@ -103,16 +104,19 @@
           <div class="rvl-field"><label for="rvlSchool">School name <span class="req">*</span></label><input id="rvlSchool" name="School name" required placeholder="Full name of your school" /></div>
           <div class="rvl-field"><label for="rvlAddr">School address <span class="req">*</span></label><textarea id="rvlAddr" name="School address" required placeholder="Building / street, area, landmark"></textarea></div>
           <div class="rvl-field"><label for="rvlCity">City &amp; state</label><input id="rvlCity" name="City & state" placeholder="e.g. Secunderabad, Telangana" /></div>
-          <label class="rvl-check"><input type="checkbox" name="Integrity agreed" value="Yes, I agree" required /> I confirm the work will be entirely my own (no AI, no plagiarism), my name will not appear on the work, and I understand the timer cannot be paused once it starts.</label>
+          <label class="rvl-check"><input type="checkbox" name="Integrity agreed" value="Yes, I agree" required /> I confirm the work will be entirely my own (no AI, no plagiarism), my name will not appear on the work, and I understand this is a <b>single attempt</b> — the 90-minute timer starts immediately and cannot be paused, restarted or done later.</label>
           <button type="submit" class="rvl-btn rvl-btn--block">Start &amp; reveal my topic →</button>
-          <p class="rvl-fine">Pressing Start emails the organisers that you’ve begun and starts your 90-minute timer immediately.</p>
+          <p class="rvl-fine">Pressing Start emails the organisers that you’ve begun (with your reference number) and starts your 90-minute timer immediately.</p>
         </form>
       </div>
     </section>
 
     <!-- ============ LIVE ============ -->
     <section id="stLive" class="rvl-stage" hidden>
-      <p class="rvl-who" id="rvlWho"></p>
+      <div class="rvl-idrow">
+        <span class="rvl-who" id="rvlWho"></span>
+        <span class="rvl-ref">Ref&nbsp;<b id="rvlRefLive">—</b></span>
+      </div>
       <div class="rvl-card rvl-card--accent rvl-topicwrap">
         <p class="rvl-card__label">Your problem set</p>
         <p class="rvl-topic rvl-blur" id="rvlTopic">Your topic is hidden until you start.</p>
@@ -125,7 +129,7 @@
       <div class="rvl-card">
         <p class="rvl-card__label">Remember</p>
         <ul class="rvl-rules">
-            <li>You&#x27;ll receive a Python problem set when you start — check your email (and spam).</li>
+            <li>You&#x27;ll receive a Python problem set when you start.</li>
             <li>Standard library only — no internet and no AI.</li>
             <li>Send EITHER a screen recording (720p, 10 fps) OR a Colab notebook with its revision history.</li>
         </ul>
@@ -135,7 +139,7 @@
             <li>Late entries are not accepted.</li>
             <li>The judges&#x27; decision is final.</li>
         </ul>
-        <p class="rvl-note">When the timer ends you’ll get <b>20 minutes</b> to email your work to <span class="rvl-email">info@inspiretalenthub.in</span>. Put your name &amp; school in the <em>email</em>, never on the work itself.</p>
+        <p class="rvl-note">When the timer ends you’ll get <b>20 minutes</b> to email your work to <span class="rvl-email">info@inspiretalenthub.in</span> — with your reference number. Put your name &amp; school in the <em>email</em>, never on the work itself.</p>
       </div>
     </section>
 
@@ -149,14 +153,16 @@
       </div>
       <div class="rvl-card">
         <p class="rvl-card__label">How to submit</p>
+        <p class="rvl-refbig">Your reference number: <b id="rvlRefSubmit">—</b></p>
         <ul class="rvl-rules">
             <li>Email your final work to <span class="rvl-email">info@inspiretalenthub.in</span>.</li>
             <li>Format: Python · standard library only.</li>
-            <li>In the email, include your <b>full name, class, school and phone number</b>. Do <b>not</b> put your name on the work itself.</li>
+
+            <li>In the email, include your <b>reference number, full name, class, school and phone</b>. Do <b>not</b> put your name on the work itself.</li>
             <li>Send before the timer above hits zero — late entries are not accepted.</li>
         </ul>
         <div class="rvl-stack" style="margin-top:18px">
-          <a class="rvl-btn" href="mailto:info@inspiretalenthub.in?subject=Monsoon%20Minds%20Code%20Xplosion%20submission">Open email to submit</a>
+          <a class="rvl-btn" id="rvlMailto" href="mailto:info@inspiretalenthub.in">Open email to submit</a>
           <button id="rvlDoneBtn" class="rvl-btn rvl-btn--ghost" type="button">I’ve emailed my submission</button>
           <p class="rvl-done-msg" id="rvlDoneMsg" hidden>Thanks — your submission time has been recorded. Good luck! 🎉</p>
         </div>
@@ -180,6 +186,7 @@
     <input type="hidden" name="_captcha" value="false" />
     <input type="hidden" name="_template" value="table" />
     <input type="hidden" name="Competition" value="Code Xplosion" />
+    <input type="hidden" name="Reference number" value="" />
     <input type="hidden" name="Full name" value="" />
     <input type="hidden" name="Class & section" value="" />
     <input type="hidden" name="Email" value="" />
@@ -190,7 +197,7 @@
     <input type="hidden" name="Submitted at" value="" />
   </form>
 
-  <script>window.REVEAL_CONFIG = {"slug": "code-xplosion", "name": "Code Xplosion", "workMinutes": 90, "submitMinutes": 20, "availableFrom": "2026-10-04T00:00:00+05:30", "availableUntil": "2026-10-04T23:59:59+05:30", "submitEmail": "info@inspiretalenthub.in", "topicB64": "", "topicIsProblemSet": true, "problemSetUrl": ""};</script>
+  <script>window.REVEAL_CONFIG = {"slug": "code-xplosion", "name": "Code Xplosion", "refPrefix": "COD", "workMinutes": 90, "submitMinutes": 20, "availableFrom": "2026-10-04T00:00:00+05:30", "availableUntil": "2026-10-04T23:59:59+05:30", "submitEmail": "info@inspiretalenthub.in", "topicB64": "", "topicIsProblemSet": true, "problemSetUrl": "", "problemSetB64": "PHA+PHN0cm9uZz5QeXRob24gwrcgc3RhbmRhcmQgbGlicmFyeSBvbmx5IMK3IG5vIGludGVybmV0LCBubyBBSS48L3N0cm9uZz4gWW91IGhhdmUgOTAgbWludXRlcyB0byBjb2RlIGFuZCAyMCBtaW51dGVzIHRvIHN1Ym1pdC4gQXR0ZW1wdCBhbGwgdGhyZWUg4oCUIHBhcnRpYWwgY3JlZGl0IGlzIGdpdmVuLjwvcD48aDM+UTEg4oCUIFJhaW5mYWxsIHN1bW1hcnk8L2gzPjxwPlJlYWQgYW4gaW50ZWdlciA8Y29kZT5uPC9jb2RlPiwgdGhlbiA8Y29kZT5uPC9jb2RlPiBpbnRlZ2VycyAoZGFpbHkgcmFpbmZhbGwgaW4gbW0pLiBQcmludCBvbiBzZXBhcmF0ZSBsaW5lczogdGhlIDxiPnRvdGFsPC9iPiwgdGhlIDxiPmF2ZXJhZ2Ugcm91bmRlZCB0byAyIGRlY2ltYWxzPC9iPiwgYW5kIHRoZSA8Yj5udW1iZXIgb2YgZGF5cyBhYm92ZSB0aGUgYXZlcmFnZTwvYj4uPC9wPjxwIGNsYXNzPSdydmwtZWcnPkV4YW1wbGUg4oCUIGlucHV0OiA8Y29kZT41PC9jb2RlPiB0aGVuIDxjb2RlPjEwIDAgMjAgNSAxNTwvY29kZT4g4oaSIG91dHB1dDogPGNvZGU+NTA8L2NvZGU+LCA8Y29kZT4xMC4wMDwvY29kZT4sIDxjb2RlPjI8L2NvZGU+LjwvcD48aDM+UTIg4oCUIEZsb29kLXNhZmUgcGF0aDwvaDM+PHA+UmVhZCA8Y29kZT5SPC9jb2RlPiBhbmQgPGNvZGU+QzwvY29kZT4sIHRoZW4gYW4gPGNvZGU+UsOXQzwvY29kZT4gZ3JpZCBvZiA8Y29kZT4wPC9jb2RlPiAoZHJ5KSBhbmQgPGNvZGU+MTwvY29kZT4gKGZsb29kZWQpLiBTdGFydGluZyBhdCB0aGUgdG9wLWxlZnQgYW5kIG1vdmluZyBvbmx5IDxiPnJpZ2h0IG9yIGRvd248L2I+LCBwcmludCB0aGUgbnVtYmVyIG9mIGRpc3RpbmN0IHBhdGhzIHRvIHRoZSBib3R0b20tcmlnaHQgdGhhdCBuZXZlciBzdGVwIG9uIGEgZmxvb2RlZCBjZWxsIChwcmludCA8Y29kZT4wPC9jb2RlPiBpZiBub25lKS4gU3RhcnQgYW5kIGVuZCBjZWxscyBhcmUgYWx3YXlzIGRyeS48L3A+PHAgY2xhc3M9J3J2bC1lZyc+RXhhbXBsZSDigJQgYSAyw5cyIGdyaWQgPGNvZGU+MCAwIC8gMCAwPC9jb2RlPiDihpIgPGNvZGU+MjwvY29kZT4uPC9wPjxoMz5RMyDigJQgTW9uc29vbiB3b3JkIGNsb2NrPC9oMz48cD5SZWFkIG9uZSBsaW5lIG9mIHRleHQuIFByaW50OiB0aGUgPGI+dG90YWwgd29yZCBjb3VudDwvYj4sIHRoZSA8Yj5sb25nZXN0IHdvcmQ8L2I+ICh0aWVzIOKGkiB0aGUgZmlyc3QpLCBhbmQgdGhlIHRleHQgd2l0aCB0aGUgd29yZCBvcmRlciByZXZlcnNlZCA8Yj53aXRoaW4gZWFjaCBzZW50ZW5jZTwvYj4gKHNwbGl0IG9uIDxjb2RlPi48L2NvZGU+IDxjb2RlPiE8L2NvZGU+IDxjb2RlPj88L2NvZGU+LCBrZWVwaW5nIHRoZSBwdW5jdHVhdGlvbiBhdCB0aGUgZW5kIG9mIGVhY2ggc2VudGVuY2UpLiBZb3UgbWF5IHVzZSA8Y29kZT5yZTwvY29kZT4uPC9wPjxwIGNsYXNzPSdydmwtZWcnPkV4YW1wbGUg4oCUIDxjb2RlPlJhaW4gZmFsbHMuIFJpdmVycyByaXNlITwvY29kZT4g4oaSIDxjb2RlPkZhbGxzIHJhaW4uIFJpc2Ugcml2ZXJzITwvY29kZT48L3A+PHA+PHN0cm9uZz5TdWJtaXQgdG8gaW5mb0BpbnNwaXJldGFsZW50aHViLmluOjwvc3Ryb25nPiB5b3VyIHNvbHV0aW9uKHMpIDxiPnBsdXM8L2I+IEVJVEhFUiBhIHNjcmVlbiByZWNvcmRpbmcgKDcyMHAsIDEwIGZwcykgT1IgYSBDb2xhYiBub3RlYm9vayB3aXRoIGl0cyByZXZpc2lvbiBoaXN0b3J5LiBKdWRnaW5nOiBjb3JyZWN0bmVzcyBmaXJzdCwgdGhlbiBjbGVhbiwgcmVhZGFibGUgY29kZS48L3A+"};</script>
   <script src="assets/js/ith-reveal.js" defer></script>
 </body>
 </html>

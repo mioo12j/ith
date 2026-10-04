@@ -58,9 +58,15 @@
     var t = $('rvlTopic');
     if (t) {
       if (C.topicIsProblemSet) {
-        t.innerHTML = C.problemSetUrl
-          ? 'Your Python problem set is ready: <a href="' + C.problemSetUrl + '" target="_blank" rel="noopener">open the problem set</a>.'
-          : 'Your Python problem set has been sent to your email. Check your inbox (and spam) now — your timer is running.';
+        if (C.problemSetB64) {
+          try { t.innerHTML = decodeURIComponent(escape(atob(C.problemSetB64))); }
+          catch (e) { t.textContent = 'Your Python problem set has been emailed to you.'; }
+          t.classList.add('rvl-topic--doc');
+        } else if (C.problemSetUrl) {
+          t.innerHTML = 'Your Python problem set is ready: <a href="' + C.problemSetUrl + '" target="_blank" rel="noopener">open the problem set</a>.';
+        } else {
+          t.innerHTML = 'Your Python problem set has been emailed to you. Check your inbox (and spam) now — your timer is running.';
+        }
       } else {
         t.textContent = decodeTopic();
       }
@@ -70,6 +76,20 @@
   function fillParticipant(st) {
     var n = $('rvlWho');
     if (n && st) n.textContent = (st.name || '') + (st.school ? ' · ' + st.school : '');
+  }
+  function genRef() {
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', out = '', a = null;
+    try { if (window.crypto && crypto.getRandomValues) { a = new Uint8Array(6); crypto.getRandomValues(a); } } catch (e) { a = null; }
+    for (var i = 0; i < 6; i++) { var v = a ? a[i] : Math.floor(Math.random() * 256); out += chars.charAt(v % chars.length); }
+    return 'MM-' + (C.refPrefix || 'XX') + '-' + out;
+  }
+  function fillRef(st) {
+    var r = (st && st.ref) || '';
+    if ($('rvlRefLive')) $('rvlRefLive').textContent = r;
+    if ($('rvlRefSubmit')) $('rvlRefSubmit').textContent = r;
+    var m = $('rvlMailto');
+    if (m) m.href = 'mailto:' + C.submitEmail + '?subject=' +
+      encodeURIComponent('Monsoon Minds — ' + C.name + ' submission — ' + r + (st && st.name ? ' — ' + st.name : ''));
   }
 
   /* ---------- countdown-to-open ---------- */
@@ -124,7 +144,7 @@
   /* ---------- main state decision ---------- */
   function render() {
     var st = load(), tnow = now();
-    if (st && st.startedAt) { revealTopic(); fillParticipant(st); runLoop(); return; }
+    if (st && st.startedAt) { revealTopic(); fillParticipant(st); fillRef(st); runLoop(); return; }
     if (tnow < availFrom) { show('stPre'); runPre(); return; }
     if (tnow > availUntil) { setClosed('The start window for ' + C.name + ' has closed.'); show('stClosed'); return; }
     show('stStart');
@@ -136,8 +156,10 @@
   if (startForm) {
     startForm.addEventListener('submit', function () {
       /* native validation has already passed, or this event would not fire */
+      var prev = load();
       var st = {
         startedAt: now(),
+        ref: (prev && prev.ref) || genRef(),
         name: val(startForm, 'Full name'),
         email: val(startForm, 'Email'),
         phone: val(startForm, 'Phone / WhatsApp'),
@@ -147,10 +169,11 @@
         city: val(startForm, 'City & state')
       };
       save(st);
+      var rf = $('rvlRefField'); if (rf) rf.value = st.ref;
       var sa = $('rvlStartedAtField'); if (sa) sa.value = new Date(st.startedAt).toLocaleString('en-IN');
       /* do NOT preventDefault: the form posts into the hidden iframe (emails
-         the organiser). We reveal immediately afterwards. */
-      setTimeout(function () { revealTopic(); fillParticipant(st); show('stLive'); runLoop(); }, 30);
+         the organiser with the reference number). We reveal immediately after. */
+      setTimeout(function () { revealTopic(); fillParticipant(st); fillRef(st); show('stLive'); runLoop(); }, 30);
     });
   }
 
@@ -163,6 +186,7 @@
       if (f) {
         try {
           var set = function (k, v) { if (f.elements[k]) f.elements[k].value = v || ''; };
+          set('Reference number', st.ref);
           set('Full name', st.name); set('Email', st.email); set('Phone / WhatsApp', st.phone);
           set('Class & section', st.cls); set('School name', st.school);
           set('School address', st.addr); set('City & state', st.city);
