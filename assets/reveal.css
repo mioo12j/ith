@@ -161,6 +161,38 @@
 .rvl-foot{margin-top:44px;padding-top:20px;border-top:1px solid var(--rv-line-2);color:var(--rv-faint);font-size:.82rem;text-align:center}
 .rvl-foot a{color:var(--rv-dim)}
 
+/* ---------- live quiz ---------- */
+.qz-top{position:sticky;top:60px;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  background:rgba(13,16,38,.82);backdrop-filter:blur(10px);border:1px solid var(--rv-line);border-radius:14px;padding:10px 16px;margin-bottom:14px}
+.qz-timer{font-family:var(--rv-mono);font-weight:700;font-size:1.7rem;color:#fff;letter-spacing:1px}
+.qz-timer.qz-warn{color:var(--rv-red);animation:rvBlink 1s steps(2,start) infinite}
+.qz-count{font-size:.82rem;color:var(--rv-dim);font-family:var(--rv-display);font-weight:600}
+.qz-bartrack{height:7px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin:0 0 16px}
+.qz-bartrack>div{height:100%;width:0;background:linear-gradient(90deg,var(--rv-teal),var(--rv-sky));transition:width .3s}
+.qz-qtext{font-family:var(--rv-display);font-weight:600;font-size:clamp(1.15rem,3vw,1.5rem);color:#fff;line-height:1.35;margin:0 0 18px}
+.qz-opts{display:grid;gap:10px}
+.qz-opt{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:1rem;color:var(--rv-ink);
+  background:rgba(255,255,255,.04);border:1.5px solid var(--rv-line);border-radius:13px;padding:14px 16px;transition:border-color .18s,background .18s,transform .1s}
+.qz-opt:hover{border-color:rgba(255,194,75,.5);background:rgba(255,255,255,.06)}
+.qz-opt.is-sel{border-color:var(--rv-gold);background:rgba(255,194,75,.14)}
+.qz-opt__k{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:7px;font-family:var(--rv-display);font-weight:700;font-size:.85rem;
+  background:rgba(255,255,255,.08);color:var(--rv-gold);border:1px solid var(--rv-line)}
+.qz-opt.is-sel .qz-opt__k{background:var(--rv-gold);color:#15100a}
+.qz-text{width:100%;min-height:120px;padding:13px 15px;border-radius:12px;border:1px solid var(--rv-line);background:rgba(255,255,255,.055);color:#fff;font-family:inherit;font-size:1rem;resize:vertical}
+.qz-text:focus{outline:none;border-color:var(--rv-gold);box-shadow:var(--rv-ring)}
+.qz-nav{display:flex;gap:12px;margin-top:18px}
+.qz-nav .rvl-btn{flex:1}
+.qz-sample{display:inline-flex;align-items:center;gap:7px;background:rgba(255,93,108,.12);border:1px solid rgba(255,93,108,.4);
+  color:#ffd0d4;font-size:.8rem;font-weight:600;padding:8px 14px;border-radius:999px;margin:14px 0 0}
+.qz-levels{display:flex;gap:10px;flex-wrap:wrap}
+.qz-level{flex:1;min-width:160px;cursor:pointer}
+.qz-level input{position:absolute;opacity:0}
+.qz-level__box{display:block;border:1.5px solid var(--rv-line);border-radius:13px;padding:14px 16px;background:rgba(255,255,255,.04);transition:border-color .18s,background .18s}
+.qz-level input:checked + .qz-level__box{border-color:var(--rv-gold);background:rgba(255,194,75,.14)}
+.qz-level__box b{display:block;color:#fff;font-family:var(--rv-display)}
+.qz-level__box span{font-size:.85rem;color:var(--rv-dim)}
+.qz-score{font-family:var(--rv-mono);font-weight:700;font-size:3rem;color:var(--rv-gold)}
+
 /* ---------- hub ---------- */
 .rvl-hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:26px}
 .rvl-hubcard{display:flex;flex-direction:column;gap:8px;background:var(--rv-glass);border:1px solid var(--rv-line);
