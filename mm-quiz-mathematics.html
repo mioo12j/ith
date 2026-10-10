@@ -1,170 +1,234 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Mathematics Quiz — Live | Monsoon Minds 2026 · Inspire Talent Hub</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#0d1026" />
-  <link rel="icon" type="image/jpeg" href="logo.jpeg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/reveal.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Mathematics Quiz — Live | Monsoon Minds 2026 · Inspire Talent Hub</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0d1117" />
+<link rel="icon" type="image/jpeg" href="logo.jpeg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/exam.css" />
 </head>
-<body class="rvl-body">
-  <header class="rvl-bar">
-    <a class="rvl-bar__brand" href="/"><span class="rvl-bar__mark">IT</span>Inspire Talent Hub</a>
-    <span class="rvl-bar__tag">Monsoon Minds 2026 · Live Quiz</span>
-  </header>
+<body>
+<header class="site-header">
+  <div class="site-header-logo">
+    <div class="logo-icon">📐</div>
+    <div class="logo-text">
+      <span class="logo-name">Inspire Talent Hub</span>
+      <span class="logo-tagline">Monsoon Minds 2026 · Live Quiz</span>
+    </div>
+  </div>
+  <div class="header-badge"><div class="header-dot"></div> Live</div>
+</header>
 
-  <main class="rvl-wrap">
+<!-- gentle integrity flash -->
+<div id="ui-security-overlay" class="overlay-screen" role="alertdialog" aria-modal="true">
+  <div class="overlay-icon-wrap">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  </div>
+  <h1>Noted</h1>
+  <p id="sec-desc" class="overlay-msg">An action was logged. Your quiz is not interrupted — keep going calmly.</p>
+  <div class="overlay-reassure"><strong>Don't panic.</strong> Accidental actions (a stray right-click, switching away for a moment) are only noted for the organisers. Just carry on.</div>
+</div>
 
-    <!-- PRE -->
-    <section id="stPre" class="rvl-stage" hidden>
-      <p class="rvl-kicker">➕ Mathematics Quiz</p>
-      <h1 class="rvl-h1">This quiz opens<br><span class="em">Sunday, 11 October 2026</span></h1>
-      <p class="rvl-sub">You can begin any time during the day. The quiz is a single 30-minute attempt — your timer starts when you press Start.</p>
-      <div class="rvl-card rvl-card--accent rvl-center">
-        <p class="rvl-card__label">Opens in</p>
-        <div class="rvl-cd" role="timer">
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzD">00</span><span class="rvl-cd__l">Days</span></div>
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzH">00</span><span class="rvl-cd__l">Hours</span></div>
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzM">00</span><span class="rvl-cd__l">Min</span></div>
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzS">00</span><span class="rvl-cd__l">Sec</span></div>
+<!-- full-screen resume (desktop only) -->
+<div id="ui-fullscreen-overlay" class="overlay-screen" style="z-index:9998;">
+  <div class="overlay-icon-wrap"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#e6a817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></div>
+  <h1>Full-screen paused</h1>
+  <p class="overlay-msg">You left full-screen. Your timer keeps running. Tap below to go back to full-screen.</p>
+  <button id="btn-return-fullscreen" class="btn btn-launch" style="max-width:340px;">↩ Return to full-screen</button>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- ============ REGISTRATION ============ -->
+  <section id="view-registration" class="view-section is-active">
+    <div class="card" style="margin-bottom:24px;">
+      <div class="hero-header">
+        <div class="hero-emblem">📐</div>
+        <h1 class="hero-title">Mathematics Quiz</h1>
+        <p class="hero-subtitle">Monsoon Minds Championship 2026 · Live quiz · Sunday, 11 October 2026</p>
+        <div class="hero-stats">
+          <span class="stat-chip"><span class="stat-chip-icon">⏱</span> 30 Minutes</span>
+          <span class="stat-chip"><span class="stat-chip-icon">❓</span> 20 Questions</span>
+          <span class="stat-chip"><span class="stat-chip-icon">🔴</span> Recorded</span>
+          <span class="stat-chip"><span class="stat-chip-icon">🏆</span> +4 / -1</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- START -->
-    <section id="stStart" class="rvl-stage" hidden>
-      <p class="rvl-kicker">➕ Mathematics Quiz · Monsoon Minds 2026</p>
-      <h1 class="rvl-h1">Mathematics Quiz <span class="em">Live</span></h1>
-      <p class="rvl-sub">Enter your details, pick your level, run a quick check, then press Start. Your 30-minute timer begins immediately.</p>
-      <p class="qz-sample">⚠️ SAMPLE questions — for testing only. Replace with the official question set before going live.</p>
+    
+    <div id="exam-gate" class="rec-missing" style="display:none"></div>
 
-      <div class="rvl-card rvl-card--warn">
-        <p class="rvl-card__label rvl-card__label--warn">⚠️ Before you start</p>
-        <ul class="rvl-rules rvl-rules--warn">
-            <li>This is a <b>single 30-minute attempt</b> — it cannot be paused, restarted or done later.</li>
-            <li>Refreshing or closing the tab will <b>not</b> reset it; the clock keeps running.</li>
-            <li>When 30 minutes are up, your answers are <b>submitted automatically</b>.</li>
+    <div class="card">
+      <div class="card-header"><div class="section-heading"><div class="section-heading-icon blue">ℹ️</div><div class="section-heading-text"><h3>How this quiz works</h3><p>Please read before you start</p></div></div></div>
+      <div class="card-body">
+        <div class="step-guide">
+          <div class="step-item"><div class="step-num">1</div><div class="step-content"><div class="step-title">Enter your details & pick your level</div><p class="step-desc">Fill your name, team name, class, school and contact, then choose Junior or Senior — your questions depend on it.</p></div></div>
+          <div class="step-item"><div class="step-num">2</div><div class="step-content"><div class="step-title">Allow camera & microphone</div><p class="step-desc">When you press Start, your browser asks for camera and microphone. On a computer it may also ask to share your screen. These are recorded for integrity.</p></div></div>
+          <div class="step-item"><div class="step-num">3</div><div class="step-content"><div class="step-title">Answer within 30 minutes</div><p class="step-desc">One attempt only. A visible timer runs the whole time and cannot be paused. Use the number grid, Previous/Next and Flag. When the timer ends your answers submit automatically.</p></div></div>
+          <div class="step-item"><div class="step-num">4</div><div class="step-content"><div class="step-title">Review, then submit</div><p class="step-desc">On the last question press "Review & Submit" to see flagged / unanswered questions, then confirm. A recording file downloads to your device.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="section-heading"><div class="section-heading-icon red">🚦</div><div class="section-heading-text"><h3>Rules</h3><p>Violations are logged automatically and sent to the organisers</p></div></div></div>
+      <div class="card-body">
+        <ul class="eula-list" style="margin:0 0 4px 0; padding-left:18px; color:var(--ink-600); font-size:0.88rem; line-height:1.9;">
+          <li>Single <b>30-minute</b> attempt — it cannot be paused, restarted or done later. Refreshing does <b>not</b> reset it.</li>
+          <li>No notes, no search engines, no outside help and <b>no second device</b> (a second device is grounds for disqualification).</li>
+          <li>Copy, paste, right-click and developer tools are disabled. Leaving the tab/window is logged.</li>
+          <li>Marking: <b>+4</b> for a correct answer, <b>-1</b> for a wrong answer, <b>0</b> for blank. It can be safer to leave a question blank than to guess wildly.</li>
+          <li>Rough paper and a pen are allowed; no calculator.</li>
+          <li>Each question has exactly one correct option.</li>
         </ul>
       </div>
+    </div>
 
-      <div class="rvl-card">
-        <p class="rvl-card__label">Rules</p>
-        <ul class="rvl-rules">
-            <li>No calculator — but rough paper and a pen are allowed.</li>
-            <li>Working isn&#x27;t submitted unless a question asks for it.</li>
-            <li>Ties go to the team with the fastest correct answer.</li>
-        </ul>
-        <ul class="rvl-rules rvl-rules--warn" style="margin-top:14px">
-            <li>30 minutes total, with a visible timer on every question.</li>
-            <li>One attempt only — you cannot restart, pause or do it later.</li>
-            <li>No notes, no search engines, no outside help, no second device (a second device means disqualification).</li>
-            <li>If you disconnect, that&#x27;s your responsibility — the quiz will not pause.</li>
-            <li>No file submission. Results are published only on the website; the quizmaster&#x27;s decision is final.</li>
-        </ul>
+    <div class="card">
+      <div class="card-header"><div class="section-heading"><div class="section-heading-icon gold">🎥</div><div class="section-heading-text"><h3>Your session is recorded</h3><p>Please read this carefully</p></div></div></div>
+      <div class="card-body">
+        <div class="notice notice-gold" style="margin-bottom:0;">
+          <div class="notice-icon">⚠️</div>
+          <div class="notice-body">
+            <div class="notice-title">The recording is required — keep it safe</div>
+            <p class="notice-text">A watermarked video of your session (camera, and your screen on a computer) is recorded and <strong>downloads to your own device</strong> at the end as an <code>INSPIRE_AUDIT_…webm</code> file. It carries your name, reference number and a moving timestamp, so it cannot be quietly altered. <strong>Please keep this file for at least 7 days.</strong> If your result is ever questioned and the recording is not available, that is <strong>grounds for disqualification</strong>. By starting, you accept that you will be recorded.</p>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="rvl-card rvl-card--accent">
-        <p class="rvl-card__label">Your details</p>
-        <form id="qzStartForm" class="rvl-form" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="qzSink" autocomplete="on">
-          <input type="hidden" name="_subject" value="Monsoon Minds — Mathematics Quiz: participant STARTED" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="Competition" value="Mathematics Quiz" />
-          <input type="hidden" name="Reference number" id="qzRefField" value="" />
-          <input type="hidden" name="Grade level" id="qzLevelField" value="" />
-          <input type="hidden" name="Started at" id="qzStartedAtField" value="" />
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
-          <div class="rvl-grid2">
-            <div class="rvl-field"><label for="qzName">Full name <span class="req">*</span></label><input id="qzName" name="Full name" required /></div>
-            <div class="rvl-field"><label for="qzClass">Class &amp; section <span class="req">*</span></label><input id="qzClass" name="Class & section" required placeholder="e.g. 7-B" /></div>
+    <div class="card">
+      <div class="card-header"><div class="section-heading" style="margin-bottom:0;"><div class="section-heading-icon gold">📝</div><div class="section-heading-text"><h3>Registration</h3><p>Enter your details exactly as on your school records</p></div></div></div>
+      <div class="card-body">
+        <form id="form-registration" novalidate>
+          <div class="form-grid" style="margin-bottom:16px;">
+            <div class="form-group"><label class="form-label" for="reg-fname">First name <span class="required-star">*</span></label><input type="text" id="reg-fname" class="form-input" required autocomplete="off"></div>
+            <div class="form-group"><label class="form-label" for="reg-lname">Last name <span class="required-star">*</span></label><input type="text" id="reg-lname" class="form-input" required autocomplete="off"></div>
           </div>
-          <div class="rvl-grid2">
-            <div class="rvl-field"><label for="qzEmail">Email address <span class="req">*</span></label><input id="qzEmail" type="email" name="Email" required /></div>
-            <div class="rvl-field"><label for="qzPhone">Phone / WhatsApp <span class="req">*</span></label><input id="qzPhone" type="tel" name="Phone / WhatsApp" required /></div>
+          <div class="form-grid" style="margin-bottom:16px;">
+            <div class="form-group"><label class="form-label" for="reg-email">Email address <span class="required-star">*</span></label><input type="email" id="reg-email" class="form-input" required autocomplete="off"><span class="form-hint">Results are sent here.</span></div>
+            <div class="form-group"><label class="form-label" for="reg-phone">Phone / WhatsApp <span class="required-star">*</span></label><input type="tel" id="reg-phone" class="form-input" required autocomplete="off"></div>
           </div>
-          <div class="rvl-field"><label for="qzSchool">School name <span class="req">*</span></label><input id="qzSchool" name="School name" required /></div>
-          <div class="rvl-field"><label for="qzAddr">School address <span class="req">*</span></label><textarea id="qzAddr" name="School address" required></textarea></div>
-          <div class="rvl-field"><label for="qzCity">City &amp; state</label><input id="qzCity" name="City & state" /></div>
-          <div class="rvl-field"><label>Your level <span class="req">*</span></label>
-            <div class="qz-levels">
-              <label class="qz-level"><input type="radio" name="Level" value="junior" required checked><span class="qz-level__box"><b>Junior</b><span>Grades 6–8</span></span></label>
-              <label class="qz-level"><input type="radio" name="Level" value="senior" required><span class="qz-level__box"><b>Senior</b><span>Grades 9–12</span></span></label>
-            </div>
+          <div class="form-grid" style="margin-bottom:16px;">
+            <div class="form-group"><label class="form-label" for="reg-class">Class / grade <span class="required-star">*</span></label><input type="text" id="reg-class" class="form-input" placeholder="e.g. Class 7-B" required autocomplete="off"></div>
+            <div class="form-group"><label class="form-label" for="reg-team">Team name <span class="form-hint" style="font-weight:500">(optional)</span></label><input type="text" id="reg-team" class="form-input" placeholder="So teammates can be grouped" autocomplete="off"></div>
           </div>
-          <label class="rvl-check"><input type="checkbox" required /> System check: my internet is stable, my screen/audio work, and I have no notes, extra tabs or a second device open.</label>
-          <label class="rvl-check"><input type="checkbox" name="Integrity agreed" value="Yes, I agree" required /> I confirm I will answer on my own with no outside help, and I understand this is a single 30-minute attempt that cannot be paused or restarted.</label>
-          <button type="submit" class="rvl-btn rvl-btn--block">Start the quiz →</button>
-          <p class="rvl-fine">Pressing Start emails the organisers that you’ve begun (with your reference number) and starts your 30-minute timer.</p>
+          <div class="form-group" style="margin-bottom:16px;"><label class="form-label" for="reg-school">School / institution <span class="required-star">*</span></label><input type="text" id="reg-school" class="form-input" required autocomplete="off"></div>
+
+          <hr class="form-divider">
+          <div class="section-heading"><div class="section-heading-icon gold">🎚️</div><div class="section-heading-text"><h3>Your level <span class="required-star">*</span></h3><p>Choose the band that matches your grade — this picks your questions</p></div></div>
+          <div class="level-grid" role="radiogroup" aria-label="Select level">
+            <div class="level-option"><input type="radio" id="lvl-junior" name="level-vis" value="junior" required><label class="level-label" for="lvl-junior"><span class="level-label-name">Junior</span><span class="level-label-meta">Grades 6–8</span></label></div>
+            <div class="level-option"><input type="radio" id="lvl-senior" name="level-vis" value="senior"><label class="level-label" for="lvl-senior"><span class="level-label-name">Senior</span><span class="level-label-meta">Grades 9–12</span></label></div>
+          </div>
+
+          <hr class="form-divider">
+          <label class="consent-row" for="consent-check">
+            <input type="checkbox" id="consent-check" class="consent-checkbox" required>
+            <p class="consent-text">I confirm my details are accurate, I will answer on my own with no outside help, and I understand this is a single 30-minute recorded attempt that cannot be paused or restarted. I agree to keep my recording file for at least 7 days.</p>
+          </label>
+          <div class="notice notice-gold" style="margin-bottom:20px;"><div class="notice-icon">⚠️</div><div class="notice-body"><div class="notice-title">Your browser will ask for camera & microphone</div><p class="notice-text">Tap <strong>Allow</strong>. On a computer you may also be asked to share your screen — choose your entire screen. If you accidentally block it, use the on-page prompt to retry.</p></div></div>
+          <button type="submit" id="btn-init-quiz" class="btn btn-launch">🚀 Acknowledge &amp; Start Quiz</button>
+          <p style="text-align:center;font-size:0.75rem;color:var(--ink-400);margin-top:10px;">Pressing Start requests camera/microphone (and screen share on a computer) and begins your 30-minute timer.</p>
         </form>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- QUIZ -->
-    <section id="stQuiz" class="rvl-stage" hidden>
-      <div class="qz-top">
-        <span class="rvl-ref">Ref&nbsp;<b id="qzRef">—</b></span>
-        <div class="qz-timer" id="qzTimer">30:00</div>
-        <span class="qz-count" id="qzCount">Q 1 / 1</span>
+  <!-- ============ QUIZ ============ -->
+  <section id="view-quiz" class="view-section">
+    <div class="card">
+      <div class="card-header">
+        <div class="quiz-topbar">
+          <div class="q-progress"><span class="q-progress-label">Question</span><div class="q-progress-nums"><span id="ui-q-idx">1</span><span class="of">/ <span id="ui-q-total">20</span></span></div></div>
+          <div class="timer-widget" id="ui-timer-container"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="timer-num" id="ui-timer-text">30:00</span></div>
+        </div>
       </div>
-      <div class="qz-bartrack"><div id="qzBar"></div></div>
-      <div class="rvl-card">
-        <p class="qz-qtext" id="qzQ"></p>
-        <div class="qz-opts" id="qzOpts"></div>
+      <div class="card-body">
+        <div id="ui-question-palette" class="palette-scroll" aria-label="Question navigator"></div>
+        <h2 class="question-text" id="ui-question-text">Loading…</h2>
+        <div class="options-list" id="ui-options-root" role="radiogroup"></div>
       </div>
-      <div class="qz-nav">
-        <button id="qzPrev" class="rvl-btn rvl-btn--ghost" type="button">← Previous</button>
-        <button id="qzNext" class="rvl-btn" type="button">Next →</button>
-        <button id="qzSubmit" class="rvl-btn" type="button" hidden>Submit quiz ✓</button>
+      <div class="card-footer">
+        <button type="button" id="btn-quiz-prev" class="btn btn-outline" disabled>← Previous</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+          <button type="button" id="btn-flag-question" class="btn btn-flag">⚐ Flag</button>
+          <button type="button" id="btn-quiz-next" class="btn btn-primary">Next →</button>
+          <button type="button" id="btn-quiz-submit" class="btn btn-danger" style="display:none;">Review &amp; Submit</button>
+        </div>
       </div>
-      <p class="rvl-fine">The 30-minute timer covers the whole quiz and keeps running. When it ends, your answers submit automatically.</p>
-    </section>
+    </div>
+  </section>
 
-    <!-- RESULT -->
-    <section id="stResult" class="rvl-stage" hidden>
-      <p class="rvl-emoji">✅</p>
-      <h1 class="rvl-h1 rvl-center">Quiz <span class="em">submitted!</span></h1>
-      <div class="rvl-card rvl-center">
-        <p class="rvl-refbig">Reference number: <b id="qzRefDone">—</b></p>
-        <p class="rvl-sub" id="qzResultNote" style="margin-inline:auto">Your responses have been recorded and sent to the organisers. Final results will be published on the website.</p>
+  <!-- ============ REVIEW ============ -->
+  <section id="view-review" class="view-section">
+    <div class="card">
+      <div class="card-header" style="text-align:center;"><h2 style="font-size:1.4rem;margin-bottom:6px;">Review your answers</h2><p style="margin:0;font-size:0.9rem;color:var(--ink-500);">Once submitted, you cannot return to the quiz.</p></div>
+      <div class="card-body">
+        <div class="review-summary-grid">
+          <div class="review-summary-card flagged"><div class="count" id="review-flagged-count">0</div><div class="label">⚑ Flagged</div><p class="detail" id="review-flagged-list">No questions flagged.</p></div>
+          <div class="review-summary-card unanswered"><div class="count" id="review-unanswered-count">0</div><div class="label">⬜ Unanswered</div><p class="detail" id="review-unanswered-list">All questions answered.</p></div>
+        </div>
+        <div class="notice notice-gold" style="margin-top:16px;"><div class="notice-icon">💡</div><div class="notice-body"><div class="notice-title">Blank answers score 0 — no penalty</div><p class="notice-text">A wrong answer costs 1. If unsure, consider leaving it blank.</p></div></div>
       </div>
-      <div class="rvl-center" style="margin-top:22px"><a class="rvl-btn rvl-btn--ghost" href="/">Back to home</a></div>
-    </section>
+      <div class="card-footer">
+        <button type="button" id="btn-review-back" class="btn btn-outline">← Back to quiz</button>
+        <button type="button" id="btn-review-confirm" class="btn btn-danger" style="padding:12px 24px;">Confirm &amp; Submit</button>
+      </div>
+    </div>
+  </section>
 
-    <!-- CLOSED -->
-    <section id="stClosed" class="rvl-stage" hidden>
-      <p class="rvl-emoji">🔒</p>
-      <h1 class="rvl-h1 rvl-center">Window closed</h1>
-      <p class="rvl-sub rvl-center" id="qzClosedMsg" style="margin-inline:auto">This quiz window has closed.</p>
-      <div class="rvl-center" style="margin-top:22px"><a class="rvl-btn rvl-btn--ghost" href="/">Back to home</a></div>
-    </section>
+  <!-- ============ COMPLETION ============ -->
+  <section id="view-completion" class="view-section">
+    <div class="card">
+      <div class="completion-hero"><div class="completion-check">✓</div><h1 class="completion-title">Quiz submitted!</h1><p class="completion-subtitle">Your responses have been recorded and sent to the organisers. Results will be published on the website — your score is not shown here.</p></div>
+      <div class="card-body" style="padding-top:0;">
+        <div class="receipt-box">
+          <div class="receipt-title">Submission receipt</div>
+          <div class="receipt-row"><span class="receipt-key">Status</span><span class="receipt-val ok">RECORDED</span></div>
+          <div class="receipt-row"><span class="receipt-key">Reference</span><span class="receipt-val gold" id="ui-trace-id">—</span></div>
+          <div class="receipt-row"><span class="receipt-key">Submitted</span><span class="receipt-val" id="ui-trace-time" style="color:var(--ink-300);">—</span></div>
+        </div>
+        <p id="completion-auto-note" class="notice notice-blue" style="display:none;"><span class="notice-icon">⏱</span><span class="notice-body"><span class="notice-text">Time was up — your answers were submitted automatically.</span></span></p>
+        <div id="completion-rec-missing" class="rec-missing" style="display:none;">⚠️ No recording was captured for this attempt. Please note: if your result is questioned and no recording is available, this is grounds for disqualification.</div>
+        <div id="completion-video-block" class="video-download-alert">
+          <div class="video-download-alert-title">🎥 Your recording is downloading now</div>
+          <p class="video-download-alert-body">An <code>INSPIRE_AUDIT_…webm</code> file is downloading to your device. <strong>Keep it for at least 7 days.</strong> If the download didn't start, check your browser's Downloads and allow it.</p>
+        </div>
+        <div class="notice notice-blue" style="margin-bottom:0;"><div class="notice-icon">📬</div><div class="notice-body"><div class="notice-title">What happens next?</div><p class="notice-text">Results are reviewed and published on the website. Keep your reference number. You may now close this tab.</p></div></div>
+      </div>
+    </div>
+  </section>
 
-    <p class="rvl-foot">Monsoon Minds Championship 2026 · Inspire Talent Hub &nbsp;·&nbsp; Trouble? Email <a href="mailto:info@inspiretalenthub.in">info@inspiretalenthub.in</a></p>
-  </main>
+  <p style="text-align:center;font-size:0.8rem;color:var(--ink-400);margin-top:8px;">Monsoon Minds Championship 2026 · Inspire Talent Hub · Trouble? Email <a href="mailto:info@inspiretalenthub.in">info@inspiretalenthub.in</a></p>
+</div>
 
-  <iframe name="qzSink" title="submit sink" style="display:none" aria-hidden="true"></iframe>
-  <form id="qzResultForm" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="qzSink" style="display:none" aria-hidden="true">
-    <input type="hidden" name="_subject" value="Monsoon Minds — Mathematics Quiz: RESULT (auto-scored)" />
-    <input type="hidden" name="_captcha" value="false" />
-    <input type="hidden" name="_template" value="table" />
-    <input type="hidden" name="Competition" value="Mathematics Quiz" />
-    <input type="hidden" name="Reference number" value="" />
-    <input type="hidden" name="Full name" value="" />
-    <input type="hidden" name="Email" value="" />
-    <input type="hidden" name="Phone / WhatsApp" value="" />
-    <input type="hidden" name="Class & section" value="" />
-    <input type="hidden" name="School name" value="" />
-    <input type="hidden" name="Level" value="" />
-    <input type="hidden" name="Auto score (MCQ)" value="" />
-    <input type="hidden" name="Answers" value="" />
-    <input type="hidden" name="Submitted at" value="" />
-  </form>
+<iframe name="exam-sink" title="submit sink" style="display:none" aria-hidden="true"></iframe>
+<form id="exam-result-form" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="exam-sink" style="display:none" aria-hidden="true">
+  <input type="hidden" name="_subject" value="Monsoon Minds — Mathematics Quiz: RESULT" />
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="text" name="_honey" style="display:none" />
+  <input type="hidden" name="Competition" value="Mathematics Quiz" />
+  <input type="hidden" name="Reference" value="" />
+  <input type="hidden" name="Name" value="" />
+  <input type="hidden" name="Team name" value="" />
+  <input type="hidden" name="Level" value="" />
+  <input type="hidden" name="Class" value="" />
+  <input type="hidden" name="School" value="" />
+  <input type="hidden" name="Phone" value="" />
+  <input type="hidden" name="Email" value="" />
+  <input type="hidden" name="Score" value="" />
+  <input type="hidden" name="Integrity" value="" />
+  <input type="hidden" name="Submitted" value="" />
+</form>
 
-  <script>window.QUIZ_CONFIG = {"slug": "mathematics", "name": "Mathematics Quiz", "refPrefix": "QMA", "durationMinutes": 30, "availableFrom": "2026-10-11T00:00:00+05:30", "availableUntil": "2026-10-11T23:59:59+05:30", "submitEmail": "info@inspiretalenthub.in", "levels": [{"id": "junior", "label": "Grades 6–8", "questions": [{"q": "What is 15% of 200?", "options": ["20", "30", "40", "15"]}, {"q": "What comes next: 2, 4, 8, 16, …?", "options": ["24", "30", "32", "20"]}, {"q": "The perimeter of a square of side 7 cm is:", "options": ["14 cm", "21 cm", "28 cm", "49 cm"]}, {"q": "3/4 written as a decimal is:", "options": ["0.34", "0.75", "0.43", "0.70"]}, {"q": "The angles of a triangle add up to:", "options": ["90°", "180°", "360°", "270°"]}]}, {"id": "senior", "label": "Grades 9–12", "questions": [{"q": "Solve: 2x + 6 = 0", "options": ["3", "-3", "6", "-6"]}, {"q": "Area of a circle with r = 7 (take π = 22/7):", "options": ["44", "154", "49", "22"]}, {"q": "(a + b)² equals:", "options": ["a² + b²", "a² + 2ab + b²", "a² − 2ab + b²", "2ab"]}, {"q": "The value of sin 30° is:", "options": ["1/2", "√3/2", "1", "0"]}, {"q": "The HCF of 12 and 18 is:", "options": ["2", "3", "6", "12"]}]}], "answerKeys": {"junior": "WzEsIDIsIDIsIDEsIDFd", "senior": "WzEsIDEsIDEsIDAsIDJd"}};</script>
-  <script src="assets/js/ith-quizlive.js" defer></script>
+<script>window.EXAM_CONFIG = {"slug": "mathematics", "name": "Mathematics Quiz", "icon": "📐", "refPrefix": "QMA", "submitEmail": "info@inspiretalenthub.in", "durationSeconds": 1800, "marking": {"correct": 4, "wrong": -1, "blank": 0}, "salt": "mmq-2026-7f3a9c21e5", "availableFrom": "2026-10-11T00:00:00+05:30", "availableUntil": "2026-10-11T23:59:59+05:30", "dayLabel": "Sunday, 11 October 2026", "shuffleQuestions": true, "shuffleOptions": true, "sample": false, "levels": [{"id": "junior", "name": "Junior", "meta": "Grades 6–8", "questions": [{"qid": "QMA_JUN_01", "text": "What is 15% of 200?", "options": ["20", "30", "40", "45"], "keyHash": "363078e63c6e69db144aa9234de2293523cf5aa89ec80a945e5964f4cf23f48e"}, {"qid": "QMA_JUN_02", "text": "Write 3/4 as a decimal.", "options": ["0.34", "0.75", "0.43", "0.70"], "keyHash": "17c50ffb8a0cad33b962712d5fe56a025af84179f2c6c5fb60d913b9070d7a61"}, {"qid": "QMA_JUN_03", "text": "The perimeter of a square of side 7 cm is:", "options": ["14 cm", "21 cm", "28 cm", "49 cm"], "keyHash": "bfa9c036a18cbe4381c4090c141749589fa82cc3e8a711c6931f5d4ac7e0ac39"}, {"qid": "QMA_JUN_04", "text": "The angles of a triangle add up to:", "options": ["90°", "180°", "270°", "360°"], "keyHash": "3e0d5f2aaef86ca1bacd0f7ac87fd1d4badb64b53008881a92e58a0dc43d3dc6"}, {"qid": "QMA_JUN_05", "text": "What comes next: 2, 4, 8, 16, …?", "options": ["24", "30", "32", "20"], "keyHash": "1a26890f63dac37245ba8052edb6b8b7f8af092196584c9e58b8992083e0435d"}, {"qid": "QMA_JUN_06", "text": "The LCM of 4 and 6 is:", "options": ["10", "12", "24", "8"], "keyHash": "2864927257aea31fe06249050d01a1090b9186bcdebc1733de5dddd931f831e3"}, {"qid": "QMA_JUN_07", "text": "The HCF of 12 and 18 is:", "options": ["2", "3", "6", "12"], "keyHash": "fd33eed09ff2ef936debbcd5a81676b3f294bb9e5e79dd89acfeb8109d04af73"}, {"qid": "QMA_JUN_08", "text": "What is 1/2 + 1/3?", "options": ["2/5", "5/6", "1/6", "3/5"], "keyHash": "842861295f19bef7109355fb7ea82d1f44393d45403fddeff83279d7870682b9"}, {"qid": "QMA_JUN_09", "text": "What is 25% of 80?", "options": ["16", "20", "25", "40"], "keyHash": "788dda5873a0f7fe3d7c224be9a2005ae49748b2720381e524aa8576165e9b44"}, {"qid": "QMA_JUN_10", "text": "The area of a rectangle 5 cm by 4 cm is:", "options": ["9 cm²", "20 cm²", "18 cm²", "40 cm²"], "keyHash": "d5fcba6c212a9a915bdc7992a86ee756284a385d96f0f8f167f2e1d38d92cf44"}, {"qid": "QMA_JUN_11", "text": "Which of these is a prime number?", "options": ["9", "15", "21", "13"], "keyHash": "6bc84f4f68d764e0e3c58266f56a6c37a16b3420fd63605fe2a3a044f85b7039"}, {"qid": "QMA_JUN_12", "text": "What is 3² + 4²?", "options": ["7", "12", "25", "49"], "keyHash": "734e52f0e2f7f317eb0afd012dbb764d7bd3bab593b8596ba4bbd2fee21169fb"}, {"qid": "QMA_JUN_13", "text": "The average of 10, 20 and 30 is:", "options": ["15", "20", "25", "30"], "keyHash": "dcc13a7d13be5fc73ff9af7947ae21ec0201a38dc7d11aa3c18f36d4b4e42cca"}, {"qid": "QMA_JUN_14", "text": "Simplify 36/48 to its lowest terms.", "options": ["2/3", "3/4", "4/5", "6/8"], "keyHash": "00c00a77a161bbb09ae91b27c51e3e73548d18fe20cfe211dcdc4637d29c0971"}, {"qid": "QMA_JUN_15", "text": "A right angle measures:", "options": ["45°", "90°", "180°", "60°"], "keyHash": "c5400dfdcbe948b5e589cff66609fb5e092d82fdce1bf8dcc27498ad49f628f8"}, {"qid": "QMA_JUN_16", "text": "The Roman numeral XIV equals:", "options": ["16", "14", "9", "6"], "keyHash": "95097e6bae36e1fd13112b8f8de5a518292b69ba6bb8555bde0d3e0dc1ddd101"}, {"qid": "QMA_JUN_17", "text": "1 kilometre equals how many metres?", "options": ["100", "1000", "10", "10000"], "keyHash": "4003d5880f82b8b03e52e99eb79b1228265f8ef75279ca8b3991111e88b41fd1"}, {"qid": "QMA_JUN_18", "text": "Solve for x: x + 5 = 12", "options": ["5", "7", "17", "6"], "keyHash": "224664ce76714a12362e51b2433b9fc5c15944c4bd602ac1240f141b98e4c5eb"}, {"qid": "QMA_JUN_19", "text": "The distance around a circle is called its:", "options": ["area", "radius", "circumference", "diameter"], "keyHash": "978d913b51a84effe0045280d6ea7d65f6cf95c45f0f3b33b8f855ce795eaf8a"}, {"qid": "QMA_JUN_20", "text": "What is 7 × 8?", "options": ["54", "56", "63", "48"], "keyHash": "5b673b5174e072ef2fa4d873721bcfecdafd47e14193627ab3350e1e1333a5b6"}]}, {"id": "senior", "name": "Senior", "meta": "Grades 9–12", "questions": [{"qid": "QMA_SEN_01", "text": "Solve: 2x + 6 = 0", "options": ["3", "-3", "6", "-6"], "keyHash": "0308731ad5f0019b53e80892680d4b2fb6f4b61ad87a0dcc7e3f7ae36ba404db"}, {"qid": "QMA_SEN_02", "text": "Expand (a + b)².", "options": ["a² + b²", "a² + 2ab + b²", "a² − 2ab + b²", "2ab"], "keyHash": "eb663aaf7d2b3563778090a6e0ba09e4f8256dc427226cfee4c784088e8496d4"}, {"qid": "QMA_SEN_03", "text": "The value of sin 30° is:", "options": ["1/2", "√3/2", "1", "0"], "keyHash": "bac2c3ade01abc772e88bfb64bb64ce2d64bf65848242c78b38c49fee182daab"}, {"qid": "QMA_SEN_04", "text": "Area of a circle with r = 7 (take π = 22/7):", "options": ["44", "154", "49", "22"], "keyHash": "cc47f69c050d7b653591fb2728e006a16a21b84373b1dfc6b76e5fa1fef65111"}, {"qid": "QMA_SEN_05", "text": "The roots of x² − 5x + 6 = 0 are:", "options": ["−2 and −3", "2 and 3", "−1 and 6", "1 and −6"], "keyHash": "baf258d1f63ff41db40a3bc97ea7ca38fe240e7c5432de1d04eea26c43d73c73"}, {"qid": "QMA_SEN_06", "text": "If x + 1/x = 3, then x² + 1/x² equals:", "options": ["9", "7", "11", "6"], "keyHash": "c994c98e7d237a4becf32b5779d184740a7513eb886ae6312f5850048b6387a8"}, {"qid": "QMA_SEN_07", "text": "The units digit of 3¹⁰⁰ is:", "options": ["3", "9", "7", "1"], "keyHash": "194725b2c837ae62df87a45c42c4ed4fc58c5e0b53553a7ab0336a12ae28ee7e"}, {"qid": "QMA_SEN_08", "text": "The sum of interior angles of a 12-sided polygon is:", "options": ["1440°", "1800°", "2160°", "360°"], "keyHash": "82901631267b973317d023e000546f3c2cceee1c3ba5d161410d740344c43320"}, {"qid": "QMA_SEN_09", "text": "Solve for x: 10ˣ = 0.001", "options": ["3", "−2", "−3", "0.001"], "keyHash": "f1bc12d27e42b2f7abd0fb2dce849b9d20bb137eaf37d401614117054d1e4192"}, {"qid": "QMA_SEN_10", "text": "The HCF of two distinct coprime numbers is:", "options": ["0", "1", "their product", "cannot be determined"], "keyHash": "2a1c5a3037f9d14f6115913b2d820585e072ca023e03fba92b7ef03ebc74d43c"}, {"qid": "QMA_SEN_11", "text": "Two dice are thrown. The probability the sum is 7 is:", "options": ["1/12", "1/6", "7/36", "1/7"], "keyHash": "bf5194d8cc368e7317ce12c9464f5a2644673ebc7da16fe425b57c635476117b"}, {"qid": "QMA_SEN_12", "text": "The distance between the points (2, 3) and (5, 7) is:", "options": ["3", "4", "7", "5"], "keyHash": "10f89c148c5f36a64287eb9073fc375c2a38c495816e0a706d6c5779edce5fab"}, {"qid": "QMA_SEN_13", "text": "The volume of a sphere with radius 3 is:", "options": ["18π", "27π", "36π", "12π"], "keyHash": "c4661ad0803ce67bb65c6d2530c01f1c4f63a0135ea2f62c9bf52766a075c0f4"}, {"qid": "QMA_SEN_14", "text": "The value of log₂ 8 is:", "options": ["2", "3", "4", "8"], "keyHash": "89894dec6cda945086920dd747efbd31b45e7d07db2d6f0784f3599fafe1a3b0"}, {"qid": "QMA_SEN_15", "text": "The next term of 2, 6, 12, 20, 30, … is:", "options": ["40", "42", "36", "44"], "keyHash": "883ef3cb0d2cd407196a70764e5a01a051c45fc1b8831373d077aa828ee54d7e"}, {"qid": "QMA_SEN_16", "text": "The product of the roots of 3x² − 7x + 2 = 0 is:", "options": ["7/3", "−7/3", "2/3", "−2"], "keyHash": "2ec775ccb470c9d12d30d8d3dd1fb12406608cd5b6983988ba6e584e17421c10"}, {"qid": "QMA_SEN_17", "text": "The derivative of x² with respect to x is:", "options": ["x", "2x", "x²/2", "2"], "keyHash": "ae8cf401e23fba05ca2fa7de699d0366b3e904458cced54d999fc4ec3bd4697b"}, {"qid": "QMA_SEN_18", "text": "The repeating decimal 0.999… is exactly equal to:", "options": ["9/10", "99/100", "1", "undefined"], "keyHash": "7ec954d0d6389328991294fafdd91e99e00393a71351e9841db0c5e4df4671ea"}, {"qid": "QMA_SEN_19", "text": "The value of cos 0° is:", "options": ["0", "1", "1/2", "√3/2"], "keyHash": "29e80f146df49ce0ca18346fd0849372ec992548ce3629e4f7fd68a32ab1736d"}, {"qid": "QMA_SEN_20", "text": "A regular polygon has an exterior angle of 24°. Its number of sides is:", "options": ["12", "15", "18", "20"], "keyHash": "db7fa58915ec7bc5b79ec6865c2056a2d0588fed3f531e9fbc45c96c660f3282"}]}]};</script>
+<script src="assets/js/ith-exam.js" defer></script>
 </body>
 </html>

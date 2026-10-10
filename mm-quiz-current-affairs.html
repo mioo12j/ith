@@ -1,169 +1,234 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Current Affairs Quiz — Live | Monsoon Minds 2026 · Inspire Talent Hub</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#0d1026" />
-  <link rel="icon" type="image/jpeg" href="logo.jpeg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/reveal.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Current Affairs Quiz — Live | Monsoon Minds 2026 · Inspire Talent Hub</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0d1117" />
+<link rel="icon" type="image/jpeg" href="logo.jpeg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/exam.css" />
 </head>
-<body class="rvl-body">
-  <header class="rvl-bar">
-    <a class="rvl-bar__brand" href="/"><span class="rvl-bar__mark">IT</span>Inspire Talent Hub</a>
-    <span class="rvl-bar__tag">Monsoon Minds 2026 · Live Quiz</span>
-  </header>
+<body>
+<header class="site-header">
+  <div class="site-header-logo">
+    <div class="logo-icon">📰</div>
+    <div class="logo-text">
+      <span class="logo-name">Inspire Talent Hub</span>
+      <span class="logo-tagline">Monsoon Minds 2026 · Live Quiz</span>
+    </div>
+  </div>
+  <div class="header-badge"><div class="header-dot"></div> Live</div>
+</header>
 
-  <main class="rvl-wrap">
+<!-- gentle integrity flash -->
+<div id="ui-security-overlay" class="overlay-screen" role="alertdialog" aria-modal="true">
+  <div class="overlay-icon-wrap">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  </div>
+  <h1>Noted</h1>
+  <p id="sec-desc" class="overlay-msg">An action was logged. Your quiz is not interrupted — keep going calmly.</p>
+  <div class="overlay-reassure"><strong>Don't panic.</strong> Accidental actions (a stray right-click, switching away for a moment) are only noted for the organisers. Just carry on.</div>
+</div>
 
-    <!-- PRE -->
-    <section id="stPre" class="rvl-stage" hidden>
-      <p class="rvl-kicker">📰 Current Affairs Quiz</p>
-      <h1 class="rvl-h1">This quiz opens<br><span class="em">Sunday, 11 October 2026</span></h1>
-      <p class="rvl-sub">You can begin any time during the day. The quiz is a single 30-minute attempt — your timer starts when you press Start.</p>
-      <div class="rvl-card rvl-card--accent rvl-center">
-        <p class="rvl-card__label">Opens in</p>
-        <div class="rvl-cd" role="timer">
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzD">00</span><span class="rvl-cd__l">Days</span></div>
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzH">00</span><span class="rvl-cd__l">Hours</span></div>
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzM">00</span><span class="rvl-cd__l">Min</span></div>
-          <div class="rvl-cd__cell"><span class="rvl-cd__n" id="qzS">00</span><span class="rvl-cd__l">Sec</span></div>
+<!-- full-screen resume (desktop only) -->
+<div id="ui-fullscreen-overlay" class="overlay-screen" style="z-index:9998;">
+  <div class="overlay-icon-wrap"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#e6a817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></div>
+  <h1>Full-screen paused</h1>
+  <p class="overlay-msg">You left full-screen. Your timer keeps running. Tap below to go back to full-screen.</p>
+  <button id="btn-return-fullscreen" class="btn btn-launch" style="max-width:340px;">↩ Return to full-screen</button>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- ============ REGISTRATION ============ -->
+  <section id="view-registration" class="view-section is-active">
+    <div class="card" style="margin-bottom:24px;">
+      <div class="hero-header">
+        <div class="hero-emblem">📰</div>
+        <h1 class="hero-title">Current Affairs Quiz</h1>
+        <p class="hero-subtitle">Monsoon Minds Championship 2026 · Live quiz · Sunday, 11 October 2026</p>
+        <div class="hero-stats">
+          <span class="stat-chip"><span class="stat-chip-icon">⏱</span> 30 Minutes</span>
+          <span class="stat-chip"><span class="stat-chip-icon">❓</span> 20 Questions</span>
+          <span class="stat-chip"><span class="stat-chip-icon">🔴</span> Recorded</span>
+          <span class="stat-chip"><span class="stat-chip-icon">🏆</span> +4 / -1</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- START -->
-    <section id="stStart" class="rvl-stage" hidden>
-      <p class="rvl-kicker">📰 Current Affairs Quiz · Monsoon Minds 2026</p>
-      <h1 class="rvl-h1">Current Affairs Quiz <span class="em">Live</span></h1>
-      <p class="rvl-sub">Enter your details, pick your level, run a quick check, then press Start. Your 30-minute timer begins immediately.</p>
-      <p class="qz-sample">⚠️ SAMPLE questions — for testing only. Replace with the official question set before going live.</p>
+    
+    <div id="exam-gate" class="rec-missing" style="display:none"></div>
 
-      <div class="rvl-card rvl-card--warn">
-        <p class="rvl-card__label rvl-card__label--warn">⚠️ Before you start</p>
-        <ul class="rvl-rules rvl-rules--warn">
-            <li>This is a <b>single 30-minute attempt</b> — it cannot be paused, restarted or done later.</li>
-            <li>Refreshing or closing the tab will <b>not</b> reset it; the clock keeps running.</li>
-            <li>When 30 minutes are up, your answers are <b>submitted automatically</b>.</li>
+    <div class="card">
+      <div class="card-header"><div class="section-heading"><div class="section-heading-icon blue">ℹ️</div><div class="section-heading-text"><h3>How this quiz works</h3><p>Please read before you start</p></div></div></div>
+      <div class="card-body">
+        <div class="step-guide">
+          <div class="step-item"><div class="step-num">1</div><div class="step-content"><div class="step-title">Enter your details & pick your level</div><p class="step-desc">Fill your name, team name, class, school and contact, then choose Junior or Senior — your questions depend on it.</p></div></div>
+          <div class="step-item"><div class="step-num">2</div><div class="step-content"><div class="step-title">Allow camera & microphone</div><p class="step-desc">When you press Start, your browser asks for camera and microphone. On a computer it may also ask to share your screen. These are recorded for integrity.</p></div></div>
+          <div class="step-item"><div class="step-num">3</div><div class="step-content"><div class="step-title">Answer within 30 minutes</div><p class="step-desc">One attempt only. A visible timer runs the whole time and cannot be paused. Use the number grid, Previous/Next and Flag. When the timer ends your answers submit automatically.</p></div></div>
+          <div class="step-item"><div class="step-num">4</div><div class="step-content"><div class="step-title">Review, then submit</div><p class="step-desc">On the last question press "Review & Submit" to see flagged / unanswered questions, then confirm. A recording file downloads to your device.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="section-heading"><div class="section-heading-icon red">🚦</div><div class="section-heading-text"><h3>Rules</h3><p>Violations are logged automatically and sent to the organisers</p></div></div></div>
+      <div class="card-body">
+        <ul class="eula-list" style="margin:0 0 4px 0; padding-left:18px; color:var(--ink-600); font-size:0.88rem; line-height:1.9;">
+          <li>Single <b>30-minute</b> attempt — it cannot be paused, restarted or done later. Refreshing does <b>not</b> reset it.</li>
+          <li>No notes, no search engines, no outside help and <b>no second device</b> (a second device is grounds for disqualification).</li>
+          <li>Copy, paste, right-click and developer tools are disabled. Leaving the tab/window is logged.</li>
+          <li>Marking: <b>+4</b> for a correct answer, <b>-1</b> for a wrong answer, <b>0</b> for blank. It can be safer to leave a question blank than to guess wildly.</li>
+          <li>Covers notable national &amp; world events of the last two years.</li>
+          <li>Spellings of names are given as commonly used; pick the best option.</li>
         </ul>
       </div>
+    </div>
 
-      <div class="rvl-card">
-        <p class="rvl-card__label">Rules</p>
-        <ul class="rvl-rules">
-            <li>Covers national &amp; international news from the past 12 months.</li>
-            <li>Any negative marking will be announced before the quiz starts.</li>
-        </ul>
-        <ul class="rvl-rules rvl-rules--warn" style="margin-top:14px">
-            <li>30 minutes total, with a visible timer on every question.</li>
-            <li>One attempt only — you cannot restart, pause or do it later.</li>
-            <li>No notes, no search engines, no outside help, no second device (a second device means disqualification).</li>
-            <li>If you disconnect, that&#x27;s your responsibility — the quiz will not pause.</li>
-            <li>No file submission. Results are published only on the website; the quizmaster&#x27;s decision is final.</li>
-        </ul>
+    <div class="card">
+      <div class="card-header"><div class="section-heading"><div class="section-heading-icon gold">🎥</div><div class="section-heading-text"><h3>Your session is recorded</h3><p>Please read this carefully</p></div></div></div>
+      <div class="card-body">
+        <div class="notice notice-gold" style="margin-bottom:0;">
+          <div class="notice-icon">⚠️</div>
+          <div class="notice-body">
+            <div class="notice-title">The recording is required — keep it safe</div>
+            <p class="notice-text">A watermarked video of your session (camera, and your screen on a computer) is recorded and <strong>downloads to your own device</strong> at the end as an <code>INSPIRE_AUDIT_…webm</code> file. It carries your name, reference number and a moving timestamp, so it cannot be quietly altered. <strong>Please keep this file for at least 7 days.</strong> If your result is ever questioned and the recording is not available, that is <strong>grounds for disqualification</strong>. By starting, you accept that you will be recorded.</p>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="rvl-card rvl-card--accent">
-        <p class="rvl-card__label">Your details</p>
-        <form id="qzStartForm" class="rvl-form" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="qzSink" autocomplete="on">
-          <input type="hidden" name="_subject" value="Monsoon Minds — Current Affairs Quiz: participant STARTED" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="Competition" value="Current Affairs Quiz" />
-          <input type="hidden" name="Reference number" id="qzRefField" value="" />
-          <input type="hidden" name="Grade level" id="qzLevelField" value="" />
-          <input type="hidden" name="Started at" id="qzStartedAtField" value="" />
-          <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
-          <div class="rvl-grid2">
-            <div class="rvl-field"><label for="qzName">Full name <span class="req">*</span></label><input id="qzName" name="Full name" required /></div>
-            <div class="rvl-field"><label for="qzClass">Class &amp; section <span class="req">*</span></label><input id="qzClass" name="Class & section" required placeholder="e.g. 7-B" /></div>
+    <div class="card">
+      <div class="card-header"><div class="section-heading" style="margin-bottom:0;"><div class="section-heading-icon gold">📝</div><div class="section-heading-text"><h3>Registration</h3><p>Enter your details exactly as on your school records</p></div></div></div>
+      <div class="card-body">
+        <form id="form-registration" novalidate>
+          <div class="form-grid" style="margin-bottom:16px;">
+            <div class="form-group"><label class="form-label" for="reg-fname">First name <span class="required-star">*</span></label><input type="text" id="reg-fname" class="form-input" required autocomplete="off"></div>
+            <div class="form-group"><label class="form-label" for="reg-lname">Last name <span class="required-star">*</span></label><input type="text" id="reg-lname" class="form-input" required autocomplete="off"></div>
           </div>
-          <div class="rvl-grid2">
-            <div class="rvl-field"><label for="qzEmail">Email address <span class="req">*</span></label><input id="qzEmail" type="email" name="Email" required /></div>
-            <div class="rvl-field"><label for="qzPhone">Phone / WhatsApp <span class="req">*</span></label><input id="qzPhone" type="tel" name="Phone / WhatsApp" required /></div>
+          <div class="form-grid" style="margin-bottom:16px;">
+            <div class="form-group"><label class="form-label" for="reg-email">Email address <span class="required-star">*</span></label><input type="email" id="reg-email" class="form-input" required autocomplete="off"><span class="form-hint">Results are sent here.</span></div>
+            <div class="form-group"><label class="form-label" for="reg-phone">Phone / WhatsApp <span class="required-star">*</span></label><input type="tel" id="reg-phone" class="form-input" required autocomplete="off"></div>
           </div>
-          <div class="rvl-field"><label for="qzSchool">School name <span class="req">*</span></label><input id="qzSchool" name="School name" required /></div>
-          <div class="rvl-field"><label for="qzAddr">School address <span class="req">*</span></label><textarea id="qzAddr" name="School address" required></textarea></div>
-          <div class="rvl-field"><label for="qzCity">City &amp; state</label><input id="qzCity" name="City & state" /></div>
-          <div class="rvl-field"><label>Your level <span class="req">*</span></label>
-            <div class="qz-levels">
-              <label class="qz-level"><input type="radio" name="Level" value="junior" required checked><span class="qz-level__box"><b>Junior</b><span>Grades 6–8</span></span></label>
-              <label class="qz-level"><input type="radio" name="Level" value="senior" required><span class="qz-level__box"><b>Senior</b><span>Grades 9–12</span></span></label>
-            </div>
+          <div class="form-grid" style="margin-bottom:16px;">
+            <div class="form-group"><label class="form-label" for="reg-class">Class / grade <span class="required-star">*</span></label><input type="text" id="reg-class" class="form-input" placeholder="e.g. Class 7-B" required autocomplete="off"></div>
+            <div class="form-group"><label class="form-label" for="reg-team">Team name <span class="form-hint" style="font-weight:500">(optional)</span></label><input type="text" id="reg-team" class="form-input" placeholder="So teammates can be grouped" autocomplete="off"></div>
           </div>
-          <label class="rvl-check"><input type="checkbox" required /> System check: my internet is stable, my screen/audio work, and I have no notes, extra tabs or a second device open.</label>
-          <label class="rvl-check"><input type="checkbox" name="Integrity agreed" value="Yes, I agree" required /> I confirm I will answer on my own with no outside help, and I understand this is a single 30-minute attempt that cannot be paused or restarted.</label>
-          <button type="submit" class="rvl-btn rvl-btn--block">Start the quiz →</button>
-          <p class="rvl-fine">Pressing Start emails the organisers that you’ve begun (with your reference number) and starts your 30-minute timer.</p>
+          <div class="form-group" style="margin-bottom:16px;"><label class="form-label" for="reg-school">School / institution <span class="required-star">*</span></label><input type="text" id="reg-school" class="form-input" required autocomplete="off"></div>
+
+          <hr class="form-divider">
+          <div class="section-heading"><div class="section-heading-icon gold">🎚️</div><div class="section-heading-text"><h3>Your level <span class="required-star">*</span></h3><p>Choose the band that matches your grade — this picks your questions</p></div></div>
+          <div class="level-grid" role="radiogroup" aria-label="Select level">
+            <div class="level-option"><input type="radio" id="lvl-junior" name="level-vis" value="junior" required><label class="level-label" for="lvl-junior"><span class="level-label-name">Junior</span><span class="level-label-meta">Grades 6–8</span></label></div>
+            <div class="level-option"><input type="radio" id="lvl-senior" name="level-vis" value="senior"><label class="level-label" for="lvl-senior"><span class="level-label-name">Senior</span><span class="level-label-meta">Grades 9–12</span></label></div>
+          </div>
+
+          <hr class="form-divider">
+          <label class="consent-row" for="consent-check">
+            <input type="checkbox" id="consent-check" class="consent-checkbox" required>
+            <p class="consent-text">I confirm my details are accurate, I will answer on my own with no outside help, and I understand this is a single 30-minute recorded attempt that cannot be paused or restarted. I agree to keep my recording file for at least 7 days.</p>
+          </label>
+          <div class="notice notice-gold" style="margin-bottom:20px;"><div class="notice-icon">⚠️</div><div class="notice-body"><div class="notice-title">Your browser will ask for camera & microphone</div><p class="notice-text">Tap <strong>Allow</strong>. On a computer you may also be asked to share your screen — choose your entire screen. If you accidentally block it, use the on-page prompt to retry.</p></div></div>
+          <button type="submit" id="btn-init-quiz" class="btn btn-launch">🚀 Acknowledge &amp; Start Quiz</button>
+          <p style="text-align:center;font-size:0.75rem;color:var(--ink-400);margin-top:10px;">Pressing Start requests camera/microphone (and screen share on a computer) and begins your 30-minute timer.</p>
         </form>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- QUIZ -->
-    <section id="stQuiz" class="rvl-stage" hidden>
-      <div class="qz-top">
-        <span class="rvl-ref">Ref&nbsp;<b id="qzRef">—</b></span>
-        <div class="qz-timer" id="qzTimer">30:00</div>
-        <span class="qz-count" id="qzCount">Q 1 / 1</span>
+  <!-- ============ QUIZ ============ -->
+  <section id="view-quiz" class="view-section">
+    <div class="card">
+      <div class="card-header">
+        <div class="quiz-topbar">
+          <div class="q-progress"><span class="q-progress-label">Question</span><div class="q-progress-nums"><span id="ui-q-idx">1</span><span class="of">/ <span id="ui-q-total">20</span></span></div></div>
+          <div class="timer-widget" id="ui-timer-container"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span class="timer-num" id="ui-timer-text">30:00</span></div>
+        </div>
       </div>
-      <div class="qz-bartrack"><div id="qzBar"></div></div>
-      <div class="rvl-card">
-        <p class="qz-qtext" id="qzQ"></p>
-        <div class="qz-opts" id="qzOpts"></div>
+      <div class="card-body">
+        <div id="ui-question-palette" class="palette-scroll" aria-label="Question navigator"></div>
+        <h2 class="question-text" id="ui-question-text">Loading…</h2>
+        <div class="options-list" id="ui-options-root" role="radiogroup"></div>
       </div>
-      <div class="qz-nav">
-        <button id="qzPrev" class="rvl-btn rvl-btn--ghost" type="button">← Previous</button>
-        <button id="qzNext" class="rvl-btn" type="button">Next →</button>
-        <button id="qzSubmit" class="rvl-btn" type="button" hidden>Submit quiz ✓</button>
+      <div class="card-footer">
+        <button type="button" id="btn-quiz-prev" class="btn btn-outline" disabled>← Previous</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+          <button type="button" id="btn-flag-question" class="btn btn-flag">⚐ Flag</button>
+          <button type="button" id="btn-quiz-next" class="btn btn-primary">Next →</button>
+          <button type="button" id="btn-quiz-submit" class="btn btn-danger" style="display:none;">Review &amp; Submit</button>
+        </div>
       </div>
-      <p class="rvl-fine">The 30-minute timer covers the whole quiz and keeps running. When it ends, your answers submit automatically.</p>
-    </section>
+    </div>
+  </section>
 
-    <!-- RESULT -->
-    <section id="stResult" class="rvl-stage" hidden>
-      <p class="rvl-emoji">✅</p>
-      <h1 class="rvl-h1 rvl-center">Quiz <span class="em">submitted!</span></h1>
-      <div class="rvl-card rvl-center">
-        <p class="rvl-refbig">Reference number: <b id="qzRefDone">—</b></p>
-        <p class="rvl-sub" id="qzResultNote" style="margin-inline:auto">Your responses have been recorded and sent to the organisers. Final results will be published on the website.</p>
+  <!-- ============ REVIEW ============ -->
+  <section id="view-review" class="view-section">
+    <div class="card">
+      <div class="card-header" style="text-align:center;"><h2 style="font-size:1.4rem;margin-bottom:6px;">Review your answers</h2><p style="margin:0;font-size:0.9rem;color:var(--ink-500);">Once submitted, you cannot return to the quiz.</p></div>
+      <div class="card-body">
+        <div class="review-summary-grid">
+          <div class="review-summary-card flagged"><div class="count" id="review-flagged-count">0</div><div class="label">⚑ Flagged</div><p class="detail" id="review-flagged-list">No questions flagged.</p></div>
+          <div class="review-summary-card unanswered"><div class="count" id="review-unanswered-count">0</div><div class="label">⬜ Unanswered</div><p class="detail" id="review-unanswered-list">All questions answered.</p></div>
+        </div>
+        <div class="notice notice-gold" style="margin-top:16px;"><div class="notice-icon">💡</div><div class="notice-body"><div class="notice-title">Blank answers score 0 — no penalty</div><p class="notice-text">A wrong answer costs 1. If unsure, consider leaving it blank.</p></div></div>
       </div>
-      <div class="rvl-center" style="margin-top:22px"><a class="rvl-btn rvl-btn--ghost" href="/">Back to home</a></div>
-    </section>
+      <div class="card-footer">
+        <button type="button" id="btn-review-back" class="btn btn-outline">← Back to quiz</button>
+        <button type="button" id="btn-review-confirm" class="btn btn-danger" style="padding:12px 24px;">Confirm &amp; Submit</button>
+      </div>
+    </div>
+  </section>
 
-    <!-- CLOSED -->
-    <section id="stClosed" class="rvl-stage" hidden>
-      <p class="rvl-emoji">🔒</p>
-      <h1 class="rvl-h1 rvl-center">Window closed</h1>
-      <p class="rvl-sub rvl-center" id="qzClosedMsg" style="margin-inline:auto">This quiz window has closed.</p>
-      <div class="rvl-center" style="margin-top:22px"><a class="rvl-btn rvl-btn--ghost" href="/">Back to home</a></div>
-    </section>
+  <!-- ============ COMPLETION ============ -->
+  <section id="view-completion" class="view-section">
+    <div class="card">
+      <div class="completion-hero"><div class="completion-check">✓</div><h1 class="completion-title">Quiz submitted!</h1><p class="completion-subtitle">Your responses have been recorded and sent to the organisers. Results will be published on the website — your score is not shown here.</p></div>
+      <div class="card-body" style="padding-top:0;">
+        <div class="receipt-box">
+          <div class="receipt-title">Submission receipt</div>
+          <div class="receipt-row"><span class="receipt-key">Status</span><span class="receipt-val ok">RECORDED</span></div>
+          <div class="receipt-row"><span class="receipt-key">Reference</span><span class="receipt-val gold" id="ui-trace-id">—</span></div>
+          <div class="receipt-row"><span class="receipt-key">Submitted</span><span class="receipt-val" id="ui-trace-time" style="color:var(--ink-300);">—</span></div>
+        </div>
+        <p id="completion-auto-note" class="notice notice-blue" style="display:none;"><span class="notice-icon">⏱</span><span class="notice-body"><span class="notice-text">Time was up — your answers were submitted automatically.</span></span></p>
+        <div id="completion-rec-missing" class="rec-missing" style="display:none;">⚠️ No recording was captured for this attempt. Please note: if your result is questioned and no recording is available, this is grounds for disqualification.</div>
+        <div id="completion-video-block" class="video-download-alert">
+          <div class="video-download-alert-title">🎥 Your recording is downloading now</div>
+          <p class="video-download-alert-body">An <code>INSPIRE_AUDIT_…webm</code> file is downloading to your device. <strong>Keep it for at least 7 days.</strong> If the download didn't start, check your browser's Downloads and allow it.</p>
+        </div>
+        <div class="notice notice-blue" style="margin-bottom:0;"><div class="notice-icon">📬</div><div class="notice-body"><div class="notice-title">What happens next?</div><p class="notice-text">Results are reviewed and published on the website. Keep your reference number. You may now close this tab.</p></div></div>
+      </div>
+    </div>
+  </section>
 
-    <p class="rvl-foot">Monsoon Minds Championship 2026 · Inspire Talent Hub &nbsp;·&nbsp; Trouble? Email <a href="mailto:info@inspiretalenthub.in">info@inspiretalenthub.in</a></p>
-  </main>
+  <p style="text-align:center;font-size:0.8rem;color:var(--ink-400);margin-top:8px;">Monsoon Minds Championship 2026 · Inspire Talent Hub · Trouble? Email <a href="mailto:info@inspiretalenthub.in">info@inspiretalenthub.in</a></p>
+</div>
 
-  <iframe name="qzSink" title="submit sink" style="display:none" aria-hidden="true"></iframe>
-  <form id="qzResultForm" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="qzSink" style="display:none" aria-hidden="true">
-    <input type="hidden" name="_subject" value="Monsoon Minds — Current Affairs Quiz: RESULT (auto-scored)" />
-    <input type="hidden" name="_captcha" value="false" />
-    <input type="hidden" name="_template" value="table" />
-    <input type="hidden" name="Competition" value="Current Affairs Quiz" />
-    <input type="hidden" name="Reference number" value="" />
-    <input type="hidden" name="Full name" value="" />
-    <input type="hidden" name="Email" value="" />
-    <input type="hidden" name="Phone / WhatsApp" value="" />
-    <input type="hidden" name="Class & section" value="" />
-    <input type="hidden" name="School name" value="" />
-    <input type="hidden" name="Level" value="" />
-    <input type="hidden" name="Auto score (MCQ)" value="" />
-    <input type="hidden" name="Answers" value="" />
-    <input type="hidden" name="Submitted at" value="" />
-  </form>
+<iframe name="exam-sink" title="submit sink" style="display:none" aria-hidden="true"></iframe>
+<form id="exam-result-form" action="https://formsubmit.co/info@inspiretalenthub.in" method="POST" target="exam-sink" style="display:none" aria-hidden="true">
+  <input type="hidden" name="_subject" value="Monsoon Minds — Current Affairs Quiz: RESULT" />
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_template" value="table" />
+  <input type="text" name="_honey" style="display:none" />
+  <input type="hidden" name="Competition" value="Current Affairs Quiz" />
+  <input type="hidden" name="Reference" value="" />
+  <input type="hidden" name="Name" value="" />
+  <input type="hidden" name="Team name" value="" />
+  <input type="hidden" name="Level" value="" />
+  <input type="hidden" name="Class" value="" />
+  <input type="hidden" name="School" value="" />
+  <input type="hidden" name="Phone" value="" />
+  <input type="hidden" name="Email" value="" />
+  <input type="hidden" name="Score" value="" />
+  <input type="hidden" name="Integrity" value="" />
+  <input type="hidden" name="Submitted" value="" />
+</form>
 
-  <script>window.QUIZ_CONFIG = {"slug": "current-affairs", "name": "Current Affairs Quiz", "refPrefix": "QCA", "durationMinutes": 30, "availableFrom": "2026-10-11T00:00:00+05:30", "availableUntil": "2026-10-11T23:59:59+05:30", "submitEmail": "info@inspiretalenthub.in", "levels": [{"id": "junior", "label": "Grades 6–8", "questions": [{"q": "[SAMPLE — the organiser will replace this with a real current-affairs question]", "options": ["Option A", "Option B", "Option C", "Option D"]}, {"q": "[SAMPLE — replace with a sports / events question from the last 12 months]", "options": ["Option A", "Option B", "Option C", "Option D"]}, {"q": "[SAMPLE — replace with a national news question]", "options": ["Option A", "Option B", "Option C", "Option D"]}]}, {"id": "senior", "label": "Grades 9–12", "questions": [{"q": "[SAMPLE — the organiser will replace this with a real current-affairs question]", "options": ["Option A", "Option B", "Option C", "Option D"]}, {"q": "[SAMPLE — replace with an international news question]", "options": ["Option A", "Option B", "Option C", "Option D"]}, {"q": "[SAMPLE — replace with an environment / education question]", "options": ["Option A", "Option B", "Option C", "Option D"]}]}], "answerKeys": {"junior": "WzAsIDAsIDBd", "senior": "WzAsIDAsIDBd"}};</script>
-  <script src="assets/js/ith-quizlive.js" defer></script>
+<script>window.EXAM_CONFIG = {"slug": "current-affairs", "name": "Current Affairs Quiz", "icon": "📰", "refPrefix": "QCA", "submitEmail": "info@inspiretalenthub.in", "durationSeconds": 1800, "marking": {"correct": 4, "wrong": -1, "blank": 0}, "salt": "mmq-2026-7f3a9c21e5", "availableFrom": "2026-10-11T00:00:00+05:30", "availableUntil": "2026-10-11T23:59:59+05:30", "dayLabel": "Sunday, 11 October 2026", "shuffleQuestions": true, "shuffleOptions": true, "sample": false, "levels": [{"id": "junior", "name": "Junior", "meta": "Grades 6–8", "questions": [{"qid": "QCA_JUN_01", "text": "The 2024 Summer Olympics were held in which city?", "options": ["Tokyo", "Paris", "Los Angeles", "Rio de Janeiro"], "keyHash": "781a4d5df685157d18ad047a7d62b1dc76c981752ae468f5b5ae5215fc20f4a1"}, {"qid": "QCA_JUN_02", "text": "India won the ICC Men's T20 World Cup in which year?", "options": ["2021", "2023", "2024", "2025"], "keyHash": "c751393ad22da5b419bda203a738c1e0a31ff339e575e9f3a2e08ab930568998"}, {"qid": "QCA_JUN_03", "text": "The 2023 G20 Leaders' Summit was hosted in:", "options": ["Mumbai", "New Delhi", "Bali", "Rome"], "keyHash": "dfe53729d27cef5704b8dc946c46b458454187213c519d92b1ce566f039629fc"}, {"qid": "QCA_JUN_04", "text": "Which Indian mission landed near the Moon's south pole in 2023?", "options": ["Chandrayaan-1", "Mangalyaan", "Chandrayaan-3", "Gaganyaan"], "keyHash": "07a59cad6256110f56e079b29e81c93b0062d4fd0c56835d551a83f91cf53ecb"}, {"qid": "QCA_JUN_05", "text": "The 2026 Winter Olympics (Milan–Cortina) will be held in which country?", "options": ["France", "Italy", "Switzerland", "Austria"], "keyHash": "b0104d2927ab8b1fbf229be968fef788eceee4055a0b0bf486ec5f883a4dd742"}, {"qid": "QCA_JUN_06", "text": "The 2026 FIFA World Cup will be co-hosted by the USA, Canada and:", "options": ["Brazil", "Mexico", "Spain", "Argentina"], "keyHash": "5638d818a94d2d96362d63c3b304b567e5bbc362d33ad1ad3092c7ca9f78b1bb"}, {"qid": "QCA_JUN_07", "text": "Which space agency runs the Chandrayaan missions?", "options": ["NASA", "ISRO", "ESA", "Roscosmos"], "keyHash": "cc2c910c01842fe750c433a98b237c2ff1df1a69c70af6459fd7b25eeb6775da"}, {"qid": "QCA_JUN_08", "text": "The world's human population recently crossed:", "options": ["6 billion", "7 billion", "8 billion", "10 billion"], "keyHash": "280b1fc396fd162836294ff3feff1882246fbcbebb389b87089171359ed7ddbb"}, {"qid": "QCA_JUN_09", "text": "The Summer Olympic Games are held once every:", "options": ["2 years", "3 years", "4 years", "5 years"], "keyHash": "cf7973e739346a31dbd3a4a1ca9c81a8557b043411addf145a99a7d9640a723c"}, {"qid": "QCA_JUN_10", "text": "Which country hosted the 2023 ODI Cricket World Cup?", "options": ["Australia", "England", "India", "South Africa"], "keyHash": "85ccc69d50c04fa9cf04304491e7b24e2fc68a5a83eb3c2af3a75d780df5dc0a"}, {"qid": "QCA_JUN_11", "text": "Kyiv, often in the news, is the capital of:", "options": ["Russia", "Ukraine", "Poland", "Belarus"], "keyHash": "18cf6357cebecc7e736976cd125114f5d9f543e7b1fa5db493a8d18059800fc5"}, {"qid": "QCA_JUN_12", "text": "The 2024 T20 World Cup was co-hosted by the West Indies and:", "options": ["England", "USA", "India", "Australia"], "keyHash": "c2a6c9765c885f76ab1f9cf507d728c96610cf823220ad8cc9b3474678e68132"}, {"qid": "QCA_JUN_13", "text": "Who is the current Secretary-General of the United Nations?", "options": ["Ban Ki-moon", "António Guterres", "Kofi Annan", "Trygve Lie"], "keyHash": "891230a1bea6ea2f8ff208afc77de5085c368bf8b359675fceff2d3c13457ecf"}, {"qid": "QCA_JUN_14", "text": "ISRO is the national space agency of:", "options": ["Israel", "India", "Indonesia", "Iran"], "keyHash": "2c48d63d4e00e153061cdd76f7e1b6947e14af7e5b88d848baec09a52231ac91"}, {"qid": "QCA_JUN_15", "text": "After Paris 2024, the next Summer Olympics (2028) will be in:", "options": ["Tokyo", "Los Angeles", "Brisbane", "London"], "keyHash": "a53506d27fec24352f80532bd260054d10720222c74c2afc38eff8b69d27030e"}, {"qid": "QCA_JUN_16", "text": "How many rings are there on the Olympic flag?", "options": ["4", "5", "6", "7"], "keyHash": "e3552984475c7b9f88232fd06fc3c76e9cb5b959a034231602f18540c63f1450"}, {"qid": "QCA_JUN_17", "text": "Chandrayaan-3 landed on the Moon in the year:", "options": ["2019", "2021", "2023", "2024"], "keyHash": "b4d0ad181651a02056f790a5cb558a928fe3e72ad98c5a3b904f0215deb7f455"}, {"qid": "QCA_JUN_18", "text": "The currency used by most European Union countries is the:", "options": ["Pound", "Euro", "Dollar", "Franc"], "keyHash": "302fb209465907eafb22993bbaed599c1460e4dc98063d675b86d41f119c364f"}, {"qid": "QCA_JUN_19", "text": "Which is now the most populous country in the world?", "options": ["China", "India", "USA", "Indonesia"], "keyHash": "44e7ba7291ea4dc6ac9d9ad47614db4bb158322a286789152eb5fc039d21d057"}, {"qid": "QCA_JUN_20", "text": "Paris, host of the 2024 Olympics, is in which continent?", "options": ["Asia", "Europe", "Africa", "North America"], "keyHash": "6d3e46cc471095bf259d6fc708db7c02e452807e734ffdc26cda1731d2832a0a"}]}, {"id": "senior", "name": "Senior", "meta": "Grades 9–12", "questions": [{"qid": "QCA_SEN_01", "text": "Who was inaugurated as US President in January 2025?", "options": ["Joe Biden", "Donald Trump", "Kamala Harris", "Barack Obama"], "keyHash": "51c76500c33d9acf3af9860a5800518905c0691b89f4195c4b088ab8c83d9a17"}, {"qid": "QCA_SEN_02", "text": "Who became the Prime Minister of the United Kingdom in July 2024?", "options": ["Rishi Sunak", "Boris Johnson", "Keir Starmer", "Liz Truss"], "keyHash": "4cb92438aefb37defcb7bf442b4eb8a9d810cceffcaa601a96c5b587c5645bf2"}, {"qid": "QCA_SEN_03", "text": "Finland and which other country recently joined NATO?", "options": ["Switzerland", "Sweden", "Austria", "Ireland"], "keyHash": "8dffa9538385ae47836f06a5507e63755a31ceb92111e5c79cd3b1420c6310e6"}, {"qid": "QCA_SEN_04", "text": "The COP28 UN climate summit (2023) was hosted by:", "options": ["Egypt", "United Arab Emirates", "United Kingdom", "Brazil"], "keyHash": "9077010a622e9708a457fd948f23132fc4a4964cf3f41ad3ecf1647d8c71a256"}, {"qid": "QCA_SEN_05", "text": "In 2024, which country joined the expanded BRICS group?", "options": ["Japan", "Canada", "United Arab Emirates", "Germany"], "keyHash": "de4186df68e30e78ab58478d6a54f0031ca747798b9c28876567bd71fabfb0ac"}, {"qid": "QCA_SEN_06", "text": "India signed a major Free Trade Agreement (CETA) in 2025 with:", "options": ["USA", "United Kingdom", "Canada", "Russia"], "keyHash": "e16545087c170a0c87d10ec5a78dd030e6136d4174a6ee49830de8e4ed0e1dcd"}, {"qid": "QCA_SEN_07", "text": "Which country topped the total medal tally at the Paris 2024 Olympics?", "options": ["China", "United States", "France", "Japan"], "keyHash": "f4e1fb9a7f2f845e227464e20d584142901c864799a14894a46ac4c7f111b459"}, {"qid": "QCA_SEN_08", "text": "The oil-trade chokepoint between Iran and Oman is the:", "options": ["Suez Canal", "Strait of Malacca", "Strait of Hormuz", "Strait of Gibraltar"], "keyHash": "07a225d054afe7538a918d527810e74bb6948d11734a4737355ccb2f2473a3dd"}, {"qid": "QCA_SEN_09", "text": "The International Criminal Court (ICC) is headquartered in:", "options": ["Geneva", "New York", "The Hague", "Paris"], "keyHash": "7ae02bad4d6f020d7e33c5a533fe11e6bc4108a118f6f8a58a67ace2fd1899c5"}, {"qid": "QCA_SEN_10", "text": "'Article 5', the collective-defence clause, belongs to which organisation?", "options": ["United Nations", "NATO", "European Union", "ASEAN"], "keyHash": "1f2af74fc495e8ed6af7d727f6bc214d2486ffe5068bdc7980d625850d72731e"}, {"qid": "QCA_SEN_11", "text": "The Abraham Accords normalised relations between Arab states and:", "options": ["Palestine", "Israel", "Iran", "Turkey"], "keyHash": "18053798971ea4448c122fd5a77f0f9310dfc809eeb1ed68bb621d473e1a656e"}, {"qid": "QCA_SEN_12", "text": "The COP30 UN climate summit (2025) was hosted by:", "options": ["Azerbaijan", "United Arab Emirates", "Brazil", "Australia"], "keyHash": "31de4efb5a642533a89f37eb712b378065bbf463ae98572e44af8cf1fa3be5a8"}, {"qid": "QCA_SEN_13", "text": "Chandrayaan-3 made India the first nation to land near the Moon's:", "options": ["north pole", "south pole", "equator", "far-side ridge"], "keyHash": "f2377331a6abaecc25eb9e14f6090eadc6afe9077e010d99babc866a8f4f0894"}, {"qid": "QCA_SEN_14", "text": "The 2024 G20 Leaders' Summit (Rio de Janeiro) was hosted by:", "options": ["India", "Brazil", "Indonesia", "South Africa"], "keyHash": "90b171df4dabb2876291fd3670dba0ecda62390b5f886b7c6780db5367529d08"}, {"qid": "QCA_SEN_15", "text": "The Quad grouping consists of India, the USA, Australia and:", "options": ["United Kingdom", "Japan", "France", "Germany"], "keyHash": "df3683fe1aff49425a5e0d10ea50838294ab7f01e9ca66887777ecb1f38e00a6"}, {"qid": "QCA_SEN_16", "text": "The Grand Ethiopian Renaissance Dam (GERD) on the Blue Nile is built by:", "options": ["Egypt", "Sudan", "Ethiopia", "Kenya"], "keyHash": "1cca5d382e3752f11ea17c7d1d91625f23f0d680d30ec12a640e61318655414b"}, {"qid": "QCA_SEN_17", "text": "Which canal connects the Red Sea to the Mediterranean Sea?", "options": ["Panama Canal", "Suez Canal", "Kiel Canal", "Corinth Canal"], "keyHash": "dc3c0ad4026c511f048d58c3801ea9417e7428196ed5547ee9e6f493410e8c1d"}, {"qid": "QCA_SEN_18", "text": "The UN Sustainable Development Goals are targeted to be met by the year:", "options": ["2025", "2030", "2040", "2050"], "keyHash": "ad50ac33141314bf519cc32456fe54487aa9853af32623ebcbb70673d268d012"}, {"qid": "QCA_SEN_19", "text": "The headquarters of the World Health Organization (WHO) is in:", "options": ["New York", "Geneva", "Paris", "Vienna"], "keyHash": "9938fcfae7e1e1e4a0fad4800c42be0c24327a3ea5fa6f106616ff5b4e4c995f"}, {"qid": "QCA_SEN_20", "text": "Sweden's accession in 2024 brought NATO's membership to how many countries?", "options": ["30", "31", "32", "34"], "keyHash": "15b464c30d5c2b1e08e94fdb24197c25fc437a959e6b4004d84f5bc64b854723"}]}]};</script>
+<script src="assets/js/ith-exam.js" defer></script>
 </body>
 </html>
