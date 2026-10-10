@@ -288,11 +288,14 @@
 
   function buildAttempt(levelId, cand) {
     var lvl = levelById(levelId);
-    var qs = lvl.questions.map(function (q) {
+    /* draw a RANDOM subset of the pool so every participant gets a different paper */
+    var pool = lvl.questions.slice();
+    shuffle(pool);
+    var draw = C.drawCount ? Math.min(C.drawCount, pool.length) : pool.length;
+    var qs = pool.slice(0, draw).map(function (q) {
       var opts = (C.shuffleOptions === false) ? q.options.slice() : shuffle(q.options.slice());
       return { qid: q.qid, text: q.text, options: opts, keyHash: q.keyHash };
     });
-    if (C.shuffleQuestions !== false) shuffle(qs);
     ST = {
       ref: genRef(), level: levelId, cand: cand,
       qlist: qs, answers: {}, flags: {}, startedAt: now(), submitted: false,
