@@ -348,13 +348,31 @@
     if (timer) clearInterval(timer);
     function t() {
       if (!ST || ST.submitted) { clearInterval(timer); timer = null; return; }
-      var left = Math.floor((ST.startedAt + durMs - now()) / 1000);
-      if ($('ui-timer-text')) $('ui-timer-text').textContent = fmtClock(left);
-      var wrap = $('ui-timer-container'); if (wrap) wrap.classList.toggle('is-critical', left <= 300);
-      if (left <= 0) { clearInterval(timer); timer = null; finish(true); }
+      var rem = ST.startedAt + durMs - now();
+      var wrap = $('ui-timer-container'), banner = $('ui-overtime-banner');
+      if (rem > 0) {
+        /* still within the 30 minutes */
+        var left = Math.floor(rem / 1000);
+        if ($('ui-timer-text')) $('ui-timer-text').textContent = fmtClock(left);
+        if (wrap) { wrap.classList.toggle('is-critical', left <= 300); wrap.classList.remove('is-overtime'); }
+        if (banner) banner.style.display = 'none';
+      } else {
+        /* SOFT LIMIT: time is up but we do NOT submit — count extra time up */
+        var over = Math.floor((now() - (ST.startedAt + durMs)) / 1000);
+        if ($('ui-timer-text')) $('ui-timer-text').textContent = '+' + fmtClock(over);
+        if (wrap) { wrap.classList.remove('is-critical'); wrap.classList.add('is-overtime'); }
+        if ($('ui-overtime-amount')) $('ui-overtime-amount').textContent = humanDur(over);
+        if (banner) banner.style.display = '';
+      }
     }
     t(); timer = setInterval(t, 1000);
   }
+  function humanDur(sec) {
+    sec = Math.max(0, Math.floor(sec));
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m ? m + ' min ' : '') + s + ' s';
+  }
+  function overtimeSec() { return Math.max(0, Math.floor((now() - (ST.startedAt + durMs)) / 1000)); }
 
   function showReview() {
     var fl = [], un = [];
@@ -366,10 +384,11 @@
     showView('view-review');
   }
 
-  function finish(auto) {
+  function finish() {
     if (!ST || ST.submitted) { showView('view-completion'); return; }
     Security.disarm();
     if (timer) { clearInterval(timer); timer = null; }
+    ST.overtimeSec = overtimeSec();
 
     /* score: hash each chosen option, compare to stored key hash */
     var tasks = ST.qlist.map(function (q, i) {
@@ -392,8 +411,8 @@
       Proctor.stop();   /* stops + triggers the .webm download */
       try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
 
-      fillCompletion(auto);
-      emailResult(auto);
+      fillCompletion();
+      emailResult();
       showView('view-completion');
     });
   }
@@ -410,21 +429,26 @@
       '; recording: ' + (ST.recording ? 'YES' : 'NO (disqualification grounds)');
   }
 
-  function fillCompletion(auto) {
+  function fillCompletion() {
     if ($('ui-trace-id')) $('ui-trace-id').textContent = ST.ref;
     if ($('ui-trace-time')) $('ui-trace-time').textContent = new Date(now()).toLocaleString('en-IN');
+    var over = ST.overtimeSec || 0;
     var note = $('completion-auto-note');
-    if (note) note.style.display = auto ? '' : 'none';
+    if (note) {
+      note.style.display = over > 0 ? '' : 'none';
+      var span = $('completion-overtime-amount');
+      if (span) span.textContent = humanDur(over);
+    }
     var recMiss = $('completion-rec-missing');
     if (recMiss) recMiss.style.display = ST.recording ? 'none' : '';
     var vid = $('completion-video-block');
     if (vid) vid.style.display = ST.recording ? '' : 'none';
   }
 
-  function emailResult(auto) {
+  function emailResult() {
     var f = $('exam-result-form'); if (!f) return;
     var set = function (n, v) { if (f.elements[n]) f.elements[n].value = (v == null ? '' : v); };
-    var r = ST.result, c = ST.cand;
+    var r = ST.result, c = ST.cand, over = ST.overtimeSec || 0;
     set('Reference', ST.ref);
     set('Name', c.fname + ' ' + c.lname);
     set('Team name', c.team || '(none given)');
@@ -435,7 +459,8 @@
     set('Email', c.email);
     set('Score', r.raw + ' / ' + r.max + '  (correct ' + r.correct + ', wrong ' + r.wrong + ', blank ' + r.blank + ' of ' + r.total + ')');
     set('Integrity', integritySummary());
-    set('Submitted', new Date(now()).toLocaleString('en-IN') + (auto ? '  (auto — time up)' : ''));
+    set('Time taken', over > 0 ? ('30 min + ' + humanDur(over) + ' EXTRA time') : 'within 30 minutes');
+    set('Submitted', new Date(now()).toLocaleString('en-IN'));
     try { f.submit(); } catch (e) {}
   }
 
@@ -514,7 +539,7 @@
     if ($('btn-quiz-submit')) $('btn-quiz-submit').addEventListener('click', function () { showReview(); });
     if ($('btn-review-back')) $('btn-review-back').addEventListener('click', function () { showView('view-quiz'); renderQ(); });
     if ($('btn-review-confirm')) $('btn-review-confirm').addEventListener('click', function () {
-      if (window.confirm('Submit your final answers? You cannot return to the quiz after this.')) finish(false);
+      if (window.confirm('Submit your final answers? You cannot return to the quiz after this.')) finish();
     });
     if ($('btn-return-fullscreen')) $('btn-return-fullscreen').addEventListener('click', function () {
       try { (document.documentElement.requestFullscreen || function () {}).call(document.documentElement); } catch (e) {}
@@ -524,7 +549,7 @@
 
   /* ---------- warn before leaving an active attempt ---------- */
   window.addEventListener('beforeunload', function (e) {
-    if (ST && ST.startedAt && !ST.submitted && now() < ST.startedAt + durMs) { e.preventDefault(); e.returnValue = ''; return ''; }
+    if (ST && ST.startedAt && !ST.submitted) { e.preventDefault(); e.returnValue = ''; return ''; }
   });
 
   /* ---------- router / boot ---------- */
@@ -534,8 +559,8 @@
 
     if (ST && ST.submitted) { fillCompletion(false); showView('view-completion'); return; }
     if (ST && ST.startedAt && ST.qlist) {
-      /* resume an in-progress attempt (note: recording cannot resume across reloads) */
-      if (now() >= ST.startedAt + durMs) { finish(true); return; }
+      /* resume an in-progress attempt — including in overtime; never auto-submit.
+         (note: recording cannot resume across reloads) */
       ST.recording = false; /* a reload drops the recorder */
       Security.boot();
       idx = 0;
