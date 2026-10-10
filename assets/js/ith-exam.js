@@ -464,20 +464,49 @@
     try { f.submit(); } catch (e) {}
   }
 
-  /* ---------- availability gate ---------- */
-  function gateMessage() {
-    var box = $('exam-gate'); var btn = $('btn-init-quiz');
+  /* ---------- availability gate + live countdown ---------- */
+  var preTimer = null;
+  function setCell(id, n) { if ($(id)) $(id).textContent = pad(n); }
+  function startPreTimer() {
+    if (preTimer) return;
+    function tick() {
+      var d = availFrom - now();
+      if (d <= 0) {
+        clearInterval(preTimer); preTimer = null;
+        applyGate(); /* re-evaluate: now open */
+        return;
+      }
+      setCell('exam-cd-d', Math.floor(d / 86400000));
+      setCell('exam-cd-h', Math.floor(d / 3600000) % 24);
+      setCell('exam-cd-m', Math.floor(d / 60000) % 60);
+      setCell('exam-cd-s', Math.floor(d / 1000) % 60);
+    }
+    tick(); preTimer = setInterval(tick, 1000);
+  }
+  /* returns true if the quiz is NOT open (so start is blocked) */
+  function applyGate() {
+    var cd = $('exam-countdown'), reg = $('exam-reg-card'), box = $('exam-gate'), btn = $('btn-init-quiz');
     var t = now();
     if (availFrom && t < availFrom) {
-      if (box) { box.style.display = ''; box.textContent = 'This quiz opens on ' + (C.dayLabel || new Date(availFrom).toLocaleString('en-IN')) + '. Please come back then.'; }
-      if (btn) btn.disabled = true;
+      if (cd) cd.style.display = '';
+      if (reg) reg.style.display = 'none';
+      if (box) box.style.display = 'none';
+      if (btn) { btn.disabled = true; }
+      startPreTimer();
       return true;
     }
     if (availUntil && t > availUntil) {
+      if (cd) cd.style.display = 'none';
+      if (reg) reg.style.display = 'none';
       if (box) { box.style.display = ''; box.textContent = 'The window for ' + C.name + ' has closed.'; }
       if (btn) btn.disabled = true;
       return true;
     }
+    /* open */
+    if (cd) cd.style.display = 'none';
+    if (box) box.style.display = 'none';
+    if (reg) reg.style.display = '';
+    if (btn) { btn.disabled = false; btn.textContent = '🚀 Acknowledge & Start Quiz'; }
     return false;
   }
 
@@ -486,7 +515,7 @@
     var form = $('form-registration'); if (!form) return;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (gateMessage()) return;
+      if (applyGate()) return;
       /* native + manual validation */
       var get = function (id) { var el = $(id); return el ? el.value.trim() : ''; };
       var reqIds = ['reg-fname', 'reg-lname', 'reg-email', 'reg-phone', 'reg-class', 'reg-school'];
@@ -569,7 +598,7 @@
       runTimer();
       return;
     }
-    gateMessage();
+    applyGate();
     showView('view-registration');
   }
 

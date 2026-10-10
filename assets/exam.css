@@ -1763,3 +1763,18 @@
 }
 .overtime-banner .ot-ico { font-size: 20px; line-height: 1; flex-shrink: 0; }
 .overtime-banner b { color: var(--gold-700); }
+
+/* ---------- Pre-open live countdown ---------- */
+#exam-countdown .cd-label { font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-400); font-weight:700; margin-bottom:4px; }
+#exam-countdown .cd-day { font-size:1.15rem; font-weight:800; color:var(--ink-900); margin-bottom:18px; }
+#exam-countdown .cd-note { font-size:0.82rem; color:var(--ink-500); margin-top:16px; line-height:1.55; }
+.exam-cd { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+.exam-cd__cell {
+    min-width:76px; padding:14px 10px;
+    background: linear-gradient(135deg, var(--ink-900), #1a2332);
+    border:1px solid var(--gold-500); border-radius:var(--radius-lg);
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.exam-cd__cell span { font-family:var(--font-mono); font-size:1.9rem; font-weight:700; color:var(--gold-300); line-height:1; }
+.exam-cd__cell small { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-300); }
+@media (max-width:420px){ .exam-cd__cell{ min-width:64px; } .exam-cd__cell span{ font-size:1.5rem; } }
