@@ -1,0 +1,91 @@
+/* =====================================================================
+ * apple-polish.css — site-wide Apple-standard polish
+ * ---------------------------------------------------------------------
+ * Applies Apple's published design rules (the "apple-motion" skill:
+ * response/craft/typography/reduced-motion) plus the accessibility
+ * foundations from Apple's HIG, across every page of the site.
+ *
+ * Written with GENERIC selectors so it layers on top of each page's own
+ * stylesheet without needing to know its class names. Loaded LAST in the
+ * <head> so it wins. It deliberately does NOT override existing
+ * transitions (buttons that already `transition: all` keep animating the
+ * press; buttons with none simply snap, which still reads as instant).
+ * ===================================================================== */
+
+/* ---- §15 Typography: let variable fonts optically size ---- */
+html { -webkit-text-size-adjust: 100%; }
+body { font-optical-sizing: auto; }
+
+/* ---- §1 Response: instant tactile feedback on PRESS (not release) ----
+   Scoped to button-like elements only — never plain text links. */
+button:not(:disabled):active,
+input[type="button"]:not(:disabled):active,
+input[type="submit"]:not(:disabled):active,
+input[type="reset"]:not(:disabled):active,
+[role="button"]:not([aria-disabled="true"]):active,
+a[class*="btn" i]:active,
+a[class*="button" i]:active,
+a[class*="cta" i]:active,
+label[class*="btn" i]:active,
+.btn:active,
+.button:active {
+  transform: scale(0.97);
+}
+
+/* ---- Accessibility: a visible keyboard-focus ring on every control.
+   !important so it beats any page that sets `outline: none`. ---- */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+[contenteditable="true"]:focus-visible {
+  outline: 2px solid #1a73e8 !important;
+  outline-offset: 2px !important;
+}
+/* Pair the ring with a soft halo so it stays visible on blue/dark surfaces. */
+button:focus-visible,
+[role="button"]:focus-visible,
+a[class*="btn" i]:focus-visible,
+.btn:focus-visible {
+  box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.25);
+}
+
+/* ---- §14 Reduced motion: honour the user's setting site-wide ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto !important; }
+}
+
+/* ---- §14 Reduced transparency: solidify glass/blur surfaces ---- */
+@media (prefers-reduced-transparency: reduce) {
+  [style*="backdrop-filter"],
+  [style*="backdrop-filter" i],
+  [class*="glass" i],
+  [class*="frost" i],
+  [class*="blur" i],
+  .backdrop {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* ---- §14 Increased contrast: firmer edges on controls & cards ---- */
+@media (prefers-contrast: more) {
+  input, select, textarea, button,
+  [class*="card" i], [class*="btn" i] {
+    border-width: 1px;
+    border-style: solid;
+  }
+  a:focus-visible, button:focus-visible, input:focus-visible {
+    outline-width: 3px !important;
+  }
+}
