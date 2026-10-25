@@ -1,22 +1,18 @@
 (()=>{
  /* ---------------------------------------------------------------
   * Sticker / Join flow.
-  * Step 1-2: details + address (validated client-side).
-  * Final submit: the address is sent to Inspire Talent Hub via
-  * FormSubmit (no application server needed), then the visitor is
-  * shown the fixed shipping contribution of Rs 47.50 and a secure
-  * Razorpay payment.
-  *
-  * CONFIG — set RAZORPAY_BUTTON_ID to the Payment Button you create
-  * in the Razorpay Dashboard (Payment Button, fixed amount Rs 47.50).
-  * Dashboard -> Payment Button -> create -> copy the id (pl_XXXXXXXX).
-  * While it is empty, the request is still captured and the visitor
-  * is told a secure payment link will be emailed.
+  * Steps 0-2: details + address (validated client-side).
+  * Final submit mirrors the cart checkout (assets/js/ith-monsoon.js):
+  *   capture address via FormSubmit → POST /api/create-order (server
+  *   creates the Razorpay order; secret stays server-side) → open
+  *   Razorpay Checkout for the fixed Rs 47.50 shipping contribution.
   * ------------------------------------------------------------- */
- const RAZORPAY_BUTTON_ID='';
- const ENDPOINT='https://formsubmit.co/ajax/info@inspiretalenthub.in';
+ const RZP_KEY='rzp_live_Si0l9ROHLTplT2';     // public key id (same as the cart)
+ const CREATE_ORDER_URL='/api/create-order';
+ const FORMSUBMIT='https://formsubmit.co/ajax/info@inspiretalenthub.in';
  const CONTACT='info@inspiretalenthub.in';
- const AMOUNT='₹47.50';
+ const AMOUNT_RUPEES=47.5;
+ const AMOUNT_LABEL='₹47.50';
 
  const form=document.querySelector('#sticker-form');if(!form)return;
  let step=0;const panels=[...form.querySelectorAll('fieldset')];
@@ -24,51 +20,64 @@
  form.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>{const fields=[...panels[step].querySelectorAll('input,select')];if(fields.every(f=>f.reportValidity()))show(step+1);});
  form.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>show(step-1));
 
- function paymentNode(){
-  const wrap=document.createElement('div');wrap.className='sticker-payment';
-  if(RAZORPAY_BUTTON_ID){
-   const p=document.createElement('p');p.textContent='Shipping contribution: '+AMOUNT+' ($0.50). Pay securely below — cards, UPI and net-banking, international cards accepted.';wrap.append(p);
-   const payForm=document.createElement('form');
-   const s=document.createElement('script');s.src='https://cdn.razorpay.com/static/widget/payment-button.js';s.async=true;s.setAttribute('data-payment_button_id',RAZORPAY_BUTTON_ID);
-   payForm.append(s);wrap.append(payForm);
-  }else{
-   const p=document.createElement('p');p.innerHTML='Shipping contribution: <strong>'+AMOUNT+'</strong> ($0.50; Inspire Talent Hub covers the rest). We will email a secure Razorpay payment link to the address you entered. Stickers ship worldwide once the contribution is received; tracking is shared after dispatch.';wrap.append(p);
-   const a=document.createElement('a');a.className='primary-action';a.href='mailto:'+CONTACT+'?subject='+encodeURIComponent('Sticker contribution – payment link request');a.textContent='Email us for the payment link ↗';wrap.append(a);
-  }
-  return wrap;
+ const val=n=>{const f=form.querySelector('[name="'+n+'"]');return f?String(f.value).trim():'';};
+ const addressString=()=>[val('Address'),val('City'),val('State'),val('Postal code'),val('Country')].filter(Boolean).join(', ');
+
+ function sendAddressRecord(){
+  const data=new FormData(form);
+  if(!data.get('_subject'))data.set('_subject','Inspire Talent Hub - sticker signup request');
+  data.set('_captcha','false');data.set('Shipping contribution',AMOUNT_LABEL);
+  return fetch(FORMSUBMIT,{method:'POST',body:data,headers:{'Accept':'application/json'}}).catch(()=>{});
+ }
+ function successPanel(ref){
+  const done=document.createElement('div');done.className='signup-complete';
+  const star=document.createElement('div');star.className='celebration-star';star.textContent='✦';
+  const h=document.createElement('h2');h.textContent='Payment received — thank you!';
+  const p=document.createElement('p');p.textContent='Your '+AMOUNT_LABEL+' shipping contribution is confirmed and your sticker pack is on its way. Reference: '+ref+'. We’ll email tracking details after dispatch.';
+  const a=document.createElement('a');a.className='primary-action';a.href='competition.html';a.textContent='Explore the competitions ↗';
+  done.append(star,h,p,a);
+  form.replaceWith(done);
+  done.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
  }
 
- let sending=false;
- form.addEventListener('submit',async e=>{
+ let busy=false;
+ form.addEventListener('submit',e=>{
   e.preventDefault();
   if(step!==2)return;
   const invalid=[...form.querySelectorAll('input')].find(f=>!f.validity.valid);
   if(invalid){show(panels.indexOf(invalid.closest('fieldset')));invalid.reportValidity();return;}
-  if(sending)return;sending=true;
-  const submitBtn=form.querySelector('[type="submit"]');if(submitBtn){submitBtn.disabled=true;submitBtn.dataset.label=submitBtn.textContent;submitBtn.textContent='Sending…';}
+  if(busy)return;busy=true;
+  const btn=form.querySelector('[type="submit"]');const restore=btn?btn.textContent:'';if(btn){btn.disabled=true;btn.textContent='Securing…';}
   let status=form.querySelector('.signup-status');
   if(!status){status=document.createElement('p');status.className='signup-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');panels[2].append(status);}
-  status.textContent='Recording your request…';
-  const data=new FormData(form);
-  if(!data.get('_subject'))data.set('_subject','Inspire Talent Hub - sticker signup request');
-  data.set('_captcha','false');data.set('Shipping contribution',AMOUNT);
-  try{
-   const res=await fetch(ENDPOINT,{method:'POST',body:data,headers:{'Accept':'application/json'}});
-   let payload={};try{payload=await res.json();}catch(_){}
-   if(!(res.ok&&(payload.success==='true'||payload.success===true||res.status<300)))throw new Error('submit failed');
-   const done=document.createElement('div');done.className='signup-complete';
-   const star=document.createElement('div');star.className='celebration-star';star.textContent='✦';
-   const h=document.createElement('h2');h.textContent='Request received — thank you!';
-   const intro=document.createElement('p');intro.textContent='Your sticker request and shipping address are on their way to our team. Last step: the shipping contribution.';
-   done.append(star,h,intro,paymentNode());
-   const link=document.createElement('a');link.className='secondary-action';link.href='competition.html';link.textContent='Explore the competitions ↗';done.append(link);
-   form.replaceWith(done);done.scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
-  }catch(err){
-   status.replaceChildren();
-   status.append(document.createTextNode('We couldn’t send that just now — your details are still here. Please try again, or email '));
-   const a=document.createElement('a');a.href='mailto:'+CONTACT+'?subject='+encodeURIComponent('Sticker signup request');a.textContent=CONTACT;status.append(a,document.createTextNode('.'));
-   if(submitBtn){submitBtn.disabled=false;submitBtn.textContent=submitBtn.dataset.label||'Submit';}
-   sending=false;
-  }
+  status.textContent='Starting secure payment…';
+  const name=val('Name'),email=val('Email');
+  if(!window.Razorpay){status.textContent='The payment library didn’t load — please refresh and try again.';if(btn){btn.disabled=false;btn.textContent=restore;}busy=false;return;}
+  sendAddressRecord();
+  fetch(CREATE_ORDER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    amountToPay:AMOUNT_RUPEES,mode:'sticker',name:name,email:email,
+    schoolName:'Sticker request',schoolAddress:addressString().substring(0,120),
+    cartSummary:'Inspire Talent Hub sticker pack x1 (shipping contribution)'
+  })})
+   .then(r=>r.json())
+   .then(order=>{
+    if(!order||!order.id)throw new Error((order&&order.error)||'Could not start the payment.');
+    const rzp=new Razorpay({
+     key:RZP_KEY,amount:order.amount,currency:order.currency||'INR',
+     name:'Inspire Talent Hub',description:'Sticker pack — shipping contribution ('+AMOUNT_LABEL+')',
+     order_id:order.id,prefill:{name:name,email:email},theme:{color:'#4d8dff'},
+     handler:function(res){successPanel(res.razorpay_payment_id||order.id||'');},
+     modal:{ondismiss:function(){if(btn){btn.disabled=false;btn.textContent=restore;}status.textContent='Payment cancelled — your details are saved. You can try again, or email '+CONTACT+'.';busy=false;}}
+    });
+    rzp.on('payment.failed',function(resp){status.textContent='Payment failed: '+((resp.error&&resp.error.description)||'please try again.');if(btn){btn.disabled=false;btn.textContent=restore;}busy=false;});
+    rzp.open();status.textContent='Complete the payment in the secure window…';
+   })
+   .catch(()=>{
+    status.replaceChildren();
+    status.append(document.createTextNode('We’ve saved your details. To complete the '+AMOUNT_LABEL+' shipping contribution, please email '));
+    const a=document.createElement('a');a.href='mailto:'+CONTACT+'?subject='+encodeURIComponent('Sticker contribution – payment link request');a.textContent=CONTACT;
+    status.append(a,document.createTextNode(' and we’ll send a secure payment link.'));
+    if(btn){btn.disabled=false;btn.textContent=restore;}busy=false;
+   });
  });
 })();
