@@ -16,4 +16,4 @@
  document.querySelectorAll('.rev-about-section h3').forEach(h=>{const card=h.parentElement;card.classList.add('rev-value-card');if(card.parentElement.querySelectorAll(':scope > .rev-value-card').length>1)card.parentElement.classList.add('value-grid')});
 })();
 
-(()=>{const d=document.getElementById("results-announcement");if(!d)return;d.querySelectorAll("button").forEach(b=>b.onclick=()=>d.close());let seen=false;try{seen=sessionStorage.getItem("ith-monsoon-results-2026")==="seen"}catch{}if(!seen){d.showModal();try{sessionStorage.setItem("ith-monsoon-results-2026","seen")}catch{}}})();
+(()=>{const d=document.getElementById("results-announcement");if(!d)return;d.querySelectorAll("button").forEach(b=>b.onclick=()=>d.close());})();
