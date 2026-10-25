@@ -1,8 +1,8 @@
-/* Inspire Talent Hub — self-contained A4 exam-paper print stylesheet.
+/* Inspire Talent Hub - self-contained A4 exam-paper print stylesheet.
  * Loaded ONLY inside the isolated print iframe (see ith-study.js printPapers()).
  * Fully standalone: literal colours, no CSS variables, no dependency on the main
  * site stylesheet or its global print rules. Produces an identical, clean A4
- * examination paper on every browser — mobile and desktop. */
+ * examination paper on every browser - mobile and desktop. */
 
 @page { size: A4 portrait; margin: 0; }
 
