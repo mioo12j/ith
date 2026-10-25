@@ -1,0 +1,14 @@
+# Keep photographs/graphics out of search image indexes (Cloudflare Pages).
+# The DPS Raipur felicitation photo is the single allowed exception.
+/assets/*.jpg
+  X-Robots-Tag: noindex
+/assets/*.jpeg
+  X-Robots-Tag: noindex
+/assets/*.png
+  X-Robots-Tag: noindex
+/assets/*.webp
+  X-Robots-Tag: noindex
+/assets/*.svg
+  X-Robots-Tag: noindex
+/assets/felicitation.jpg
+  X-Robots-Tag: all

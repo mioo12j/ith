@@ -1,17 +1,11 @@
 User-agent: *
 Allow: /
-
-# Transactional / thank-you pages don't need indexing
-# (both the clean URL Cloudflare serves and the .html form, to be safe)
-Disallow: /success
-Disallow: /success.html
-
-# Administrative build tool — not for public crawling or indexing
-Disallow: /admin
 Disallow: /admin.html
 
-# Personalised certificate pages are generated per Certificate ID (noindex)
-Disallow: /certificate
-Disallow: /certificate.html
+# Photographs are shown on the site but kept out of image search.
+# Only the DPS Raipur felicitation photo may be surfaced.
+User-agent: Googlebot-Image
+Allow: /assets/felicitation.jpg
+Disallow: /
 
-Sitemap: https://www.inspiretalenthub.in/sitemap.xml
+Sitemap: https://inspiretalenthub.in/sitemap.xml
