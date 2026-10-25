@@ -7,8 +7,8 @@ html.pixel-world #home .hero-center>p,html.pixel-world:not(.dark) #home .hero-ce
 .dark .minecraft-landscape.sky-only{background:linear-gradient(180deg,#050b23 0%,#111e46 58%,#304b73 100%)!important}
 .minecraft-landscape.sky-only:after{background:linear-gradient(180deg,transparent 70%,#09132122)!important}
 .sky-sun,.sky-moon{position:absolute;right:12%;top:17%;width:100px;height:100px;image-rendering:pixelated;transition:opacity 1s,transform 1.4s;z-index:1}
-.sky-sun{background:url(minecraft/sun.png) center/100% 100%;filter:drop-shadow(0 0 30px #fff9b977)}
-.sky-moon{background:url(minecraft/moon_phases.png) 0 0/400% 200%;opacity:0;transform:translateY(30px)}
+.sky-sun{background:url(minecraft/sun.png?v=moon2) center/100% 100%;filter:drop-shadow(0 0 30px #fff9b977)}
+.sky-moon{background:url(minecraft/moon_phases.png?v=moon2) 0 0/400% 200%;opacity:0;transform:translateY(30px)}
 .dark .sky-sun{opacity:0;transform:translateY(30px)}.dark .sky-moon{opacity:1;transform:translateY(0)}
 .sky-stars{position:absolute;inset:0;opacity:0;transition:opacity 1.2s}.dark .sky-stars{opacity:1}.sky-stars i{position:absolute;background:#ecf4ff}
 .sky-cloud{position:absolute;left:var(--x);top:var(--y);width:180px;height:36px;background:#ffffffb5;box-shadow:0 9px #d5e7f07a;clip-path:polygon(0 20%,20% 20%,20% 0,58% 0,58% 20%,83% 20%,83% 45%,100% 45%,100% 100%,0 100%);transform:scale(var(--scale));animation:sky-drift var(--duration) linear var(--delay) infinite alternate;transition:background 1s,opacity 1s}.dark .sky-cloud{background:#7a8cac45;box-shadow:0 9px #26385866;opacity:.55}
