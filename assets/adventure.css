@@ -28,9 +28,9 @@ html.pixel-world dialog.celebration-dialog{background:var(--surface)!important;c
 .result-note{padding:22px 22px;border-radius:16px;border:2px solid var(--border,#ffffff22);background:var(--surface,#1f1f27);text-align:center;margin-top:12px}
 .result-note h3{margin:0 0 6px;font-size:20px}
 .result-note p{margin:0;line-height:1.55;opacity:.92}
-.result-note a{color:#ffd94a;font-weight:700}
-.result-note--warn{border-color:#ff8c5a66;background:#2a1c18}
-.result-note--ok{border-color:#81d6bd66}
+.result-note a{color:inherit;font-weight:700;text-decoration:underline}
+.result-note--warn{border-color:var(--foreground,#111);background:var(--surface,#fff);color:var(--foreground,#111)}
+.result-note--ok{border-color:var(--border,#ffffff22)}
 .celebration-content{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;position:relative}
 .celebration-content h2{margin:2px 0 2px;font-size:clamp(24px,4vw,34px)}
 .celebration-content .rev-kicker{letter-spacing:.14em;font-size:13px;opacity:.7;margin:0}
