@@ -101,7 +101,8 @@ window.ITH_CERT_DB = {
       "resultStatus": "Winner",
       "rank": "2nd",
       "issueDate": "",
-      "certificateAvailable": true
+      "certificateAvailable": true,
+      "reward": "₹5,000 (Eco Invent team prize)"
     },
     {
       "certId": "ITH-2026-ECOINV-C7H3GP",
