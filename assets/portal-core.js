@@ -111,7 +111,8 @@
       resultStatus: String(r.resultStatus || r.result || 'Participant').trim(),
       rank: String(r.rank || '').trim(),
       issueDate: String(r.issueDate || r.date || '').trim(),
-      certificateAvailable: bool(r.certificateAvailable !== undefined ? r.certificateAvailable : r.certificate, true)
+      certificateAvailable: bool(r.certificateAvailable !== undefined ? r.certificateAvailable : r.certificate, true),
+      reward: String(r.reward || '').trim()
     };
     return rec;
   }

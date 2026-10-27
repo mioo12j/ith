@@ -1,1 +1,139 @@
-(()=>{const form=document.querySelector('#result-search'),out=document.querySelector('#portal-results'),C=window.ITHCert;if(!form)return;if(!C||!window.ITH_CERT_DB){out.textContent='Results could not load. Please use the official portal link below.';return;}for(const field of ['competition','year']){[...new Set(C.records().map(r=>r[field]).filter(Boolean))].sort().forEach(value=>{const option=document.createElement('option');option.value=value;option.textContent=value;form.elements[field].append(option);});}const dialog=document.createElement('dialog');dialog.className='celebration-dialog';dialog.setAttribute('aria-label','Your competition result');const close=document.createElement('button');close.type='button';close.className='close-celebration';close.textContent='×';close.setAttribute('aria-label','Close result');const content=document.createElement('div');dialog.append(close,content);document.body.append(dialog);close.onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog){const b=dialog.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)dialog.close();}});function celebrate(records){content.replaceChildren();const heading=document.createElement('h2');heading.textContent=records.some(r=>/winner|gold|silver|bronze|1st|2nd|3rd/i.test(r.resultStatus+' '+r.rank))?'Achievement unlocked!':'Your effort deserves a spotlight.';const badge=document.createElement('div');badge.className='celebration-star';badge.textContent='✦';content.append(badge,heading);for(const card of [...out.children])content.append(card);out.textContent='Your result opened in a popup.';const reopen=document.createElement('button');reopen.type='button';reopen.className='secondary-action';reopen.textContent='View result again';reopen.onclick=()=>dialog.showModal();out.append(reopen);if(!matchMedia('(prefers-reduced-motion: reduce)').matches){for(let i=0;i<28;i++){const bit=document.createElement('i');bit.className='confetti-bit';bit.style.cssText=`--x:${(i*37)%100}%;--delay:${(i%7)*.09}s;--color:${['#f7cf6d','#81d6bd','#c4a0f5','#e893b8'][i%4]}`;content.append(bit);}}dialog.showModal();}form.addEventListener('reset',()=>{out.replaceChildren();dialog.close();});form.addEventListener('submit',e=>{e.preventDefault();out.replaceChildren();if(!C.resultsPublished()){out.textContent='Results have not been published yet. Please check back after the official announcement.';return;}const result=C.search(Object.fromEntries(new FormData(form)));if(!result.ok){out.textContent='Enter at least one detail to find your result.';return;}if(!result.results.length){out.textContent='No matching result. Check the spelling or try your certificate ID.';return;}if(result.results.length>8){out.textContent=`${result.results.length} records match. Add your name, school or certificate ID to narrow the search.`;return;}for(const record of result.results){const card=document.createElement('article');card.className='result-achievement';const title=document.createElement('h3');title.textContent=record.name;card.append(title);const list=document.createElement('dl');for(const [label,key] of [['Competition','competition'],['School','school'],['Result','resultStatus'],['Rank','rank'],['Certificate ID','certId']]){if(!record[key])continue;const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=record[key];list.append(dt,dd);}card.append(list);if(C.certificateEligible(record)){const link=document.createElement('a');link.className='primary-action';link.href='https://inspiretalenthub.in/certificate.html?id='+encodeURIComponent(record.certId);link.textContent='Open official certificate ↗';card.append(link);}out.append(card);}celebrate(result.results);});})();
+(() => {
+  const form = document.querySelector('#result-search');
+  const out = document.querySelector('#portal-results');
+  const C = window.ITHCert;
+  if (!form || !out) return;
+  if (!C || !window.ITH_CERT_DB) { out.textContent = 'Results could not load. Please refresh the page.'; return; }
+  const CONTACT = 'info@inspiretalenthub.in';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Populate the competition dropdown from the dataset (these names only).
+  const sel = form.elements['competition'];
+  if (sel) {
+    [...new Set(C.records().map(r => r.competition).filter(Boolean))].sort()
+      .forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; sel.append(o); });
+  }
+
+  // Celebration dialog
+  const dialog = document.createElement('dialog');
+  dialog.className = 'celebration-dialog';
+  dialog.setAttribute('aria-label', 'Your Monsoon Minds result');
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button'; closeBtn.className = 'close-celebration'; closeBtn.textContent = '×';
+  closeBtn.setAttribute('aria-label', 'Close result');
+  const content = document.createElement('div'); content.className = 'celebration-content';
+  dialog.append(closeBtn, content); document.body.append(dialog);
+  closeBtn.onclick = () => dialog.close();
+  dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const firstName = n => String(n).trim().split(/\s+/)[0] || n;
+  const isWinner = r => /winner/i.test(r.resultStatus);
+  const isBlocked = r => /disqualif|withdraw/i.test(r.resultStatus);
+  const resultLabel = r => isWinner(r) ? ((r.rank ? r.rank + ' Place' : 'Winner') + ' 🏅') : 'Participant';
+
+  function confetti(n, colors) {
+    if (reduced) return;
+    for (let i = 0; i < n; i++) {
+      const bit = document.createElement('i'); bit.className = 'confetti-bit';
+      bit.style.cssText = `--x:${(i * 37) % 100}%;--delay:${(i % 8) * 0.08}s;--color:${colors[i % colors.length]}`;
+      content.append(bit);
+    }
+  }
+  function note(title, html, tone) {
+    out.replaceChildren();
+    const card = document.createElement('article');
+    card.className = 'result-note result-note--' + (tone || 'info');
+    const h = document.createElement('h3'); h.textContent = title;
+    const p = document.createElement('p'); p.innerHTML = html;
+    card.append(h, p); out.append(card);
+    out.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' });
+  }
+
+  function openResult(rec) {
+    content.replaceChildren();
+    const winner = isWinner(rec);
+    const badge = document.createElement('div'); badge.className = 'celebration-star'; badge.textContent = winner ? '🏆' : '✦';
+    const kicker = document.createElement('p'); kicker.className = 'rev-kicker'; kicker.textContent = 'MONSOON MINDS 2026';
+    const h = document.createElement('h2'); h.textContent = winner ? ('Congratulations, ' + firstName(rec.name) + '!') : 'Thank you for taking part!';
+    content.append(badge, kicker, h);
+
+    const dl = document.createElement('dl'); dl.className = 'result-details';
+    [['Name', rec.name], ['School', rec.school], ['Class', rec.category ? 'Class ' + rec.category : ''],
+     ['Competition', rec.competition], ['Result', resultLabel(rec)]].forEach(([k, v]) => {
+      if (!v) return;
+      const dt = document.createElement('dt'); dt.textContent = k;
+      const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd);
+    });
+    content.append(dl);
+
+    if (rec.reward) {
+      const rw = document.createElement('div'); rw.className = 'reward-banner';
+      rw.innerHTML = '<span class="reward-coin" aria-hidden="true">🪙</span>' +
+        '<span class="reward-text"><strong>Cash Reward</strong>' + esc(rec.reward) + '</span>';
+      content.append(rw);
+      confetti(46, ['#ffd94a', '#ffe780', '#f7cf6d', '#fff3b0', '#ffcf3a']);
+    } else if (winner) {
+      confetti(32, ['#f7cf6d', '#81d6bd', '#c4a0f5', '#e893b8']);
+    } else {
+      confetti(18, ['#81d6bd', '#9ec7ff', '#c4a0f5']);
+    }
+
+    if (C.certificateEligible(rec)) {
+      const a = document.createElement('a'); a.className = 'primary-action';
+      a.href = 'certificate.html?id=' + encodeURIComponent(rec.certId);
+      a.textContent = 'Open your certificate ↗'; content.append(a);
+    } else {
+      const cs = document.createElement('p'); cs.className = 'cert-status';
+      cs.textContent = '🎓 Your official certificate will be available to download here soon.';
+      content.append(cs);
+    }
+    if (dialog.showModal) dialog.showModal();
+  }
+
+  function showOne(rec) {
+    if (isBlocked(rec)) {
+      note('We couldn’t generate this result',
+        'Looks like we’re having a problem generating your result. Please contact the organizers at <a href="mailto:' + CONTACT + '">' + CONTACT + '</a> for more information.',
+        'warn');
+      return;
+    }
+    note('Result found 🎉', 'Opening your Monsoon Minds result…', 'ok');
+    openResult(rec);
+  }
+
+  function chooser(list) {
+    out.replaceChildren();
+    const card = document.createElement('article'); card.className = 'result-note';
+    const h = document.createElement('h3'); h.textContent = 'We found a few matches';
+    const p = document.createElement('p'); p.textContent = 'Select your entry to see the result:';
+    card.append(h, p);
+    const wrap = document.createElement('div'); wrap.className = 'match-list';
+    list.forEach(rec => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'match-item';
+      b.innerHTML = '<strong>' + esc(rec.name) + '</strong><span>' + esc(rec.school || '') +
+        (rec.category ? ' · Class ' + esc(rec.category) : '') + '</span>';
+      b.onclick = () => showOne(rec); wrap.append(b);
+    });
+    card.append(wrap); out.append(card);
+    out.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    out.replaceChildren();
+    const data = Object.fromEntries(new FormData(form));
+    const name = (data.name || '').trim(), comp = (data.competition || '').trim();
+    if (!name || !comp) { note('Add your details', 'Please enter your name and choose your competition.', 'info'); return; }
+    if (!C.resultsPublished()) { note('Results not published yet', 'Please check back after the official announcement.', 'info'); return; }
+    const res = C.search({ name: name, competition: comp });
+    const list = res.results || [];
+    if (!list.length) {
+      note('Name not found', 'The name is not in the record. Please check the spelling, or contact support at <a href="mailto:' + CONTACT + '">' + CONTACT + '</a>.', 'warn');
+      return;
+    }
+    if (list.length === 1) { showOne(list[0]); return; }
+    chooser(list);
+  });
+  form.addEventListener('reset', () => { out.replaceChildren(); dialog.close(); });
+})();
