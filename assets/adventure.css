@@ -49,3 +49,19 @@ html.pixel-world dialog.celebration-dialog{background:var(--surface)!important;c
 .match-item:hover{border-color:#ffd94a;transform:translateY(-1px)}
 .match-item span{opacity:.7;font-size:14px}
 @media (prefers-reduced-motion:reduce){.reward-banner,.reward-coin{animation:none}}
+/* ---- Results UI uses a normal English font (not the pixel display font) ----
+   Scoped to the result pop-up, the results-announcement pop-up, and the
+   portal result output; the rest of the site keeps the pixel font. */
+html.pixel-world.pixel-world .celebration-dialog, html.pixel-world.pixel-world .celebration-dialog *,
+html.pixel-world.pixel-world #portal-results, html.pixel-world.pixel-world #portal-results *,
+html.pixel-world.pixel-world #results-announcement, html.pixel-world.pixel-world #results-announcement *{
+  font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important;
+  letter-spacing:normal !important;
+}
+/* beat high-specificity pixel rules on result buttons/links (e.g. .results-check) */
+html.pixel-world.pixel-world #results-announcement .results-check,
+html.pixel-world.pixel-world #results-announcement a, html.pixel-world.pixel-world #results-announcement button,
+html.pixel-world.pixel-world .celebration-dialog a, html.pixel-world.pixel-world .celebration-dialog button, html.pixel-world.pixel-world .celebration-dialog .primary-action,
+html.pixel-world.pixel-world #portal-results a, html.pixel-world.pixel-world #portal-results button, html.pixel-world.pixel-world #portal-results .primary-action, html.pixel-world.pixel-world #portal-results .match-item{
+  font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important;
+}
