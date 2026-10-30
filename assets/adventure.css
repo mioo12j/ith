@@ -65,3 +65,27 @@ html.pixel-world.pixel-world .celebration-dialog a, html.pixel-world.pixel-world
 html.pixel-world.pixel-world #portal-results a, html.pixel-world.pixel-world #portal-results button, html.pixel-world.pixel-world #portal-results .primary-action, html.pixel-world.pixel-world #portal-results .match-item{
   font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important;
 }
+/* ---- General J.J. Singh message dialog (shown before a result) ---- */
+.general-dialog{border:none;padding:0;background:transparent;max-width:600px;width:calc(100vw - 28px)}
+.general-dialog::backdrop{background:#0b0406d9}
+.general-card{position:relative;background:linear-gradient(140deg,#3a1018,#190609);border:1px solid #b99a59;border-radius:16px;padding:32px 26px 26px;text-align:center;color:#f1e4cd;box-shadow:0 30px 80px #000a}
+.general-card .close-celebration{position:absolute;top:10px;right:12px;background:none;border:none;color:#e9d3a6;font-size:24px;line-height:1;cursor:pointer}
+.general-kicker{letter-spacing:.2em;font-size:11px;color:#d4b777;margin:0 0 6px;text-transform:uppercase}
+.general-card h2{color:#f4e4bf;font-size:clamp(21px,3.4vw,28px);margin:0 0 16px;line-height:1.22}
+.general-video{aspect-ratio:16/9;border:1px solid #b99a59;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#501824,#21090e);display:grid;place-items:center;margin-bottom:18px}
+.general-video video{width:100%;height:100%;object-fit:cover;display:block}
+.general-video-ph{display:flex;flex-direction:column;align-items:center;gap:14px}
+.general-play{width:64px;height:64px;display:grid;place-items:center;border-radius:50%;background:#dfbc6d;color:#421320;font-size:22px;box-shadow:0 0 0 10px #eac7760f}
+.general-soon{padding:6px 14px;border:1px solid #b99a59;border-radius:999px;color:#eac776;font:600 11px/1 "Nunito",system-ui,sans-serif;letter-spacing:.14em}
+.general-bio{display:flex;gap:16px;align-items:center;text-align:left;border-top:1px solid #b99a5940;border-bottom:1px solid #b99a5940;padding:16px 2px;margin-bottom:20px}
+.general-bio img{width:88px;height:auto;flex:0 0 88px;border:1px solid #d9ba72;padding:4px;background:#2c0c12}
+.general-bio h3{color:#f5d69b;font-size:21px;margin:0}
+.general-bio .medals{letter-spacing:2px;color:#d7bf88;margin:6px 0 10px;font-size:12px}
+.general-bio ul{list-style:none;padding:0;margin:0}
+.general-bio li{color:#e7d9c4;padding-left:16px;position:relative;margin:3px 0;font-size:13px;line-height:1.55}
+.general-bio li:before{content:'◆';position:absolute;left:0;color:#c3a05b;font-size:9px;top:4px}
+.general-continue{display:inline-flex;cursor:pointer;border:none}
+@media (max-width:520px){.general-bio{flex-direction:column;text-align:center}.general-bio ul{text-align:left}}
+/* fonts: body sans, display serif (beat the global pixel-font rules) */
+html.pixel-world.pixel-world .general-card, html.pixel-world.pixel-world .general-card *{font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important}
+html.pixel-world.pixel-world .general-card h2, html.pixel-world.pixel-world .general-bio h3{font-family:"Playfair Display",Georgia,serif !important}

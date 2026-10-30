@@ -7,6 +7,17 @@
   const CONTACT = 'info@inspiretalenthub.in';
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // CONFIG — when the General's video is uploaded, set these (same file as the
+  // homepage section). While GENERAL_VIDEO is empty, a dignified placeholder shows.
+  const GENERAL_VIDEO = '';            // e.g. 'assets/jj-singh-message.mp4'
+  const GENERAL_POSTER = '';           // e.g. 'assets/jj-poster.jpg'
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const firstName = n => String(n).trim().split(/\s+/)[0] || n;
+  const isWinner = r => /winner/i.test(r.resultStatus);
+  const isBlocked = r => /disqualif|withdraw/i.test(r.resultStatus);
+  const resultLabel = r => isWinner(r) ? ((r.rank ? r.rank + ' Place' : 'Winner') + ' 🏅') : 'Participant';
+
   // Populate the competition dropdown from the dataset (these names only).
   const sel = form.elements['competition'];
   if (sel) {
@@ -14,7 +25,7 @@
       .forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; sel.append(o); });
   }
 
-  // Celebration dialog
+  /* ---------- Result celebration dialog ---------- */
   const dialog = document.createElement('dialog');
   dialog.className = 'celebration-dialog';
   dialog.setAttribute('aria-label', 'Your Monsoon Minds result');
@@ -26,12 +37,70 @@
   closeBtn.onclick = () => dialog.close();
   dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
 
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const firstName = n => String(n).trim().split(/\s+/)[0] || n;
-  const isWinner = r => /winner/i.test(r.resultStatus);
-  const isBlocked = r => /disqualif|withdraw/i.test(r.resultStatus);
-  const resultLabel = r => isWinner(r) ? ((r.rank ? r.rank + ' Place' : 'Winner') + ' 🏅') : 'Participant';
+  /* ---------- General J.J. Singh message dialog (shown before the result) ---------- */
+  const gDialog = document.createElement('dialog');
+  gDialog.className = 'general-dialog';
+  gDialog.setAttribute('aria-label', 'A message from General J.J. Singh');
+  const gCard = document.createElement('div'); gCard.className = 'general-card';
+  gDialog.append(gCard); document.body.append(gDialog);
+  let continueCb = null;
 
+  function videoNode() {
+    if (GENERAL_VIDEO) {
+      const v = document.createElement('video');
+      v.controls = true; v.playsInline = true; v.preload = 'metadata';
+      if (GENERAL_POSTER) v.poster = GENERAL_POSTER;
+      const src = document.createElement('source'); src.src = GENERAL_VIDEO; src.type = 'video/mp4';
+      v.append(src);
+      v.addEventListener('ended', () => { if (continueCb) proceed(); });
+      return v;
+    }
+    const ph = document.createElement('div'); ph.className = 'general-video-ph';
+    ph.innerHTML = '<span class="general-play" aria-hidden="true">▶</span>' +
+      '<span class="general-soon">VIDEO MESSAGE · ARRIVING SOON</span>';
+    return ph;
+  }
+
+  function proceed() {
+    const cb = continueCb; continueCb = null;
+    gDialog.close();
+    if (cb) cb();
+  }
+
+  function buildGeneral() {
+    gCard.replaceChildren();
+    const close = document.createElement('button');
+    close.type = 'button'; close.className = 'close-celebration'; close.textContent = '×';
+    close.setAttribute('aria-label', 'Skip');
+    close.onclick = () => proceed();
+    const kicker = document.createElement('p'); kicker.className = 'general-kicker'; kicker.textContent = 'A MESSAGE BEFORE YOUR RESULT';
+    const h = document.createElement('h2'); h.textContent = 'A message from General J.J. Singh';
+    const vwrap = document.createElement('div'); vwrap.className = 'general-video'; vwrap.append(videoNode());
+
+    const bio = document.createElement('div'); bio.className = 'general-bio';
+    const img = document.createElement('img');
+    img.src = 'assets/general-jj-singh.jpg'; img.alt = 'General J.J. Singh'; img.width = 88; img.height = 105; img.loading = 'lazy';
+    const info = document.createElement('div');
+    const nm = document.createElement('h3'); nm.textContent = 'General Joginder Jaswant Singh';
+    const md = document.createElement('p'); md.className = 'medals'; md.textContent = 'PVSM · AVSM · VSM · ADC';
+    const ul = document.createElement('ul');
+    ['13th Governor of Arunachal Pradesh', '47th Chairman, Chiefs of Staff Committee', '21st Chief of the Army Staff',
+     'Officer of the Legion of Honour (France, 2016)'].forEach(t => { const li = document.createElement('li'); li.textContent = t; ul.append(li); });
+    info.append(nm, md, ul); bio.append(img, info);
+
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'primary-action general-continue';
+    btn.textContent = 'Continue to my result →'; btn.onclick = () => proceed();
+
+    gCard.append(close, kicker, h, vwrap, bio, btn);
+  }
+
+  function generalIntro(cb) {
+    continueCb = cb;
+    buildGeneral();
+    if (gDialog.showModal) gDialog.showModal(); else proceed();
+  }
+
+  /* ---------- Rendering helpers ---------- */
   function confetti(n, colors) {
     if (reduced) return;
     for (let i = 0; i < n; i++) {
@@ -98,8 +167,8 @@
         'warn');
       return;
     }
-    note('Result found 🎉', 'Opening your Monsoon Minds result…', 'ok');
-    openResult(rec);
+    note('Result found 🎉', 'First, a message from General J.J. Singh — then your result.', 'ok');
+    generalIntro(() => openResult(rec));   // video + the General's details first, then the result
   }
 
   function chooser(list) {
@@ -135,5 +204,5 @@
     if (list.length === 1) { showOne(list[0]); return; }
     chooser(list);
   });
-  form.addEventListener('reset', () => { out.replaceChildren(); dialog.close(); });
+  form.addEventListener('reset', () => { out.replaceChildren(); dialog.close(); gDialog.close(); });
 })();
