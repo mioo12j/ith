@@ -125,7 +125,13 @@
     if (reduced) return;
     for (let i = 0; i < n; i++) {
       const bit = document.createElement('i'); bit.className = 'confetti-bit';
-      bit.style.cssText = `--x:${(i * 37) % 100}%;--delay:${(i % 8) * 0.08}s;--color:${colors[i % colors.length]}`;
+      const size = 6 + Math.random() * 8;
+      bit.style.left = (Math.random() * 100).toFixed(1) + '%';
+      bit.style.width = size.toFixed(1) + 'px';
+      bit.style.height = (size * 1.6).toFixed(1) + 'px';
+      bit.style.setProperty('--color', colors[i % colors.length]);
+      bit.style.animationDelay = (Math.random() * 0.9).toFixed(2) + 's';
+      bit.style.animationDuration = (1.9 + Math.random() * 1.4).toFixed(2) + 's';
       content.append(bit);
     }
   }
@@ -161,11 +167,11 @@
       rw.innerHTML = '<span class="reward-coin" aria-hidden="true">🪙</span>' +
         '<span class="reward-text"><strong>Cash Reward</strong>' + esc(rec.reward) + '</span>';
       content.append(rw);
-      confetti(46, ['#ffd94a', '#ffe780', '#f7cf6d', '#fff3b0', '#ffcf3a']);
+      confetti(90, ['#ffd94a', '#ffe780', '#f7cf6d', '#fff3b0', '#ffcf3a']);
     } else if (winner) {
-      confetti(32, ['#f7cf6d', '#81d6bd', '#c4a0f5', '#e893b8']);
+      confetti(64, ['#f7cf6d', '#81d6bd', '#c4a0f5', '#e893b8']);
     } else {
-      confetti(18, ['#81d6bd', '#9ec7ff', '#c4a0f5']);
+      confetti(40, ['#81d6bd', '#9ec7ff', '#c4a0f5']);
     }
 
     if (C.certificateEligible(rec)) {
