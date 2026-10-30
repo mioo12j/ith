@@ -89,3 +89,5 @@ html.pixel-world.pixel-world #portal-results a, html.pixel-world.pixel-world #po
 /* fonts: body sans, display serif (beat the global pixel-font rules) */
 html.pixel-world.pixel-world .general-card, html.pixel-world.pixel-world .general-card *{font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important}
 html.pixel-world.pixel-world .general-card h2, html.pixel-world.pixel-world .general-bio h3{font-family:"Playfair Display",Georgia,serif !important}
+.general-hint{font:13px/1.5 "Nunito",system-ui,sans-serif;color:#d8c49a;margin:0 0 14px;opacity:.9}
+.general-continue:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}

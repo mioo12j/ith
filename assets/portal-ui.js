@@ -44,15 +44,26 @@
   const gCard = document.createElement('div'); gCard.className = 'general-card';
   gDialog.append(gCard); document.body.append(gDialog);
   let continueCb = null;
+  let watched = false;
+  // Compulsory: once a video exists it must be watched; block Escape until then.
+  gDialog.addEventListener('cancel', e => { if (GENERAL_VIDEO && !watched) e.preventDefault(); });
 
-  function videoNode() {
+  function proceed() {
+    const cb = continueCb; continueCb = null;
+    gDialog.close();
+    if (cb) cb();
+  }
+
+  function videoNode(onWatched) {
     if (GENERAL_VIDEO) {
       const v = document.createElement('video');
       v.controls = true; v.playsInline = true; v.preload = 'metadata';
+      v.setAttribute('controlsList', 'nodownload noplaybackrate');
       if (GENERAL_POSTER) v.poster = GENERAL_POSTER;
       const src = document.createElement('source'); src.src = GENERAL_VIDEO; src.type = 'video/mp4';
       v.append(src);
-      v.addEventListener('ended', () => { if (continueCb) proceed(); });
+      v.addEventListener('ended', () => onWatched(true));
+      v.addEventListener('error', () => onWatched(false)); // don't trap viewers if it fails to load
       return v;
     }
     const ph = document.createElement('div'); ph.className = 'general-video-ph';
@@ -61,21 +72,25 @@
     return ph;
   }
 
-  function proceed() {
-    const cb = continueCb; continueCb = null;
-    gDialog.close();
-    if (cb) cb();
-  }
-
   function buildGeneral() {
     gCard.replaceChildren();
-    const close = document.createElement('button');
-    close.type = 'button'; close.className = 'close-celebration'; close.textContent = '×';
-    close.setAttribute('aria-label', 'Skip');
-    close.onclick = () => proceed();
+    watched = false;
+    const gated = !!GENERAL_VIDEO; // watching is only enforceable once a video exists
     const kicker = document.createElement('p'); kicker.className = 'general-kicker'; kicker.textContent = 'A MESSAGE BEFORE YOUR RESULT';
     const h = document.createElement('h2'); h.textContent = 'A message from General J.J. Singh';
-    const vwrap = document.createElement('div'); vwrap.className = 'general-video'; vwrap.append(videoNode());
+
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'primary-action general-continue';
+    const hint = document.createElement('p'); hint.className = 'general-hint';
+
+    function unlock(completed) {
+      watched = true;
+      btn.disabled = false;
+      btn.textContent = 'Continue to my result →';
+      hint.textContent = '';
+      if (completed) proceed(); // video finished → show the result
+    }
+
+    const vwrap = document.createElement('div'); vwrap.className = 'general-video'; vwrap.append(videoNode(unlock));
 
     const bio = document.createElement('div'); bio.className = 'general-bio';
     const img = document.createElement('img');
@@ -88,10 +103,15 @@
      'Officer of the Legion of Honour (France, 2016)'].forEach(t => { const li = document.createElement('li'); li.textContent = t; ul.append(li); });
     info.append(nm, md, ul); bio.append(img, info);
 
-    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'primary-action general-continue';
-    btn.textContent = 'Continue to my result →'; btn.onclick = () => proceed();
+    if (gated) {
+      btn.disabled = true; btn.textContent = 'Watch the full message to continue';
+      hint.textContent = 'Please watch the message to the end to see your result.';
+    } else {
+      btn.disabled = false; btn.textContent = 'Continue to my result →';
+    }
+    btn.onclick = () => { if (!btn.disabled) proceed(); };
 
-    gCard.append(close, kicker, h, vwrap, bio, btn);
+    gCard.append(kicker, h, vwrap, bio, hint, btn);
   }
 
   function generalIntro(cb) {
