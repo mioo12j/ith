@@ -9,8 +9,8 @@
 
   // CONFIG — when the General's video is uploaded, set these (same file as the
   // homepage section). While GENERAL_VIDEO is empty, a dignified placeholder shows.
-  const GENERAL_VIDEO = '';            // e.g. 'assets/jj-singh-message.mp4'
-  const GENERAL_POSTER = '';           // e.g. 'assets/jj-poster.jpg'
+  const GENERAL_VIDEO = 'assets/jj-singh-message.mp4';            // e.g. 'assets/jj-singh-message.mp4'
+  const GENERAL_POSTER = 'assets/jj-poster.jpg';           // e.g. 'assets/jj-poster.jpg'
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const firstName = n => String(n).trim().split(/\s+/)[0] || n;
@@ -174,14 +174,11 @@
       confetti(40, ['#81d6bd', '#9ec7ff', '#c4a0f5']);
     }
 
+    // Certificate download only appears once certificates are enabled; no "coming soon" line.
     if (C.certificateEligible(rec)) {
       const a = document.createElement('a'); a.className = 'primary-action';
       a.href = 'certificate.html?id=' + encodeURIComponent(rec.certId);
       a.textContent = 'Open your certificate ↗'; content.append(a);
-    } else {
-      const cs = document.createElement('p'); cs.className = 'cert-status';
-      cs.textContent = '🎓 Your official certificate will be available to download here soon.';
-      content.append(cs);
     }
     if (dialog.showModal) dialog.showModal();
   }

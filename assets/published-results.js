@@ -1,16 +1,16 @@
 /* Inspire Talent Hub - published certificate & results dataset.
- * Monsoon Minds Championship 2026. Generated 2026-10-27. Front-end only (window.ITH_CERT_DB).
+ * Monsoon Minds Championship 2026. Generated 2026-10-31. Front-end only (window.ITH_CERT_DB).
  * Contains no email / phone / address - public-safe fields only.
  */
 window.ITH_CERT_DB = {
   "meta": {
     "source": "monsoon-minds-2026",
-    "event": "Monsoon Minds Championship 2026",
+    "event": "Monsoon Minds Championship",
     "organizer": "Inspire Talent Hub",
-    "generated": "2026-10-27",
+    "generated": "2026-10-31",
     "resultsPublished": true,
-    "downloadsEnabled": false,
-    "note": "Official Monsoon Minds Championship 2026 results. Certificate downloads will be enabled soon."
+    "downloadsEnabled": true,
+    "note": "Official Monsoon Minds Championship 2026 results and certificates."
   },
   "records": [
     {

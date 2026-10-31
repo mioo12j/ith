@@ -92,3 +92,7 @@ html.pixel-world.pixel-world .general-card h2, html.pixel-world.pixel-world .gen
 .general-hint{font:13px/1.5 "Nunito",system-ui,sans-serif;color:#d8c49a;margin:0 0 14px;opacity:.9}
 .general-continue:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
 
+
+/* General J.J. Singh homepage video fills the frame */
+#participant-message .honour-screen-inner{padding:0;width:100%;height:100%}
+#participant-message .honour-video{width:100%;height:100%;object-fit:contain;display:block;background:#140407}
