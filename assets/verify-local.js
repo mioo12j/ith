@@ -48,8 +48,8 @@
       var id = idFromUrl();
       if (id) { el('v_id').value = id; verify(id); }
 
-      el('scanBtn').addEventListener('click', startScan);
-      el('scanCancel').addEventListener('click', stopScan);
+      var _sb=el('scanBtn');if(_sb)_sb.addEventListener('click', startScan);
+      var _sc=el('scanCancel');if(_sc)_sc.addEventListener('click', stopScan);
     });
 
     function startScan() {
