@@ -96,3 +96,25 @@ html.pixel-world.pixel-world .general-card h2, html.pixel-world.pixel-world .gen
 /* General J.J. Singh homepage video fills the frame */
 #participant-message .honour-screen-inner{padding:0;width:100%;height:100%}
 #participant-message .honour-video{width:100%;height:100%;object-fit:contain;display:block;background:#140407}
+/* ===== General J.J. Singh — quote band + full message (red/gold, serif, non-pixel) ===== */
+.jjs-quote{background:radial-gradient(ellipse at 50% -10%,#5c1c28,#2a0d13 60%,#19070b);border-top:2px solid #b99a59;border-bottom:2px solid #b99a59;padding:clamp(46px,7vw,84px) 20px;text-align:center}
+.jjs-quote__eyebrow{display:block;letter-spacing:.24em;font-size:12px;color:#d4b777;margin-bottom:8px}
+.jjs-quote__mark{color:#b99a5966;font-size:74px;line-height:.3;margin:0}
+.jjs-quote__text{font-style:italic;font-size:clamp(20px,2.7vw,31px);line-height:1.5;color:#f6e8c6;max-width:900px;margin:4px auto 24px}
+.jjs-quote__by{font-size:14px;line-height:1.75;color:#dcc49a;max-width:640px;margin:0 auto}
+.jjs-quote__by strong{color:#f5d69b;font-weight:800;font-size:16px}
+.jjs-quote__read{display:inline-block;margin-top:18px;color:#f0d594;border-bottom:1px solid #c3a568;text-decoration:none;padding-bottom:3px;font-weight:700}
+.jjs-message{background:radial-gradient(ellipse at 50% -10%,#4e1823,#230a10 65%,#180609);border-top:2px solid #b99a59;border-bottom:2px solid #b99a59;padding:clamp(44px,6vw,74px) 20px}
+.jjs-message__inner{max-width:760px;margin:0 auto;color:#efe2cb}
+.jjs-message__eyebrow{display:block;letter-spacing:.22em;font-size:12px;color:#d4b777;margin-bottom:10px;text-align:center}
+.jjs-message__title{font-size:clamp(26px,3.6vw,40px);color:#f4e4bf;text-align:center;margin:0 0 26px;line-height:1.15}
+.jjs-message__body p{font-size:17px;line-height:1.85;margin:0 0 18px;color:#ece0ca}
+.jjs-message__jaihind{font-weight:800;color:#f5d69b;letter-spacing:.04em}
+.jjs-message__sign{margin-top:28px;padding-top:22px;border-top:1px solid #b99a5940;font-size:14px;line-height:1.75;color:#dcc49a}
+.jjs-message__sign strong{display:block;color:#f5d69b;font-size:19px;margin-bottom:4px}
+/* fonts: body sans, display serif — beat the global .pixel-world !important pixel rules */
+html.pixel-world.pixel-world .jjs-quote,html.pixel-world.pixel-world .jjs-quote *,
+html.pixel-world.pixel-world .jjs-message,html.pixel-world.pixel-world .jjs-message *{font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important;letter-spacing:normal !important;text-shadow:none !important}
+html.pixel-world.pixel-world .jjs-quote__mark,html.pixel-world.pixel-world .jjs-quote__text,
+html.pixel-world.pixel-world .jjs-message__title,html.pixel-world.pixel-world .jjs-message__sign strong{font-family:"Playfair Display",Georgia,serif !important}
+html.pixel-world.pixel-world .jjs-message__jaihind{letter-spacing:.04em !important}
