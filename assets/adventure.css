@@ -118,3 +118,12 @@ html.pixel-world.pixel-world .jjs-message,html.pixel-world.pixel-world .jjs-mess
 html.pixel-world.pixel-world .jjs-quote__mark,html.pixel-world.pixel-world .jjs-quote__text,
 html.pixel-world.pixel-world .jjs-message__title,html.pixel-world.pixel-world .jjs-message__sign strong{font-family:"Playfair Display",Georgia,serif !important}
 html.pixel-world.pixel-world .jjs-message__jaihind{letter-spacing:.04em !important}
+/* ===== Premium honour background for the General's quote band + message ===== */
+.jjs-quote,.jjs-message{position:relative;overflow:hidden}
+.jjs-quote{background:radial-gradient(ellipse at 50% -12%,#5c1c28,#2a0d13 60%,#19070b),repeating-linear-gradient(110deg,transparent 0 90px,#dcc58b06 91px 92px)}
+.jjs-message{background:radial-gradient(ellipse at 50% -8%,#4e1823,#230a10 62%,#160609),repeating-linear-gradient(110deg,transparent 0 90px,#dcc58b05 91px 92px)}
+.jjs-quote::before{content:"";display:block;width:52px;height:52px;margin:0 auto 14px;background:url(ashoka-gold.svg) center/contain no-repeat;filter:drop-shadow(0 0 16px #d8b97135)}
+.jjs-message__inner::before{content:"";display:block;width:50px;height:50px;margin:0 auto 14px;background:url(ashoka-gold.svg) center/contain no-repeat;filter:drop-shadow(0 0 16px #d8b97135)}
+.jjs-quote::after,.jjs-message::after{content:"";position:absolute;right:-74px;bottom:-58px;width:380px;height:380px;background:url(indian-army-gold.svg) center/contain no-repeat;opacity:.06;pointer-events:none;z-index:0}
+.jjs-quote>*{position:relative;z-index:1}
+.jjs-message__inner{position:relative;z-index:1}
