@@ -25,7 +25,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "1st",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -40,7 +40,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "1st",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -55,7 +55,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "2nd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -70,7 +70,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "2nd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -85,7 +85,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "2nd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -100,7 +100,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "2nd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true,
       "reward": "₹5,000 (Eco Invent team prize)"
     },
@@ -116,7 +116,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "2nd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true,
       "reward": "₹5,000 (Eco Invent team prize)"
     },
@@ -132,7 +132,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "2nd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -147,7 +147,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -162,7 +162,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -177,7 +177,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -192,7 +192,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -207,7 +207,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -222,7 +222,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -237,7 +237,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -252,7 +252,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -267,7 +267,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -282,7 +282,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -297,7 +297,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -312,7 +312,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -327,7 +327,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -342,7 +342,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -357,7 +357,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -372,7 +372,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -387,7 +387,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -402,7 +402,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -417,7 +417,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -432,7 +432,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -447,7 +447,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -462,7 +462,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -477,7 +477,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -492,7 +492,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -507,7 +507,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -522,7 +522,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -537,7 +537,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -552,7 +552,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -567,7 +567,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -582,7 +582,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -597,7 +597,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -612,7 +612,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -627,7 +627,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -642,7 +642,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -657,7 +657,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Winner",
       "rank": "3rd",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -672,7 +672,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -687,7 +687,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -702,7 +702,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -717,7 +717,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -732,7 +732,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -747,7 +747,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -762,7 +762,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -777,7 +777,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -792,7 +792,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -807,7 +807,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -822,7 +822,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -837,7 +837,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -852,7 +852,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -867,7 +867,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -882,7 +882,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -897,7 +897,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -912,7 +912,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -927,7 +927,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -942,7 +942,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -957,7 +957,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -972,7 +972,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -987,7 +987,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1002,7 +1002,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1017,7 +1017,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1032,7 +1032,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1047,7 +1047,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1062,7 +1062,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1077,7 +1077,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1092,7 +1092,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1107,7 +1107,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1122,7 +1122,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1137,7 +1137,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1152,7 +1152,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1167,7 +1167,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1182,7 +1182,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1197,7 +1197,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1212,7 +1212,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1227,7 +1227,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1242,7 +1242,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1257,7 +1257,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
@@ -1272,7 +1272,7 @@ window.ITH_CERT_DB = {
       "participationStatus": "Participated",
       "resultStatus": "Participant",
       "rank": "",
-      "issueDate": "",
+      "issueDate": "31 October 2026",
       "certificateAvailable": true
     },
     {
