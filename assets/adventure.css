@@ -102,6 +102,18 @@ html.pixel-world.pixel-world .general-card h2, html.pixel-world.pixel-world .gen
 .jjs-quote__mark{color:#b99a5966;font-size:74px;line-height:.3;margin:0}
 .jjs-quote__text{font-style:italic;font-size:clamp(20px,2.7vw,31px);line-height:1.5;color:#f6e8c6;max-width:900px;margin:4px auto 24px}
 .jjs-quote__gap{display:block;color:#c9a95f;letter-spacing:.5em;font-style:normal;font-size:20px;line-height:1;margin:18px auto}
+/* Featured endorsement card (reviews page) */
+.jjs-review{max-width:860px;margin:0 auto;background:radial-gradient(ellipse at 50% -20%,#5c1c28,#2a0d13 70%,#19070b),repeating-linear-gradient(110deg,transparent 0 90px,#dcc58b06 91px 92px);border:2px solid #b99a59;border-radius:14px;padding:clamp(26px,4vw,42px);text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.42)}
+.jjs-review__head{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.jjs-review__badge{letter-spacing:.22em;font-size:11px;color:#d4b777;border:1px solid #b99a5966;border-radius:999px;padding:5px 13px}
+.jjs-review__stars{color:#f0c661;font-size:21px;letter-spacing:3px}
+.jjs-review__text{font-style:italic;font-size:clamp(17px,2.1vw,23px);line-height:1.6;color:#f6e8c6;margin:0 auto 20px;max-width:760px}
+.jjs-review__by{font-size:14px;line-height:1.75;color:#dcc49a}
+.jjs-review__by strong{color:#f5d69b;font-weight:800;font-size:16px}
+.jjs-review__read{display:inline-block;margin-top:16px;color:#f0d594;border-bottom:1px solid #c3a568;text-decoration:none;padding-bottom:3px;font-weight:700}
+html.pixel-world.pixel-world .jjs-review,html.pixel-world.pixel-world .jjs-review *{font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important;letter-spacing:normal !important;text-shadow:none !important}
+html.pixel-world.pixel-world .jjs-review__text,html.pixel-world.pixel-world .jjs-review__by strong{font-family:"Playfair Display",Georgia,serif !important}
+html.pixel-world.pixel-world .jjs-review__stars{letter-spacing:3px !important}
 .jjs-quote__by{font-size:14px;line-height:1.75;color:#dcc49a;max-width:640px;margin:0 auto}
 .jjs-quote__by strong{color:#f5d69b;font-weight:800;font-size:16px}
 .jjs-quote__read{display:inline-block;margin-top:18px;color:#f0d594;border-bottom:1px solid #c3a568;text-decoration:none;padding-bottom:3px;font-weight:700}
