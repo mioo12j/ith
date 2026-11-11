@@ -143,14 +143,14 @@ html.pixel-world.pixel-world .jjs-review__stars{letter-spacing:3px !important}
 .results-live{color:#22c55e !important}
 strong.results-live{font-weight:800 !important}
 /* Talent Utsav coming-soon banner (home + competition) */
-.utsav-banner{display:block;position:relative;overflow:hidden;max-width:1100px;margin:0 auto 22px;padding:clamp(22px,4vw,36px) clamp(20px,4vw,40px);border:2px solid #ffd96b;border-radius:14px;background:linear-gradient(135deg,#17233f,#0d1424);text-decoration:none;box-shadow:0 8px 0 #0a1324,0 18px 40px rgba(0,0,0,.4);transition:transform .18s,box-shadow .18s}
-.utsav-banner:hover{transform:translateY(-3px);box-shadow:0 11px 0 #0a1324,0 24px 52px rgba(0,0,0,.5)}
-.utsav-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 42%,#ffd96b22 50%,transparent 58% 100%);transform:translateX(-100%);animation:utsavSheen 4.8s ease-in-out infinite;pointer-events:none}
+.utsav-banner{display:block;position:relative;overflow:hidden;max-width:1100px;margin:0 auto 22px;padding:clamp(22px,4vw,36px) clamp(20px,4vw,40px);border:2px solid #b99a59;border-radius:16px;background:radial-gradient(ellipse at 18% -30%,#5c1c28,#2a0d13 60%,#19070b);text-decoration:none;box-shadow:0 18px 50px rgba(0,0,0,.4);transition:transform .25s,box-shadow .25s}
+.utsav-banner:hover{transform:translateY(-3px);box-shadow:0 24px 62px rgba(0,0,0,.5)}
+.utsav-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0 42%,#f0c66122 50%,transparent 58% 100%);transform:translateX(-100%);animation:utsavSheen 4.8s ease-in-out infinite;pointer-events:none}
 @keyframes utsavSheen{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
-.utsav-banner__tag{display:inline-block;letter-spacing:.14em;font-size:12px;color:#ffd96b;background:#ffd96b1a;border:1px solid #ffd96b55;border-radius:6px;padding:6px 13px;margin-bottom:12px}
-.utsav-banner__title{display:block;font-size:clamp(28px,5vw,46px);color:#ffe08a;line-height:1.04;margin-bottom:8px;text-shadow:2px 2px 0 #06101f}
-.utsav-banner__sub{display:block;color:#cdd7ee;max-width:660px;line-height:1.6;margin-bottom:16px}
-.utsav-banner__cta{display:inline-block;color:#0d1424;background:#ffd96b;font-weight:700;padding:11px 22px;border-radius:8px;box-shadow:0 4px 0 #b9922f}
+.utsav-banner__tag{display:inline-block;letter-spacing:.2em;font-size:12px;color:#f0c661;border:1px solid #f0c66155;border-radius:999px;padding:5px 13px;margin-bottom:12px}
+.utsav-banner__title{display:block;font-size:clamp(28px,5vw,46px);color:#f5d69b;line-height:1.04;margin-bottom:8px}
+.utsav-banner__sub{display:block;color:#e8dcc4;max-width:660px;line-height:1.6;margin-bottom:16px}
+.utsav-banner__cta{display:inline-block;color:#1a0b0e;background:#f0c661;font-weight:800;padding:11px 22px;border-radius:999px}
 @media(prefers-reduced-motion:reduce){.utsav-banner::after{display:none}}
 @media(max-width:620px){
  .ith-timeline::before{left:10px}
