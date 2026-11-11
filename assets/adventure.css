@@ -152,9 +152,6 @@ strong.results-live{font-weight:800 !important}
 .utsav-banner__sub{display:block;color:#e8dcc4;max-width:660px;line-height:1.6;margin-bottom:16px}
 .utsav-banner__cta{display:inline-block;color:#1a0b0e;background:#f0c661;font-weight:800;padding:11px 22px;border-radius:999px}
 @media(prefers-reduced-motion:reduce){.utsav-banner::after{display:none}}
-html.pixel-world.pixel-world .utsav-banner,html.pixel-world.pixel-world .utsav-banner *{font-family:"Nunito","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif !important;letter-spacing:normal !important;text-shadow:none !important}
-html.pixel-world.pixel-world .utsav-banner__title{font-family:"Playfair Display",Georgia,serif !important}
-html.pixel-world.pixel-world .utsav-banner__tag{letter-spacing:.2em !important}
 @media(max-width:620px){
  .ith-timeline::before{left:10px}
  .ith-timeline__item{grid-template-columns:1fr;gap:6px}
