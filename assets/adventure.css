@@ -139,6 +139,9 @@ html.pixel-world.pixel-world .jjs-review__stars{letter-spacing:3px !important}
 .ith-comps strong{color:#f0d9a8;font-weight:700}
 .ith-journey__flagship--soon{border-style:dashed}
 .ith-journey__flagship--soon .ith-journey__badge{background:#f0c6611a;color:#f0c661;border-color:#f0c66155}
+/* "Results announced" status — green */
+.results-live{color:#22c55e !important}
+strong.results-live{font-weight:800 !important}
 @media(max-width:620px){
  .ith-timeline::before{left:10px}
  .ith-timeline__item{grid-template-columns:1fr;gap:6px}
