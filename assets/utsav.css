@@ -4,7 +4,7 @@
 /* Body stays blocky Pixelify like the homepage; force it page-wide. */
 html.pixel-world .utsav-page h1,html.pixel-world .utsav-page h2,html.pixel-world .utsav-page h3,html.pixel-world .utsav-page p,html.pixel-world .utsav-page span,html.pixel-world .utsav-page a,html.pixel-world .utsav-page b,html.pixel-world .utsav-page li,html.pixel-world .utsav-page input,html.pixel-world .utsav-page button{font-family:Pixelify,monospace !important}
 /* Big numbers + the hero/prize display read better in a cleaner face. */
-html.pixel-world .utsav-page .utsav-hero__title,html.pixel-world .utsav-page .utsav-prize__amount,html.pixel-world .utsav-page .utsav-countdown b,html.pixel-world .utsav-page .utsav-prize__grid b{font-family:zarathustra,"Trebuchet MS",Verdana,sans-serif !important}
+html.pixel-world .utsav-page .utsav-hero__title,html.pixel-world .utsav-page .utsav-hero__title span,html.pixel-world .utsav-page .utsav-prize__grid b{font-family:zarathustra,"Trebuchet MS",Verdana,sans-serif !important}
 html.pixel-world .utsav-page .utsav-countdown b,html.pixel-world .utsav-page .utsav-prize__amount{font-family:geologica,"Trebuchet MS",Verdana,sans-serif !important;letter-spacing:.01em}
 
 /* HERO */
