@@ -133,6 +133,12 @@ html.pixel-world.pixel-world .jjs-review__stars{letter-spacing:3px !important}
 .ith-timeline__card h4{margin:0 0 6px;color:#f4e9d6;font-size:18px}
 .ith-timeline__card p{margin:0;color:#c3c0d0;line-height:1.65}
 .ith-timeline__card strong{color:#f0d9a8;font-weight:700}
+.ith-comps{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:9px}
+.ith-comps li{position:relative;padding-left:18px;color:#c3c0d0;line-height:1.55;font-size:15px}
+.ith-comps li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:#b99a59}
+.ith-comps strong{color:#f0d9a8;font-weight:700}
+.ith-journey__flagship--soon{border-style:dashed}
+.ith-journey__flagship--soon .ith-journey__badge{background:#f0c6611a;color:#f0c661;border-color:#f0c66155}
 @media(max-width:620px){
  .ith-timeline::before{left:10px}
  .ith-timeline__item{grid-template-columns:1fr;gap:6px}
