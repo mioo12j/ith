@@ -42,3 +42,19 @@ html.pixel-world .honour-intro{font-family:"Playfair Display",Georgia,serif!impo
 html.pixel-world #participant-message .honour-person h3{font-size:clamp(30px,3.4vw,44px)!important;line-height:1.12!important}
 html.pixel-world #participant-message .service-offices h4{line-height:1.22!important}
 html.pixel-world #participant-message .honour-eyebrow{letter-spacing:.22em!important}
+
+/* Keep the festival lockup independent of inherited homepage section headings. */
+html.pixel-world body #main :is(#utsav-feature,.utsav-hero__inner) .utsav-hero__title{display:flex!important;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:0 .24em;width:100%!important;max-width:none!important;text-align:center!important;margin:14px auto!important;font:500 clamp(32px,5vw,66px)/1.12 Pixelify,monospace!important;text-shadow:none!important;letter-spacing:-.025em!important}
+html.pixel-world body #main :is(#utsav-feature,.utsav-hero__inner) .utsav-hero__title span{display:inline!important;font:inherit!important;letter-spacing:inherit!important;text-shadow:none!important;margin:0!important;position:static!important}
+html.pixel-world body #main :is(#utsav-feature,.utsav-hero__inner) .utsav-hero__title .festival-year{font-weight:400!important;font-size:.88em!important}
+html{scroll-padding-top:86px}html.pixel-world nav.navbar-shell{background-color:#152034!important}html.pixel-world:not(.dark) nav.navbar-shell{background-color:var(--background,#fff9ed)!important}
+#main .festival-guide-stop{display:flex;align-items:center;justify-content:center;gap:16px;max-width:540px;margin:24px auto;position:relative}
+#main .festival-guide-stop img{width:clamp(62px,9vw,96px);height:auto;max-height:110px;object-fit:contain;flex:none}
+#main .festival-guide-stop p{margin:0;padding:14px 18px;background:#203d32;border:2px solid #a6bd89;box-shadow:3px 3px #101f19;color:#fff6dc!important;text-align:left;font:16px/1.5 system-ui!important;text-shadow:none!important}
+@media(prefers-reduced-motion:no-preference){
+@supports(animation-timeline:view()){
+main :is(.arena-detail,.rev-value-card,.rev-feature-grid>article,.utsav-cat,.utsav-why__item,.utsav-steps li,.festival-guide-stop,.certificate-showcase header){animation:ith-arrive linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
+@keyframes ith-arrive{from{translate:0 14px;opacity:.78}to{translate:0 0;opacity:1}}}
+main :is(button,a):focus-visible{transition:outline-offset .16s;outline-offset:4px}
+@media(hover:hover){main :is(.arena-detail,.utsav-cat,.rev-value-card){transition:translate .2s ease}main :is(.arena-detail,.utsav-cat,.rev-value-card):hover{translate:0 -3px}}
+}
