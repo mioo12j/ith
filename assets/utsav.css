@@ -1,12 +1,6 @@
 /* ===== Talent Utsav — annual fest page (matches the homepage pixel world) ===== */
 .utsav-page{max-width:none;margin:0;padding:0}
 .utsav-page section{box-sizing:border-box}
-/* Body stays blocky Pixelify like the homepage; force it page-wide. */
-html.pixel-world .utsav-page h1,html.pixel-world .utsav-page h2,html.pixel-world .utsav-page h3,html.pixel-world .utsav-page p,html.pixel-world .utsav-page span,html.pixel-world .utsav-page a,html.pixel-world .utsav-page b,html.pixel-world .utsav-page li,html.pixel-world .utsav-page input,html.pixel-world .utsav-page button{font-family:Pixelify,monospace !important}
-/* Big numbers + the hero/prize display read better in a cleaner face. */
-html.pixel-world .utsav-page .utsav-hero__title,html.pixel-world .utsav-page .utsav-hero__title span,html.pixel-world .utsav-page .utsav-prize__grid b{font-family:zarathustra,"Trebuchet MS",Verdana,sans-serif !important}
-html.pixel-world .utsav-page .utsav-countdown b,html.pixel-world .utsav-page .utsav-prize__amount{font-family:geologica,"Trebuchet MS",Verdana,sans-serif !important;letter-spacing:.01em}
-
 /* HERO */
 .utsav-hero{position:relative;overflow:hidden;padding:clamp(86px,13vw,140px) 20px clamp(44px,7vw,74px);text-align:center;background:linear-gradient(180deg,#141f38 0%,#0d1424 70%)}
 .utsav-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0,rgba(240,198,97,.12),transparent 55%);pointer-events:none}
@@ -73,3 +67,34 @@ html.pixel-world .utsav-page .utsav-countdown b,html.pixel-world .utsav-page .ut
 .utsav-cta{text-align:center;padding:clamp(52px,8vw,92px) 20px;background:linear-gradient(180deg,#141f38,#0d1424);border-top:3px solid #ffd96b}
 .utsav-cta h2{font-size:clamp(26px,4vw,40px);color:#ffe08a;margin:0 auto 14px;max-width:640px;line-height:1.2;text-shadow:2px 2px 0 #06101f}
 .utsav-cta p{color:#cdd7ee;max-width:540px;margin:0 auto 28px;line-height:1.7}
+
+/* A paired surface and ink palette keeps shared theme rules from separating them. */
+html.pixel-world #main.utsav-page{--paper:#fff8eb;--panel:#fffefa;--ink:#24233a;--sub:#50495c;--accent:#793346;--rule:#c9b7aa;background:var(--paper);color:var(--ink);font-family:system-ui,sans-serif}
+html.pixel-world.dark #main.utsav-page{--paper:#151725;--panel:#202436;--ink:#fff4db;--sub:#d8d7e6;--accent:#ffcc83;--rule:#515469}
+#main.utsav-page :is(p,li,span,b,input,button,a,strong){font-family:system-ui,sans-serif!important;text-shadow:none!important}
+#main.utsav-page :is(h1,h2,h3){text-shadow:none!important;letter-spacing:normal;line-height:1.17;text-wrap:balance}
+#main.utsav-page :is(.utsav-hero,.utsav-cta,.utsav-prize){background:#171b32!important;color:#fff4db}
+#main.utsav-page .utsav-hero{background:radial-gradient(ellipse at top,#3c3053,#171b32 68%)!important;padding-top:clamp(110px,12vw,166px)}
+#main.utsav-page :is(.utsav-hero,.utsav-prize,.utsav-cta) :is(p,span){color:#e8e2ee!important}
+#main.utsav-page :is(.utsav-hero__title,.utsav-prize__amount,.utsav-cta h2,.utsav-countdown b,.utsav-prize b){color:#ffdc89!important}
+#main.utsav-page .utsav-hero__title span{color:#a7dfff!important}
+#main.utsav-page .utsav-countdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:390px;gap:8px}
+#main.utsav-page .utsav-countdown>div{min-width:0;padding:12px 2px}
+#main.utsav-page .utsav-countdown b{font-variant-numeric:tabular-nums}
+#main.utsav-page .utsav-section{background:var(--paper)!important;border-bottom:1px solid var(--rule);padding-inline:clamp(18px,4vw,50px)}
+#main.utsav-page .utsav-section :is(h2,h3,b,strong){color:var(--ink)!important}
+#main.utsav-page .utsav-section p{color:var(--sub)!important;line-height:1.65}
+#main.utsav-page .utsav-section__eyebrow{color:var(--accent)!important;font-weight:750}
+#main.utsav-page :is(.utsav-cat,.utsav-why__item,.utsav-steps li){background:var(--panel)!important;border:1px solid var(--rule);border-radius:5px;box-shadow:none;text-align:left}
+#main.utsav-page .utsav-cat{border-top:3px solid var(--accent)}
+#main.utsav-page .utsav-cat:hover{transform:none}
+#main.utsav-page .utsav-steps li::before{color:var(--accent)}
+#main.utsav-page :is(.utsav-cats,.utsav-why){grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+#main.utsav-page .utsav-notify input[type=email]{color:#fff!important;background:#101528!important;border-color:#a69bb7}
+#main.utsav-page .utsav-notify input::placeholder{color:#c5bfd1}
+#main.utsav-page .utsav-notify button{color:#281c13!important;background:#ffda89!important}
+#main.utsav-page :focus-visible{outline:3px solid #73bfff;outline-offset:3px}
+#main.utsav-page .utsav-jumps{display:flex;justify-content:center;gap:1.5em;flex-wrap:wrap;margin:24px auto 0}
+#main.utsav-page .utsav-jumps a{color:#fff1bf!important;text-decoration:underline;text-underline-offset:4px;padding:.4em}
+#main.utsav-page section[id]{scroll-margin-top:90px}
+@media(max-width:480px){#main.utsav-page .utsav-notify>*:not([name=_gotcha]){width:100%}#main.utsav-page .utsav-countdown span{font-size:10px;letter-spacing:0}#main.utsav-page .utsav-steps li{padding-left:58px}}
